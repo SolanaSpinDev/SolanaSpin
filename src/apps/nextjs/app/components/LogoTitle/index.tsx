@@ -1,7 +1,6 @@
 import Image from "next/image";
 import {NauSea} from "@/app/fonts/fonts";
 import React from "react";
-import {Balance} from "@/app/components/Balance";
 
 export const LogoTitle = React.memo(() => {
   return (
