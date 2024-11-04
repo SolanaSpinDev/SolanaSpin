@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
@@ -34,7 +34,6 @@ const WheelContainer: React.FC = () => {
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
-
 
     useEffect(() => {
         const userAgent = navigator.userAgent;
@@ -145,7 +144,9 @@ const WheelContainer: React.FC = () => {
         setVideoId(videoId - 2 * wheelPositions);
         setIsPlaying(true);
     };
-
+    const updateBalance = useCallback((extraValue: number): void => {
+        return setBalance(balance => balance + extraValue)
+    }, [])
 
     const handleVideoEnd = (): void => {
         // The video naturally stays on the last frame when ended, no action needed.
@@ -173,7 +174,7 @@ const WheelContainer: React.FC = () => {
             if (prize === 1) {
                 setTicket(ticket + prize);
             } else {
-                setBalance(balance + prize);
+                updateBalance(prize);
             }
         } else if (videoId < wheelPositions + 1) {
             if (firstSpin) {
@@ -194,14 +195,15 @@ const WheelContainer: React.FC = () => {
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
 
-        setBalance(prev => prev + data.jackpotValue);
+        updateBalance(data.jackpotValue);
         setSpecialPrize(data.jackpotValue);
         setHasWonSpecialPrize(true);
     }
-    const handlePrizeAnimationEnd = () => {
+    const handlePrizeAnimationEnd = useCallback(() => {
         setHasWonSpecialPrize(false);
         setSpecialPrize(0);
-    }
+    }, []);
+
     const toggleMute = (): void => {
         const video = videoRefs.current[videoId - 1];
         if (video) {

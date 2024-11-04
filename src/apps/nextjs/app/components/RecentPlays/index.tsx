@@ -8,12 +8,14 @@ interface RecentPlaysProps {
     ticket: number;
 }
 
-const RecentPlays: React.FC<RecentPlaysProps> = ({plays, ticket}) => {
+const RecentPlays: React.FC<RecentPlaysProps> = React.memo(({plays, ticket}) => {
     return (
         <div className="flex flex-col items-center justify-center z-20 lg:pr-0">
-            <div className="flex items-center justify-between min-w-[220px] lg:min-w-[300px] xl:min-w-[450px] mb-5 text-sm lg:text-xl">
+            <div
+                className="flex items-center justify-between min-w-[220px] lg:min-w-[300px] xl:min-w-[450px] mb-5 text-sm lg:text-xl">
                 <div className={`${NauSea.className} text-white text-sm lg:text-base xl:text-lg`}>Recent Plays</div>
-                <div className={`${NauSea.className} text-white text-sm lg:text-base xl:text-lg`}><span className="text-sm lg:text-base xl:text-lg">🎟️</span> Tickets {ticket}
+                <div className={`${NauSea.className} text-white text-sm lg:text-base xl:text-lg`}><span
+                    className="text-sm lg:text-base xl:text-lg">🎟️</span> Tickets {ticket}
                 </div>
             </div>
             {plays.length > 0 && (
@@ -25,7 +27,8 @@ const RecentPlays: React.FC<RecentPlaysProps> = ({plays, ticket}) => {
                             <div className="flex items-center justify-center text-xs   xl:text-base">
                                 <div>
                                     <span className="capitalize">{play.name}</span>
-                                    <span className="hidden lg:inline"> spun <span className="lg:hidden xl:inline-block">a</span></span>
+                                    <span className="hidden lg:inline"> spun <span
+                                        className="lg:hidden xl:inline-block">a</span></span>
                                 </div>
                                 <div className={clsx("capitalize px-1 ", {
                                     "text-pink-500": play.outcome === "X1",
@@ -53,5 +56,6 @@ const RecentPlays: React.FC<RecentPlaysProps> = ({plays, ticket}) => {
             )}
         </div>
     )
-}
+})
+RecentPlays.displayName = "RecentPlays";
 export default RecentPlays;
