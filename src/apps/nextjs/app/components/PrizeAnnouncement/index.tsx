@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import confetti from 'canvas-confetti';
 import './PrizeAnnouncement.css'
 import {NauSea} from "@/app/fonts/fonts";
-import {Balance} from "@/app/components/Balance";
 
 const PrizeAnnouncement = React.memo(
     ({hasWon, message, onAnimationComplete}: { hasWon: boolean, message: string, onAnimationComplete: () => void }) => {
