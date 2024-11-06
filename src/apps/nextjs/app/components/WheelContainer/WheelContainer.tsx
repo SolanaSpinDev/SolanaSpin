@@ -7,7 +7,6 @@ import {
     predefinedBets,
     computePrize,
     videoSourcesHighRes,
-    videoSourcesLowRes,
     wheelPositions
 } from "@/lib/utils";
 import clsx from "clsx";
@@ -26,7 +25,7 @@ const WheelContainer: React.FC = () => {
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesLowRes.length).fill(null)); // Store preloaded video blob URLs
+    const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
     const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
@@ -56,10 +55,9 @@ const WheelContainer: React.FC = () => {
 
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
-            // Load and display low-res videos initially
             setIsLoading(true);
             const lowResBlobs = await Promise.all(
-                videoSourcesLowRes.map(async (src) => {
+                videoSourcesHighRes.map(async (src) => {
                     const response = await fetch(src);
                     const blob = await response.blob();
                     return URL.createObjectURL(blob);
@@ -69,45 +67,8 @@ const WheelContainer: React.FC = () => {
             setVideoBlobs(lowResBlobs);
         };
 
-        const replaceWithHighResolutionVideos = async () => {
-            const BATCH_SIZE = 2;
-
-            for (let i = 0; i < videoSourcesHighRes.length; i += BATCH_SIZE) {
-                const batch = videoSourcesHighRes.slice(i, i + BATCH_SIZE);
-
-                // Fetch each video in the batch
-                const batchBlobs = await Promise.all(
-                    batch.map(async (src) => {
-                        const response = await fetch(src);
-                        const blob = await response.blob();
-                        return URL.createObjectURL(blob);
-                    })
-                );
-
-                // Update each video as it finishes loading
-                setVideoBlobs((prevBlobs) => {
-                    const updatedBlobs = [...prevBlobs];
-                    for (let j = 0; j < batchBlobs.length; j++) {
-                        const globalIndex = i + j;
-                        if (globalIndex < updatedBlobs.length) {
-                            updatedBlobs[globalIndex] = batchBlobs[j];
-                        }
-                    }
-                    return updatedBlobs;
-                });
-
-                await new Promise((resolve) => setTimeout(resolve, 500));
-            }
-        };
-
         const startLoading = async () => {
             await loadLowResolutionVideos();
-
-            if ("requestIdleCallback" in window) {
-                requestIdleCallback(() => replaceWithHighResolutionVideos());
-            } else {
-                await replaceWithHighResolutionVideos();
-            }
         };
 
         startLoading().then(r => r);
@@ -144,6 +105,7 @@ const WheelContainer: React.FC = () => {
         setVideoId(videoId - 2 * wheelPositions);
         setIsPlaying(true);
     };
+
     const updateBalance = useCallback((extraValue: number): void => {
         return setBalance(balance => balance + extraValue)
     }, [])
