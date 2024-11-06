@@ -6,7 +6,6 @@ import {NauSea} from "@/app/fonts/fonts";
 const PrizeAnnouncement = React.memo(
     ({hasWon, message, onAnimationComplete}: { hasWon: boolean, message: string, onAnimationComplete: () => void }) => {
         const [isVisible, setIsVisible] = useState(false);
-        console.log('prize is announced')
         const triggerConfetti = () => {
             confetti({
                 particleCount: 150,
