@@ -1,5 +1,4 @@
-import React, {useCallback} from 'react';
-import {useState, useRef, useEffect} from 'react';
+import React, {useCallback, useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
 import {
@@ -186,7 +185,7 @@ const WheelContainer: React.FC = () => {
                 videoBlobs.length > 0 &&
                 videoBlobs.map((videoBlob, index) => (
                     <video
-                        key={index}
+                        key={videoBlob}
                         ref={(el) => {
                             videoRefs.current[index] = el
                         }}
@@ -201,11 +200,21 @@ const WheelContainer: React.FC = () => {
                         }`}
                         src={videoBlob}
                     />
+
                 ))
             )}
             {!isPlaying && !isLoading && activeBet > 0 && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
-                    <div role="button" className="w-[140px] h-[140px] rounded-full" onClick={handlePlayVideo}></div>
+                    <button
+                        onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault(); // Prevents default spacebar scrolling behavior
+                            handlePlayVideo();
+                        }
+                    }}
+                        className="w-[140px] h-[140px] rounded-full"
+                        onClick={handlePlayVideo}
+                    ></button>
                 </div>
             )}
             <PrizeAnnouncement hasWon={hasWonSpecialPrize}
@@ -232,16 +241,16 @@ const WheelContainer: React.FC = () => {
                     <Balance balance={balance}/>
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
-                        {predefinedBets.map((bet: number, i: number) => (
-                            <div className="relative lg:mr-4 lg:mb-4" key={i}>
-                                <div
+                        {predefinedBets.map((bet: number) => (
+                            <div className="relative lg:mr-4 lg:mb-4" key={bet}>
+                                <button
                                     className={clsx(
                                         `${NauSea.className}`,
                                         "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-thin flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
                                         isPlaying ? "" : "animate-glow cursor-pointer",
                                         activeBet === bet ? "border-white border-1 border-solid" : ""
                                     )}
-                                    onClick={() => selectBet(bet)}>${bet}</div>
+                                    onClick={() => selectBet(bet)}>${bet}</button>
                                 <div
                                     className="absolute z-10 bottom-[5px] lg:bottom-[2px] right-[5px] lg:right-[2px] bg-amber-500 w-10 lg:w-[166px] h-6 lg:h-[64px]"></div>
                                 <div
