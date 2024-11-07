@@ -71,7 +71,8 @@ const WheelContainer: React.FC = () => {
             await loadLowResolutionVideos();
         };
 
-        startLoading().then(r => r);
+        startLoading()
+            .then(r => r)
     }, []);
 
     useEffect((): void => {
