@@ -1,8 +1,8 @@
-import Image1 from "@/public/images/bank_note_$1.png";
-import Image5 from "@/public/images/bank_note_$5.png";
-import Image10 from "@/public/images/bank_note_$10.png";
-import Image20 from "@/public/images/bank_note_$20.png";
-import Image50 from "@/public/images/bank_note_$50.png";
+import Image1 from "@/public/images/bank_note_1.png";
+import Image5 from "@/public/images/bank_note_5.png";
+import Image10 from "@/public/images/bank_note_10.png";
+import Image20 from "@/public/images/bank_note_20.png";
+import Image50 from "@/public/images/bank_note_50.png";
 
 export const middleEllipsis = (str: string, len: number) => {
     if (!str) {
