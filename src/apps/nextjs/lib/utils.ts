@@ -14,25 +14,25 @@ export const computePrize = (videoId: number, wheelPositions: number, activeBet:
   outcome: string
 } => {
   switch (videoId) {
-    case wheelPositions * 2 + 1:
+    case wheelPositions + 1:
       return {prize: activeBet * 6, outcome: 'gift'};
-    case wheelPositions * 2 + 2:
-    case wheelPositions * 2 + 3:
-    case wheelPositions * 2 + 4:
+    case wheelPositions + 2:
+    case wheelPositions + 3:
+    case wheelPositions + 4:
       return {prize: -activeBet, outcome: 'no win'};
-    case wheelPositions * 2 + 5:
+    case wheelPositions + 5:
       return {prize: 1, outcome: 'ticket'};
-    case wheelPositions * 2 + 6:
-    case wheelPositions * 2 + 7:
-    case wheelPositions * 2 + 8:
-    case wheelPositions * 2 + 9:
+    case wheelPositions + 6:
+    case wheelPositions + 7:
+    case wheelPositions + 8:
+    case wheelPositions + 9:
       return {prize: activeBet, outcome: 'X1'};
-    case wheelPositions * 2 + 10:
-    case wheelPositions * 2 + 11:
-    case wheelPositions * 2 + 12:
+    case wheelPositions + 10:
+    case wheelPositions + 11:
+    case wheelPositions + 12:
       return {prize: activeBet * 2, outcome: 'X2'};
-    case wheelPositions * 2 + 13:
-    case wheelPositions * 2 + 14:
+    case wheelPositions + 13:
+    case wheelPositions + 14:
       return {prize: activeBet * 5, outcome: 'X5'};
     default:
       return {prize: 0, outcome: ''};

@@ -52,8 +52,9 @@ const WheelContainer: React.FC = () => {
         }
     }, []);
 
+    //logic for load videos
     useEffect(() => {
-        const loadLowResolutionVideos = async () => {
+        const loadVideos = async () => {
             setIsLoading(true);
             const lowResBlobs = await Promise.all(
                 videoSourcesHighRes.map(async (src) => {
@@ -67,7 +68,7 @@ const WheelContainer: React.FC = () => {
         };
 
         const startLoading = async () => {
-            await loadLowResolutionVideos();
+            await loadVideos();
         };
 
         startLoading()
@@ -93,6 +94,7 @@ const WheelContainer: React.FC = () => {
         });
     }, [videoId]);
 
+    //logic for play video
     const handlePlayVideo = (): void => {
         if (firstSpin) {
             setVideoId(1);
@@ -102,7 +104,7 @@ const WheelContainer: React.FC = () => {
         }
         // we reach here only when a video from result category has been played - videoId > 2 * wheelPositions
 
-        setVideoId(videoId - 2 * wheelPositions);
+        setVideoId(videoId - wheelPositions);
         setIsPlaying(true);
     };
 
@@ -110,41 +112,33 @@ const WheelContainer: React.FC = () => {
         return setBalance(balance => balance + extraValue)
     }, [])
 
+    //logic for play video
     const handleVideoEnd = (): void => {
         // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
+        const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
 
         if (videoRefs.current[videoId - 1]) {
             videoRefs.current[videoId - 1]?.pause();
-            if (videoRefs.current[videoId - 1]) {
-                videoRefs.current[videoId - 1]!.currentTime = 0;
+            if (videoId > wheelPositions) {
+                const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
+                const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
+                setRecentPlays([...recentPlays, lastPlay]);
+
+                if (prize === 1) {
+                    setTicket(ticket + prize);
+                } else {
+                    updateBalance(prize);
+                }
             }
         }
-
-        if (videoId > wheelPositions && videoId < wheelPositions * 2 + 1) {
-            const newVideoId = videoId + wheelPositions;
-
-            //play a result video
-            setVideoId(newVideoId);
-            setIsPlaying(true);
-
-            const {prize, outcome} = computePrize(newVideoId, wheelPositions, activeBet);
-            const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-
-            setRecentPlays([...recentPlays, lastPlay]);
-
-            if (prize === 1) {
-                setTicket(ticket + prize);
-            } else {
-                updateBalance(prize);
-            }
-        } else if (videoId < wheelPositions + 1) {
+        if (videoId < wheelPositions + 1) {
             if (firstSpin) {
                 setFirstSpin(false);
             }
 
             //play a stop video
-            setVideoId(getRandomNumber(wheelPositions + 1, wheelPositions * 2));
+            setVideoId(newVideoId);
             setIsPlaying(true);
         }
     };
@@ -165,7 +159,6 @@ const WheelContainer: React.FC = () => {
         setHasWonSpecialPrize(false);
         setSpecialPrize(0);
     }, []);
-
     const toggleMute = (): void => {
         const video = videoRefs.current[videoId - 1];
         if (video) {
