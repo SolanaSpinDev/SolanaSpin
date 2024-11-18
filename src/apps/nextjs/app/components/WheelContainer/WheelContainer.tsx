@@ -207,11 +207,11 @@ const WheelContainer: React.FC = () => {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
                         onKeyDown={(event) => {
-                        if (event.key === 'Enter' || event.key === ' ') {
-                            event.preventDefault(); // Prevents default spacebar scrolling behavior
-                            handlePlayVideo();
-                        }
-                    }}
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault(); // Prevents default spacebar scrolling behavior
+                                handlePlayVideo();
+                            }
+                        }}
                         className="w-[140px] h-[140px] rounded-full"
                         onClick={handlePlayVideo}
                     ></button>
