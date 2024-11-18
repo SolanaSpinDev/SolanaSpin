@@ -14,8 +14,8 @@ import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
 import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
-import {NauSea} from "@/app/fonts/fonts";
 import {Balance} from "@/app/components/Balance";
+import Image, {StaticImageData} from 'next/image';
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -52,8 +52,9 @@ const WheelContainer: React.FC = () => {
         }
     }, []);
 
+    //logic for load videos
     useEffect(() => {
-        const loadLowResolutionVideos = async () => {
+        const loadVideos = async () => {
             setIsLoading(true);
             const lowResBlobs = await Promise.all(
                 videoSourcesHighRes.map(async (src) => {
@@ -67,7 +68,7 @@ const WheelContainer: React.FC = () => {
         };
 
         const startLoading = async () => {
-            await loadLowResolutionVideos();
+            await loadVideos();
         };
 
         startLoading()
@@ -93,6 +94,7 @@ const WheelContainer: React.FC = () => {
         });
     }, [videoId]);
 
+    //logic for play video
     const handlePlayVideo = (): void => {
         if (firstSpin) {
             setVideoId(1);
@@ -102,7 +104,7 @@ const WheelContainer: React.FC = () => {
         }
         // we reach here only when a video from result category has been played - videoId > 2 * wheelPositions
 
-        setVideoId(videoId - 2 * wheelPositions);
+        setVideoId(videoId - wheelPositions);
         setIsPlaying(true);
     };
 
@@ -110,41 +112,33 @@ const WheelContainer: React.FC = () => {
         return setBalance(balance => balance + extraValue)
     }, [])
 
+    //logic for play video
     const handleVideoEnd = (): void => {
         // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
+        const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
 
         if (videoRefs.current[videoId - 1]) {
             videoRefs.current[videoId - 1]?.pause();
-            if (videoRefs.current[videoId - 1]) {
-                videoRefs.current[videoId - 1]!.currentTime = 0;
+            if (videoId > wheelPositions) {
+                const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
+                const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
+                setRecentPlays([...recentPlays, lastPlay]);
+
+                if (prize === 1) {
+                    setTicket(ticket + prize);
+                } else {
+                    updateBalance(prize);
+                }
             }
         }
-
-        if (videoId > wheelPositions && videoId < wheelPositions * 2 + 1) {
-            const newVideoId = videoId + wheelPositions;
-
-            //play a result video
-            setVideoId(newVideoId);
-            setIsPlaying(true);
-
-            const {prize, outcome} = computePrize(newVideoId, wheelPositions, activeBet);
-            const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-
-            setRecentPlays([...recentPlays, lastPlay]);
-
-            if (prize === 1) {
-                setTicket(ticket + prize);
-            } else {
-                updateBalance(prize);
-            }
-        } else if (videoId < wheelPositions + 1) {
+        if (videoId < wheelPositions + 1) {
             if (firstSpin) {
                 setFirstSpin(false);
             }
 
             //play a stop video
-            setVideoId(getRandomNumber(wheelPositions + 1, wheelPositions * 2));
+            setVideoId(newVideoId);
             setIsPlaying(true);
         }
     };
@@ -165,7 +159,6 @@ const WheelContainer: React.FC = () => {
         setHasWonSpecialPrize(false);
         setSpecialPrize(0);
     }, []);
-
     const toggleMute = (): void => {
         const video = videoRefs.current[videoId - 1];
         if (video) {
@@ -207,11 +200,11 @@ const WheelContainer: React.FC = () => {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
                         onKeyDown={(event) => {
-                        if (event.key === 'Enter' || event.key === ' ') {
-                            event.preventDefault(); // Prevents default spacebar scrolling behavior
-                            handlePlayVideo();
-                        }
-                    }}
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault(); // Prevents default spacebar scrolling behavior
+                                handlePlayVideo();
+                            }
+                        }}
                         className="w-[140px] h-[140px] rounded-full"
                         onClick={handlePlayVideo}
                     ></button>
@@ -241,23 +234,16 @@ const WheelContainer: React.FC = () => {
                     <Balance balance={balance}/>
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
-                        {predefinedBets.map((bet: number) => (
-                            <div className="relative lg:mr-4 lg:mb-4" key={bet}>
-                                <button
-                                    className={clsx(
-                                        `${NauSea.className}`,
-                                        "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-thin flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
-                                        isPlaying ? "" : "animate-glow cursor-pointer",
-                                        activeBet === bet ? "border-white border-1 border-solid" : ""
-                                    )}
-                                    onClick={() => selectBet(bet)}>${bet}</button>
-                                <div
-                                    className="absolute z-10 bottom-[5px] lg:bottom-[2px] right-[5px] lg:right-[2px] bg-amber-500 w-10 lg:w-[166px] h-6 lg:h-[64px]"></div>
-                                <div
-                                    className={clsx(
-                                        "absolute z-1 bottom-[2px] lg:-bottom-[4px] right-[2px] lg:-right-[2px] w-12 lg:w-[180px] h-8 lg:h-[82px]",
-                                        activeBet === bet ? "bg-white" : "bg-transparent"
-                                    )}></div>
+                        {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
+                            <div className="relative lg:mr-4 lg:mb-4" key={bet.value}>
+                                <Image
+                                    src={bet.src}
+                                    className=""
+                                    alt="lorem"
+                                    width={443}
+                                    height={256}
+                                    onClick={() => selectBet(bet.value)}
+                                />
                             </div>
                         ))}
                     </div>

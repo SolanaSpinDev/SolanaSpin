@@ -84,13 +84,13 @@ footer {
 /* Account info styling within the connect button container */
 .account-info {
     display: flex;
-    justify-center: center;
+    justify-items: center;
     align-items: center;
     padding: 0.5rem 1rem;
     border: 1px solid #555;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
-    font-mono: font-bold;
+    /*font-mono: font-bold, sans-serif;*/
     gap: 0.5rem;
     cursor: pointer;
 }
