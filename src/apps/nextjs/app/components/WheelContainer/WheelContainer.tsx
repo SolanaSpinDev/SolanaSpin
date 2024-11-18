@@ -14,7 +14,6 @@ import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
 import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
-import {NauSea} from "@/app/fonts/fonts";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from 'next/image';
 
