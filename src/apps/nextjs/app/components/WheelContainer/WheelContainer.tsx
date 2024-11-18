@@ -16,6 +16,7 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {NauSea} from "@/app/fonts/fonts";
 import {Balance} from "@/app/components/Balance";
+import Image, {StaticImageData} from 'next/image';
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -234,23 +235,16 @@ const WheelContainer: React.FC = () => {
                     <Balance balance={balance}/>
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
-                        {predefinedBets.map((bet: number) => (
-                            <div className="relative lg:mr-4 lg:mb-4" key={bet}>
-                                <button
-                                    className={clsx(
-                                        `${NauSea.className}`,
-                                        "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-thin flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
-                                        isPlaying ? "" : "animate-glow cursor-pointer",
-                                        activeBet === bet ? "border-white border-1 border-solid" : ""
-                                    )}
-                                    onClick={() => selectBet(bet)}>${bet}</button>
-                                <div
-                                    className="absolute z-10 bottom-[5px] lg:bottom-[2px] right-[5px] lg:right-[2px] bg-amber-500 w-10 lg:w-[166px] h-6 lg:h-[64px]"></div>
-                                <div
-                                    className={clsx(
-                                        "absolute z-1 bottom-[2px] lg:-bottom-[4px] right-[2px] lg:-right-[2px] w-12 lg:w-[180px] h-8 lg:h-[82px]",
-                                        activeBet === bet ? "bg-white" : "bg-transparent"
-                                    )}></div>
+                        {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
+                            <div className="relative lg:mr-4 lg:mb-4" key={bet.value}>
+                                <Image
+                                    src={bet.src}
+                                    className=""
+                                    alt="lorem"
+                                    width={443}
+                                    height={256}
+                                    onClick={() => selectBet(bet.value)}
+                                />
                             </div>
                         ))}
                     </div>
