@@ -2,6 +2,8 @@ import type {Metadata} from "next";
 import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
+import React from "react";
+import Script from 'next/script';
 
 // import Header from './components/Header';
 const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";
@@ -45,13 +47,28 @@ export default function RootLayout({
         <body
             className="antialiased"
         >
-
+        <canvas
+            id="canvas"
+            width="640"
+            height="360"
+            className="main-canvas"
+        ></canvas>
         <NextUIProvider>
             <div className="min-h-screen ">
                 {/*<Header/>*/}
                 <main>{children}</main>
             </div>
         </NextUIProvider>
+        <Script
+            src="/js/videocontext.js"
+            strategy="afterInteractive"
+        />
+        <Script
+            src="/js/video-init.js"
+            strategy="afterInteractive"
+        />
+
+
         <script
             type="text/javascript"
             async
