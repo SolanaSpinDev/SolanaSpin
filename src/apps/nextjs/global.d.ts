@@ -10,3 +10,6 @@ interface Navigator {
 interface Document {
     a: () => void;
 }
+interface Window {
+    a: () => void; // Declare the specific type of `a`
+}

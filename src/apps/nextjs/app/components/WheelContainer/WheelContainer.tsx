@@ -16,7 +16,7 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from 'next/image';
-import VideoContext from 'videocontext';
+
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -25,6 +25,7 @@ const WheelContainer: React.FC = () => {
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
     const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
     const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
@@ -114,6 +115,7 @@ const WheelContainer: React.FC = () => {
     }, [])
 
     //logic for play video
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
     const handleVideoEnd = (): void => {
         // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
@@ -170,7 +172,9 @@ const WheelContainer: React.FC = () => {
 
     function clickCanvas() {
         console.log('0')
-        return (window as any).a();
+        // @typescript-eslint/no-explicit-any
+        // @ts-expect-error: it is x
+        return (window as unknowngst).a();
     }
 
     return (
@@ -272,7 +276,7 @@ const WheelContainer: React.FC = () => {
                             <button onClick={() => clickCanvas()}
                                     className="font-red z-2000 border-1 border-solid border-red p-1">abc
                             </button>
-                            
+
                         </div>
                     </div>
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
