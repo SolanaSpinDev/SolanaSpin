@@ -7,3 +7,6 @@ interface Play {
 interface Navigator {
     standalone: boolean;
 }
+interface Document {
+    a: () => void;
+}

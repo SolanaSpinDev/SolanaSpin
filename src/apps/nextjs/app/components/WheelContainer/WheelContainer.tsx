@@ -16,6 +16,7 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from 'next/image';
+import VideoContext from 'videocontext';
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -167,6 +168,11 @@ const WheelContainer: React.FC = () => {
         }
     };
 
+    function clickCanvas() {
+        console.log('0')
+        return (window as any).a();
+    }
+
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
@@ -175,27 +181,29 @@ const WheelContainer: React.FC = () => {
                     <Loading/>
                 </div>
             ) : (
-                videoBlobs.length > 0 &&
-                videoBlobs.map((videoBlob, index) => (
-                    <video
-                        key={videoBlob}
-                        ref={(el) => {
-                            videoRefs.current[index] = el
-                        }}
-                        onEnded={handleVideoEnd}
-                        loop={false}
-                        controls={false}
-                        muted={isMuted}
-                        playsInline
-                        poster="/images/frame-0.png"
-                        className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
-                            videoId === index + 1 ? "block" : "hidden"
-                        }`}
-                        src={videoBlob}
-                    />
-
-                ))
-            )}
+                <div>x</div>
+                // videoBlobs.length > 0 &&
+                // videoBlobs.map((videoBlob, index) => (
+                //     <video
+                //         key={videoBlob}
+                //         ref={(el) => {
+                //             videoRefs.current[index] = el
+                //         }}
+                //         onEnded={handleVideoEnd}
+                //         loop={false}
+                //         controls={false}
+                //         muted={isMuted}
+                //         playsInline
+                //         poster="/images/frame-0.png"
+                //         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
+                //             videoId === index + 1 ? "block" : "hidden"
+                //         }`}
+                //         src={videoBlob}
+                //     />
+                //
+                // ))
+            )
+            }
             {!isPlaying && !isLoading && activeBet > 0 && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
@@ -232,6 +240,7 @@ const WheelContainer: React.FC = () => {
 
                 >
                     <Balance balance={balance}/>
+
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
@@ -246,6 +255,7 @@ const WheelContainer: React.FC = () => {
                                 />
                             </div>
                         ))}
+                        <button onClick={() => clickCanvas()} className="font-red z-2000 border-1 border-solid border-red p-1">abc</button>
                     </div>
                 </div>
 
@@ -259,6 +269,10 @@ const WheelContainer: React.FC = () => {
                                 <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
                             }
                             <Socials/>
+                            <button onClick={() => clickCanvas()}
+                                    className="font-red z-2000 border-1 border-solid border-red p-1">abc
+                            </button>
+                            
                         </div>
                     </div>
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
