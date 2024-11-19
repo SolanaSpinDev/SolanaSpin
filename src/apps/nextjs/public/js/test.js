@@ -1,4 +1,3 @@
-console.log('a')
 if (typeof window !== 'undefined') {
     window.a = function () {
         console.log('b')
