@@ -64,7 +64,7 @@ export default function RootLayout({
             strategy="afterInteractive"
         />
         <Script
-            src="/js/test.js"
+            src="/js/video-init.js"
             strategy="afterInteractive"
         />
 
