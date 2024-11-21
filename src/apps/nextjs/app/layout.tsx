@@ -47,12 +47,6 @@ export default function RootLayout({
         <body
             className="antialiased"
         >
-        <canvas
-            id="canvas"
-            width="320"
-            height="180"
-            className="main-canvas"
-        ></canvas>
         <NextUIProvider>
             <div className="min-h-screen ">
                 {/*<Header/>*/}
