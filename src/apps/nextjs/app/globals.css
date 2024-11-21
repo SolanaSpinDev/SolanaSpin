@@ -137,8 +137,11 @@ h1 {
     padding: 1rem;
 }
 
-.main-canvas{
+.main-canvas {
     z-index: 1000;
     position: relative;
-background: #dddddd;
+    border: 1px solid var(--foreground);
+    /*background: #dddddd;*/
+    /*background: url('/images/frame-0.png') center;*/
+    /*background-size: cover;*/
 }

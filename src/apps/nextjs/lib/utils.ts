@@ -19,6 +19,9 @@ export const computePrize = (videoId: number, wheelPositions: number, activeBet:
     prize: number,
     outcome: string
 } => {
+    console.log('in computePrize we have, ', videoId,
+        wheelPositions,
+        activeBet)
     switch (videoId) {
         case wheelPositions + 1:
             return {prize: activeBet * 6, outcome: 'gift'};
@@ -82,6 +85,7 @@ export const videoSourcesHighRes = [
     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win A.mp4",
     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.5 A.mp4",
 ];
+export const videoSources720 = []
 export const wheelPositions = 14;
 export const jackpotLimit = 500;
 export const predefinedBets = [
