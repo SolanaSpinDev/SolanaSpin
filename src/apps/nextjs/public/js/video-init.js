@@ -30,61 +30,58 @@
 // ];
 
 let videoCtx = null;
-let videoNodes = [];
+let videoCtxs = [];
+let videoStartUrls = [
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+];
+let videoStopUrls = [
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+    "/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"
+];
+
 // const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const initContext = () => {
     
     let canvas = document.getElementById("canvas");
-    if (!canvas) {
-        canvas = document.createElement("canvas");
-        canvas.id = "canvas"; 
-        canvas.width = 320; 
-        canvas.height = 180; 
-        canvas.className = "main-canvas"; 
-        document.body.prepend(canvas);
+    if (canvas) {
+        canvas.remove();
     }
+
+    canvas = document.createElement("canvas");
+    canvas.id = "canvas"; 
+    canvas.width = 320; 
+    canvas.height = 180; 
+    canvas.className = "main-canvas"; 
+    document.body.prepend(canvas);
 
     videoCtx = new VideoContext(canvas);
-    videoNodes = [
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
-        videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4")
-    ];
-}
-
-const videoCtxUpdate = () => {
-    if (videoCtx.currentTime <= 11000) {
-        videoCtx.unregisterCallback(VideoContext.EVENTS.UPDATE, videoCtxUpdate);
-        videoCtx.reset();
-        initContext();
-    }
-
+    videoCtxs.push(videoCtx);
 }
 
 if (typeof window !== 'undefined') {
@@ -128,24 +125,31 @@ if (typeof window !== 'undefined') {
 
 
         // Add a callback to pause at the last frame of the second video
-        videoCtx.registerCallback(VideoContext.EVENTS.UPDATE, videoCtxUpdate);
+        //videoCtx.registerCallback(VideoContext.EVENTS.UPDATE, videoCtxUpdate);
 
         const crossFade = videoCtx.transition(VideoContext.DEFINITIONS.CROSSFADE);
 
-        videoNodes[startId].start(0);
-        videoNodes[startId].stop(5);
-        videoNodes[startId].connect(crossFade);
+        const startVideoNode = videoCtx.video(videoStartUrls[startId]);
+        startVideoNode.start(0);
+        startVideoNode.stop(5);
+        startVideoNode.connect(crossFade);
 
-        videoNodes[stopId].start(4);
-        videoNodes[stopId].stop(11);
-        videoNodes[stopId].connect(crossFade);
+        const stopVideoNode = videoCtx.video(videoStopUrls[stopId - 14]);
+        stopVideoNode.start(4);
+        stopVideoNode.stop(11);
+        stopVideoNode.connect(crossFade);
 
         crossFade.transition(4, 5, 0.0, 1.0);
         crossFade.connect(videoCtx.destination);
-        crossFade.currentTime = 0;
-        videoCtx.currentTime = 0;
 
-        setTimeout(() => initContext, 11000);
+        setTimeout(() => { 
+            videoCtx.pause();
+            startVideoNode.disconnect(crossFade);
+            stopVideoNode.disconnect(crossFade);
+            crossFade.disconnect(videoCtx.destination);
+            //document.getElementById("canvas").remove();
+            videoCtx = undefined;
+        }, 11000);
         videoCtx.play();
     }
 }
