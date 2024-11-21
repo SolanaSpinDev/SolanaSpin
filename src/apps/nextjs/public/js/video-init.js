@@ -33,7 +33,18 @@ let videoCtx = null;
 let videoNodes = [];
 // const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const initContext = (canvas) => {
+const initContext = () => {
+    
+    let canvas = document.getElementById("canvas");
+    if (!canvas) {
+        canvas = document.createElement("canvas");
+        canvas.id = "canvas"; 
+        canvas.width = 320; 
+        canvas.height = 180; 
+        canvas.className = "main-canvas"; 
+        document.body.prepend(canvas);
+    }
+
     videoCtx = new VideoContext(canvas);
     videoNodes = [
         videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
@@ -68,19 +79,19 @@ const initContext = (canvas) => {
 }
 
 if (typeof window !== 'undefined') {
-    window.a = function (startId, stopId) {
+    window.a = (startId, stopId) => {
         console.log('startId in vide-init is _02 ', startId);
         console.log('stopId in vide-init is _02 ', stopId);
         // const newId = getRandomNumber(14, 27);
-
+        
         // console.log('newId in video-init.js _03 ', newId);
-        const canvas = document.getElementById("canvas");
+
         /**
          * init the video context
          * */
         if (!videoCtx) {
             console.log('we need to init the context')
-            initContext(canvas);
+            initContext();
         } else {
             console.log('already have a context')
         }
@@ -119,21 +130,18 @@ if (typeof window !== 'undefined') {
 
         videoNodes[startId].start(0);
         videoNodes[startId].stop(5);
-        videoNodes[startId].connect(videoCtx.destination);
+        videoNodes[startId].connect(crossFade);
 
         videoNodes[stopId].start(4);
-        videoNodes[stopId].stop(9);
-        videoNodes[stopId].connect(videoCtx.destination);
-        //
-        // videoNodes[startId].connect(crossFade);
-        // videoNodes[stopId].connect(crossFade);
-        //
-        // crossFade.connect(videoCtx.destination);
+        videoNodes[stopId].stop(11);
+        videoNodes[stopId].connect(crossFade);
+
+        crossFade.transition(4, 5, 0.0, 1.0);
+        crossFade.connect(videoCtx.destination);
+        crossFade.currentTime = 0;
+        videoCtx.currentTime = 0;
         videoCtx.play();
 
-        // crossFade.connect(videoCtx.destination);
-        // videoNodes[id].connect(videoCtx.destination)
-        // videoCtx.currentTime = 0;
         // videoCtx.unregisterCallback(VideoContext.EVENTS.ENDED, callBack);
     }
 }
