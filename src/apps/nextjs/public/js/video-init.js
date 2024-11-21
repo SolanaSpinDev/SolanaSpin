@@ -1,37 +1,37 @@
-const videoSourcesHighRes = [
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 C.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 B.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.5 B.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Ticket.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 A.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Free Spin.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win B.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X50.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win A.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.5 A.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Gift Box.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.1 C.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Diamond.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win C.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X5.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.1 B.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.5 B.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Ticket.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.1 A.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Free Spin.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win B.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X50.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win A.mp4",
-    "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.5 A.mp4",
-];
+// const videoSourcesHighRes = [
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 C.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 B.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.5 B.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Ticket.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 A.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Free Spin.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win B.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X50.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win A.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.5 A.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Gift Box.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.1 C.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win C.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X5.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.1 B.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.5 B.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Ticket.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.1 A.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_Free Spin.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win B.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X50.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win A.mp4",
+//     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.5 A.mp4",
+// ];
 
 let videoCtx = null;
 let videoNodes = [];
-const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+// const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const initContext = (canvas) => {
     videoCtx = new VideoContext(canvas);
