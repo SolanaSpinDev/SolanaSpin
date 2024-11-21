@@ -45,6 +45,9 @@ const initContext = () => {
         document.body.prepend(canvas);
     }
 
+    if (vodeCtx) {
+        videoCtx.reset();
+    }
     videoCtx = new VideoContext(canvas);
     videoNodes = [
         videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
@@ -142,6 +145,9 @@ if (typeof window !== 'undefined') {
         videoCtx.currentTime = 0;
         videoCtx.play();
 
+        setTimeout(() => initContext, 11000);
+
+        // videoCtx.currentTime = 0;
         // videoCtx.unregisterCallback(VideoContext.EVENTS.ENDED, callBack);
     }
 }
