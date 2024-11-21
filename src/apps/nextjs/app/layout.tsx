@@ -49,8 +49,8 @@ export default function RootLayout({
         >
         <canvas
             id="canvas"
-            width="640"
-            height="360"
+            width="320"
+            height="180"
             className="main-canvas"
         ></canvas>
         <NextUIProvider>

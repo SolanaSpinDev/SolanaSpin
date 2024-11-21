@@ -1,0 +1,32 @@
+total 112M
+drwxrwxr-x 2 florin florin 4,0K nov 21 16:45 .
+drwxrwxr-x 3 florin florin 4,0K nov 21 16:43 ..
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:38 S_W_Separate_Wood_Result_Diamond.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:38 S_W_Separate_Wood_Result_Free Spin.mp4
+-rw-rw-rw- 1 florin florin 6,2M nov 14 04:38 S_W_Separate_Wood_Result_Gift Box.mp4
+-rw-rw-rw- 1 florin florin 4,0M nov 14 04:38 S_W_Separate_Wood_Result_No Win A.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:38 S_W_Separate_Wood_Result_No Win B.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:38 S_W_Separate_Wood_Result_No Win C.mp4
+-rw-rw-rw- 1 florin florin 6,1M nov 14 04:38 S_W_Separate_Wood_Result_Ticket.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:38 S_W_Separate_Wood_Result_X0.1 A.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:38 S_W_Separate_Wood_Result_X0.1 B.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:39 S_W_Separate_Wood_Result_X0.1 C.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:39 S_W_Separate_Wood_Result_X0.5 A.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:39 S_W_Separate_Wood_Result_X0.5 B.mp4
+-rw-rw-rw- 1 florin florin 4,0M nov 14 04:39 S_W_Separate_Wood_Result_X50.mp4
+-rw-rw-rw- 1 florin florin 4,1M nov 14 04:39 S_W_Separate_Wood_Result_X5.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_Diamond.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_Free Spin.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_Gift Box.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_No Win A.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_No Win B.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_No Win C.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_Ticket.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_X0.1 A.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_X0.1 B.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_X0.1 C.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_X0.5 A.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:39 S_W_Separate_Wood_Start_X0.5 B.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:40 S_W_Separate_Wood_Start_X50.mp4
+-rw-rw-rw- 1 florin florin 3,7M nov 14 04:40 S_W_Separate_Wood_Start_X5.mp4
+-rw-rw-r-- 1 florin florin    0 nov 21 16:45 text.txt
