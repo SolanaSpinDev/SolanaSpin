@@ -45,9 +45,6 @@ const initContext = () => {
         document.body.prepend(canvas);
     }
 
-    if (vodeCtx) {
-        videoCtx.reset();
-    }
     videoCtx = new VideoContext(canvas);
     videoNodes = [
         videoCtx.video("/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4"),
@@ -79,6 +76,15 @@ const initContext = () => {
         videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4"),
         videoCtx.video("/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4")
     ];
+}
+
+const videoCtxUpdate = () => {
+    if (videoCtx.currentTime <= 11000) {
+        videoCtx.unregisterCallback(VideoContext.EVENTS.UPDATE, videoCtxUpdate);
+        videoCtx.reset();
+        initContext();
+    }
+
 }
 
 if (typeof window !== 'undefined') {
@@ -122,12 +128,7 @@ if (typeof window !== 'undefined') {
 
 
         // Add a callback to pause at the last frame of the second video
-        // videoCtx.registerCallback(VideoContext.EVENTS.ENDED, () => {
-        //     videoCtx.pause();
-        //     // videoCtx.currentTime = 9;
-        //     console.log("Playback paused at the last frame of the second video.");
-        // });
-
+        videoCtx.registerCallback(VideoContext.EVENTS.UPDATE, videoCtxUpdate);
 
         const crossFade = videoCtx.transition(VideoContext.DEFINITIONS.CROSSFADE);
 
@@ -143,12 +144,9 @@ if (typeof window !== 'undefined') {
         crossFade.connect(videoCtx.destination);
         crossFade.currentTime = 0;
         videoCtx.currentTime = 0;
-        videoCtx.play();
 
         setTimeout(() => initContext, 11000);
-
-        // videoCtx.currentTime = 0;
-        // videoCtx.unregisterCallback(VideoContext.EVENTS.ENDED, callBack);
+        videoCtx.play();
     }
 }
 
