@@ -86,10 +86,11 @@ const initContext = () => {
 
 if (typeof window !== 'undefined') {
     window.a = (videoStartSource, videoStartDuration, videoStopSource, videoStopDuration) => {
+        const totalPlayTime = videoStartDuration + videoStopDuration - 1;
         console.log('stopId in vide-init is _02 ', videoStartSource,
             videoStartDuration,
             videoStopSource,
-            videoStopDuration,);
+            videoStopDuration,totalPlayTime);
 
         /**
          * init the video context
@@ -135,7 +136,7 @@ if (typeof window !== 'undefined') {
 
         const stopVideoNode = videoCtx.video(videoStopSource);
         stopVideoNode.start(videoStartDuration - 1);
-        stopVideoNode.stop(11);
+        stopVideoNode.stop(totalPlayTime);
         stopVideoNode.connect(crossFade);
 
         crossFade.transition(4, 5, 0.0, 1.0);
@@ -148,7 +149,7 @@ if (typeof window !== 'undefined') {
             crossFade.disconnect(videoCtx.destination);
             //document.getElementById("canvas").remove();
             videoCtx = undefined;
-        }, 11000);
+        }, totalPlayTime * 1000);
         videoCtx.play();
         console.log('videoCtx')
         console.log(videoCtx)
