@@ -6,7 +6,10 @@ import {
     computePrize,
     getRandomNumber,
     wheelPositions,
-    videoSourcesHighRes
+    videoSourcesHighRes,
+    videoSources720LocalStart,
+    videoSources720LocalResult,
+    videoSources720Local
 } from "@/lib/utils";
 import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
@@ -130,12 +133,23 @@ const WheelContainer: React.FC = () => {
         // }
     };
 
-    function setCanvasVideoIds(startId: number, stopId: number) {
-        console.log('se face set de CanvarVideoId _1 ', startId)
-        console.log('se face set de CanvarVideoId _1stopId ', stopId)
+    function setCanvasVideoIds(
+        videoStartSource: string,
+        videoStartDuration: number,
+        videoStopSource: string,
+        videoStopDuration: number
+    ) {
+        console.log('se face set de CanvasVideoId _1 ', videoStartSource,
+        videoStartDuration,
+        videoStopSource,
+        videoStopDuration)
         // @typescript-eslint/no-explicit-any
         // @ts-expect-error: it is x
-        return (window as unknown).a(startId, stopId);
+        return (window as unknown).a(
+            videoStartSource,
+            videoStartDuration/1000,
+            videoStopSource,
+            videoStopDuration/1000);
     }
 
     //logic for play video
@@ -179,11 +193,17 @@ const WheelContainer: React.FC = () => {
          * */
         const startId = newVideoId < 0 ? 0 : newVideoId;
         const stopId = getRandomNumber(14, 27);
-        setCanvasVideoIds(startId, stopId);
+        // setCanvasVideoIds(startId, stopId);
+        setCanvasVideoIds(
+            videoSources720Local[startId].src,
+            videoSources720Local[startId].duration,
+            videoSources720Local[stopId].src,
+            videoSources720Local[stopId].duration,
+        );
         setIsPlaying(true);
         setTimeout(() => {
             videoHasEndedNoCallback(stopId)
-        }, 5000);//assumption that the video will take 9 seconds maybe fix it with the real video duration
+        }, videoSources720Local[startId].duration + videoSources720Local[stopId].duration);//assumption that the video will take 9 seconds maybe fix it with the real video duration
     };
 
     const videoHasEndedNoCallback = (stopId: number) => {

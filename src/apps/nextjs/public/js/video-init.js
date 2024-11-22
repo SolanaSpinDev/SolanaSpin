@@ -67,17 +67,17 @@ let videoStopUrls = [
 // const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const initContext = () => {
-    
+
     let canvas = document.getElementById("canvas");
     if (canvas) {
         canvas.remove();
     }
 
     canvas = document.createElement("canvas");
-    canvas.id = "canvas"; 
-    canvas.width = 320; 
-    canvas.height = 180; 
-    canvas.className = "main-canvas"; 
+    canvas.id = "canvas";
+    canvas.width = 320;
+    canvas.height = 180;
+    canvas.className = "main-canvas";
     document.body.prepend(canvas);
 
     videoCtx = new VideoContext(canvas);
@@ -85,12 +85,11 @@ const initContext = () => {
 }
 
 if (typeof window !== 'undefined') {
-    window.a = (startId, stopId) => {
-        console.log('startId in vide-init is _02 ', startId);
-        console.log('stopId in vide-init is _02 ', stopId);
-        // const newId = getRandomNumber(14, 27);
-        
-        // console.log('newId in video-init.js _03 ', newId);
+    window.a = (videoStartSource, videoStartDuration, videoStopSource, videoStopDuration) => {
+        console.log('stopId in vide-init is _02 ', videoStartSource,
+            videoStartDuration,
+            videoStopSource,
+            videoStopDuration,);
 
         /**
          * init the video context
@@ -129,20 +128,20 @@ if (typeof window !== 'undefined') {
 
         const crossFade = videoCtx.transition(VideoContext.DEFINITIONS.CROSSFADE);
 
-        const startVideoNode = videoCtx.video(videoStartUrls[startId]);
+        const startVideoNode = videoCtx.video(videoStartSource);
         startVideoNode.start(0);
-        startVideoNode.stop(5);
+        startVideoNode.stop(videoStartDuration);
         startVideoNode.connect(crossFade);
 
-        const stopVideoNode = videoCtx.video(videoStopUrls[stopId - 14]);
-        stopVideoNode.start(4);
+        const stopVideoNode = videoCtx.video(videoStopSource);
+        stopVideoNode.start(videoStartDuration - 1);
         stopVideoNode.stop(11);
         stopVideoNode.connect(crossFade);
 
         crossFade.transition(4, 5, 0.0, 1.0);
         crossFade.connect(videoCtx.destination);
 
-        setTimeout(() => { 
+        setTimeout(() => {
             videoCtx.pause();
             startVideoNode.disconnect(crossFade);
             stopVideoNode.disconnect(crossFade);
@@ -151,6 +150,8 @@ if (typeof window !== 'undefined') {
             videoCtx = undefined;
         }, 11000);
         videoCtx.play();
+        console.log('videoCtx')
+        console.log(videoCtx)
     }
 }
 

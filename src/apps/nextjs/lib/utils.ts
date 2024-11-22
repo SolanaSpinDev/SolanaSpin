@@ -85,7 +85,237 @@ export const videoSourcesHighRes = [
     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_No Win A.mp4",
     "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Result_X0.5 A.mp4",
 ];
-export const videoSources720 = []
+export const videoSources720Local =
+    [
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Free Spin.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            duration: 5000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Free Spin.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Gift Box.mp4",
+            duration: 9000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Ticket.mp4",
+            duration: 9000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+        {
+            src: "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+            duration: 7000,
+        },
+    ]
+export const videoSources720LocalStart = [
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Free Spin.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+        duration: 5000,
+    },
+]
+export const videoSources720LocalResult = [
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Free Spin.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Gift Box.mp4",
+        duration: 9000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Ticket.mp4",
+        duration: 9000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+    {
+        src: "public/videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
+        duration: 7000,
+    },
+]
 export const wheelPositions = 14;
 export const jackpotLimit = 500;
 export const predefinedBets = [
