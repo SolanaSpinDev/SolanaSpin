@@ -29,7 +29,7 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-    // const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
+    const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
     // const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
@@ -59,27 +59,27 @@ const WheelContainer: React.FC = () => {
     }, []);
     //
     // //logic for load videos
-    // useEffect(() => {
-    //     const loadVideos = async () => {
-    //         setIsLoading(true);
-    //         const lowResBlobs = await Promise.all(
-    //             videoSourcesHighRes.map(async (src) => {
-    //                 const response = await fetch(src);
-    //                 const blob = await response.blob();
-    //                 return URL.createObjectURL(blob);
-    //             })
-    //         );
-    //         setIsLoading(false);
-    //         setVideoBlobs(lowResBlobs);
-    //     };
-    //
-    //     const startLoading = async () => {
-    //         await loadVideos();
-    //     };
-    //
-    //     startLoading()
-    //         .then(r => r)
-    // }, []);
+    useEffect(() => {
+        const loadVideos = async () => {
+            setIsLoading(true);
+            const lowResBlobs = await Promise.all(
+                videoSources720Local.map(async (src) => {
+                    const response = await fetch(src.src);
+                    const blob = await response.blob();
+                    return URL.createObjectURL(blob);
+                })
+            );
+            setIsLoading(false);
+            setVideoBlobs(lowResBlobs);
+        };
+
+        const startLoading = async () => {
+            await loadVideos();
+        };
+
+        startLoading()
+            .then(r => r)
+    }, []);
     //
     // useEffect((): void => {
     //     if (isPlaying && videoRefs.current[videoId - 1]) {
@@ -188,16 +188,22 @@ const WheelContainer: React.FC = () => {
     //logic for play video
     const handlePlayVideo = (): void => {
         console.log('se face play de video _0');
+        console.log('videoBlobs');
+        console.log(videoBlobs);
         /**
          * this will save us from adding a flag for initialSpin
          * */
         const startId = newVideoId < 0 ? 0 : newVideoId;
         const stopId = getRandomNumber(14, 27);
         // setCanvasVideoIds(startId, stopId);
+
+        //todo comment the next lines to use direct videoPath or blobPath
         setCanvasVideoIds(
-            videoSources720Local[startId].src,
+            videoBlobs[startId],
+            // videoSources720Local[startId].src,
             videoSources720Local[startId].duration,
-            videoSources720Local[stopId].src,
+            videoBlobs[stopId],
+            // videoSources720Local[stopId].src,
             videoSources720Local[stopId].duration,
         );
         setIsPlaying(true);
