@@ -20,14 +20,13 @@ import Image, {StaticImageData} from 'next/image';
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    // const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
-    // const [videoId, setVideoId] = useState(1);
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
+    const [videoId, setVideoId] = useState(1);
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-    // const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
-    // const [firstSpin, setFirstSpin] = useState(true);
+    const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
+    const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
     const [browser, setBrowser] = useState('');
@@ -55,47 +54,47 @@ const WheelContainer: React.FC = () => {
         }
     }, []);
     //
-    // //logic for load videos
-    // useEffect(() => {
-    //     const loadVideos = async () => {
-    //         setIsLoading(true);
-    //         const lowResBlobs = await Promise.all(
-    //             videoSourcesHighRes.map(async (src) => {
-    //                 const response = await fetch(src);
-    //                 const blob = await response.blob();
-    //                 return URL.createObjectURL(blob);
-    //             })
-    //         );
-    //         setIsLoading(false);
-    //         setVideoBlobs(lowResBlobs);
-    //     };
-    //
-    //     const startLoading = async () => {
-    //         await loadVideos();
-    //     };
-    //
-    //     startLoading()
-    //         .then(r => r)
-    // }, []);
-    //
-    // useEffect((): void => {
-    //     if (isPlaying && videoRefs.current[videoId - 1]) {
-    //         // Play the new video
-    //         videoRefs.current[videoId - 1]?.play().then(r => r);
-    //     }
-    // }, [videoId, isPlaying]);
+    //logic for load videos
+    useEffect(() => {
+        const loadVideos = async () => {
+            setIsLoading(true);
+            const lowResBlobs = await Promise.all(
+                videoSourcesHighRes.map(async (src) => {
+                    const response = await fetch(src);
+                    const blob = await response.blob();
+                    return URL.createObjectURL(blob);
+                })
+            );
+            setIsLoading(false);
+            setVideoBlobs(lowResBlobs);
+        };
 
-    // useEffect(() => {
-    //     videoRefs.current.forEach((video, idx) => {
-    //         if (video) {
-    //             if (idx === videoId - 1) {
-    //                 video.play().then(r => r);
-    //             } else {
-    //                 video.pause();
-    //             }
-    //         }
-    //     });
-    // }, [videoId]);
+        const startLoading = async () => {
+            await loadVideos();
+        };
+
+        startLoading()
+            .then(r => r)
+    }, []);
+
+    useEffect((): void => {
+        if (isPlaying && videoRefs.current[videoId - 1]) {
+            // Play the new video
+            videoRefs.current[videoId - 1]?.play().then(r => r);
+        }
+    }, [videoId, isPlaying]);
+
+    useEffect(() => {
+        videoRefs.current.forEach((video, idx) => {
+            if (video) {
+                if (idx === videoId - 1) {
+                    video.play().then(r => r);
+                } else {
+                    video.pause();
+                }
+            }
+        });
+    }, [videoId]);
 
     const updateBalance = useCallback((extraValue: number): void => {
         return setBalance(balance => balance + extraValue)
@@ -123,20 +122,20 @@ const WheelContainer: React.FC = () => {
     const toggleMute = (): void => {
         //send the mute event
 
-        // const video = videoRefs.current[videoId - 1];
-        // if (video) {
-        //     video.muted = !isMuted;
-        //     setIsMuted(!isMuted);
-        // }
+        const video = videoRefs.current[videoId - 1];
+        if (video) {
+            video.muted = !isMuted;
+            setIsMuted(!isMuted);
+        }
     };
 
-    function setCanvasVideoIds(startId: number, stopId: number) {
-        console.log('se face set de CanvarVideoId _1 ', startId)
-        console.log('se face set de CanvarVideoId _1stopId ', stopId)
-        // @typescript-eslint/no-explicit-any
-        // @ts-expect-error: it is x
-        return (window as unknown).a(startId, stopId);
-    }
+    // function setCanvasVideoIds(startId: number, stopId: number) {
+    //     console.log('se face set de CanvarVideoId _1 ', startId)
+    //     console.log('se face set de CanvarVideoId _1stopId ', stopId)
+    //     // @typescript-eslint/no-explicit-any
+    //     // @ts-expect-error: it is x
+    //     return (window as unknown).a(startId, stopId);
+    // }
 
     //logic for play video
     // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -172,37 +171,80 @@ const WheelContainer: React.FC = () => {
     // };
 
     //logic for play video
+    // const handlePlayVideo = (): void => {
+    //     console.log('se face play de video _0');
+    //     /**
+    //      * this will save us from adding a flag for initialSpin
+    //      * */
+    //     const startId = newVideoId < 0 ? 0 : newVideoId;
+    //     const stopId = getRandomNumber(14, 27);
+    //     setCanvasVideoIds(startId, stopId);
+    //     setIsPlaying(true);
+    //     setTimeout(() => {
+    //         videoHasEndedNoCallback(stopId)
+    //     }, 5000);//assumption that the video will take 9 seconds maybe fix it with the real video duration
+    // };
+
     const handlePlayVideo = (): void => {
-        console.log('se face play de video _0');
-        /**
-         * this will save us from adding a flag for initialSpin
-         * */
-        const startId = newVideoId < 0 ? 0 : newVideoId;
-        const stopId = getRandomNumber(14, 27);
-        setCanvasVideoIds(startId, stopId);
+        if (firstSpin) {
+            setVideoId(1);
+            setIsPlaying(true);
+
+            return;
+        }
+        // we reach here only when a video from result category has been played - videoId > 2 * wheelPositions
+
+        setVideoId(videoId - wheelPositions);
         setIsPlaying(true);
-        setTimeout(() => {
-            videoHasEndedNoCallback(stopId)
-        }, 5000);//assumption that the video will take 9 seconds maybe fix it with the real video duration
     };
 
-    const videoHasEndedNoCallback = (stopId: number) => {
+    const handleVideoEnd = (): void => {
+        // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
-        //here we match the stop video with the new start video
-        setNewVideoId(stopId - 14);
-        //set prize and/or ticket
-        const {prize, outcome} = computePrize(stopId, wheelPositions, activeBet);
-        const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-        // console.log('set recent plays _6.1 ', lastPlay, activeBet, prize, outcome);
-        // console.log('set recent plays _6.1 ', recentPlays);
-        setRecentPlays([...recentPlays, lastPlay]);
+        const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
 
-        if (prize === 1) {
-            setTicket(ticket + prize);
-        } else {
-            updateBalance(prize);
+        if (videoRefs.current[videoId - 1]) {
+            videoRefs.current[videoId - 1]?.pause();
+            if (videoId > wheelPositions) {
+                const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
+                const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
+                setRecentPlays([...recentPlays, lastPlay]);
+
+                if (prize === 1) {
+                    setTicket(ticket + prize);
+                } else {
+                    updateBalance(prize);
+                }
+            }
         }
-    }
+        if (videoId < wheelPositions + 1) {
+            if (firstSpin) {
+                setFirstSpin(false);
+            }
+
+            //play a stop video
+            setVideoId(newVideoId);
+            setIsPlaying(true);
+        }
+    };
+
+    // const videoHasEndedNoCallback = (stopId: number) => {
+    //     setIsPlaying(false);
+    //     //here we match the stop video with the new start video
+    //     setNewVideoId(stopId - 14);
+    //     //set prize and/or ticket
+    //     const {prize, outcome} = computePrize(stopId, wheelPositions, activeBet);
+    //     const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
+    //     // console.log('set recent plays _6.1 ', lastPlay, activeBet, prize, outcome);
+    //     // console.log('set recent plays _6.1 ', recentPlays);
+    //     setRecentPlays([...recentPlays, lastPlay]);
+    //
+    //     if (prize === 1) {
+    //         setTicket(ticket + prize);
+    //     } else {
+    //         updateBalance(prize);
+    //     }
+    // }
 
     //this is the callback from canvas at video end
     // const videoHasEnded = (newId: number) => {
@@ -245,27 +287,26 @@ const WheelContainer: React.FC = () => {
                     <Loading/>
                 </div>
             ) : (
-                <div>x</div>
-                // videoBlobs.length > 0 &&
-                // videoBlobs.map((videoBlob, index) => (
-                //     <video
-                //         key={videoBlob}
-                //         ref={(el) => {
-                //             videoRefs.current[index] = el
-                //         }}
-                //         onEnded={handleVideoEnd}
-                //         loop={false}
-                //         controls={false}
-                //         muted={isMuted}
-                //         playsInline
-                //         poster="/images/frame-0.png"
-                //         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
-                //             videoId === index + 1 ? "block" : "hidden"
-                //         }`}
-                //         src={videoBlob}
-                //     />
-                //
-                // ))
+                videoBlobs.length > 0 &&
+                videoBlobs.map((videoBlob, index) => (
+                    <video
+                        key={videoBlob}
+                        ref={(el) => {
+                            videoRefs.current[index] = el
+                        }}
+                        onEnded={handleVideoEnd}
+                        loop={false}
+                        controls={false}
+                        muted={isMuted}
+                        playsInline
+                        // poster="/images/frame-0.png"
+                        className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
+                            videoId === index + 1 ? "block" : "hidden"
+                        }`}
+                        src={videoBlob}
+                    />
+
+                ))
             )
             }
             {!isPlaying && !isLoading && activeBet > 0 && (
@@ -319,9 +360,9 @@ const WheelContainer: React.FC = () => {
                                 />
                             </div>
                         ))}
-                        <button onClick={handlePlayVideo}
-                                className="font-red z-2000 border-1 border-solid border-red p-1">Play
-                        </button>
+                        {/*<button onClick={handlePlayVideo}*/}
+                        {/*        className="font-red z-2000 border-1 border-solid border-red p-1">Play*/}
+                        {/*</button>*/}
                     </div>
                 </div>
 
@@ -335,10 +376,10 @@ const WheelContainer: React.FC = () => {
                                 <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
                             }
                             <Socials/>
-                            <button onClick={handlePlayVideo}
-                                    className="font-red z-2000 border-1 border-solid border-red p-1 text-red-800">Play
-                            </button>
-                            <div className="text-white">{isPlaying ? "plays" : 'end'}</div>
+                            {/*<button onClick={handlePlayVideo}*/}
+                            {/*        className="font-red z-2000 border-1 border-solid border-red p-1 text-red-800">Play*/}
+                            {/*</button>*/}
+                            {/*<div className="text-white">{isPlaying ? "plays" : 'end'}</div>*/}
 
                         </div>
                     </div>
