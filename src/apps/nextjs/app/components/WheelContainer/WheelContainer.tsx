@@ -16,7 +16,7 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from 'next/image';
-
+import "./WheelContainer.css"
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -202,7 +202,6 @@ const WheelContainer: React.FC = () => {
         // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
         const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
-
         if (videoRefs.current[videoId - 1]) {
             videoRefs.current[videoId - 1]?.pause();
             if (videoId > wheelPositions) {
@@ -278,7 +277,21 @@ const WheelContainer: React.FC = () => {
     //         delete window.videoHasEnded;
     //     };
     // }, []);
-
+    // const prepareVideo = (index) => {
+    //     console.log('se face prepare de video ID care este ', index)
+    //     const video = videoRefs.current[index];
+    //     if (video) {
+    //         video.play().then(() => {
+    //             video.pause();
+    //             video.currentTime = 0.01;
+    //         });
+    //     }
+    // };
+    //
+    // useEffect(() => {
+    //     const nextIndex = (videoId + 1) % videoBlobs.length;
+    //     prepareVideo(nextIndex);
+    // }, [videoId]);
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
@@ -299,6 +312,7 @@ const WheelContainer: React.FC = () => {
                         controls={false}
                         muted={isMuted}
                         playsInline
+                        preload="auto"
                         // poster="/images/frame-0.png"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
                             videoId === index + 1 ? "block" : "hidden"
