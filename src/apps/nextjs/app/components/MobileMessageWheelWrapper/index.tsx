@@ -9,13 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const MobileMessageWheelWrapper = () => {
     const [isPortrait, setIsPortrait] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             const updateMedia = () => {
                 setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
-                setIsMobile(window.innerWidth <= 768);
+                setIsMobile(window.innerWidth <= 980);
             };
 
             updateMedia();
@@ -52,18 +52,15 @@ export const MobileMessageWheelWrapper = () => {
 
 
     return (<div>
-        {isPortrait && isMobile ? (
-            <div className="relative flex items-center justify-center min-h-screen h-screen w-screen min-w-screen">
-                <LogoTitle/>
-                <div
-                    className="absolute top-0 left-0 bottom-0 right-0 w-screen h-screen bg-gray-800 bg-opacity-55 z-10"></div>
+        {isMobile ? (
+            <div className="relative flex items-center justify-center min-h-screen min-w-screen bg-custom-bg bg-cover bg-center w-screen h-screen">
                 <Image
-                    src="/images/orientation-x.png"
-                    alt="Centered Image"
-                    className="absolute w-auto h-auto z-20"
-                    width={400}
-                    height={600}
+                    src="/images/output-start.jpg"
+                    alt="Background Image"
+                    layout="fill"
+                    priority
                 />
+
             </div>
         ) : (
             <>
