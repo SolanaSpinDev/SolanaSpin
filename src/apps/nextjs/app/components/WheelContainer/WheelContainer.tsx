@@ -15,7 +15,7 @@ import {Socials} from "@/app/components/Socials";
 import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
-import Image, {StaticImageData} from 'next/image';
+import Image, {StaticImageData} from "next/legacy/image";
 import "./WheelContainer.css"
 
 const WheelContainer: React.FC = () => {

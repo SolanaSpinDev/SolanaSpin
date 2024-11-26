@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from 'react';
 import WheelContainer from "@/app/components/WheelContainer/WheelContainer";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Slide, toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -58,6 +58,8 @@ export const MobileMessageWheelWrapper = () => {
                     src="/images/output-start.jpg"
                     alt="Background Image"
                     layout="fill"
+                    objectFit="cover"
+                    objectPosition="center"
                     priority
                 />
 
