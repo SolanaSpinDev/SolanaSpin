@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {getRandomNumber, jackpotLimit} from "@/lib/utils";
 import './Jackpot.css'
 import {NauSea} from "@/app/fonts/fonts";
