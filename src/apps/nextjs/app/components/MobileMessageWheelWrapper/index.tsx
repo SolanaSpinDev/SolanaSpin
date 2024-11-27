@@ -6,6 +6,7 @@ import Image from "next/legacy/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Slide, toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import MobileModal from "@/app/components/MobileModal";
 
 export const MobileMessageWheelWrapper = () => {
     const [isPortrait, setIsPortrait] = useState(false);
@@ -53,7 +54,8 @@ export const MobileMessageWheelWrapper = () => {
 
     return (<div>
         {isMobile ? (
-            <div className="relative flex items-center justify-center min-h-screen min-w-screen bg-custom-bg bg-cover bg-center w-screen h-screen">
+            <div
+                className="relative flex items-center justify-center min-h-screen min-w-screen bg-custom-bg bg-cover bg-center w-screen h-screen">
                 <Image
                     src="/images/output-start.jpg"
                     alt="Background Image"
@@ -62,6 +64,8 @@ export const MobileMessageWheelWrapper = () => {
                     objectPosition="center"
                     priority
                 />
+
+                    <MobileModal/>
 
             </div>
         ) : (
