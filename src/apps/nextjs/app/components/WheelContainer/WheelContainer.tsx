@@ -21,7 +21,7 @@ import "./WheelContainer.css"
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
-    const videoRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
     const [videoId, setVideoId] = useState(1);
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
@@ -253,10 +253,10 @@ const WheelContainer: React.FC = () => {
             setTimeout(() => {
                 setImageX(imageList[flag]);
             }, 1000)
-        } catch (err) {
+        } catch (err: unknown) {
             console.log('error')
 
-            setError(err.message); // Handle errors
+            // setError(err.message); // Handle errors
         } finally {
             setIsLoading(false);
             setIsPlaying(false);
