@@ -53,37 +53,20 @@ export const MobileMessageWheelWrapper = () => {
 
 
     return (<div>
-        {isMobile ? (
-            <div
-                className="relative flex items-center justify-center min-h-screen min-w-screen bg-custom-bg bg-cover bg-center w-screen h-screen">
-                <Image
-                    src="/images/output-start.jpg"
-                    alt="Background Image"
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center"
-                    priority
-                />
 
-                    <MobileModal/>
+            <ToastContainer
+                position="top-right"
+                autoClose={2500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+            <WheelContainer/>
 
-            </div>
-        ) : (
-            <>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={2500}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                />
-                <WheelContainer/>
-            </>
-        )}
     </div>)
 }

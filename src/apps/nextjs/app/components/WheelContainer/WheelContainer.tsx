@@ -21,6 +21,7 @@ import "./WheelContainer.css"
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
+    const videoRef = useRef(null);
     const [videoId, setVideoId] = useState(1);
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
@@ -34,6 +35,11 @@ const WheelContainer: React.FC = () => {
     const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
     const [newVideoId, setNewVideoId] = useState(-1);
+    const [error, setError] = useState(null); // State to handle errors
+    const [videoX, setVideoX] = useState('');
+    const [imageX, setImageX] = useState('/images/gift_start.png');
+    const [flag, setFlag] = useState(0);
+    const [isLoadingVideo, setIsLoadingVideo] = useState(true);
 
     useEffect(() => {
         const userAgent = navigator.userAgent;
@@ -55,27 +61,27 @@ const WheelContainer: React.FC = () => {
     }, []);
     //
     //logic for load videos
-    useEffect(() => {
-        const loadVideos = async () => {
-            setIsLoading(true);
-            const lowResBlobs = await Promise.all(
-                videoSourcesHighRes.map(async (src) => {
-                    const response = await fetch(src);
-                    const blob = await response.blob();
-                    return URL.createObjectURL(blob);
-                })
-            );
-            setIsLoading(false);
-            setVideoBlobs(lowResBlobs);
-        };
-
-        const startLoading = async () => {
-            await loadVideos();
-        };
-
-        startLoading()
-            .then(r => r)
-    }, []);
+    // useEffect(() => {
+    //     const loadVideos = async () => {
+    //         setIsLoading(true);
+    //         const lowResBlobs = await Promise.all(
+    //             videoSourcesHighRes.map(async (src) => {
+    //                 const response = await fetch(src);
+    //                 const blob = await response.blob();
+    //                 return URL.createObjectURL(blob);
+    //             })
+    //         );
+    //         setIsLoading(false);
+    //         setVideoBlobs(lowResBlobs);
+    //     };
+    //
+    //     const startLoading = async () => {
+    //         await loadVideos();
+    //     };
+    //
+    //     startLoading()
+    //         .then(r => r)
+    // }, []);
 
     useEffect((): void => {
         if (isPlaying && videoRefs.current[videoId - 1]) {
@@ -198,6 +204,67 @@ const WheelContainer: React.FC = () => {
         setIsPlaying(true);
     };
 
+    useEffect(() => {
+        if (videoX && videoRef.current) {
+            // Play the video once the URL is set
+            videoRef.current.play();
+        }
+    }, [videoX]);
+
+
+    const handlePlayVideoDb = async () => {
+        const videosList = [
+            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
+            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 C.mp4",
+            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
+            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
+            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
+            "https://solanaspin.io/full-videos/gift_diamond.mp4",
+            "https://solanaspin.io/full-videos/diamond_X0.1_B.mp4",
+            "https://solanaspin.io/full-videos/X0.1_B-X0.1_B.mp4",
+            "https://solanaspin.io/full-videos/X0.1_B-X50.mp4",
+            "https://solanaspin.io/full-videos/X050-No_Win_A.mp4",
+        ]
+        const imageList = [
+            "./videos/720p/full_videos/images/gift_diamond.png",
+            "./videos/720p/full_videos/images/diamond_X0.1_B.png",
+            "./videos/720p/full_videos/images/X0.1_B-X0.1_B.png",
+            "./videos/720p/full_videos/images/X0.1_B-X50.png",
+            "./videos/720p/full_videos/images/X050-No_Win_A.png",
+        ]
+        const index = flag === 0 ? flag : imageList.length % flag;
+
+
+        console.log('se face call-ul playVideoDb', flag, imageX,);
+        console.log('index is', index,);
+        setIsLoading(true); // Start loading
+        setIsPlaying(true); // Start loading
+        setError(null); // Reset any previous errors
+        try {
+            const response = await fetch(videosList[flag]); // Adjust endpoint as needed
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            console.log('blob')
+            console.log(url)
+            setVideoX(url); // Update state with fetched data
+            setTimeout(() => {
+                setImageX(imageList[flag]);
+            }, 1000)
+        } catch (err) {
+            console.log('error')
+
+            setError(err.message); // Handle errors
+        } finally {
+            setIsLoading(false);
+            setIsPlaying(false);
+            setFlag(flag + 1);
+
+        }
+    }
+
     const handleVideoEnd = (): void => {
         // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
@@ -291,22 +358,59 @@ const WheelContainer: React.FC = () => {
     // useEffect(() => {
     //     const nextIndex = (videoId + 1) % videoBlobs.length;
     //     prepareVideo(nextIndex);
-    // }, [videoId]);
+    // }, [videoId]);imageList
+    // '/images/output-start.jpg'
     return (
         <div
-            className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
+            className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden  video-container">
+            <div
+                style={{backgroundImage: `url('${imageX}')`}}
+                className={`bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}>
+                {/*<Loading/>*/}
+            </div>
+            {/*{isLoading ? (*/}
+            {/*    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">*/}
+            {/*        <Loading/>*/}
+            {/*    </div>*/}
+            {/*) : (*/}
+            {/*    videoBlobs.length > 0 &&*/}
+            {/*    videoBlobs.map((videoBlob, index) => (*/}
+            {/*        <video*/}
+            {/*            key={videoBlob}*/}
+            {/*            ref={(el) => {*/}
+            {/*                videoRefs.current[index] = el*/}
+            {/*            }}*/}
+            {/*            onEnded={handleVideoEnd}*/}
+            {/*            loop={false}*/}
+            {/*            controls={false}*/}
+            {/*            muted={isMuted}*/}
+            {/*            playsInline*/}
+            {/*            preload="auto"*/}
+            {/*            // poster="/images/frame-0.png"*/}
+            {/*            className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${*/}
+            {/*                videoId === index + 1 ? "block" : "hidden"*/}
+            {/*            }`}*/}
+            {/*            src={videoBlob}*/}
+            {/*        />*/}
+
+            {/*    ))*/}
+            {/*)*/}
+            {/*}*/}
+
             {isLoading ? (
-                <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                    <Loading/>
-                </div>
+                <div></div>
+                // <div
+                //     className="bg-[url('/images/S_W_Picture_Wood Wheel_16 9.png')] bg-cover bg-center bg-red-500 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2  w-[400px] h-[400px]">
+                //     {/*<Loading/>*/}
+                // </div>
             ) : (
-                videoBlobs.length > 0 &&
-                videoBlobs.map((videoBlob, index) => (
+                <>
+                    <div
+                        className="bg-[url('/images/S_W_Picture_Wood Wheel_16 9.png')] bg-cover bg-center absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[400px] h-[400px]">
+                    </div>
                     <video
-                        key={videoBlob}
-                        ref={(el) => {
-                            videoRefs.current[index] = el
-                        }}
+                        ref={videoRef}
+                        key={videoX}
                         onEnded={handleVideoEnd}
                         loop={false}
                         controls={false}
@@ -314,26 +418,24 @@ const WheelContainer: React.FC = () => {
                         playsInline
                         preload="auto"
                         // poster="/images/frame-0.png"
-                        className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
-                            videoId === index + 1 ? "block" : "hidden"
-                        }`}
-                        src={videoBlob}
+                        className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}
+                        src={videoX}
                     />
-
-                ))
+                </>
             )
             }
+
             {!isPlaying && !isLoading && activeBet > 0 && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
                         onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {
                                 event.preventDefault(); // Prevents default spacebar scrolling behavior
-                                handlePlayVideo();
+                                handlePlayVideoDb();
                             }
                         }}
                         className="w-[140px] h-[140px] rounded-full"
-                        onClick={handlePlayVideo}
+                        onClick={handlePlayVideoDb}
                     ></button>
                 </div>
             )}
@@ -390,10 +492,10 @@ const WheelContainer: React.FC = () => {
                                 <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
                             }
                             <Socials/>
-                            {/*<button onClick={handlePlayVideo}*/}
-                            {/*        className="font-red z-2000 border-1 border-solid border-red p-1 text-red-800">Play*/}
-                            {/*</button>*/}
-                            {/*<div className="text-white">{isPlaying ? "plays" : 'end'}</div>*/}
+                            <button onClick={handlePlayVideoDb}
+                                    className="font-red z-2000 border-1 border-solid border-red p-1 text-red-800">Play
+                            </button>
+                            <div className="text-white">{isPlaying ? "plays" : 'end'}</div>
 
                         </div>
                     </div>
