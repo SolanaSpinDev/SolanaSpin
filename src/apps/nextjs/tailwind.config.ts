@@ -11,7 +11,7 @@ const config: Config = {
     theme: {
         extend: {
             backgroundImage: {
-                'custom-bg': "url('/images/output-start.jpg')",
+                'video-container-bg': "url('/images/output-start.jpg')",
             },
             colors: {
                 background: "var(--background)",

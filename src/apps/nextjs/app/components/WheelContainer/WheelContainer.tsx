@@ -15,13 +15,11 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from "next/legacy/image";
-import "./WheelContainer.css"
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
     const videoRef = useRef<HTMLVideoElement | null>(null);
-    const [videoId, setVideoId] = useState(1);
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +31,7 @@ const WheelContainer: React.FC = () => {
     const [isMuted, setIsMuted] = useState(true);
     const [error, setError] = useState(null); // State to handle errors
     const [videoX, setVideoX] = useState('');
-    const [imageX, setImageX] = useState('/images/gift_start.png');
+    const [imageX, setImageX] = useState('');
     const [flag, setFlag] = useState(0);
 
     const updateBalance = useCallback((extraValue: number): void => {
@@ -163,8 +161,8 @@ const WheelContainer: React.FC = () => {
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden  video-container">
             <div
-                style={{backgroundImage: `url('${imageX}')`}}
-                className={`url('/images/gift_start.png') bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}>
+                style={imageX ? {backgroundImage: `url('${imageX}')`} : undefined}
+                className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
             </div>
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
