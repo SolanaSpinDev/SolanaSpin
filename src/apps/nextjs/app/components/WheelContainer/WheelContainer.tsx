@@ -6,7 +6,6 @@ import {
     computePrize,
     getRandomNumber,
     wheelPositions,
-    videoSourcesHighRes
 } from "@/lib/utils";
 import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
@@ -25,96 +24,29 @@ const WheelContainer: React.FC = () => {
     const [videoId, setVideoId] = useState(1);
     const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
-    const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesHighRes.length).fill(null)); // Store preloaded video blob URLs
-    const [firstSpin, setFirstSpin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
-    const [newVideoId, setNewVideoId] = useState(-1);
     const [error, setError] = useState(null); // State to handle errors
     const [videoX, setVideoX] = useState('');
     const [imageX, setImageX] = useState('/images/gift_start.png');
     const [flag, setFlag] = useState(0);
-    const [isLoadingVideo, setIsLoadingVideo] = useState(true);
-
-    useEffect(() => {
-        const userAgent = navigator.userAgent;
-
-        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
-        if (isMobile) {
-            if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
-                setBrowser('safari-mobile');
-            } else if (userAgent.includes('CriOS') || userAgent.includes('Chrome')) {
-                setBrowser('chrome-mobile');
-            } else if (userAgent.includes('FxiOS') || userAgent.includes('Firefox')) {
-                setBrowser('firefox-mobile');
-            } else {
-                setBrowser('default-mobile');
-            }
-        } else {
-            setBrowser('default');
-        }
-    }, []);
-    //
-    //logic for load videos
-    // useEffect(() => {
-    //     const loadVideos = async () => {
-    //         setIsLoading(true);
-    //         const lowResBlobs = await Promise.all(
-    //             videoSourcesHighRes.map(async (src) => {
-    //                 const response = await fetch(src);
-    //                 const blob = await response.blob();
-    //                 return URL.createObjectURL(blob);
-    //             })
-    //         );
-    //         setIsLoading(false);
-    //         setVideoBlobs(lowResBlobs);
-    //     };
-    //
-    //     const startLoading = async () => {
-    //         await loadVideos();
-    //     };
-    //
-    //     startLoading()
-    //         .then(r => r)
-    // }, []);
-
-    useEffect((): void => {
-        if (isPlaying && videoRefs.current[videoId - 1]) {
-            // Play the new video
-            videoRefs.current[videoId - 1]?.play().then(r => r);
-        }
-    }, [videoId, isPlaying]);
-
-    useEffect(() => {
-        videoRefs.current.forEach((video, idx) => {
-            if (video) {
-                if (idx === videoId - 1) {
-                    video.play().then(r => r);
-                } else {
-                    video.pause();
-                }
-            }
-        });
-    }, [videoId]);
 
     const updateBalance = useCallback((extraValue: number): void => {
         return setBalance(balance => balance + extraValue)
     }, [])
 
     function selectBet(bet: number): void {
-        console.log('set bet ', bet)
         if (!isPlaying) {
             setActiveBet(bet);
         }
     }
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
-
         updateBalance(data.jackpotValue);
         setSpecialPrize(data.jackpotValue);
         setHasWonSpecialPrize(true);
@@ -126,82 +58,11 @@ const WheelContainer: React.FC = () => {
     }, []);
 
     const toggleMute = (): void => {
-        //send the mute event
-
-        const video = videoRefs.current[videoId - 1];
+        const video = videoRef.current;
         if (video) {
             video.muted = !isMuted;
             setIsMuted(!isMuted);
         }
-    };
-
-    // function setCanvasVideoIds(startId: number, stopId: number) {
-    //     console.log('se face set de CanvarVideoId _1 ', startId)
-    //     console.log('se face set de CanvarVideoId _1stopId ', stopId)
-    //     // @typescript-eslint/no-explicit-any
-    //     // @ts-expect-error: it is x
-    //     return (window as unknown).a(startId, stopId);
-    // }
-
-    //logic for play video
-    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-    // const handleVideoEnd = (): void => {
-    //     // The video naturally stays on the last frame when ended, no action needed.
-    //     setIsPlaying(false);
-    //     const newVideoId = getRandomNumber(wheelPositions, wheelPositions * 2 - 1);
-    //
-    //     if (videoRefs.current[videoId - 1]) {
-    //         videoRefs.current[videoId - 1]?.pause();
-    //         if (videoId > wheelPositions) {
-    //             const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
-    //             const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-    //             setRecentPlays([...recentPlays, lastPlay]);
-    //
-    //             if (prize === 1) {
-    //                 setTicket(ticket + prize);
-    //             } else {
-    //                 updateBalance(prize);
-    //             }
-    //         }
-    //     }
-    //     if (videoId < wheelPositions + 1) {
-    //         if (firstSpin) {
-    //             setFirstSpin(false);
-    //         }
-    //
-    //         //play a stop video
-    //         setVideoId(newVideoId);
-    //         setCanvasVideoId(newVideoId);
-    //         setIsPlaying(true);
-    //     }
-    // };
-
-    //logic for play video
-    // const handlePlayVideo = (): void => {
-    //     console.log('se face play de video _0');
-    //     /**
-    //      * this will save us from adding a flag for initialSpin
-    //      * */
-    //     const startId = newVideoId < 0 ? 0 : newVideoId;
-    //     const stopId = getRandomNumber(14, 27);
-    //     setCanvasVideoIds(startId, stopId);
-    //     setIsPlaying(true);
-    //     setTimeout(() => {
-    //         videoHasEndedNoCallback(stopId)
-    //     }, 5000);//assumption that the video will take 9 seconds maybe fix it with the real video duration
-    // };
-
-    const handlePlayVideo = (): void => {
-        if (firstSpin) {
-            setVideoId(1);
-            setIsPlaying(true);
-
-            return;
-        }
-        // we reach here only when a video from result category has been played - videoId > 2 * wheelPositions
-
-        setVideoId(videoId - wheelPositions);
-        setIsPlaying(true);
     };
 
     useEffect(() => {
@@ -211,6 +72,12 @@ const WheelContainer: React.FC = () => {
         }
     }, [videoX]);
 
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.onplay = () => setIsPlaying(true);
+            videoRef.current.onpause = () => setIsPlaying(false);
+        }
+    }, []);
 
     const handlePlayVideoDb = async () => {
         const videosList = [
@@ -226,40 +93,44 @@ const WheelContainer: React.FC = () => {
             "https://solanaspin.io/full-videos/X050-No_Win_A.mp4",
         ]
         const imageList = [
-            "./videos/720p/full_videos/images/gift_diamond.png",
-            "./videos/720p/full_videos/images/diamond_X0.1_B.png",
-            "./videos/720p/full_videos/images/X0.1_B-X0.1_B.png",
-            "./videos/720p/full_videos/images/X0.1_B-X50.png",
-            "./videos/720p/full_videos/images/X050-No_Win_A.png",
+            "https://solanaspin.io/full-images/gift_diamond.png",
+            "https://solanaspin.io/full-images/diamond_X0.1_B.png",
+            "https://solanaspin.io/full-images/X0.1_B-X0.1_B.png",
+            "https://solanaspin.io/full-images/X0.1_B-X50.png",
+            "https://solanaspin.io/full-images/X050-No_Win_A.png",
         ]
-        const index = flag === 0 ? flag : imageList.length % flag;
-
-
-        console.log('se face call-ul playVideoDb', flag, imageX,);
-        console.log('index is', index,);
-        setIsLoading(true); // Start loading
-        setIsPlaying(true); // Start loading
+        setIsLoading(true);
+        setIsPlaying(true);
         setError(null); // Reset any previous errors
         try {
+            const [responseVideo, responseImage] = await Promise.all([
+                fetch(videosList[flag]),
+                fetch(imageList[flag]),
+            ]);
             const response = await fetch(videosList[flag]); // Adjust endpoint as needed
-            if (!response.ok) {
+            if (!responseVideo.ok || !responseImage.ok) {
                 throw new Error('Failed to fetch data');
             }
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            console.log('blob')
-            console.log(url)
-            setVideoX(url); // Update state with fetched data
+
+            //get video
+            const blobVideo = await responseVideo.blob();
+            const urlVideo = URL.createObjectURL(blobVideo);
+
+            //get image
+            const blobImage = await responseImage.blob();
+            const urlImage = URL.createObjectURL(blobImage);
+
+            setVideoX(urlVideo); // Update state with fetched data
             setTimeout(() => {
-                setImageX(imageList[flag]);
+                setImageX(urlImage);
             }, 1000)
         } catch (err: unknown) {
+            console.log(err)
             console.log('error')
+            setIsLoading(false);
 
-            // setError(err.message); // Handle errors
         } finally {
             setIsLoading(false);
-            setIsPlaying(false);
             setFlag(flag + 1);
 
         }
@@ -268,146 +139,42 @@ const WheelContainer: React.FC = () => {
     const handleVideoEnd = (): void => {
         // The video naturally stays on the last frame when ended, no action needed.
         setIsPlaying(false);
-        const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
-        if (videoRefs.current[videoId - 1]) {
-            videoRefs.current[videoId - 1]?.pause();
-            if (videoId > wheelPositions) {
-                const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
-                const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-                setRecentPlays([...recentPlays, lastPlay]);
 
-                if (prize === 1) {
-                    setTicket(ticket + prize);
-                } else {
-                    updateBalance(prize);
-                }
-            }
-        }
-        if (videoId < wheelPositions + 1) {
-            if (firstSpin) {
-                setFirstSpin(false);
-            }
+        // update Recent plays accordingly
 
-            //play a stop video
-            setVideoId(newVideoId);
-            setIsPlaying(true);
-        }
+        // const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
+        // if (videoRefs.current[videoId - 1]) {
+        //     videoRefs.current[videoId - 1]?.pause();
+        //     if (videoId > wheelPositions) {
+        //         const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
+        //         const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
+        //         setRecentPlays([...recentPlays, lastPlay]);
+        //
+        //         if (prize === 1) {
+        //             setTicket(ticket + prize);
+        //         } else {
+        //             updateBalance(prize);
+        //         }
+        //     }
+        // }
     };
 
-    // const videoHasEndedNoCallback = (stopId: number) => {
-    //     setIsPlaying(false);
-    //     //here we match the stop video with the new start video
-    //     setNewVideoId(stopId - 14);
-    //     //set prize and/or ticket
-    //     const {prize, outcome} = computePrize(stopId, wheelPositions, activeBet);
-    //     const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-    //     // console.log('set recent plays _6.1 ', lastPlay, activeBet, prize, outcome);
-    //     // console.log('set recent plays _6.1 ', recentPlays);
-    //     setRecentPlays([...recentPlays, lastPlay]);
-    //
-    //     if (prize === 1) {
-    //         setTicket(ticket + prize);
-    //     } else {
-    //         updateBalance(prize);
-    //     }
-    // }
-
-    //this is the callback from canvas at video end
-    // const videoHasEnded = (newId: number) => {
-    //     // console.log('Video has ended! and newID is  _05 ', newId);
-    //
-    //     // console.log('Canvas video has ended! and newID is at final step  _06 ', newId);
-    //     setIsPlaying(false);
-    //     //here we match the stop video with the new start video
-    //     setNewVideoId(newId - 14);
-    //     //set prize and/or ticket
-    //     const {prize, outcome} = computePrize(newId, wheelPositions, activeBet);
-    //     const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-    //     // console.log('set recent plays _6.1 ', lastPlay, activeBet, prize, outcome);
-    //     // console.log('set recent plays _6.1 ', recentPlays);
-    //     setRecentPlays([...recentPlays, lastPlay]);
-    //
-    //     if (prize === 1) {
-    //         setTicket(ticket + prize);
-    //     } else {
-    //         updateBalance(prize);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     //@ts-expect-error (if you're using TypeScript, ignore type errors here)
-    //     // window.videoHasEnded = (newId: number) => videoHasEnded(newId);
-    //
-    //     // Cleanup function to remove the global reference when the component unmounts
-    //     return () => {
-    //         //@ts-expect-error (if you're using TypeScript, ignore type errors here)
-    //         delete window.videoHasEnded;
-    //     };
-    // }, []);
-    // const prepareVideo = (index) => {
-    //     console.log('se face prepare de video ID care este ', index)
-    //     const video = videoRefs.current[index];
-    //     if (video) {
-    //         video.play().then(() => {
-    //             video.pause();
-    //             video.currentTime = 0.01;
-    //         });
-    //     }
-    // };
-    //
-    // useEffect(() => {
-    //     const nextIndex = (videoId + 1) % videoBlobs.length;
-    //     prepareVideo(nextIndex);
-    // }, [videoId]);imageList
-    // '/images/output-start.jpg'
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden  video-container">
             <div
                 style={{backgroundImage: `url('${imageX}')`}}
-                className={`bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}>
-                {/*<Loading/>*/}
+                className={`url('/images/gift_start.png') bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}>
             </div>
-            {/*{isLoading ? (*/}
-            {/*    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">*/}
-            {/*        <Loading/>*/}
-            {/*    </div>*/}
-            {/*) : (*/}
-            {/*    videoBlobs.length > 0 &&*/}
-            {/*    videoBlobs.map((videoBlob, index) => (*/}
-            {/*        <video*/}
-            {/*            key={videoBlob}*/}
-            {/*            ref={(el) => {*/}
-            {/*                videoRefs.current[index] = el*/}
-            {/*            }}*/}
-            {/*            onEnded={handleVideoEnd}*/}
-            {/*            loop={false}*/}
-            {/*            controls={false}*/}
-            {/*            muted={isMuted}*/}
-            {/*            playsInline*/}
-            {/*            preload="auto"*/}
-            {/*            // poster="/images/frame-0.png"*/}
-            {/*            className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${*/}
-            {/*                videoId === index + 1 ? "block" : "hidden"*/}
-            {/*            }`}*/}
-            {/*            src={videoBlob}*/}
-            {/*        />*/}
-
-            {/*    ))*/}
-            {/*)*/}
-            {/*}*/}
-
             {isLoading ? (
-                <div></div>
-                // <div
-                //     className="bg-[url('/images/S_W_Picture_Wood Wheel_16 9.png')] bg-cover bg-center bg-red-500 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2  w-[400px] h-[400px]">
-                //     {/*<Loading/>*/}
-                // </div>
+                <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                    <Loading/>
+                </div>
             ) : (
                 <>
-                    <div
-                        className="bg-[url('/images/S_W_Picture_Wood Wheel_16 9.png')] bg-cover bg-center absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[400px] h-[400px]">
-                    </div>
+                    {/*<div*/}
+                    {/*    className="bg-[url('/images/S_W_Picture_Wood Wheel_16 9.png')] bg-cover bg-center absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[400px] h-[400px]">*/}
+                    {/*</div>*/}
                     <video
                         ref={videoRef}
                         key={videoX}
@@ -426,11 +193,11 @@ const WheelContainer: React.FC = () => {
             }
 
             {!isPlaying && !isLoading && activeBet > 0 && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100] xxxxx">
                     <button
                         onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {
-                                event.preventDefault(); // Prevents default spacebar scrolling behavior
+                                event.preventDefault();
                                 handlePlayVideoDb();
                             }
                         }}
@@ -465,7 +232,7 @@ const WheelContainer: React.FC = () => {
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
-                            <div className="relative lg:mr-4 lg:mb-4" key={bet.value}>
+                            <div className="relative lg:mr-4 lg:mb-4 cursor-pointer" key={bet.value}>
                                 <Image
                                     src={bet.src}
                                     className=""
@@ -476,9 +243,6 @@ const WheelContainer: React.FC = () => {
                                 />
                             </div>
                         ))}
-                        {/*<button onClick={handlePlayVideo}*/}
-                        {/*        className="font-red z-2000 border-1 border-solid border-red p-1">Play*/}
-                        {/*</button>*/}
                     </div>
                 </div>
 
@@ -492,11 +256,6 @@ const WheelContainer: React.FC = () => {
                                 <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
                             }
                             <Socials/>
-                            <button onClick={handlePlayVideoDb}
-                                    className="font-red z-2000 border-1 border-solid border-red p-1 text-red-800">Play
-                            </button>
-                            <div className="text-white">{isPlaying ? "plays" : 'end'}</div>
-
                         </div>
                     </div>
                     <RecentPlays plays={recentPlays} ticket={ticket}/>

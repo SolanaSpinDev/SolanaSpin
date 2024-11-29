@@ -53,16 +53,6 @@ export default function RootLayout({
                 <main>{children}</main>
             </div>
         </NextUIProvider>
-        <Script
-            src="/js/videocontext.js"
-            strategy="afterInteractive"
-        />
-        <Script
-            src="/js/video-init.js"
-            strategy="afterInteractive"
-        />
-
-
         <script
             type="text/javascript"
             async
