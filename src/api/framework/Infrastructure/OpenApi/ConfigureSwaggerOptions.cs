@@ -29,7 +29,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
     private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
     {
-        var text = new StringBuilder("SolanaSpin (based on .NET 8 Starter Kit with Vertical Slice Architecture)!");
+        var text = new StringBuilder("SolanaSpin (with Vertical Slice Architecture)!");
         var info = new OpenApiInfo()
         {
             Title = "SolanaSpin.WebApi",

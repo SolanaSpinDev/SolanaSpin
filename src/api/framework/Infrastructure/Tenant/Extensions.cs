@@ -28,16 +28,16 @@ internal static class Extensions
             {
                 // to save database calls to resolve tenant
                 // this was happening for every request earlier, leading to ineffeciency
-                config.Events.OnTenantResolved = async (context) =>
+                config.Events.OnTenantResolveCompleted = async (context) =>
                 {
-                    if (context.StoreType != typeof(DistributedCacheStore<FshTenantInfo>))
+                    if (context.IsResolved && context.MultiTenantContext.StoreInfo!.StoreType != typeof(DistributedCacheStore<FshTenantInfo>))
                     {
                         var sp = ((HttpContext)context.Context!).RequestServices;
                         var distributedCacheStore = sp
                             .GetService<IEnumerable<IMultiTenantStore<FshTenantInfo>>>()!
                             .FirstOrDefault(s => s.GetType() == typeof(DistributedCacheStore<FshTenantInfo>));
 
-                        await distributedCacheStore!.TryAddAsync((FshTenantInfo)context.TenantInfo!);
+                        await distributedCacheStore!.TryAddAsync((FshTenantInfo)context.MultiTenantContext.TenantInfo!);
                     }
                     await Task.FromResult(0);
                 };

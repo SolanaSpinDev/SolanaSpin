@@ -4,6 +4,21 @@
     <AssemblyName>SolanaSpin.WebApi.Migrations.PostgreSQL</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Carter" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Hangfire" />
+    <PackageReference Include="Mapster" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Sinks.Async" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="System.Text.Json" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\framework\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\modules\Playground\Playground.csproj" />
   </ItemGroup>

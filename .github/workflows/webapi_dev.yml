@@ -25,7 +25,8 @@ jobs:
       - name: setup dotnet
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
+          dotnet-quality: preview
       - name: restore dependencies
         run: dotnet restore ./src/api/server/Server.csproj
       - name: build
@@ -49,6 +50,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
       - name: publish to github container registry
         working-directory: ./src/api/server/
         run: |
