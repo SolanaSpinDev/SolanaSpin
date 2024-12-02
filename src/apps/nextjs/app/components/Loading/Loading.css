@@ -1,156 +1,477 @@
 .spinner {
-  width: 350px;
-  height: 350px;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (min-width: 1024px) {
-  .spinner {
-    width: 650px;
-    height: 650px;
-  }
+    .spinner {
+        width: 650px;
+        height: 650px;
+    }
 }
-.spinner {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.light {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #fff9f9;
-  box-shadow: 0 0 15px rgba(255, 249, 249, 0.7);
-  opacity: 0.2;
-  animation: blink 1.8s linear infinite;
-}
-.light:nth-child(1) { transform: rotate(0deg) translate(155px); }
-.light:nth-child(2) { transform: rotate(10deg) translate(155px); }
-.light:nth-child(3) { transform: rotate(20deg) translate(155px); }
-.light:nth-child(4) { transform: rotate(30deg) translate(155px); }
-.light:nth-child(5) { transform: rotate(40deg) translate(155px); }
-.light:nth-child(6) { transform: rotate(50deg) translate(155px); }
-.light:nth-child(7) { transform: rotate(60deg) translate(155px); }
-.light:nth-child(8) { transform: rotate(70deg) translate(155px); }
-.light:nth-child(9) { transform: rotate(80deg) translate(155px); }
-.light:nth-child(10) { transform: rotate(90deg) translate(155px); }
-.light:nth-child(11) { transform: rotate(100deg) translate(155px); }
-.light:nth-child(12) { transform: rotate(110deg) translate(155px); }
-.light:nth-child(13) { transform: rotate(120deg) translate(155px); }
-.light:nth-child(14) { transform: rotate(130deg) translate(155px); }
-.light:nth-child(15) { transform: rotate(140deg) translate(155px); }
-.light:nth-child(16) { transform: rotate(150deg) translate(155px); }
-.light:nth-child(17) { transform: rotate(160deg) translate(155px); }
-.light:nth-child(18) { transform: rotate(170deg) translate(155px); }
-.light:nth-child(19) { transform: rotate(180deg) translate(155px); }
-.light:nth-child(20) { transform: rotate(190deg) translate(155px); }
-.light:nth-child(21) { transform: rotate(200deg) translate(155px); }
-.light:nth-child(22) { transform: rotate(210deg) translate(155px); }
-.light:nth-child(23) { transform: rotate(220deg) translate(155px); }
-.light:nth-child(24) { transform: rotate(230deg) translate(155px); }
-.light:nth-child(25) { transform: rotate(240deg) translate(155px); }
-.light:nth-child(26) { transform: rotate(250deg) translate(155px); }
-.light:nth-child(27) { transform: rotate(260deg) translate(155px); }
-.light:nth-child(28) { transform: rotate(270deg) translate(155px); }
-.light:nth-child(29) { transform: rotate(280deg) translate(155px); }
-.light:nth-child(30) { transform: rotate(290deg) translate(155px); }
-.light:nth-child(31) { transform: rotate(300deg) translate(155px); }
-.light:nth-child(32) { transform: rotate(310deg) translate(155px); }
-.light:nth-child(33) { transform: rotate(320deg) translate(155px); }
-.light:nth-child(34) { transform: rotate(330deg) translate(155px); }
-.light:nth-child(35) { transform: rotate(340deg) translate(155px); }
-.light:nth-child(36) { transform: rotate(350deg) translate(155px); }
 
-@media(min-width: 1024px) {
-  .light:nth-child(1) { transform: rotate(0deg) translate(310px); }
-  .light:nth-child(2) { transform: rotate(10deg) translate(310px); }
-  .light:nth-child(3) { transform: rotate(20deg) translate(310px); }
-  .light:nth-child(4) { transform: rotate(30deg) translate(310px); }
-  .light:nth-child(5) { transform: rotate(40deg) translate(310px); }
-  .light:nth-child(6) { transform: rotate(50deg) translate(310px); }
-  .light:nth-child(7) { transform: rotate(60deg) translate(310px); }
-  .light:nth-child(8) { transform: rotate(70deg) translate(310px); }
-  .light:nth-child(9) { transform: rotate(80deg) translate(310px); }
-  .light:nth-child(10) { transform: rotate(90deg) translate(310px); }
-  .light:nth-child(11) { transform: rotate(100deg) translate(310px); }
-  .light:nth-child(12) { transform: rotate(110deg) translate(310px); }
-  .light:nth-child(13) { transform: rotate(120deg) translate(310px); }
-  .light:nth-child(14) { transform: rotate(130deg) translate(310px); }
-  .light:nth-child(15) { transform: rotate(140deg) translate(310px); }
-  .light:nth-child(16) { transform: rotate(150deg) translate(310px); }
-  .light:nth-child(17) { transform: rotate(160deg) translate(310px); }
-  .light:nth-child(18) { transform: rotate(170deg) translate(310px); }
-  .light:nth-child(19) { transform: rotate(180deg) translate(310px); }
-  .light:nth-child(20) { transform: rotate(190deg) translate(310px); }
-  .light:nth-child(21) { transform: rotate(200deg) translate(310px); }
-  .light:nth-child(22) { transform: rotate(210deg) translate(310px); }
-  .light:nth-child(23) { transform: rotate(220deg) translate(310px); }
-  .light:nth-child(24) { transform: rotate(230deg) translate(310px); }
-  .light:nth-child(25) { transform: rotate(240deg) translate(310px); }
-  .light:nth-child(26) { transform: rotate(250deg) translate(310px); }
-  .light:nth-child(27) { transform: rotate(260deg) translate(310px); }
-  .light:nth-child(28) { transform: rotate(270deg) translate(310px); }
-  .light:nth-child(29) { transform: rotate(280deg) translate(310px); }
-  .light:nth-child(30) { transform: rotate(290deg) translate(310px); }
-  .light:nth-child(31) { transform: rotate(300deg) translate(310px); }
-  .light:nth-child(32) { transform: rotate(310deg) translate(310px); }
-  .light:nth-child(33) { transform: rotate(320deg) translate(310px); }
-  .light:nth-child(34) { transform: rotate(330deg) translate(310px); }
-  .light:nth-child(35) { transform: rotate(340deg) translate(310px); }
-  .light:nth-child(36) { transform: rotate(350deg) translate(310px); }
+.light {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #fff9f9;
+    box-shadow: 0 0 15px rgba(255, 249, 249, 0.7);
+    opacity: 0.2;
+    animation: blink 1.8s linear infinite;
+}
+
+.light:nth-child(1) {
+    transform: rotate(0deg) translate(155px);
+}
+
+.light:nth-child(2) {
+    transform: rotate(10deg) translate(155px);
+}
+
+.light:nth-child(3) {
+    transform: rotate(20deg) translate(155px);
+}
+
+.light:nth-child(4) {
+    transform: rotate(30deg) translate(155px);
+}
+
+.light:nth-child(5) {
+    transform: rotate(40deg) translate(155px);
+}
+
+.light:nth-child(6) {
+    transform: rotate(50deg) translate(155px);
+}
+
+.light:nth-child(7) {
+    transform: rotate(60deg) translate(155px);
+}
+
+.light:nth-child(8) {
+    transform: rotate(70deg) translate(155px);
+}
+
+.light:nth-child(9) {
+    transform: rotate(80deg) translate(155px);
+}
+
+.light:nth-child(10) {
+    transform: rotate(90deg) translate(155px);
+}
+
+.light:nth-child(11) {
+    transform: rotate(100deg) translate(155px);
+}
+
+.light:nth-child(12) {
+    transform: rotate(110deg) translate(155px);
+}
+
+.light:nth-child(13) {
+    transform: rotate(120deg) translate(155px);
+}
+
+.light:nth-child(14) {
+    transform: rotate(130deg) translate(155px);
+}
+
+.light:nth-child(15) {
+    transform: rotate(140deg) translate(155px);
+}
+
+.light:nth-child(16) {
+    transform: rotate(150deg) translate(155px);
+}
+
+.light:nth-child(17) {
+    transform: rotate(160deg) translate(155px);
+}
+
+.light:nth-child(18) {
+    transform: rotate(170deg) translate(155px);
+}
+
+.light:nth-child(19) {
+    transform: rotate(180deg) translate(155px);
+}
+
+.light:nth-child(20) {
+    transform: rotate(190deg) translate(155px);
+}
+
+.light:nth-child(21) {
+    transform: rotate(200deg) translate(155px);
+}
+
+.light:nth-child(22) {
+    transform: rotate(210deg) translate(155px);
+}
+
+.light:nth-child(23) {
+    transform: rotate(220deg) translate(155px);
+}
+
+.light:nth-child(24) {
+    transform: rotate(230deg) translate(155px);
+}
+
+.light:nth-child(25) {
+    transform: rotate(240deg) translate(155px);
+}
+
+.light:nth-child(26) {
+    transform: rotate(250deg) translate(155px);
+}
+
+.light:nth-child(27) {
+    transform: rotate(260deg) translate(155px);
+}
+
+.light:nth-child(28) {
+    transform: rotate(270deg) translate(155px);
+}
+
+.light:nth-child(29) {
+    transform: rotate(280deg) translate(155px);
+}
+
+.light:nth-child(30) {
+    transform: rotate(290deg) translate(155px);
+}
+
+.light:nth-child(31) {
+    transform: rotate(300deg) translate(155px);
+}
+
+.light:nth-child(32) {
+    transform: rotate(310deg) translate(155px);
+}
+
+.light:nth-child(33) {
+    transform: rotate(320deg) translate(155px);
+}
+
+.light:nth-child(34) {
+    transform: rotate(330deg) translate(155px);
+}
+
+.light:nth-child(35) {
+    transform: rotate(340deg) translate(155px);
+}
+
+.light:nth-child(36) {
+    transform: rotate(350deg) translate(155px);
+}
+
+@media (min-width: 1024px) {
+    .light:nth-child(1) {
+        transform: rotate(0deg) translate(310px);
+    }
+
+    .light:nth-child(2) {
+        transform: rotate(10deg) translate(310px);
+    }
+
+    .light:nth-child(3) {
+        transform: rotate(20deg) translate(310px);
+    }
+
+    .light:nth-child(4) {
+        transform: rotate(30deg) translate(310px);
+    }
+
+    .light:nth-child(5) {
+        transform: rotate(40deg) translate(310px);
+    }
+
+    .light:nth-child(6) {
+        transform: rotate(50deg) translate(310px);
+    }
+
+    .light:nth-child(7) {
+        transform: rotate(60deg) translate(310px);
+    }
+
+    .light:nth-child(8) {
+        transform: rotate(70deg) translate(310px);
+    }
+
+    .light:nth-child(9) {
+        transform: rotate(80deg) translate(310px);
+    }
+
+    .light:nth-child(10) {
+        transform: rotate(90deg) translate(310px);
+    }
+
+    .light:nth-child(11) {
+        transform: rotate(100deg) translate(310px);
+    }
+
+    .light:nth-child(12) {
+        transform: rotate(110deg) translate(310px);
+    }
+
+    .light:nth-child(13) {
+        transform: rotate(120deg) translate(310px);
+    }
+
+    .light:nth-child(14) {
+        transform: rotate(130deg) translate(310px);
+    }
+
+    .light:nth-child(15) {
+        transform: rotate(140deg) translate(310px);
+    }
+
+    .light:nth-child(16) {
+        transform: rotate(150deg) translate(310px);
+    }
+
+    .light:nth-child(17) {
+        transform: rotate(160deg) translate(310px);
+    }
+
+    .light:nth-child(18) {
+        transform: rotate(170deg) translate(310px);
+    }
+
+    .light:nth-child(19) {
+        transform: rotate(180deg) translate(310px);
+    }
+
+    .light:nth-child(20) {
+        transform: rotate(190deg) translate(310px);
+    }
+
+    .light:nth-child(21) {
+        transform: rotate(200deg) translate(310px);
+    }
+
+    .light:nth-child(22) {
+        transform: rotate(210deg) translate(310px);
+    }
+
+    .light:nth-child(23) {
+        transform: rotate(220deg) translate(310px);
+    }
+
+    .light:nth-child(24) {
+        transform: rotate(230deg) translate(310px);
+    }
+
+    .light:nth-child(25) {
+        transform: rotate(240deg) translate(310px);
+    }
+
+    .light:nth-child(26) {
+        transform: rotate(250deg) translate(310px);
+    }
+
+    .light:nth-child(27) {
+        transform: rotate(260deg) translate(310px);
+    }
+
+    .light:nth-child(28) {
+        transform: rotate(270deg) translate(310px);
+    }
+
+    .light:nth-child(29) {
+        transform: rotate(280deg) translate(310px);
+    }
+
+    .light:nth-child(30) {
+        transform: rotate(290deg) translate(310px);
+    }
+
+    .light:nth-child(31) {
+        transform: rotate(300deg) translate(310px);
+    }
+
+    .light:nth-child(32) {
+        transform: rotate(310deg) translate(310px);
+    }
+
+    .light:nth-child(33) {
+        transform: rotate(320deg) translate(310px);
+    }
+
+    .light:nth-child(34) {
+        transform: rotate(330deg) translate(310px);
+    }
+
+    .light:nth-child(35) {
+        transform: rotate(340deg) translate(310px);
+    }
+
+    .light:nth-child(36) {
+        transform: rotate(350deg) translate(310px);
+    }
 }
 
 /* Animation to make lights blink in a rotating pattern */
 @keyframes blink {
-  0%, 100% {
-    opacity: 0.2;
-  }
-  25% {
-    opacity: 1;
-    box-shadow: 0 0 20px rgba(255, 249, 249, 0.9); /* More glow when light is on */
-  }
-  50% {
-    opacity: 0.2;
-  }
-  75% {
-    opacity: 0.2;
-  }
+    0%, 100% {
+        opacity: 0.2;
+    }
+    25% {
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(255, 249, 249, 0.9); /* More glow when light is on */
+    }
+    50% {
+        opacity: 0.2;
+    }
+    75% {
+        opacity: 0.2;
+    }
 }
 
-.light:nth-child(1)  { animation-delay: 0s; }
-.light:nth-child(2)  { animation-delay: 0.05s; }
-.light:nth-child(3)  { animation-delay: 0.1s; }
-.light:nth-child(4)  { animation-delay: 0.15s; }
-.light:nth-child(5)  { animation-delay: 0.2s; }
-.light:nth-child(6)  { animation-delay: 0.25s; }
-.light:nth-child(7)  { animation-delay: 0.3s; }
-.light:nth-child(8)  { animation-delay: 0.35s; }
-.light:nth-child(9)  { animation-delay: 0.4s; }
-.light:nth-child(10) { animation-delay: 0.45s; }
-.light:nth-child(11) { animation-delay: 0.5s; }
-.light:nth-child(12) { animation-delay: 0.55s; }
-.light:nth-child(13) { animation-delay: 0.6s; }
-.light:nth-child(14) { animation-delay: 0.65s; }
-.light:nth-child(15) { animation-delay: 0.7s; }
-.light:nth-child(16) { animation-delay: 0.75s; }
-.light:nth-child(17) { animation-delay: 0.8s; }
-.light:nth-child(18) { animation-delay: 0.85s; }
-.light:nth-child(19) { animation-delay: 0.9s; }
-.light:nth-child(20) { animation-delay: 0.95s; }
-.light:nth-child(21) { animation-delay: 1s; }
-.light:nth-child(22) { animation-delay: 1.05s; }
-.light:nth-child(23) { animation-delay: 1.1s; }
-.light:nth-child(24) { animation-delay: 1.15s; }
-.light:nth-child(25) { animation-delay: 1.2s; }
-.light:nth-child(26) { animation-delay: 1.25s; }
-.light:nth-child(27) { animation-delay: 1.3s; }
-.light:nth-child(28) { animation-delay: 1.35s; }
-.light:nth-child(29) { animation-delay: 1.4s; }
-.light:nth-child(30) { animation-delay: 1.45s; }
-.light:nth-child(31) { animation-delay: 1.5s; }
-.light:nth-child(32) { animation-delay: 1.55s; }
-.light:nth-child(33) { animation-delay: 1.6s; }
-.light:nth-child(34) { animation-delay: 1.65s; }
-.light:nth-child(35) { animation-delay: 1.7s; }
-.light:nth-child(36) { animation-delay: 1.75s; }
+.light:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.light:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.light:nth-child(3) {
+    animation-delay: 0.1s;
+}
+
+.light:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+.light:nth-child(5) {
+    animation-delay: 0.2s;
+}
+
+.light:nth-child(6) {
+    animation-delay: 0.25s;
+}
+
+.light:nth-child(7) {
+    animation-delay: 0.3s;
+}
+
+.light:nth-child(8) {
+    animation-delay: 0.35s;
+}
+
+.light:nth-child(9) {
+    animation-delay: 0.4s;
+}
+
+.light:nth-child(10) {
+    animation-delay: 0.45s;
+}
+
+.light:nth-child(11) {
+    animation-delay: 0.5s;
+}
+
+.light:nth-child(12) {
+    animation-delay: 0.55s;
+}
+
+.light:nth-child(13) {
+    animation-delay: 0.6s;
+}
+
+.light:nth-child(14) {
+    animation-delay: 0.65s;
+}
+
+.light:nth-child(15) {
+    animation-delay: 0.7s;
+}
+
+.light:nth-child(16) {
+    animation-delay: 0.75s;
+}
+
+.light:nth-child(17) {
+    animation-delay: 0.8s;
+}
+
+.light:nth-child(18) {
+    animation-delay: 0.85s;
+}
+
+.light:nth-child(19) {
+    animation-delay: 0.9s;
+}
+
+.light:nth-child(20) {
+    animation-delay: 0.95s;
+}
+
+.light:nth-child(21) {
+    animation-delay: 1s;
+}
+
+.light:nth-child(22) {
+    animation-delay: 1.05s;
+}
+
+.light:nth-child(23) {
+    animation-delay: 1.1s;
+}
+
+.light:nth-child(24) {
+    animation-delay: 1.15s;
+}
+
+.light:nth-child(25) {
+    animation-delay: 1.2s;
+}
+
+.light:nth-child(26) {
+    animation-delay: 1.25s;
+}
+
+.light:nth-child(27) {
+    animation-delay: 1.3s;
+}
+
+.light:nth-child(28) {
+    animation-delay: 1.35s;
+}
+
+.light:nth-child(29) {
+    animation-delay: 1.4s;
+}
+
+.light:nth-child(30) {
+    animation-delay: 1.45s;
+}
+
+.light:nth-child(31) {
+    animation-delay: 1.5s;
+}
+
+.light:nth-child(32) {
+    animation-delay: 1.55s;
+}
+
+.light:nth-child(33) {
+    animation-delay: 1.6s;
+}
+
+.light:nth-child(34) {
+    animation-delay: 1.65s;
+}
+
+.light:nth-child(35) {
+    animation-delay: 1.7s;
+}
+
+.light:nth-child(36) {
+    animation-delay: 1.75s;
+}
