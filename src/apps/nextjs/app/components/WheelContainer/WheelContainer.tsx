@@ -34,6 +34,24 @@ const WheelContainer: React.FC = () => {
     const [imageX, setImageX] = useState('');
     const [flag, setFlag] = useState(0);
 
+    useEffect(() => {
+        const userAgent = navigator.userAgent;
+
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
+        if (isMobile) {
+            if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
+                setBrowser('safari-mobile');
+            } else if (userAgent.includes('CriOS') || userAgent.includes('Chrome')) {
+                setBrowser('chrome-mobile');
+            } else if (userAgent.includes('FxiOS') || userAgent.includes('Firefox')) {
+                setBrowser('firefox-mobile');
+            } else {
+                setBrowser('default-mobile');
+            }
+        } else {
+            setBrowser('default');
+        }
+    }, []);
     const updateBalance = useCallback((extraValue: number): void => {
         return setBalance(balance => balance + extraValue)
     }, [])
@@ -84,18 +102,30 @@ const WheelContainer: React.FC = () => {
             // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
             // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
             // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
-            "https://solanaspin.io/full-videos/gift_diamond.mp4",
-            "https://solanaspin.io/full-videos/diamond_X0.1_B.mp4",
-            "https://solanaspin.io/full-videos/X0.1_B-X0.1_B.mp4",
-            "https://solanaspin.io/full-videos/X0.1_B-X50.mp4",
-            "https://solanaspin.io/full-videos/X050-No_Win_A.mp4",
+            "https://solanaspin.io/full-videos/Gift_Box-Diamond.mp4",
+            "https://solanaspin.io/full-videos/Diamond-X01_B.mp4",
+            "https://solanaspin.io/full-videos/X01_B-X01_B.mp4",
+            "https://solanaspin.io/full-videos/X01_B-X50.mp4",
+            "https://solanaspin.io/full-videos/X50-No_Win_A.mp4",
+            "https://solanaspin.io/full-videos/No_Win_A-No_Win_B.mp4",
+            "https://solanaspin.io/full-videos/No_Win_B-X01_C.mp4",
+            "https://solanaspin.io/full-videos/X01_C-Ticket.mp4",
+            "https://solanaspin.io/full-videos/Ticket-X05_B.mp4",
+            "https://solanaspin.io/full-videos/X05_B-Gift_Box.mp4",
+            "https://solanaspin.io/full-videos/Gift_Box-Free_Spin.mp4",
         ]
         const imageList = [
-            "https://solanaspin.io/full-images/gift_diamond.png",
-            "https://solanaspin.io/full-images/diamond_X0.1_B.png",
-            "https://solanaspin.io/full-images/X0.1_B-X0.1_B.png",
-            "https://solanaspin.io/full-images/X0.1_B-X50.png",
-            "https://solanaspin.io/full-images/X050-No_Win_A.png",
+            "https://solanaspin.io/full-images/Diamond.webp",
+            "https://solanaspin.io/full-images/X01_B.webp",
+            "https://solanaspin.io/full-images/X01_B.png",
+            "https://solanaspin.io/full-images/X50.png",
+            "https://solanaspin.io/full-images/No_Win_A.png",
+            "https://solanaspin.io/full-images/No_Win_B.png",
+            "https://solanaspin.io/full-images/X01_C.png",
+            "https://solanaspin.io/full-images/Ticket.png",
+            "https://solanaspin.io/full-images/X05_B.png",
+            "https://solanaspin.io/full-images/Gift_Box.png",
+            "https://solanaspin.io/full-images/Free_Spin.png",
         ]
         setIsLoading(true);
         setIsPlaying(true);
@@ -123,7 +153,6 @@ const WheelContainer: React.FC = () => {
                 setImageX(urlImage);
             }, 1000)
         } catch (err: unknown) {
-            console.log(err)
             console.log('error')
             setIsLoading(false);
 
@@ -191,7 +220,7 @@ const WheelContainer: React.FC = () => {
             }
 
             {!isPlaying && !isLoading && activeBet > 0 && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100] xxxxx">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
                         onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {

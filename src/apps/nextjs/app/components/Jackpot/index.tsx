@@ -27,7 +27,7 @@ export const Jackpot = ({jackpotReached}) => {
 
     useEffect(() => {
         if (progress === 100) {
-            jackpotReached({ jackpotValue, progress });
+            jackpotReached({jackpotValue, progress});
 
             setProgress(0);
         }
@@ -35,7 +35,7 @@ export const Jackpot = ({jackpotReached}) => {
 
     return (
         <div className="flex flex-col items-center">
-            <Image src="/images/jackpot.png"
+            <Image src="/images/jackpot.webp"
                    alt="Centered Image"
                    loading="lazy"
                    className="max-w-[130px] lg:max-w-[200px] xl:max-w-[300px] h-auto"
@@ -45,7 +45,8 @@ export const Jackpot = ({jackpotReached}) => {
             <div
                 className="flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">
                 <div className="progress-bar" style={{width: `${progress}%`}}></div>
-                <div className={`${NauSea.className} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black z-20 tracking-[1px] font-thin`}>${(progress / 100) * jackpotValue}</div>
+                <div
+                    className={`${NauSea.className} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black z-20 tracking-[1px] font-thin`}>${(progress / 100) * jackpotValue}</div>
             </div>
         </div>
     )
