@@ -15,6 +15,7 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from "next/legacy/image";
+import "./WheelContainer.css"
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -255,11 +256,12 @@ const WheelContainer: React.FC = () => {
 
                 >
                     <Balance balance={balance}/>
-
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
-                            <div className="relative lg:mr-4 lg:mb-4 cursor-pointer" key={bet.value}>
+                            <div
+                                className={`flex relative lg:m-2 cursor-pointer rounded-lg image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                key={bet.value}>
                                 <Image
                                     src={bet.src}
                                     className=""

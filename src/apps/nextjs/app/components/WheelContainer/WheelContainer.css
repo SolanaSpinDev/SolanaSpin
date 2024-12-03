@@ -1,0 +1,13 @@
+
+.image-button-container {
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Glow effect when pressed */
+.image-button-container.active {
+    filter: brightness(1.2);
+    box-shadow:
+            0 0 6px 3px rgba(255, 255, 0, 0.5),
+            0 0 6px 4px rgba(255, 204, 0, 0.7),
+            0 0 6px 3px rgba(255, 255, 255, 0.9);
+}
