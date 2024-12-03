@@ -260,7 +260,7 @@ const WheelContainer: React.FC = () => {
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
                             <div
-                                className={`flex relative lg:m-2 cursor-pointer rounded-lg image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                className={`flex relative m-1 lg:m-2 cursor-pointer rounded-lg image-button-container ${activeBet === bet.value ? 'active' : ''}`}
                                 key={bet.value}>
                                 <Image
                                     src={bet.src}
