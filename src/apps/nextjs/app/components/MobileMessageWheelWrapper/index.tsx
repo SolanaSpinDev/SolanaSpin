@@ -6,7 +6,6 @@ import Image from "next/legacy/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Slide, toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import MobileModal from "@/app/components/MobileModal";
 
 export const MobileMessageWheelWrapper = () => {
     const [isPortrait, setIsPortrait] = useState(false);
@@ -53,20 +52,35 @@ export const MobileMessageWheelWrapper = () => {
 
 
     return (<div>
-
-            <ToastContainer
-                position="top-right"
-                autoClose={2500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
-            <WheelContainer/>
-
+        {isPortrait && isMobile ? (
+            <div className="relative flex items-center justify-center min-h-screen h-screen w-screen min-w-screen">
+                <LogoTitle/>
+                <div
+                    className="absolute top-0 left-0 bottom-0 right-0 w-screen h-screen bg-gray-800 bg-opacity-55 z-10"></div>
+                <Image
+                    src="/images/orientation-x.png"
+                    alt="Centered Image"
+                    className="absolute w-auto h-auto z-20"
+                    width={400}
+                    height={600}
+                />
+            </div>
+        ) : (
+            <>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={2500}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+                <WheelContainer/>
+            </>
+        )}
     </div>)
 }
