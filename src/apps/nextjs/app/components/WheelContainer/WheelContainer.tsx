@@ -5,7 +5,7 @@ import {
     predefinedBets,
     computePrize,
     getRandomNumber,
-    wheelPositions,
+    wheelPositions, wheels,
 } from "@/lib/utils";
 import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
@@ -25,6 +25,7 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
+    const [activeWheel, setWheel] = useState('');
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
@@ -61,6 +62,10 @@ const WheelContainer: React.FC = () => {
         if (!isPlaying) {
             setActiveBet(bet);
         }
+    }
+
+    function selectWheel(wheel: string): void {
+        setWheel(wheel);
     }
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
@@ -194,6 +199,18 @@ const WheelContainer: React.FC = () => {
                 style={imageX ? {backgroundImage: `url('${imageX}')`} : undefined}
                 className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
             </div>
+            {/*header*/}
+            <div
+                className="w-full h-[30px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
+                <LogoTitle/>
+                <div className="absolute left-1/2 -translate-x-1/2 text-center">
+                    <Balance balance={balance}/>
+                </div>
+                <button
+                    className="border-1 border-solid border-blue-950 text-tiny px-[4px] py-[2px] rounded mr-1 bg-blue-950">login
+                </button>
+            </div>
+            {/*end header*/}
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                     <Loading/>
@@ -239,28 +256,34 @@ const WheelContainer: React.FC = () => {
                                onAnimationComplete={handlePrizeAnimationEnd}
             />
 
-            <div className="grid grid-cols-3 gap-4 min-h-screen z-20">
-                <div className="relative flex flex-col items-center justify-center z-20">
-                    <LogoTitle/>
+            {/*middle container end*/}
+            <div className="flex items-cemnter justify-between z-20 middle-container px-2">
+                <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
-                <div
-                    className={clsx(
-                        {
-                            'pb-10': browser === 'default' || browser === 'chrome-mobile',
-                            'pb-[70px]': browser === 'safari-mobile',
-                            'pb-3': browser === 'firefox-mobile',
-                        },
-                        "middle-container h-screen min-h-screen relative flex flex-col items-center justify-between z-50 text-white"
-                    )}
 
-                >
-                    <Balance balance={balance}/>
+                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
+                    <RecentPlays plays={recentPlays} ticket={ticket}/>
+                </div>
+            </div>
+
+            {/*footer*/}
+            <div className="absolute bottom-0 z-1 flex items-center justify-between w-full px-2 h-[40px]">
+                <div className="flex items center justify-center space-x-4">
+                    {isMuted &&
+                        <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                    }
+                    {!isMuted &&
+                        <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                    }
+                    <Socials/>
+                </div>
+                <div className="bets-container">
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
                             <div
-                                className={`flex relative m-1 lg:m-2 cursor-pointer rounded-lg image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                className={`flex relative cursor-pointer rounded-lg max-w-[50px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
                                 key={bet.value}>
                                 <Image
                                     src={bet.src}
@@ -274,22 +297,17 @@ const WheelContainer: React.FC = () => {
                         ))}
                     </div>
                 </div>
-
-                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
-                    <div className="absolute top-[40px] xl:top-[80px] right-[40px] xl:right-[80px]">
-                        <div className="flex items center justify-center space-x-4">
-                            {isMuted &&
-                                <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                            }
-                            {!isMuted &&
-                                <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                            }
-                            <Socials/>
+                <div className="flex justify-between items-center pb-2">
+                    {wheels.map((wheel) => (
+                        <div key={wheel}>
+                            <button
+                                className={`wheel ${activeWheel === wheel ? 'active' : ''} border-solid border-1 border-slate-700 px-2 py-[2px] rounded`}
+                                onClick={() => selectWheel(wheel)}>{wheel}</button>
                         </div>
-                    </div>
-                    <RecentPlays plays={recentPlays} ticket={ticket}/>
+                    ))}
                 </div>
             </div>
+            {/*end footer*/}
         </div>
     );
 };
