@@ -94,3 +94,4 @@ export const predefinedBets = [
     {value: 20, src: Image20},
     {value: 50, src: Image50},
 ];
+export const wheels: string[] = ['wood', 'diamond', '50%']
