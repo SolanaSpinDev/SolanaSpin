@@ -23,6 +23,5 @@ internal static class Extensions
             ip = context.Connection.RemoteIpAddress.MapToIPv4().ToString();
         }
         return ip;
-
     }
 }

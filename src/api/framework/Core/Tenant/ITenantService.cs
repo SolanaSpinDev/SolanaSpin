@@ -1,17 +1,16 @@
-﻿using FSH.Framework.Core.Tenant.Dtos;
-using FSH.Framework.Core.Tenant.Features.CreateTenant;
+﻿using FSH.Framework.Core.Tenant.Features.CreateTenant;
 
-namespace FSH.Framework.Core.Tenant.Abstractions;
+namespace FSH.Framework.Core.Tenant;
 
 public interface ITenantService
 {
-    Task<List<TenantDetail>> GetAllAsync();
+    Task<List<TenantDto>> GetAllAsync();
 
     Task<bool> ExistsWithIdAsync(string id);
 
     Task<bool> ExistsWithNameAsync(string name);
 
-    Task<TenantDetail> GetByIdAsync(string id);
+    Task<TenantDto> GetByIdAsync(string id);
 
     Task<string> CreateAsync(CreateTenantCommand request, CancellationToken cancellationToken);
 

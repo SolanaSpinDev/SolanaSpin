@@ -10,7 +10,7 @@ public class DatabaseOptions : IValidatableObject
     {
         if (string.IsNullOrEmpty(ConnectionString))
         {
-            yield return new ValidationResult("connection string cannot be empty.", new[] { nameof(ConnectionString) });
+            yield return new ValidationResult("ConnectionString cannot be empty in DatabaseOptions.", new[] { nameof(ConnectionString) });
         }
     }
 }

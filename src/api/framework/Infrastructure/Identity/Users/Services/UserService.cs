@@ -253,6 +253,7 @@ internal sealed partial class UserService(
             }
         }
 
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
         foreach (var userRole in request.UserRoles)
         {
             // Check if Role Exists
@@ -271,6 +272,7 @@ internal sealed partial class UserService(
                 }
             }
         }
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 
         return "User Roles Updated Successfully.";
 
@@ -280,10 +282,8 @@ internal sealed partial class UserService(
     {
         var userRoles = new List<UserRoleDetail>();
 
-        var user = await userManager.FindByIdAsync(userId);
-        if (user is null) throw new NotFoundException("user not found");
-        var roles = await roleManager.Roles.AsNoTracking().ToListAsync(cancellationToken);
-        if (roles is null) throw new NotFoundException("roles not found");
+        var user = await userManager.FindByIdAsync(userId) ?? throw new NotFoundException("user not found");
+        var roles = await roleManager.Roles.AsNoTracking().ToListAsync(cancellationToken) ?? throw new NotFoundException("roles not found");
         foreach (var role in roles)
         {
             userRoles.Add(new UserRoleDetail

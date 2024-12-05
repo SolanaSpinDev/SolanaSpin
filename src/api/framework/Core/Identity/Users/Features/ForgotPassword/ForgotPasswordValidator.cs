@@ -5,7 +5,7 @@ public class ForgotPasswordValidator : AbstractValidator<ForgotPasswordCommand>
 {
     public ForgotPasswordValidator()
     {
-        RuleFor(p => p.Email).Cascade(CascadeMode.Stop)
+        RuleFor(p => p.Email)
             .NotEmpty()
             .EmailAddress();
     }

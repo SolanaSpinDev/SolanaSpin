@@ -6,9 +6,8 @@ using Finbuckle.MultiTenant.Abstractions;
 using FSH.Framework.Core.Auth.Jwt;
 using FSH.Framework.Core.Exceptions;
 using FSH.Framework.Core.Identity.Tokens;
-using FSH.Framework.Core.Identity.Tokens.Features.Generate;
-using FSH.Framework.Core.Identity.Tokens.Features.Refresh;
-using FSH.Framework.Core.Identity.Tokens.Models;
+using FSH.Framework.Core.Identity.Tokens.Features.GenerateToken;
+using FSH.Framework.Core.Identity.Tokens.Features.RefreshToken;
 using FSH.Framework.Infrastructure.Auth.Jwt;
 using FSH.Framework.Infrastructure.Identity.Users;
 using FSH.Framework.Infrastructure.Tenant;
@@ -29,7 +28,7 @@ public sealed class TokenService : ITokenService
         _multiTenantContextAccessor = multiTenantContextAccessor;
     }
 
-    public async Task<TokenResponse> GenerateTokenAsync(TokenGenerationCommand request, string ipAddress, CancellationToken cancellationToken)
+    public async Task<TokenResponse> GenerateTokenAsync(GenerateTokenCommand request, string ipAddress, CancellationToken cancellationToken)
     {
         var currentTenant = _multiTenantContextAccessor!.MultiTenantContext.TenantInfo;
         if (currentTenant == null) throw new UnauthorizedException();
@@ -60,7 +59,6 @@ public sealed class TokenService : ITokenService
 
         return await GenerateTokensAndUpdateUser(user, ipAddress);
     }
-
 
     public async Task<TokenResponse> RefreshTokenAsync(RefreshTokenCommand request, string ipAddress, CancellationToken cancellationToken)
     {

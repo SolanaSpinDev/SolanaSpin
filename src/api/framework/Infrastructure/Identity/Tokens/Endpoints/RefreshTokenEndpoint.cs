@@ -1,5 +1,5 @@
 ﻿using FSH.Framework.Core.Identity.Tokens;
-using FSH.Framework.Core.Identity.Tokens.Features.Refresh;
+using FSH.Framework.Core.Identity.Tokens.Features.RefreshToken;
 using FSH.Framework.Core.Tenant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -26,3 +26,4 @@ public static class RefreshTokenEndpoint
         .AllowAnonymous();
     }
 }
+

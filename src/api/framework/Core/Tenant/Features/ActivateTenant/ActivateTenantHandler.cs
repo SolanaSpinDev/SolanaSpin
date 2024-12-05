@@ -1,5 +1,4 @@
-﻿using FSH.Framework.Core.Tenant.Abstractions;
-using MediatR;
+﻿using MediatR;
 
 namespace FSH.Framework.Core.Tenant.Features.ActivateTenant;
 public sealed class ActivateTenantHandler(ITenantService service) : IRequestHandler<ActivateTenantCommand, ActivateTenantResponse>

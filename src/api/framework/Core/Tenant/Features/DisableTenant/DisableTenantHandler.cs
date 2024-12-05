@@ -1,5 +1,4 @@
-﻿using FSH.Framework.Core.Tenant.Abstractions;
-using MediatR;
+﻿using MediatR;
 
 namespace FSH.Framework.Core.Tenant.Features.DisableTenant;
 public sealed class DisableTenantHandler(ITenantService service) : IRequestHandler<DisableTenantCommand, DisableTenantResponse>

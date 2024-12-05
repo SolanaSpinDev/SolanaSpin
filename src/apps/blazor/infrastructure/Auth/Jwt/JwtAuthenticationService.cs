@@ -25,12 +25,14 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
     private readonly IApiClient _client;
     private readonly ILocalStorageService _localStorage;
     private readonly NavigationManager _navigation;
+    private readonly string apiBaseAddress;
 
-    public JwtAuthenticationService(PersistentComponentState state, ILocalStorageService localStorage, IApiClient client, NavigationManager navigation)
+    public JwtAuthenticationService(PersistentComponentState state, ILocalStorageService localStorage, IApiClient client, IHttpClientFactory clientFactory, NavigationManager navigation)
     {
         _localStorage = localStorage;
         _client = client;
         _navigation = navigation;
+        apiBaseAddress = clientFactory.CreateClient("SolanaSpin.API").BaseAddress!.ToString();
     }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -85,9 +87,9 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
         _navigation.NavigateTo("/admin/login");
     }
 
-    public void NavigateToExternalLogin(string returnUrl)
+    public void NavigateToExternalLogin(string tenantId, string provider)
     {
-        throw new NotImplementedException();
+        _navigation.NavigateTo($"{apiBaseAddress}api/social/external-login/{provider}?tenant={tenantId}", forceLoad: true);
     }
 
     public async Task ReLoginAsync(string returnUrl)
@@ -99,7 +101,6 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
     public async ValueTask<AccessTokenResult> RequestAccessToken(AccessTokenRequestOptions options)
     {
         return await RequestAccessToken();
-
     }
 
     public async ValueTask<AccessTokenResult> RequestAccessToken()

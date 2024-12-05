@@ -35,7 +35,7 @@ public static class SpecificationBuilderExtensions
 
         return query
             .Take(filter.PageSize)
-            .OrderBy(filter.OrderBy);
+            .OrderBy(filter.OrderBy?.ToArray());
     }
 
     public static IOrderedSpecificationBuilder<T> SearchByKeyword<T>(
@@ -49,7 +49,7 @@ public static class SpecificationBuilderExtensions
     {
         if (!string.IsNullOrEmpty(search?.Keyword))
         {
-            if (search.Fields?.Any() is true)
+            if (search.Fields?.Count is 0)
             {
                 // search seleted fields (can contain deeper nested fields)
                 foreach (string field in search.Fields)
@@ -91,13 +91,15 @@ public static class SpecificationBuilderExtensions
             throw new ArgumentException("propertyExpr must be a property expression.", nameof(propertyExpr));
         }
 
+#pragma warning disable CA1308 // Normalize strings to uppercase
         string searchTerm = operatorSearch switch
         {
-            FilterOperator.STARTSWITH => $"{keyword.ToLower()}%",
-            FilterOperator.ENDSWITH => $"%{keyword.ToLower()}",
-            FilterOperator.CONTAINS => $"%{keyword.ToLower()}%",
+            FilterOperator.STARTSWITH => $"{keyword.ToLowerInvariant()}%",
+            FilterOperator.ENDSWITH => $"%{keyword.ToLowerInvariant()}",
+            FilterOperator.CONTAINS => $"%{keyword.ToLowerInvariant()}%",
             _ => throw new ArgumentException("operatorSearch is not valid.", nameof(operatorSearch))
         };
+#pragma warning restore CA1308 // Normalize strings to uppercase
 
         // Generate lambda [ x => x.Property ] for string properties
         // or [ x => ((object)x.Property) == null ? null : x.Property.ToString() ] for other properties
@@ -211,7 +213,7 @@ public static class SpecificationBuilderExtensions
         };
     }
 
-    private static Expression CombineFilter(
+    private static BinaryExpression CombineFilter(
         string filterOperator,
         Expression bExpresionBase,
         Expression bExpresion) => filterOperator switch

@@ -1,5 +1,5 @@
-﻿namespace FSH.Framework.Core.Tenant.Dtos;
-public class TenantDetail
+﻿namespace FSH.Framework.Core.Tenant;
+public class TenantDto
 {
     public string Id { get; set; } = default!;
     public string Name { get; set; } = default!;

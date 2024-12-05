@@ -7,6 +7,7 @@ public class UpdatePermissionsValidator : AbstractValidator<UpdatePermissionsCom
     {
         RuleFor(r => r.RoleId)
             .NotEmpty();
+
         RuleFor(r => r.Permissions)
             .NotNull();
     }

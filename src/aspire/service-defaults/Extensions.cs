@@ -51,6 +51,7 @@ public static class Extensions
             .FirstOrDefault();
         var resourceServiceName = entryAssemblyName?.Name;
         var resourceServiceVersion = versionAttribute?.InformationalVersion ?? entryAssemblyName?.Version?.ToString();
+#pragma warning disable CA1308 // Normalize strings to uppercase
         var attributes = new Dictionary<string, object>
         {
             ["host.name"] = Environment.MachineName,
@@ -58,8 +59,9 @@ public static class Extensions
             ["os.description"] = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
             ["deployment.environment"] = builder.Environment.EnvironmentName.ToLowerInvariant()
         };
+#pragma warning restore CA1308 // Normalize strings to uppercase
         var resourceBuilder = ResourceBuilder.CreateDefault()
-            .AddService(serviceName: resourceServiceName, serviceVersion: resourceServiceVersion)
+            .AddService(serviceName: resourceServiceName!, serviceVersion: resourceServiceVersion)
             .AddTelemetrySdk()
             //.AddEnvironmentVariableDetector()
             .AddAttributes(attributes);
@@ -83,7 +85,6 @@ public static class Extensions
                        .AddRuntimeInstrumentation()
                        .AddProcessInstrumentation()
                        .AddMeter(MetricsConstants.Playground);
-                //.AddConsoleExporter();
             })
             .WithTracing(tracing =>
             {
@@ -96,7 +97,6 @@ public static class Extensions
                        .AddAspNetCoreInstrumentation(nci => nci.RecordException = true)
                        .AddHttpClientInstrumentation()
                        .AddEntityFrameworkCoreInstrumentation();
-                //.AddConsoleExporter();
             });
 
         builder.AddOpenTelemetryExporters();

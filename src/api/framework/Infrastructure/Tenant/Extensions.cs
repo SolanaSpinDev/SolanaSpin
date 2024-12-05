@@ -3,7 +3,6 @@ using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.Stores.DistributedCacheStore;
 using FSH.Framework.Core.Persistence;
 using FSH.Framework.Core.Tenant;
-using FSH.Framework.Core.Tenant.Abstractions;
 using FSH.Framework.Infrastructure.Persistence;
 using FSH.Framework.Infrastructure.Persistence.Services;
 using FSH.Framework.Infrastructure.Tenant.Persistence;
@@ -37,7 +36,7 @@ internal static class Extensions
                             .GetService<IEnumerable<IMultiTenantStore<FshTenantInfo>>>()!
                             .FirstOrDefault(s => s.GetType() == typeof(DistributedCacheStore<FshTenantInfo>));
 
-                        await distributedCacheStore!.TryAddAsync((FshTenantInfo)context.MultiTenantContext.TenantInfo!);
+                        await distributedCacheStore!.TryAddAsync(context.MultiTenantContext.TenantInfo!);
                     }
                     await Task.FromResult(0);
                 };

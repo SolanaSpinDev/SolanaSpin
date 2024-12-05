@@ -5,7 +5,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Auth;
 public interface IAuthenticationService
 {
 
-    void NavigateToExternalLogin(string returnUrl);
+    void NavigateToExternalLogin(string tenantId, string provider);
 
     Task<bool> LoginAsync(string tenantId, TokenGenerationCommand request);
 

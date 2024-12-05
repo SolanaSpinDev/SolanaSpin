@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using FSH.Framework.Core.Persistence;
-using FSH.Framework.Core.Tenant.Abstractions;
 
 namespace FSH.Framework.Core.Tenant.Features.CreateTenant;
 public class CreateTenantValidator : AbstractValidator<CreateTenantCommand>

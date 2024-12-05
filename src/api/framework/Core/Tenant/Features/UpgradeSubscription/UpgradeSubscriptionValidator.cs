@@ -5,7 +5,10 @@ public class UpgradeSubscriptionValidator : AbstractValidator<UpgradeSubscriptio
 {
     public UpgradeSubscriptionValidator()
     {
-        RuleFor(t => t.Tenant).NotEmpty();
-        RuleFor(t => t.ExtendedExpiryDate).GreaterThan(DateTime.UtcNow);
+        RuleFor(t => t.Tenant)
+            .NotEmpty();
+
+        RuleFor(t => t.ExtendedExpiryDate)
+            .GreaterThan(DateTime.UtcNow);
     }
 }

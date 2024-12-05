@@ -27,20 +27,36 @@
         <MudItem xs="12">
             <MudTextField T="string" Label="Tenant" Variant="Variant.Outlined" @bind-Value="TenantId"
                           For="@(() => TenantId)" Required />
-         </MudItem>
+        </MudItem>
 
-         <MudItem xs="12" md="6">
-             <MudButton StartIcon="@Icons.Material.Filled.AppRegistration" Href="/admin/register">Register?</MudButton>
-            </MudItem>
-            <MudItem xs="12" md="6">
-             <MudButton StartIcon="@Icons.Material.Filled.LockReset" Href="admin/forgot-password">Forgot password?</MudButton>
-            </MudItem>
-            <MudItem xs="12" Class="d-flex justify-center">
-                <MudButton ButtonType="ButtonType.Submit" Disabled="BusySubmitting" Variant="Variant.Filled"
-                        Color="Color.Primary" DropShadow="false" Size="Size.Large" StartIcon="@Icons.Material.Filled.Login" Style="width: 100%;">Sign In</MudButton>
-            </MudItem>
+        <MudItem xs="12" md="6">
+            <MudButton StartIcon="@Icons.Material.Filled.AppRegistration" Href="/admin/register">Register?</MudButton>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudButton StartIcon="@Icons.Material.Filled.LockReset" Href="admin/forgot-password">Forgot password?</MudButton>
+        </MudItem>
+        <MudItem xs="12" Class="d-flex justify-center">
+            <MudButton ButtonType="ButtonType.Submit" Disabled="BusySubmitting" Variant="Variant.Filled"
+                       Color="Color.Primary" DropShadow="false" Size="Size.Large" StartIcon="@Icons.Material.Filled.Login" Style="width: 100%;">Sign In</MudButton>
+        </MudItem>
+        <MudItem xs="6" Class="d-flex justify-center">
+            <MudButton Variant="Variant.Filled" OnClick="RedirectToGoogleLogin"
+                       Color="Color.Primary" DropShadow="false" Size="Size.Large" StartIcon="@Icons.Custom.Brands.Google" Style="width: 100%;">Google</MudButton>
+        </MudItem>
+        <MudItem xs="6" Class="d-flex justify-center">
+            <MudButton Variant="Variant.Filled" OnClick="RedirectToFacebookLogin"
+                       Color="Color.Primary" DropShadow="false" Size="Size.Large" StartIcon="@Icons.Custom.Brands.Facebook" Style="width: 100%;">Facebook</MudButton>
+        </MudItem>
+        <MudItem xs="6" Class="d-flex justify-center">
+            <MudButton Variant="Variant.Filled" OnClick="RedirectToMicrosoftLogin"
+                       Color="Color.Primary" DropShadow="false" Size="Size.Large" StartIcon="@Icons.Custom.Brands.Microsoft" Style="width: 100%;">Microsoft</MudButton>
+        </MudItem>
+        <MudItem xs="6" Class="d-flex justify-center">
+            <MudButton Variant="Variant.Filled" OnClick="RedirectToTwitterLogin"
+                       Color="Color.Primary" DropShadow="false" Size="Size.Large" StartIcon="@Icons.Custom.Brands.Twitter" Style="width: 100%;">Twitter</MudButton>
+        </MudItem>
         <MudItem xs="12" Class="d-flex justify-center">
             <MudButton DropShadow="false" StartIcon="@Icons.Material.Filled.Password" OnClick="FillAdministratorCredentials">Fill Administrator Credentials</MudButton>
-            </MudItem>
-        </MudGrid>
-    </EditForm>
+        </MudItem>
+    </MudGrid>
+</EditForm>

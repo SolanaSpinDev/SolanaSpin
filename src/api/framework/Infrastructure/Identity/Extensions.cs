@@ -6,6 +6,7 @@ using FSH.Framework.Infrastructure.Auth;
 using FSH.Framework.Infrastructure.Identity.Persistence;
 using FSH.Framework.Infrastructure.Identity.Roles;
 using FSH.Framework.Infrastructure.Identity.Roles.Endpoints;
+using FSH.Framework.Infrastructure.Identity.Social.Endpoints;
 using FSH.Framework.Infrastructure.Identity.Tokens;
 using FSH.Framework.Infrastructure.Identity.Tokens.Endpoints;
 using FSH.Framework.Infrastructure.Identity.Users;
@@ -50,6 +51,9 @@ internal static class Extensions
     {
         var users = app.MapGroup("api/users").WithTags("users");
         users.MapUserEndpoints();
+
+        var social = app.MapGroup("api/social").WithTags("social");
+        social.MapSocialEndpoints();
 
         var tokens = app.MapGroup("api/token").WithTags("token");
         tokens.MapTokenEndpoints();

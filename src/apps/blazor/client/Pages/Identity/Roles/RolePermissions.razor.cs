@@ -24,8 +24,8 @@ public partial class RolePermissions
 
     private Dictionary<string, List<PermissionViewModel>> _groupedRoleClaims = default!;
 
-    public string _title = string.Empty;
-    public string _description = string.Empty;
+    private string _title = string.Empty;
+    private string _description = string.Empty;
 
     private string _searchString = string.Empty;
 

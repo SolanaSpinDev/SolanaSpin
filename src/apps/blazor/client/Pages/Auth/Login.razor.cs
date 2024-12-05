@@ -68,4 +68,24 @@ public partial class Login()
 
         BusySubmitting = false;
     }
+
+    private void RedirectToGoogleLogin()
+    {
+        authService.NavigateToExternalLogin(TenantId, "Google");
+    }
+
+    private void RedirectToFacebookLogin()
+    {
+        authService.NavigateToExternalLogin(TenantId, "Facebook");
+    }
+
+    private void RedirectToMicrosoftLogin()
+    {
+        authService.NavigateToExternalLogin(TenantId, "Microsoft");
+    }
+
+    private void RedirectToTwitterLogin()
+    {
+        authService.NavigateToExternalLogin(TenantId, "Twitter");
+    }
 }

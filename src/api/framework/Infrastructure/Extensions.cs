@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using FSH.Framework.Infrastructure.Auth.Social;
 
 namespace FSH.Framework.Infrastructure;
 
@@ -41,7 +42,8 @@ public static class Extensions
         builder.Services.ConfigureIdentity();
         builder.Services.AddCorsPolicy(builder.Configuration);
         builder.Services.ConfigureFileStorage();
-        builder.Services.ConfigureJwtAuth();
+        builder.Services.ConfigureJwtAuth()
+            .AddSocialAuth(builder.Configuration);
         builder.Services.ConfigureOpenApi();
         builder.Services.ConfigureJobs(builder.Configuration);
         builder.Services.ConfigureMailing();

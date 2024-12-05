@@ -1,5 +1,4 @@
-﻿using FSH.Framework.Core.Tenant.Dtos;
-using MediatR;
+﻿using MediatR;
 
 namespace FSH.Framework.Core.Tenant.Features.GetTenantById;
-public record GetTenantByIdQuery(string TenantId) : IRequest<TenantDetail>;
+public record GetTenantByIdQuery(string TenantId) : IRequest<TenantDto>;
