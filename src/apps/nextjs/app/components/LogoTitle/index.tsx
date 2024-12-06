@@ -22,7 +22,7 @@ export const LogoTitle = React.memo(() => {
           </div>
           <div className="flex">
               <div className={`${NauSea.className} text-white text-tiny lg:text-4xl`}>
-                  <span>Solana spin</span> - <span>Demo</span>
+                  <span>Solana spin</span> - <span>beta</span>
               </div>
           </div>
       </div>
