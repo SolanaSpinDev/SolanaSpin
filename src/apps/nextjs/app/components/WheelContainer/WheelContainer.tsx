@@ -5,7 +5,7 @@ import {
     predefinedBets,
     computePrize,
     getRandomNumber,
-    wheelPositions,
+    wheelPositions, wheels,
 } from "@/lib/utils";
 import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
@@ -15,6 +15,7 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from "next/legacy/image";
+import "./WheelContainer.css"
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -24,6 +25,7 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
+    const [activeWheel, setWheel] = useState('');
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
@@ -34,6 +36,24 @@ const WheelContainer: React.FC = () => {
     const [imageX, setImageX] = useState('');
     const [flag, setFlag] = useState(0);
 
+    useEffect(() => {
+        const userAgent = navigator.userAgent;
+
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
+        if (isMobile) {
+            if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
+                setBrowser('safari-mobile');
+            } else if (userAgent.includes('CriOS') || userAgent.includes('Chrome')) {
+                setBrowser('chrome-mobile');
+            } else if (userAgent.includes('FxiOS') || userAgent.includes('Firefox')) {
+                setBrowser('firefox-mobile');
+            } else {
+                setBrowser('default-mobile');
+            }
+        } else {
+            setBrowser('default');
+        }
+    }, []);
     const updateBalance = useCallback((extraValue: number): void => {
         return setBalance(balance => balance + extraValue)
     }, [])
@@ -42,6 +62,10 @@ const WheelContainer: React.FC = () => {
         if (!isPlaying) {
             setActiveBet(bet);
         }
+    }
+
+    function selectWheel(wheel: string): void {
+        setWheel(wheel);
     }
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
@@ -84,18 +108,30 @@ const WheelContainer: React.FC = () => {
             // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
             // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
             // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
-            "https://solanaspin.io/full-videos/gift_diamond.mp4",
-            "https://solanaspin.io/full-videos/diamond_X0.1_B.mp4",
-            "https://solanaspin.io/full-videos/X0.1_B-X0.1_B.mp4",
-            "https://solanaspin.io/full-videos/X0.1_B-X50.mp4",
-            "https://solanaspin.io/full-videos/X050-No_Win_A.mp4",
+            "https://solanaspin.io/full-videos/Gift_Box-Diamond.mp4",
+            "https://solanaspin.io/full-videos/Diamond-X01_B.mp4",
+            "https://solanaspin.io/full-videos/X01_B-X01_B.mp4",
+            "https://solanaspin.io/full-videos/X01_B-X50.mp4",
+            "https://solanaspin.io/full-videos/X50-No_Win_A.mp4",
+            "https://solanaspin.io/full-videos/No_Win_A-No_Win_B.mp4",
+            "https://solanaspin.io/full-videos/No_Win_B-X01_C.mp4",
+            "https://solanaspin.io/full-videos/X01_C-Ticket.mp4",
+            "https://solanaspin.io/full-videos/Ticket-X05_B.mp4",
+            "https://solanaspin.io/full-videos/X05_B-Gift_Box.mp4",
+            "https://solanaspin.io/full-videos/Gift_Box-Free_Spin.mp4",
         ]
         const imageList = [
-            "https://solanaspin.io/full-images/gift_diamond.png",
-            "https://solanaspin.io/full-images/diamond_X0.1_B.png",
-            "https://solanaspin.io/full-images/X0.1_B-X0.1_B.png",
-            "https://solanaspin.io/full-images/X0.1_B-X50.png",
-            "https://solanaspin.io/full-images/X050-No_Win_A.png",
+            "https://solanaspin.io/full-images/Diamond.webp",
+            "https://solanaspin.io/full-images/X01_B.webp",
+            "https://solanaspin.io/full-images/X01_B.png",
+            "https://solanaspin.io/full-images/X50.png",
+            "https://solanaspin.io/full-images/No_Win_A.png",
+            "https://solanaspin.io/full-images/No_Win_B.png",
+            "https://solanaspin.io/full-images/X01_C.png",
+            "https://solanaspin.io/full-images/Ticket.png",
+            "https://solanaspin.io/full-images/X05_B.png",
+            "https://solanaspin.io/full-images/Gift_Box.png",
+            "https://solanaspin.io/full-images/Free_Spin.png",
         ]
         setIsLoading(true);
         setIsPlaying(true);
@@ -123,7 +159,6 @@ const WheelContainer: React.FC = () => {
                 setImageX(urlImage);
             }, 1000)
         } catch (err: unknown) {
-            console.log(err)
             console.log('error')
             setIsLoading(false);
 
@@ -164,6 +199,18 @@ const WheelContainer: React.FC = () => {
                 style={imageX ? {backgroundImage: `url('${imageX}')`} : undefined}
                 className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
             </div>
+            {/*header*/}
+            <div
+                className="w-full h-[30px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
+                <LogoTitle/>
+                <div className="absolute left-1/2 -translate-x-1/2 text-center">
+                    <Balance balance={balance}/>
+                </div>
+                <button
+                    className="border-1 border-solid border-blue-950 text-tiny px-[4px] py-[2px] rounded mr-1 bg-blue-950 text-white">login
+                </button>
+            </div>
+            {/*end header*/}
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                     <Loading/>
@@ -191,7 +238,7 @@ const WheelContainer: React.FC = () => {
             }
 
             {!isPlaying && !isLoading && activeBet > 0 && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100] xxxxx">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
                         onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {
@@ -209,28 +256,35 @@ const WheelContainer: React.FC = () => {
                                onAnimationComplete={handlePrizeAnimationEnd}
             />
 
-            <div className="grid grid-cols-3 gap-4 min-h-screen z-20">
-                <div className="relative flex flex-col items-center justify-center z-20">
-                    <LogoTitle/>
+            {/*middle container end*/}
+            <div className="flex items-cemnter justify-between z-20 middle-container px-2">
+                <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
-                <div
-                    className={clsx(
-                        {
-                            'pb-10': browser === 'default' || browser === 'chrome-mobile',
-                            'pb-[70px]': browser === 'safari-mobile',
-                            'pb-3': browser === 'firefox-mobile',
-                        },
-                        "middle-container h-screen min-h-screen relative flex flex-col items-center justify-between z-50 text-white"
-                    )}
 
-                >
-                    <Balance balance={balance}/>
+                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
+                    <RecentPlays plays={recentPlays} ticket={ticket}/>
+                </div>
+            </div>
 
+            {/*footer*/}
+            <div className="absolute bottom-0 z-1 flex items-center justify-between w-full px-2 h-[40px] pb-2">
+                <div className="flex items center justify-center space-x-4">
+                    {isMuted &&
+                        <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                    }
+                    {!isMuted &&
+                        <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                    }
+                    <Socials/>
+                </div>
+                <div className="bets-container">
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
-                            <div className="relative lg:mr-4 lg:mb-4 cursor-pointer" key={bet.value}>
+                            <div
+                                className={`flex relative cursor-pointer rounded-lg max-w-[50px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                key={bet.value}>
                                 <Image
                                     src={bet.src}
                                     className=""
@@ -243,22 +297,17 @@ const WheelContainer: React.FC = () => {
                         ))}
                     </div>
                 </div>
-
-                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
-                    <div className="absolute top-[40px] xl:top-[80px] right-[40px] xl:right-[80px]">
-                        <div className="flex items center justify-center space-x-4">
-                            {isMuted &&
-                                <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                            }
-                            {!isMuted &&
-                                <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                            }
-                            <Socials/>
+                <div className="flex justify-between items-center pb-2">
+                    {wheels.map((wheel) => (
+                        <div key={wheel}>
+                            <button
+                                className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeWheel === wheel ? 'active' : ''} z-10`}
+                                onClick={() => selectWheel(wheel)}>{wheel}</button>
                         </div>
-                    </div>
-                    <RecentPlays plays={recentPlays} ticket={ticket}/>
+                    ))}
                 </div>
             </div>
+            {/*end footer*/}
         </div>
     );
 };
