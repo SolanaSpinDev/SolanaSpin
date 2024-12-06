@@ -7,7 +7,7 @@ import {
     getRandomNumber,
     wheelPositions, wheels,
 } from "@/lib/utils";
-import clsx from "clsx";
+ 
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
@@ -122,11 +122,6 @@ const WheelContainer: React.FC = () => {
 
     const handlePlayVideoDb = async () => {
         const videosList = [
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 C.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
             "https://solanaspin.io/full-videos/Gift_Box-Diamond.mp4",
             "https://solanaspin.io/full-videos/Diamond-X01_B.mp4",
             "https://solanaspin.io/full-videos/X01_B-X01_B.mp4",
@@ -218,6 +213,7 @@ const WheelContainer: React.FC = () => {
                 style={imageX ? {backgroundImage: `url('${imageX}')`} : undefined}
                 className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
             </div>
+
             {/*header*/}
             <div
                 className="w-full h-[30px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
@@ -228,6 +224,7 @@ const WheelContainer: React.FC = () => {
                 <AuthButton />
             </div>
             {/*end header*/}
+
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                     <Loading/>
@@ -276,6 +273,15 @@ const WheelContainer: React.FC = () => {
             {/*middle container end*/}
             <div className="flex items-cemnter justify-between z-20 middle-container px-2">
                 <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
+                    <div className="flex justify-between items-center pb-2">
+                        {wheels.map((wheel) => (
+                            <div key={wheel}>
+                                <button
+                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeWheel === wheel ? 'active' : ''} z-10`}
+                                    onClick={() => selectWheel(wheel)}>{wheel}</button>
+                            </div>
+                        ))}
+                    </div>
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
 
@@ -285,43 +291,36 @@ const WheelContainer: React.FC = () => {
             </div>
 
             {/*footer*/}
-            <div className="absolute bottom-0 z-1 flex items-center justify-between w-full px-2 h-[40px] pb-2">
-                <div className="flex items center justify-center space-x-4">
-                    {isMuted &&
-                        <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                    }
-                    {!isMuted &&
-                        <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                    }
-                    <Socials/>
-                </div>
-                <div className="bets-container">
-                    <div
-                        className="relative flex flex-row  items-center justify-center w-full pb-4">
-                        {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
-                            <div
-                                className={`flex relative cursor-pointer rounded-lg max-w-[50px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
-                                key={bet.value}>
-                                <Image
-                                    src={bet.src}
-                                    className=""
-                                    alt="lorem"
-                                    width={443}
-                                    height={256}
-                                    onClick={() => selectBet(bet.value)}
-                                />
-                            </div>
-                        ))}
+            <div className="absolute bottom-0 z-1 w-full px-2 h-[40px] pb-2">
+                <div className="relative flex items-center justify-between w-full">
+                    <div className="flex items center justify-center space-x-4">
+                        {isMuted &&
+                            <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                        }
+                        {!isMuted &&
+                            <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                        }
+                        <Socials/>
                     </div>
-                </div>
-                <div className="flex justify-between items-center pb-2">
-                    {wheels.map((wheel) => (
-                        <div key={wheel}>
-                            <button
-                                className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeWheel === wheel ? 'active' : ''} z-10`}
-                                onClick={() => selectWheel(wheel)}>{wheel}</button>
+                    <div className="bets-container absolute left-1/2 -translate-x-1/2 text-center">
+                        <div
+                            className="relative flex flex-row  items-center justify-center w-full pb-4">
+                            {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
+                                <div
+                                    className={`flex relative cursor-pointer rounded-lg max-w-[50px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                    key={bet.value}>
+                                    <Image
+                                        src={bet.src}
+                                        className=""
+                                        alt="lorem"
+                                        width={443}
+                                        height={256}
+                                        onClick={() => selectBet(bet.value)}
+                                    />
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
             {/*end footer*/}
