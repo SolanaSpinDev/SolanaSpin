@@ -3,20 +3,19 @@
   height: 100%;
   background-image: linear-gradient(
     135deg,
-    #73250f 25%,
-    #ae462b 25%,
-    #ae462b 50%,
-    #73250f 50%,
-    #73250f 75%,
-    #ae462b 75%
+    #fde047 25%,
+    #fbbf24 25%,
+    #fbbf24 50%,
+    #fde047 50%,
+    #fde047 75%,
+    #fbbf24 75%
   );
   background-size: 30px 30px;
   animation: progress-barber-shop 1s linear infinite;
-  width: 0; /* Set this dynamically based on progress value */
+  width: 0;
   transition: width 1s ease;
 }
 
-/* Animation keyframes for the moving stripes */
 @keyframes progress-barber-shop {
   0% {
     background-position: 0 0;

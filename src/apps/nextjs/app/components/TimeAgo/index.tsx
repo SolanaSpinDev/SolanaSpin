@@ -32,7 +32,7 @@ const TimeAgo = ({time}) => {
     return () => clearInterval(interval);
   }, [time]);
 
-  return <span className="text-xs lg:text-base">{timeAgo}</span>;
+  return <span className="text-xs xl:text-base">{timeAgo}</span>;
 };
 
 export default TimeAgo;

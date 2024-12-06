@@ -3,135 +3,145 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
+
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 header {
-  background-color: #333;
-  color: white;
-  padding: 1rem;
+    background-color: #333;
+    color: white;
+    padding: 1rem;
 }
 
 header nav ul {
-  display: flex;
-  list-style: none;
+    display: flex;
+    list-style: none;
 }
 
 header nav ul li {
-  margin-right: 1rem;
+    margin-right: 1rem;
 }
 
 header nav ul li a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 /* General button styling */
 .btn {
-  background-color: #555;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .btn:hover {
-  background-color: #777;
+    background-color: #777;
 }
 
 /* Connect button container styling */
 .connect-btn-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: flex-end;
-  font-family: 'Monospace', 'Courier New', monospace;
-  font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
+    font-family: 'Monospace', 'Courier New', monospace;
+    font-size: 0.875rem;
 }
 
 /* Account info styling within the connect button container */
 .account-info {
-  display: flex;
-  justify-center: center;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  border: 1px solid #555;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  font-mono: font-bold;
-  gap: 0.5rem;
-  cursor: pointer;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid #555;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    /*font-mono: font-bold, sans-serif;*/
+    gap: 0.5rem;
+    cursor: pointer;
 }
 
 /* Emoji avatar styling */
 .emoji-avatar {
-  height: 2rem;
-  width: 2rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  overflow: hidden;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
 /* Balance text styling */
 .balance-text {
-  white-space: nowrap;
-  color: #ffd700; /* Adjust this color as needed */
+    white-space: nowrap;
+    color: #ffd700; /* Adjust this color as needed */
 }
 
 .container {
-  min-height: 100vh;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    min-height: 100vh;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 0 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 0 0;
 }
 
 h1 {
-  margin: 2rem 0;
+    margin: 2rem 0;
 }
 
 .p-24 {
-  padding: 1rem;
+    padding: 1rem;
+}
+
+.main-canvas {
+    z-index: 1000;
+    position: relative;
+    border: 1px solid var(--foreground);
+    /*background: #dddddd;*/
+    /*background: url('/images/frame-0.png') center;*/
+    /*background-size: cover;*/
 }
