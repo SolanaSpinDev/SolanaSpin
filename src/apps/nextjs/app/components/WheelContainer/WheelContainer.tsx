@@ -207,7 +207,7 @@ const WheelContainer: React.FC = () => {
                     <Balance balance={balance}/>
                 </div>
                 <button
-                    className="border-1 border-solid border-blue-950 text-tiny px-[4px] py-[2px] rounded mr-1 bg-blue-950">login
+                    className="border-1 border-solid border-blue-950 text-tiny px-[4px] py-[2px] rounded mr-1 bg-blue-950 text-white">login
                 </button>
             </div>
             {/*end header*/}
@@ -268,7 +268,7 @@ const WheelContainer: React.FC = () => {
             </div>
 
             {/*footer*/}
-            <div className="absolute bottom-0 z-1 flex items-center justify-between w-full px-2 h-[40px]">
+            <div className="absolute bottom-0 z-1 flex items-center justify-between w-full px-2 h-[40px] pb-2">
                 <div className="flex items center justify-center space-x-4">
                     {isMuted &&
                         <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
@@ -301,7 +301,7 @@ const WheelContainer: React.FC = () => {
                     {wheels.map((wheel) => (
                         <div key={wheel}>
                             <button
-                                className={`wheel ${activeWheel === wheel ? 'active' : ''} border-solid border-1 border-slate-700 px-2 py-[2px] rounded`}
+                                className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeWheel === wheel ? 'active' : ''} z-10`}
                                 onClick={() => selectWheel(wheel)}>{wheel}</button>
                         </div>
                     ))}
