@@ -16,8 +16,12 @@ import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from "next/legacy/image";
 import "./WheelContainer.css"
+import AuthButton from "@/app/components/AuthButton/Index";
+import {fetchWithAuth} from "@/lib/api";
+import {signIn, signOut, useSession} from "next-auth/react";
 
 const WheelContainer: React.FC = () => {
+
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
     const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -35,7 +39,22 @@ const WheelContainer: React.FC = () => {
     const [videoX, setVideoX] = useState('');
     const [imageX, setImageX] = useState('');
     const [flag, setFlag] = useState(0);
+    const {data: session} = useSession();
 
+    //test for endpoints
+    const fetchData = async () => {
+        try {
+            const data1 = await fetchWithAuth("/api/endpoint1", session?.accessToken as string);
+            console.log(data1);
+
+            const data2 = await fetchWithAuth("/api/endpoint2", session?.accessToken as string);
+            console.log(data2);
+
+            // Add more calls as needed
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
     useEffect(() => {
         const userAgent = navigator.userAgent;
 
@@ -206,9 +225,7 @@ const WheelContainer: React.FC = () => {
                 <div className="absolute left-1/2 -translate-x-1/2 text-center">
                     <Balance balance={balance}/>
                 </div>
-                <button
-                    className="border-1 border-solid border-blue-950 text-tiny px-[4px] py-[2px] rounded mr-1 bg-blue-950 text-white">login
-                </button>
+                <AuthButton />
             </div>
             {/*end header*/}
             {isLoading ? (
