@@ -9,7 +9,7 @@ export default function AuthButton() {
 
     return (
         <div
-            className="border-1 border-solid border-blue-950 text-tiny px-[4px] py-[2px] rounded mr-1 bg-blue-950 text-white">
+            className="border-1 border-solid border-blue-950 text-tiny lg:text-xl px-[4px] py-[2px] lg:mr-3 rounded mr-1 bg-blue-950 text-white">
             {session ? (
                 <button onClick={() => signOut()}>Sign Out</button>
             ) : (
