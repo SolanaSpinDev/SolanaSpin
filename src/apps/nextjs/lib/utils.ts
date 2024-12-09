@@ -87,11 +87,11 @@ export const videoSourcesHighRes = [
 ];
 export const wheelPositions = 14;
 export const jackpotLimit = 500;
-export const predefinedBets = [
+export const bets = [
     {value: 1, src: Image1},
     {value: 5, src: Image5},
     {value: 10, src: Image10},
     {value: 20, src: Image20},
     {value: 50, src: Image50},
 ];
-export const wheels: string[] = ['wood', 'diamond', '50%']
+export const gameModes: string[] = ['50/50', 'wood', 'white', 'vip']

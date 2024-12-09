@@ -37,7 +37,7 @@ export const Jackpot = ({jackpotReached}) => {
         <div className="flex flex-col items-center">
             <div className="relative w-[130px] lg:w-[200px] xl:w-[300px] h-[130px] lg:h-[200px] xl:h-[300px]">
                 <Image
-                    src="/images/jackpot.webp"
+                    src="/images/jackpot-wood.webp"
                     alt="Centered Image"
                     loading="lazy"
                     quality={75}

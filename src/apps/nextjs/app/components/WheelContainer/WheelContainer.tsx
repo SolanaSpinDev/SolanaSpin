@@ -2,12 +2,12 @@ import React, {useCallback, useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
 import {
-    predefinedBets,
+    bets,
     computePrize,
     getRandomNumber,
-    wheelPositions, wheels,
+    wheelPositions, gameModes,
 } from "@/lib/utils";
- 
+
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
@@ -29,8 +29,51 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
-    const [activeWheel, setWheel] = useState('');
-    const [recentPlays, setRecentPlays] = useState<Play[]>([]);
+    const [activeGameMode, setActiveGameMode] = useState('');
+    const [recentPlays, setRecentPlays] = useState<Play[]>([
+        {
+            name: "Vasilakis cosntinoidsi",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi2",
+            time: new Date(),
+            outcome: "Gift",
+            prize: 1500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi3",
+            time: new Date(),
+            outcome: "Ticket",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi4",
+            time: new Date(),
+            outcome: "10X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi5",
+            time: new Date(),
+            outcome: "5X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi6",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+    ]);
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
@@ -83,8 +126,8 @@ const WheelContainer: React.FC = () => {
         }
     }
 
-    function selectWheel(wheel: string): void {
-        setWheel(wheel);
+    function selectGameMode(wheel: string): void {
+        setActiveGameMode(wheel);
     }
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
@@ -216,12 +259,12 @@ const WheelContainer: React.FC = () => {
 
             {/*header*/}
             <div
-                className="w-full h-[30px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
+                className="w-full h-[30px] lg:h-[80px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
                 <LogoTitle/>
                 <div className="absolute left-1/2 -translate-x-1/2 text-center">
                     <Balance balance={balance}/>
                 </div>
-                <AuthButton />
+                <AuthButton/>
             </div>
             {/*end header*/}
 
@@ -271,27 +314,28 @@ const WheelContainer: React.FC = () => {
             />
 
             {/*middle container end*/}
-            <div className="flex items-cemnter justify-between z-20 middle-container px-2">
+            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px]">
                 <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
+                    <div className="text-white pb-1">Game Modes</div>
                     <div className="flex justify-between items-center pb-2">
-                        {wheels.map((wheel) => (
-                            <div key={wheel}>
+                        {gameModes.map((gameMode) => (
+                            <div key={gameMode}>
                                 <button
-                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeWheel === wheel ? 'active' : ''} z-10`}
-                                    onClick={() => selectWheel(wheel)}>{wheel}</button>
+                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] uppercase rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
+                                    onClick={() => selectGameMode(gameMode)}>{gameMode}</button>
                             </div>
                         ))}
                     </div>
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
 
-                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
+                <div className="relative flex flex-col items-center justify-center z-20 pr-2 xl:mr-1 2xl:mr-5">
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
                 </div>
             </div>
 
             {/*footer*/}
-            <div className="absolute bottom-0 z-1 w-full px-2 h-[40px] pb-2">
+            <div className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[80px] pb-2">
                 <div className="relative flex items-center justify-between w-full">
                     <div className="flex items center justify-center space-x-4">
                         {isMuted &&
@@ -305,9 +349,9 @@ const WheelContainer: React.FC = () => {
                     <div className="bets-container absolute left-1/2 -translate-x-1/2 text-center">
                         <div
                             className="relative flex flex-row  items-center justify-center w-full pb-4">
-                            {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
+                            {bets.map((bet: { value: number, src: StaticImageData }) => (
                                 <div
-                                    className={`flex relative cursor-pointer rounded-lg max-w-[50px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                    className={`flex relative cursor-pointer rounded-lg max-w-[50px] lg:max-w-[100px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
                                     key={bet.value}>
                                     <Image
                                         src={bet.src}
