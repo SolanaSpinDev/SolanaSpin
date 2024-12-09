@@ -94,4 +94,4 @@ export const bets = [
     {value: 20, src: Image20},
     {value: 50, src: Image50},
 ];
-export const gameModes: string[] = ['wood', 'diamond', '50%']
+export const gameModes: string[] = ['50/50', 'wood', 'white', 'vip']

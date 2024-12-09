@@ -316,12 +316,12 @@ const WheelContainer: React.FC = () => {
             {/*middle container end*/}
             <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px]">
                 <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
-                    <div className="text-white pb-1">Choose your game mode</div>
+                    <div className="text-white pb-1">Game Modes</div>
                     <div className="flex justify-between items-center pb-2">
                         {gameModes.map((gameMode) => (
                             <div key={gameMode}>
                                 <button
-                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
+                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] uppercase rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
                                     onClick={() => selectGameMode(gameMode)}>{gameMode}</button>
                             </div>
                         ))}
