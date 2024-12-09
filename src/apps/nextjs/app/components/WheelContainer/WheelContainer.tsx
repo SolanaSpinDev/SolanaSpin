@@ -2,7 +2,7 @@ import React, {useCallback, useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
 import {
-    predefinedBets,
+    bets,
     computePrize,
     getRandomNumber,
     wheelPositions, gameModes,
@@ -335,7 +335,7 @@ const WheelContainer: React.FC = () => {
             </div>
 
             {/*footer*/}
-            <div className="absolute bottom-0 z-1 w-full px-2 h-[40px] pb-2">
+            <div className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[80px] pb-2">
                 <div className="relative flex items-center justify-between w-full">
                     <div className="flex items center justify-center space-x-4">
                         {isMuted &&
@@ -349,9 +349,9 @@ const WheelContainer: React.FC = () => {
                     <div className="bets-container absolute left-1/2 -translate-x-1/2 text-center">
                         <div
                             className="relative flex flex-row  items-center justify-center w-full pb-4">
-                            {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
+                            {bets.map((bet: { value: number, src: StaticImageData }) => (
                                 <div
-                                    className={`flex relative cursor-pointer rounded-lg max-w-[50px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                    className={`flex relative cursor-pointer rounded-lg max-w-[50px] lg:max-w-[100px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
                                     key={bet.value}>
                                     <Image
                                         src={bet.src}
