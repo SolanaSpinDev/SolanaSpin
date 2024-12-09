@@ -19,14 +19,15 @@ const RecentPlays: React.FC<RecentPlaysProps> = React.memo(({plays, ticket}) => 
                 </div>
             </div>
             {plays.length > 0 && (
-                <div className="max-h-[220px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto plays-container">
+                <div className="max-h-[170px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto plays-container">
                     {plays.map((play: Play, i: number) => (
                         <div
                             className="p-1 lg:p-4 bg-black bg-opacity-25 text-white flex justify-between min-w-[220px] lg:min-w-[300px] xl:min-w-[450px] border-b-1 border-solid border-zinc-500 last:border-b-0"
                             key={i}>
                             <div className="flex items-center justify-center text-xs   xl:text-base">
                                 <div>
-                                    <span className="capitalize">{play.name}</span>
+                                    <span
+                                        className="capitalize">{play.name.length > 10 ? play.name.substring(0, 10) + ".." : play.name}</span>
                                     <span className="hidden lg:inline"> spun <span
                                         className="lg:hidden xl:inline-block">a</span></span>
                                 </div>

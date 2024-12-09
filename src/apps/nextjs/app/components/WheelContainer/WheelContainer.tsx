@@ -5,9 +5,9 @@ import {
     predefinedBets,
     computePrize,
     getRandomNumber,
-    wheelPositions, wheels,
+    wheelPositions, gameModes,
 } from "@/lib/utils";
- 
+
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
@@ -29,8 +29,51 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
-    const [activeWheel, setWheel] = useState('');
-    const [recentPlays, setRecentPlays] = useState<Play[]>([]);
+    const [activeGameMode, setActiveGameMode] = useState('');
+    const [recentPlays, setRecentPlays] = useState<Play[]>([
+        {
+            name: "Vasilakis cosntinoidsi",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi2",
+            time: new Date(),
+            outcome: "Gift",
+            prize: 1500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi3",
+            time: new Date(),
+            outcome: "Ticket",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi4",
+            time: new Date(),
+            outcome: "10X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi5",
+            time: new Date(),
+            outcome: "5X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi6",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+    ]);
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
@@ -83,8 +126,8 @@ const WheelContainer: React.FC = () => {
         }
     }
 
-    function selectWheel(wheel: string): void {
-        setWheel(wheel);
+    function selectGameMode(wheel: string): void {
+        setActiveGameMode(wheel);
     }
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
@@ -216,12 +259,12 @@ const WheelContainer: React.FC = () => {
 
             {/*header*/}
             <div
-                className="w-full h-[30px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
+                className="w-full h-[30px] lg:h-[80px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
                 <LogoTitle/>
                 <div className="absolute left-1/2 -translate-x-1/2 text-center">
                     <Balance balance={balance}/>
                 </div>
-                <AuthButton />
+                <AuthButton/>
             </div>
             {/*end header*/}
 
@@ -271,14 +314,15 @@ const WheelContainer: React.FC = () => {
             />
 
             {/*middle container end*/}
-            <div className="flex items-cemnter justify-between z-20 middle-container px-2">
+            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px]">
                 <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
+                    <div className="text-white pb-1">Choose your game mode</div>
                     <div className="flex justify-between items-center pb-2">
-                        {wheels.map((wheel) => (
-                            <div key={wheel}>
+                        {gameModes.map((gameMode) => (
+                            <div key={gameMode}>
                                 <button
-                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeWheel === wheel ? 'active' : ''} z-10`}
-                                    onClick={() => selectWheel(wheel)}>{wheel}</button>
+                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
+                                    onClick={() => selectGameMode(gameMode)}>{gameMode}</button>
                             </div>
                         ))}
                     </div>
