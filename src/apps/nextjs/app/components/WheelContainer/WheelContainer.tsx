@@ -329,7 +329,7 @@ const WheelContainer: React.FC = () => {
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
 
-                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
+                <div className="relative flex flex-col items-center justify-center z-20 pr-2 xl:mr-1 2xl:mr-5">
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
                 </div>
             </div>
