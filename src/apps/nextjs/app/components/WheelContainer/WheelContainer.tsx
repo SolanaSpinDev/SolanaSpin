@@ -335,7 +335,7 @@ const WheelContainer: React.FC = () => {
             </div>
 
             {/*footer*/}
-            <div className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[80px] pb-2">
+            <div className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[50px] xl:h-[80px] pb-2">
                 <div className="relative flex items-center justify-between w-full">
                     <div className="flex items center justify-center space-x-4">
                         {isMuted &&
@@ -348,7 +348,7 @@ const WheelContainer: React.FC = () => {
                     </div>
                     <div className="bets-container absolute left-1/2 -translate-x-1/2 text-center">
                         <div
-                            className="relative flex flex-row  items-center justify-center w-full pb-4">
+                            className="relative flex flex-row  items-center justify-center w-full pb-1">
                             {bets.map((bet: { value: number, src: StaticImageData }) => (
                                 <div
                                     className={`flex relative cursor-pointer rounded-lg max-w-[50px] lg:max-w-[100px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
