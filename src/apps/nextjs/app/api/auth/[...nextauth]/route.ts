@@ -11,11 +11,13 @@ const authOptions = {
     ],
     callbacks: {
         async session({ session, token }) {
+            console.log("Session callback:", session, token); // Debug logging
             session.accessToken = token.accessToken;
             return session;
         },
         async jwt({ token, account }) {
             if (account) {
+                console.log("JWT callback:", token, account); // Debug logging
                 token.accessToken = account.access_token as string;
             }
             return token;
