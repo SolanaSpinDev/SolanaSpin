@@ -22,7 +22,7 @@ const RecentPlays: React.FC<RecentPlaysProps> = React.memo(({plays, ticket}) => 
                 <div className="max-h-[170px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto plays-container">
                     {plays.map((play: Play, i: number) => (
                         <div
-                            className="p-1 lg:p-4 bg-black bg-opacity-25 text-white flex justify-between min-w-[220px] lg:min-w-[300px] xl:min-w-[450px] border-b-1 border-solid border-zinc-500 last:border-b-0"
+                            className="p-1 lg:p-2 2xl:p-4 bg-black bg-opacity-25 text-white flex justify-between min-w-[200px] lg:min-w-[220px] 2xl:min-w-[450px] border-b-1 border-solid border-zinc-500 last:border-b-0"
                             key={i}>
                             <div className="flex items-center justify-center text-xs   xl:text-base">
                                 <div>
