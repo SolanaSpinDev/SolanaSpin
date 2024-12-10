@@ -11,9 +11,14 @@ import {NextRequest, NextResponse} from "next/server";
 export function middleware(request: NextRequest) {
     const url = request.nextUrl;
 
-    // Exclude NextAuth API routes
+    //1. Exclude NextAuth API routes
     if (url.pathname.startsWith("/api/auth/")) {
         return NextResponse.next();
+    }
+
+    // 2. Redirect root path "/" to default game mode
+    if (url.pathname === "/") {
+        return NextResponse.redirect(new URL("/game/default", request.url));
     }
 
     // Add custom logic for protected routes if needed

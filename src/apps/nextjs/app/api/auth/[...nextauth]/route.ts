@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { login, refresh } from "@/actions/user-auth";
+import { login, refresh } from "@/lib/auth/user-auth";
 import type {
   AuthOptions,
   User,
