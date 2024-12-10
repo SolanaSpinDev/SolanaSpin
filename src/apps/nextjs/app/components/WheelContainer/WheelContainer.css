@@ -15,6 +15,12 @@
     height: calc(100vh - 80px);
 }
 
+@media (min-width: 1024px) {
+    .middle-container {
+        height: calc(100vh - 160px);
+    }
+}
+
 .wheel.active {
     border-color: white
 }

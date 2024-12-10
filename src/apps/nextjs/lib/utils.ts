@@ -15,6 +15,7 @@ export const getRandomNumber = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//todo update the computePrize with the new logic or remove this one
 export const computePrize = (videoId: number, wheelPositions: number, activeBet: number): {
     prize: number,
     outcome: string
@@ -55,36 +56,6 @@ export const formatCurrency = (number: number) => {
     }).format(number);
 };
 
-export const videoSourcesHighRes = [
-    "videos/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X0.1 C.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_Diamond.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_No Win C.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X5.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X0.1 B.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X0.5 B.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_Ticket.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X0.1 A.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_Free Spin.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_No Win B.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X50.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_No Win A.mp4",
-    "videos/720p/S_W_Separate_Wood_Start_X0.5 A.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_Gift Box.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X0.1 C.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_Diamond.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_No Win C.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X5.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X0.1 B.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X0.5 B.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_Ticket.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X0.1 A.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_Free Spin.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_No Win B.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X50.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_No Win A.mp4",
-    "videos/720p/S_W_Separate_Wood_Result_X0.5 A.mp4",
-];
 export const wheelPositions = 14;
 export const jackpotLimit = 500;
 export const bets = [
@@ -94,4 +65,4 @@ export const bets = [
     {value: 20, src: Image20},
     {value: 50, src: Image50},
 ];
-export const gameModes: string[] = ['50/50', 'wood', 'white', 'vip']
+export const gameModes: string[] = ['wood', '50/50', 'white', 'vip']
