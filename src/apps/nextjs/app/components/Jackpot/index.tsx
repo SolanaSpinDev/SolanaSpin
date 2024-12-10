@@ -4,7 +4,7 @@ import {getRandomNumber, jackpotLimit} from "@/lib/utils";
 import './Jackpot.css'
 import {NauSea} from "@/app/fonts/fonts";
 
-export const Jackpot = ({jackpotReached}) => {
+export const Jackpot = ({jackpotReached, gameMode}) => {
     const [progress, setProgress] = useState(0);
     const [jackpotValue, setJackpotValue] = useState(getRandomNumber(jackpotLimit - 73, jackpotLimit + 45));
 
@@ -37,7 +37,7 @@ export const Jackpot = ({jackpotReached}) => {
         <div className="flex flex-col items-center">
             <div className="relative w-[130px] lg:w-[200px] xl:w-[300px] h-[130px] lg:h-[200px] xl:h-[300px]">
                 <Image
-                    src="/images/jackpot-wood.webp"
+                    src={`/images/${gameMode}/jackpot.png`}
                     alt="Centered Image"
                     loading="lazy"
                     quality={75}

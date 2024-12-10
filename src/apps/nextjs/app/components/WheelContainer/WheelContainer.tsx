@@ -19,8 +19,9 @@ import "./WheelContainer.css"
 import AuthButton from "@/app/components/AuthButton/Index";
 import {fetchWithAuth} from "@/lib/api";
 import {signIn, signOut, useSession} from "next-auth/react";
+import {usePathname, useRouter} from "next/navigation";
 
-const WheelContainer: React.FC = () => {
+const WheelContainer = () => {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
@@ -29,7 +30,6 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
-    const [activeGameMode, setActiveGameMode] = useState('');
     const [recentPlays, setRecentPlays] = useState<Play[]>([
         {
             name: "Vasilakis cosntinoidsi",
@@ -83,21 +83,30 @@ const WheelContainer: React.FC = () => {
     const [imageX, setImageX] = useState('');
     const [flag, setFlag] = useState(0);
     const {data: session} = useSession();
-
+    const router = useRouter();
+    const pathname = usePathname();
+    const activeGameMode = pathname.split("/")[2] || "wood";
     //test for endpoints
-    const fetchData = async () => {
-        try {
-            const data1 = await fetchWithAuth("/api/endpoint1", session?.accessToken as string);
-            console.log(data1);
+    // const fetchData = async () => {
+    //     if (!session || !session.user) {
+    //         console.error("User is not authenticated");
+    //         return;
+    //     }
+    //
+    //     try {
+    //         const data = await fetchWithAuth(
+    //             "url", // Replace with your API URL
+    //             session.validity.valid_until ? session.validity.valid_until.toString() : ""
+    //         );
+    //
+    //         console.log("Protected data:", data);
+    //     } catch (error) {
+    //         console.error("Error fetching protected data:", error);
+    //     }
+    // };
+    // Extract `gameMode` from the URL
 
-            const data2 = await fetchWithAuth("/api/endpoint2", session?.accessToken as string);
-            console.log(data2);
 
-            // Add more calls as needed
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
     useEffect(() => {
         const userAgent = navigator.userAgent;
 
@@ -126,9 +135,11 @@ const WheelContainer: React.FC = () => {
         }
     }
 
-    function selectGameMode(wheel: string): void {
-        setActiveGameMode(wheel);
-    }
+    const selectGameMode = (gameMode: string) => {
+        if (gameMode !== activeGameMode) {
+            router.push(`/game/${gameMode}`);
+        }
+    };
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
         updateBalance(data.jackpotValue);
@@ -322,11 +333,11 @@ const WheelContainer: React.FC = () => {
                             <div key={gameMode}>
                                 <button
                                     className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] uppercase rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
-                                    onClick={() => selectGameMode(gameMode)}>{gameMode}</button>
+                                    onClick={() => selectGameMode(gameMode)}>{gameMode==="50" ? "50/50" : gameMode}</button>
                             </div>
                         ))}
                     </div>
-                    <Jackpot jackpotReached={handleJackpot}/>
+                    <Jackpot jackpotReached={handleJackpot} gameMode={activeGameMode} key={activeGameMode}/>
                 </div>
 
                 <div className="relative flex flex-col items-center justify-center z-20 pr-1 2xl:mr-5">
@@ -335,7 +346,8 @@ const WheelContainer: React.FC = () => {
             </div>
 
             {/*footer*/}
-            <div className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[50px] xl:h-[80px] pb-2">
+            <div
+                className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[50px] xl:h-[80px] pb-2">
                 <div className="relative flex items-center justify-between w-full">
                     <div className="flex items center justify-center space-x-4">
                         {isMuted &&
