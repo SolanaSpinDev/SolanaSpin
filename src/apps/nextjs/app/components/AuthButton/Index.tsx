@@ -13,7 +13,7 @@ export default function AuthButton() {
             {session ? (
                 <button onClick={() => signOut()}>Sign Out</button>
             ) : (
-                <button onClick={() => signIn("auth0")}>Sign In</button>
+                <button onClick={() => signIn("Login")}>Sign In</button>
             )}
         </div>
     );
