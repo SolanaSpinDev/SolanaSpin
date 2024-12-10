@@ -36,7 +36,7 @@ async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
   }
 }
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   providers: [
