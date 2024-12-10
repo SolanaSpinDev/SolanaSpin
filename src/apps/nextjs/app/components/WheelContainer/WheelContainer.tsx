@@ -325,8 +325,8 @@ const WheelContainer = () => {
             />
 
             {/*middle container end*/}
-            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px]">
-                <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
+            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px] mx-auto">
+                <div className="relative flex flex-col items-center justify-center z-20 w-[35%]">
                     <div className="text-white pb-1">Game Modes</div>
                     <div className="flex justify-between items-center pb-2">
                         {gameModes.map((gameMode) => (
@@ -340,7 +340,7 @@ const WheelContainer = () => {
                     <Jackpot jackpotReached={handleJackpot} gameMode={activeGameMode} key={activeGameMode}/>
                 </div>
 
-                <div className="relative flex flex-col items-center justify-center z-20 pr-2 xl:mr-1 2xl:mr-5">
+                <div className="relative flex flex-col items-center justify-center z-20 pr-1 2xl:mr-5">
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
                 </div>
             </div>
