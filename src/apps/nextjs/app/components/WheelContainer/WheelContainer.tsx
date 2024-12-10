@@ -314,7 +314,7 @@ const WheelContainer: React.FC = () => {
             />
 
             {/*middle container end*/}
-            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px] mx-auto max-w-[1680px]">
+            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px] mx-auto">
                 <div className="relative flex flex-col items-center justify-center z-20 w-[35%]">
                     <div className="text-white pb-1">Game Modes</div>
                     <div className="flex justify-between items-center pb-2">
