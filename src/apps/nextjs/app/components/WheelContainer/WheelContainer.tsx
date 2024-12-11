@@ -80,7 +80,7 @@ const WheelContainer = () => {
     const [isMuted, setIsMuted] = useState(true);
     const [error, setError] = useState(null); // State to handle errors
     const [videoX, setVideoX] = useState('');
-    const [imageX, setImageX] = useState('');
+    const [imageX, setImageX] = useState(''); //todo rename this to imgBackground
     const [flag, setFlag] = useState(0);
     const {data: session} = useSession();
     const router = useRouter();
@@ -106,6 +106,10 @@ const WheelContainer = () => {
     // };
     // Extract `gameMode` from the URL
 
+    useEffect(() => {
+        // Update the background image based on the active game mode
+        setImageX(`/images/${activeGameMode}/default-bg-start.webp`);
+    }, [activeGameMode]);
 
     useEffect(() => {
         const userAgent = navigator.userAgent;
@@ -175,35 +179,49 @@ const WheelContainer = () => {
     }, []);
 
     const handlePlayVideoDb = async () => {
-        const videosList = [
-            "https://solanaspin.io/full-videos/Gift_Box-Diamond.mp4",
-            "https://solanaspin.io/full-videos/Diamond-X01_B.mp4",
-            "https://solanaspin.io/full-videos/X01_B-X01_B.mp4",
-            "https://solanaspin.io/full-videos/X01_B-X50.mp4",
-            "https://solanaspin.io/full-videos/X50-No_Win_A.mp4",
-            "https://solanaspin.io/full-videos/No_Win_A-No_Win_B.mp4",
-            "https://solanaspin.io/full-videos/No_Win_B-X01_C.mp4",
-            "https://solanaspin.io/full-videos/X01_C-Ticket.mp4",
-            "https://solanaspin.io/full-videos/Ticket-X05_B.mp4",
-            "https://solanaspin.io/full-videos/X05_B-Gift_Box.mp4",
-            "https://solanaspin.io/full-videos/Gift_Box-Free_Spin.mp4",
+        const videos50=[
+            "https://solanaspin.io/videos-50/X2-No_Win.mp4",
+            "https://solanaspin.io/videos-50/No_Win-No_Win.mp4",
+            "https://solanaspin.io/videos-50/No_Win-X2.mp4",
+            "https://solanaspin.io/videos-50/X2-X2.mp4",
+        ];
+        const images50=[
+            "https://solanaspin.io/images-50/X2.webp",
+            "https://solanaspin.io/images-50/No_Win.webp",
+            "https://solanaspin.io/images-50/X2.webp",
+            "https://solanaspin.io/images-50/X2.webp",
+        ];
+        const videosWood = [
+            "https://solanaspin.io/videos-wood/Gift_Box-Diamond.mp4",
+            "https://solanaspin.io/videos-wood/Diamond-X01_B.mp4",
+            "https://solanaspin.io/videos-wood/X01_B-X01_B.mp4",
+            "https://solanaspin.io/videos-wood/X01_B-X50.mp4",
+            "https://solanaspin.io/videos-wood/X50-No_Win_A.mp4",
+            "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
+            "https://solanaspin.io/videos-wood/No_Win_B-X01_C.mp4",
+            "https://solanaspin.io/videos-wood/X01_C-Ticket.mp4",
+            "https://solanaspin.io/videos-wood/Ticket-X05_B.mp4",
+            "https://solanaspin.io/videos-wood/X05_B-Gift_Box.mp4",
+            "https://solanaspin.io/videos-wood/Gift_Box-Free_Spin.mp4",
         ]
-        const imageList = [
-            "https://solanaspin.io/full-images/Diamond.webp",
-            "https://solanaspin.io/full-images/X01_B.webp",
-            "https://solanaspin.io/full-images/X01_B.png",
-            "https://solanaspin.io/full-images/X50.png",
-            "https://solanaspin.io/full-images/No_Win_A.png",
-            "https://solanaspin.io/full-images/No_Win_B.png",
-            "https://solanaspin.io/full-images/X01_C.png",
-            "https://solanaspin.io/full-images/Ticket.png",
-            "https://solanaspin.io/full-images/X05_B.png",
-            "https://solanaspin.io/full-images/Gift_Box.png",
-            "https://solanaspin.io/full-images/Free_Spin.png",
+        const imagesWood = [
+            "https://solanaspin.io/images-wood/Diamond.webp",
+            "https://solanaspin.io/images-wood/X01_B.webp",
+            "https://solanaspin.io/images-wood/X01_B.png",
+            "https://solanaspin.io/images-wood/X50.png",
+            "https://solanaspin.io/images-wood/No_Win_A.png",
+            "https://solanaspin.io/images-wood/No_Win_B.png",
+            "https://solanaspin.io/images-wood/X01_C.png",
+            "https://solanaspin.io/images-wood/Ticket.png",
+            "https://solanaspin.io/images-wood/X05_B.png",
+            "https://solanaspin.io/images-wood/Gift_Box.png",
+            "https://solanaspin.io/images-wood/Free_Spin.png",
         ]
         setIsLoading(true);
         setIsPlaying(true);
         setError(null); // Reset any previous errors
+        const videosList = activeGameMode === 'wood' ? videosWood : videos50; //temporarily
+        const imageList = activeGameMode === 'wood' ? imagesWood : images50; //temporarily
         try {
             const [responseVideo, responseImage] = await Promise.all([
                 fetch(videosList[flag]),
