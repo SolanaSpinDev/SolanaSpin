@@ -11,7 +11,7 @@ const config: Config = {
     theme: {
         extend: {
             backgroundImage: {
-                'video-container-bg': "url('/images/gift_start.webp')",
+                'video-container-bg': "url('/images/wood/default-bg-start.webp')",
             },
             colors: {
                 background: "var(--background)",
