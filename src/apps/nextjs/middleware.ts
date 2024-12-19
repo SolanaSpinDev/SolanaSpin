@@ -10,7 +10,7 @@ import {NextRequest, NextResponse} from "next/server";
 
 export function middleware(request: NextRequest) {
     const url = request.nextUrl;
-
+    console.log('@Middleware.ts');
     //1. Exclude NextAuth API routes
     if (url.pathname.startsWith("/api/auth/")) {
         return NextResponse.next();

@@ -63,6 +63,5 @@ export const bets = [
     {value: 5, src: Image5},
     {value: 10, src: Image10},
     {value: 20, src: Image20},
-    {value: 50, src: Image50},
 ];
 export const gameModes: string[] = ['50', 'wood', 'white', 'vip']
