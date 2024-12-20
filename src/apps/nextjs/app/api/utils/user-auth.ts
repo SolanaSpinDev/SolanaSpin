@@ -1,5 +1,3 @@
-import type {UserObject, BackendJWT, BackendAccessJWT} from "next-auth";
-import {v4 as uuidv4} from "uuid";
 
 /**
  * Log in a user by sending a POST request to the backend using the supplied credentials.
@@ -23,8 +21,7 @@ export async function login(
         throw new Error("Password is required");
     }
 
-    //todo add this url to an env var
-    return await fetch('https://game-dev.solanaspin.io/api/token', {
+    return await fetch(process.env.BASE_URL + '/api/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -53,7 +50,7 @@ export async function refresh(token: string, refreshToken: string): Promise<Resp
         throw new Error("Token is required");
     }
 
-    return await fetch('https://game-dev.solanaspin.io/api/token/refresh', {
+    return await fetch(process.env.BASE_URL + '/api/token/refresh', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

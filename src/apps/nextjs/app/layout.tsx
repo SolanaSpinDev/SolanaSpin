@@ -3,11 +3,8 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
 import React from "react";
-import Script from 'next/script';
-import {SessionProvider} from "next-auth/react";
 import ClientSessionProvider from "@/app/components/ClientSessionProvider/Index";
 
-// import Header from './components/Header';
 const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";
 const description = "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
     " place your bets, and enjoy a chance to win crypto rewards. Safe, secure, and full of excitement—join now " +
@@ -46,30 +43,28 @@ export default function RootLayout({
     // const cookie = headers().get("cookie");
     return (
         <html lang="en">
-        <body
-            className="antialiased"
-        >
+        <body className="antialiased">
         <NextUIProvider>
             <div className="min-h-screen ">
-                {/*<Header/>*/}
                 <ClientSessionProvider>
                     <main>{children}</main>
                 </ClientSessionProvider>
             </div>
         </NextUIProvider>
-        <script
-            type="text/javascript"
-            async
-            dangerouslySetInnerHTML={{
-                __html: `
-                            (function(c,l,a,r,i,t,y){
-                                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                            })(window, document, "clarity", "script", "odqlb9qomc");
-                        `,
-            }}
-        ></script>
+        {/*todo uncomment this section when the app si ready to go*/}
+        {/*<script*/}
+        {/*    type="text/javascript"*/}
+        {/*    async*/}
+        {/*    dangerouslySetInnerHTML={{*/}
+        {/*        __html: `*/}
+        {/*                    (function(c,l,a,r,i,t,y){*/}
+        {/*                        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};*/}
+        {/*                        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;*/}
+        {/*                        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);*/}
+        {/*                    })(window, document, "clarity", "script", "odqlb9qomc");*/}
+        {/*                `,*/}
+        {/*    }}*/}
+        {/*></script>*/}
         </body>
         </html>
     );
