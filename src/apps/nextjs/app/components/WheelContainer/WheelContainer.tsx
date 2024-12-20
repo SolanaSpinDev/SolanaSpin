@@ -6,10 +6,11 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {usePathname, useRouter} from "next/navigation";
 import {Header} from "@/app/components/Header";
 import {Footer} from "@/app/components/Footer";
-import "./WheelContainer.css"
 import {GameMode} from "@/app/components/GameModes";
 import {useSession} from "next-auth/react";
 import {fetchWithAuth} from "@/app/api/utils/api";
+import "./WheelContainer.css"
+import {wheelsConfig} from "@/lib/utils";
 
 const WheelContainer = () => {
 
@@ -77,6 +78,7 @@ const WheelContainer = () => {
     const pathname = usePathname();
     const activeGameMode = pathname.split("/")[2] || "wood";
     const {data: session} = useSession();
+    const [lastPrize, setLastPrize] = useState(''); //use convention in wheelsConfig
 
     useEffect(() => {
         // Update the background image based on the active game mode
@@ -114,6 +116,9 @@ const WheelContainer = () => {
     const handleSelectGameMode = (gameMode: string) => {
         if (gameMode !== activeGameMode) {
             router.push(`/game/${gameMode}`);
+            const slug = gameMode === '50' ? 'blue' : gameMode;
+            const initialWheelPosition = wheelsConfig[slug].faces[0].videoNamingConvention;
+            setLastPrize(initialWheelPosition)
         }
     };
 
@@ -187,10 +192,10 @@ const WheelContainer = () => {
             "https://solanaspin.io/images-50/X2.webp",
         ];
         const videosWood = [
-            "https://solanaspin.io/videos-wood/Gift_Box-Diamond.mp4",
-            "https://solanaspin.io/videos-wood/Diamond-X01_B.mp4",
-            "https://solanaspin.io/videos-wood/X01_B-X01_B.mp4",
-            "https://solanaspin.io/videos-wood/X01_B-X50.mp4",
+            "https://solanaspin.io/videos-wood/Gift_Box-No_Win_A.mp4",
+            "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
+            "https://solanaspin.io/videos-wood/No_Win_B-No_Win_C.mp4",
+            "https://solanaspin.io/videos-wood/X01_C-X01_A.mp4",
             "https://solanaspin.io/videos-wood/X50-No_Win_A.mp4",
             "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
             "https://solanaspin.io/videos-wood/No_Win_B-X01_C.mp4",
@@ -200,10 +205,10 @@ const WheelContainer = () => {
             "https://solanaspin.io/videos-wood/Gift_Box-Free_Spin.mp4",
         ]
         const imagesWood = [
-            "https://solanaspin.io/images-wood/Diamond.webp",
-            "https://solanaspin.io/images-wood/X01_B.webp",
-            "https://solanaspin.io/images-wood/X01_B.png",
-            "https://solanaspin.io/images-wood/X50.png",
+            "https://solanaspin.io/images-wood/No_Win_A.png",
+            "https://solanaspin.io/images-wood/No_Win_B.png",
+            "https://solanaspin.io/images-wood/No_Win_C.png",
+            "https://solanaspin.io/images-wood/X01_A.png",
             "https://solanaspin.io/images-wood/No_Win_A.png",
             "https://solanaspin.io/images-wood/No_Win_B.png",
             "https://solanaspin.io/images-wood/X01_C.png",
@@ -215,25 +220,36 @@ const WheelContainer = () => {
         setIsLoading(true);
         setIsPlaying(true);
         setError(null); // Reset any previous errors
+
+        //todo change 50 to blue for gameMode
+
         const videosList = activeGameMode === 'wood' ? videosWood : videos50; //temporarily
         const imageList = activeGameMode === 'wood' ? imagesWood : images50; //temporarily
         try {
-            const diceRes = await getDice("wood", 2);
-            //todo use diceData to make the call for the resources
-//fake condition to test the chained calls
-            let responseVideo, responseImage;
-            const netAmount = diceRes?.netAmount;
-            if (netAmount) {
-                [responseVideo, responseImage] = await Promise.all([
-                    fetch(videosList[flag]),
-                    fetch(imageList[flag]),
-                ]);
-            }
-            // const [responseVideo, responseImage] = await Promise.all([
-            //     fetch(videosList[flag]),
-            //     fetch(imageList[flag]),
-            // ]);
-            const response = await fetch(videosList[flag]); // Adjust endpoint as needed
+            //todo fix the issue with blue/50 for game mode and for url path
+            //activeGame is the diceSlug
+            const diceSlug = activeGameMode === '50' ? 'blue' : activeGameMode;
+            console.log('diceSlug', diceSlug)
+            const diceRes = await getDice(diceSlug, activeBet); //get dice results
+            //todo handle errors for this one
+            const diceFace = wheelsConfig[diceSlug].faces[diceRes.result.faceIndex];
+            const {videoNamingConvention} = diceFace;
+            //update balance
+
+            console.log('update balance with !! it has been substracted the bet value initially', diceRes.result.returnAmount);
+            const resourcesUrl = 'https://solanaspin.io'
+            console.log('activeGameMode')
+            const oldPrize = lastPrize ? lastPrize : wheelsConfig[activeGameMode === '50' ? 'blue' : activeGameMode].faces[0].videoNamingConvention;
+            const videoUrl = `${resourcesUrl}/videos-${activeGameMode}/${oldPrize}-${videoNamingConvention}.mp4`;
+            const imageUrl = `${resourcesUrl}/images-${activeGameMode}/${videoNamingConvention}.${activeGameMode === '50' ? 'webp' : 'png'}`;
+            console.log('videoUrl = ', videoUrl);
+            console.log('imageUrl = ', imageUrl);
+            const [responseVideo, responseImage] = await Promise.all([
+                fetch(videoUrl),
+                fetch(imageUrl),
+            ]);
+            setLastPrize(videoNamingConvention);
+
             if (!responseVideo.ok || !responseImage.ok) {
                 throw new Error('Failed to fetch data');
             }
@@ -251,8 +267,9 @@ const WheelContainer = () => {
                 setVideoBackgroundImage(urlImage);
             }, 1000)
         } catch (err: unknown) {
-            console.log('error')
+            console.log('error ', err)
             setIsLoading(false);
+            //todo here let the user know about the error and make the wheel avaialble
 
         } finally {
             setIsLoading(false);
@@ -362,3 +379,7 @@ const WheelContainer = () => {
 };
 
 export default WheelContainer;
+//todo - fix the issue with blue/50 for resources/slug/etc  - keep only the label with 50/50 , everywhere else use "blue"
+//todo - rename folders in the resources for video and img with blue
+//todo - use the same img extension for images
+//todo  - fix default video position start

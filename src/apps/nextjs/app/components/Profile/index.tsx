@@ -9,6 +9,7 @@ export const Profile = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const {data: session} = useSession();
 
+    console.log('session = ', session);
     const getProfile = async () => {
 
         if (!session?.tokens?.token) {

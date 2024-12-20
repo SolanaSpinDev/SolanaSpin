@@ -65,3 +65,128 @@ export const bets = [
     {value: 20, src: Image20},
 ];
 export const gameModes: string[] = ['50', 'wood', 'white', 'vip']
+export const wheelsConfig = {
+    "wood": {
+        "title": "2️⃣ Wood Wheel",
+        "slug": "wood",
+        "maximumPlayAmount": null,
+        "minimumPlayAmount": null,
+        "faces": [
+            {
+                "resultType": 4,
+                "resultValue": "🎁 gift",
+                "videoNamingConvention": "Gift_Box",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "0.1",
+                "videoNamingConvention": "X01_C",
+            },
+            {
+                "resultType": 3,
+                "resultValue": "diamond",
+                "videoNamingConvention": "Diamond",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win_C",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "5",
+                "videoNamingConvention": "X5",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "0.1",
+                "videoNamingConvention": "X01_B",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "0.5",
+                "videoNamingConvention": "X05_B",
+            },
+            {
+                "resultType": 4,
+                "resultValue": "🎟️ ticket",
+                "videoNamingConvention": "Ticket",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "0.1",
+                "videoNamingConvention": "X01_A",
+            },
+            {
+                "resultType": 3,
+                "resultValue": "wood",
+                "videoNamingConvention": "Free_Spin",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win_B",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "50",
+                "videoNamingConvention": "X50",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win_A",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "X05_A",
+            }
+        ]
+    },
+    "blue": {
+        "title": "1️⃣ Blue Wheel",
+        "slug": "blue",
+        "faces": [
+            {
+                "resultType": 1,
+                "resultValue": "2",
+                "videoNamingConvention": "X2",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "2",
+                "videoNamingConvention": "X2",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "2",
+                "videoNamingConvention": "X2",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win",
+            },
+            {
+                "resultType": 1,
+                "resultValue": "2",
+                "videoNamingConvention": "X2",
+            },
+            {
+                "resultType": 0,
+                "resultValue": "💀 lose",
+                "videoNamingConvention": "No_Win",
+            }
+        ]
+    }
+}
