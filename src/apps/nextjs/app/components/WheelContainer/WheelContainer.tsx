@@ -65,7 +65,8 @@ const WheelContainer = () => {
             prize: 500,
         },
     ]);
-    //todo review the necesity of browser
+
+    //todo review the necessity of browser
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
@@ -116,8 +117,7 @@ const WheelContainer = () => {
     const handleSelectGameMode = (gameMode: string) => {
         if (gameMode !== activeGameMode) {
             router.push(`/game/${gameMode}`);
-            const slug = gameMode === '50' ? 'blue' : gameMode;
-            const initialWheelPosition = wheelsConfig[slug].faces[0].videoNamingConvention;
+            const initialWheelPosition = wheelsConfig[gameMode].faces[0].videoNamingConvention;
             setLastPrize(initialWheelPosition)
         }
     };
@@ -179,71 +179,23 @@ const WheelContainer = () => {
     }
 
     const handlePlayVideoDb = async () => {
-        const videos50 = [
-            "https://solanaspin.io/videos-50/X2-No_Win.mp4",
-            "https://solanaspin.io/videos-50/No_Win-No_Win.mp4",
-            "https://solanaspin.io/videos-50/No_Win-X2.mp4",
-            "https://solanaspin.io/videos-50/X2-X2.mp4",
-        ];
-        const images50 = [
-            "https://solanaspin.io/images-50/X2.webp",
-            "https://solanaspin.io/images-50/No_Win.webp",
-            "https://solanaspin.io/images-50/X2.webp",
-            "https://solanaspin.io/images-50/X2.webp",
-        ];
-        const videosWood = [
-            "https://solanaspin.io/videos-wood/Gift_Box-No_Win_A.mp4",
-            "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
-            "https://solanaspin.io/videos-wood/No_Win_B-No_Win_C.mp4",
-            "https://solanaspin.io/videos-wood/X01_C-X01_A.mp4",
-            "https://solanaspin.io/videos-wood/X50-No_Win_A.mp4",
-            "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
-            "https://solanaspin.io/videos-wood/No_Win_B-X01_C.mp4",
-            "https://solanaspin.io/videos-wood/X01_C-Ticket.mp4",
-            "https://solanaspin.io/videos-wood/Ticket-X05_B.mp4",
-            "https://solanaspin.io/videos-wood/X05_B-Gift_Box.mp4",
-            "https://solanaspin.io/videos-wood/Gift_Box-Free_Spin.mp4",
-        ]
-        const imagesWood = [
-            "https://solanaspin.io/images-wood/No_Win_A.png",
-            "https://solanaspin.io/images-wood/No_Win_B.png",
-            "https://solanaspin.io/images-wood/No_Win_C.png",
-            "https://solanaspin.io/images-wood/X01_A.png",
-            "https://solanaspin.io/images-wood/No_Win_A.png",
-            "https://solanaspin.io/images-wood/No_Win_B.png",
-            "https://solanaspin.io/images-wood/X01_C.png",
-            "https://solanaspin.io/images-wood/Ticket.png",
-            "https://solanaspin.io/images-wood/X05_B.png",
-            "https://solanaspin.io/images-wood/Gift_Box.png",
-            "https://solanaspin.io/images-wood/Free_Spin.png",
-        ]
         setIsLoading(true);
         setIsPlaying(true);
         setError(null); // Reset any previous errors
 
-        //todo change 50 to blue for gameMode
-
-        const videosList = activeGameMode === 'wood' ? videosWood : videos50; //temporarily
-        const imageList = activeGameMode === 'wood' ? imagesWood : images50; //temporarily
         try {
-            //todo fix the issue with blue/50 for game mode and for url path
-            //activeGame is the diceSlug
-            const diceSlug = activeGameMode === '50' ? 'blue' : activeGameMode;
-            console.log('diceSlug', diceSlug)
-            const diceRes = await getDice(diceSlug, activeBet); //get dice results
+            const diceRes = await getDice(activeGameMode, activeBet); //get dice results
+
             //todo handle errors for this one
-            const diceFace = wheelsConfig[diceSlug].faces[diceRes.result.faceIndex];
+            const diceFace = wheelsConfig[activeGameMode].faces[diceRes.result.faceIndex];
             const {videoNamingConvention} = diceFace;
             //update balance
 
             console.log('update balance with !! it has been substracted the bet value initially', diceRes.result.returnAmount);
-            const resourcesUrl = 'https://solanaspin.io'
-            console.log('activeGameMode')
-            const oldPrize = lastPrize ? lastPrize : wheelsConfig[activeGameMode === '50' ? 'blue' : activeGameMode].faces[0].videoNamingConvention;
+            const resourcesUrl = 'https://solanaspin.io' //todo maybe move this to an env var
+            const oldPrize = lastPrize ? lastPrize : wheelsConfig[activeGameMode].faces[0].videoNamingConvention;
             const videoUrl = `${resourcesUrl}/videos-${activeGameMode}/${oldPrize}-${videoNamingConvention}.mp4`;
-            const imageUrl = `${resourcesUrl}/images-${activeGameMode}/${videoNamingConvention}.${activeGameMode === '50' ? 'webp' : 'png'}`;
-            console.log('videoUrl = ', videoUrl);
-            console.log('imageUrl = ', imageUrl);
+            const imageUrl = `${resourcesUrl}/images-${activeGameMode}/${videoNamingConvention}.webp`;
             const [responseVideo, responseImage] = await Promise.all([
                 fetch(videoUrl),
                 fetch(imageUrl),
@@ -274,7 +226,7 @@ const WheelContainer = () => {
         } finally {
             setIsLoading(false);
             setFlag(flag + 1);
-
+                //todo remove the flag variable since is not yet usefull
         }
     }
 
@@ -379,7 +331,4 @@ const WheelContainer = () => {
 };
 
 export default WheelContainer;
-//todo - fix the issue with blue/50 for resources/slug/etc  - keep only the label with 50/50 , everywhere else use "blue"
-//todo - rename folders in the resources for video and img with blue
-//todo - use the same img extension for images
 //todo  - fix default video position start

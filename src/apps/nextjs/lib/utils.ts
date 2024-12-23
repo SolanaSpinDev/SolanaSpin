@@ -56,7 +56,6 @@ export const formatCurrency = (number: number) => {
     }).format(number);
 };
 
-export const wheelPositions = 14;
 export const jackpotLimit = 500;
 export const bets = [
     {value: 1, src: Image1},
@@ -64,7 +63,7 @@ export const bets = [
     {value: 10, src: Image10},
     {value: 20, src: Image20},
 ];
-export const gameModes: string[] = ['50', 'wood', 'white', 'vip']
+export const gameModes: string[] = ['blue', 'wood', 'white', 'vip']
 export const wheelsConfig = {
     "wood": {
         "title": "2️⃣ Wood Wheel",
@@ -190,3 +189,42 @@ export const wheelsConfig = {
         ]
     }
 }
+// todo remove this hardcoded paths after final implementation
+export const videos50 = [
+    "https://solanaspin.io/videos-50/X2-No_Win.mp4",
+    "https://solanaspin.io/videos-50/No_Win-No_Win.mp4",
+    "https://solanaspin.io/videos-50/No_Win-X2.mp4",
+    "https://solanaspin.io/videos-50/X2-X2.mp4",
+];
+export const images50 = [
+    "https://solanaspin.io/images-50/X2.webp",
+    "https://solanaspin.io/images-50/No_Win.webp",
+    "https://solanaspin.io/images-50/X2.webp",
+    "https://solanaspin.io/images-50/X2.webp",
+];
+export const videosWood = [
+    "https://solanaspin.io/videos-wood/Gift_Box-No_Win_A.mp4",
+    "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
+    "https://solanaspin.io/videos-wood/No_Win_B-No_Win_C.mp4",
+    "https://solanaspin.io/videos-wood/X01_C-X01_A.mp4",
+    "https://solanaspin.io/videos-wood/X50-No_Win_A.mp4",
+    "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
+    "https://solanaspin.io/videos-wood/No_Win_B-X01_C.mp4",
+    "https://solanaspin.io/videos-wood/X01_C-Ticket.mp4",
+    "https://solanaspin.io/videos-wood/Ticket-X05_B.mp4",
+    "https://solanaspin.io/videos-wood/X05_B-Gift_Box.mp4",
+    "https://solanaspin.io/videos-wood/Gift_Box-Free_Spin.mp4",
+]
+export const imagesWood = [
+    "https://solanaspin.io/images-wood/No_Win_A.png",
+    "https://solanaspin.io/images-wood/No_Win_B.png",
+    "https://solanaspin.io/images-wood/No_Win_C.png",
+    "https://solanaspin.io/images-wood/X01_A.png",
+    "https://solanaspin.io/images-wood/No_Win_A.png",
+    "https://solanaspin.io/images-wood/No_Win_B.png",
+    "https://solanaspin.io/images-wood/X01_C.png",
+    "https://solanaspin.io/images-wood/Ticket.png",
+    "https://solanaspin.io/images-wood/X05_B.png",
+    "https://solanaspin.io/images-wood/Gift_Box.png",
+    "https://solanaspin.io/images-wood/Free_Spin.png",
+]
