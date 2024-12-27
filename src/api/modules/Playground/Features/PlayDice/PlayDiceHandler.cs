@@ -1,5 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using System.Security.Claims;
+using System.Security.Cryptography;
+using FSH.Framework.Core.Exceptions;
+using FSH.Framework.Core.Identity.Users.Abstractions;
 using FSH.Framework.Core.Persistence;
+using FSH.Framework.Infrastructure.Identity.Users;
 using Mapster;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +15,9 @@ using SolanaSpin.WebApi.Playground.Exceptions;
 namespace SolanaSpin.WebApi.Playground.Features.PlayDice;
 public sealed class PlayDiceHandler(
     ILogger<PlayDiceHandler> logger,
-    [FromKeyedServices("playground:dice")] IRepository<Dice> repository)
+    [FromKeyedServices("playground:dice")] IRepository<Dice> repository,
+    ICurrentUser currentUser,
+    IUserService userService)
     : IRequestHandler<PlayDiceRequest, PlayDiceResponse>
 {
     private static decimal GetRandomDecimal()
@@ -47,7 +53,7 @@ public sealed class PlayDiceHandler(
         {
             case FaceResultType.Multiplier:
                 var multiplier = Convert.ToDecimal(face.ResultValue);
-                return new PlayDiceResult(dice, faceIndex, playAmount * (multiplier + 1));
+                return new PlayDiceResult(dice, faceIndex, playAmount * multiplier);
             case FaceResultType.FixedAmount:
                 var fixedAmount = Convert.ToDecimal(face.ResultValue);
                 return new PlayDiceResult(dice, faceIndex, fixedAmount);
@@ -67,22 +73,31 @@ public sealed class PlayDiceHandler(
     {
         var dice = await repository.FirstOrDefaultAsync(new DiceBySlugFilterSpec(slug), cancellationToken)
             ?? throw new DiceSlugNotFoundException(slug);
-        if (onlyPublic && !dice.IsPubliclyPlayable)
-        {
-            throw new DiceNotPlayableException(dice.Id);
-        }
-        if (!dice.Faces.Any())
-        {
-            throw new PlayDiceWithNoFacesException(dice.Id);
-        }
-        return dice.Adapt<DiceDto>();
+        return onlyPublic && !dice.IsPubliclyPlayable
+            ? throw new DiceNotPlayableException(dice.Id)
+            : !dice.Faces.Any() ? throw new PlayDiceWithNoFacesException(dice.Id) : dice.Adapt<DiceDto>();
     }
 
     public async Task<PlayDiceResponse> Handle(PlayDiceRequest request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
+        if (!currentUser.IsAuthenticated())
+        {
+            throw new UnauthorizedException();
+        }
+
+        var userId = currentUser.GetUserId().ToString();
+        var user = await userService.GetAsync(userId, cancellationToken);
+        if (user.Balance < request.PlayAmount)
+        {
+            throw new InsufficientBalanceException(user.Balance, request.PlayAmount);
+        }
+
         var dice = await GetDiceAsync(request.DiceSlug, true, cancellationToken);
         var result = await PlayDiceAsync(dice, request.PlayAmount, cancellationToken);
-        return new PlayDiceResponse(request, result);
+        var response = new PlayDiceResponse(user.Balance, request, result);
+        _ = await userService.UpdateBalanceAsync(userId, response.NetAmount, cancellationToken);
+
+        return response;
     }
 }

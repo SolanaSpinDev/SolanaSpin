@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
+using static SolanaSpin.Blazor.Client.Pages.Multitenancy.Tenants;
 
 namespace SolanaSpin.Blazor.Client.Pages.Identity.Users;
 
@@ -19,9 +20,13 @@ public partial class Users
     [Inject]
     protected IApiClient UsersClient { get; set; } = default!;
 
+    public EntityTable<UserDetail, Guid, RegisterUserCommand> EntityTable { get; set; } = default!;
+
+
     protected EntityClientTableContext<UserDetail, Guid, RegisterUserCommand> Context { get; set; } = default!;
 
     private bool _canExportUsers;
+    private bool _canUpdateUsers;
     private bool _canViewRoles;
 
     // Fields for editform
@@ -36,6 +41,7 @@ public partial class Users
     {
         var user = (await AuthState).User;
         _canExportUsers = await AuthService.HasPermissionAsync(user, FshAction.Export, FshResource.Users);
+        _canUpdateUsers = await AuthService.HasPermissionAsync(user, FshAction.Update, FshResource.Users);
         _canViewRoles = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.UserRoles);
 
         Context = new(
@@ -49,11 +55,12 @@ public partial class Users
             {
                 new(user => user.FirstName,"First Name"),
                 new(user => user.LastName, "Last Name"),
-                new(user => user.UserName, "UserName"),
+                new(user => user.UserName, "User Name"),
                 new(user => user.Email, "Email"),
-                new(user => user.PhoneNumber, "PhoneNumber"),
+                new(user => user.PhoneNumber, "Phone Number"),
                 new(user => user.EmailConfirmed, "Email Confirmation", Type: typeof(bool)),
-                new(user => user.IsActive, "Active", Type: typeof(bool))
+                new(user => user.IsActive, "Active", Type: typeof(bool)),
+                new(user => user.Balance, "Balance", Type: typeof(decimal))
             },
             idFunc: user => user.Id,
             loadDataFunc: async () => (await UsersClient.GetUsersListEndpointAsync()).ToList(),
@@ -74,6 +81,12 @@ public partial class Users
 
     private void ManageRoles(in Guid userId) =>
         Navigation.NavigateTo($"/admin/users/{userId}/roles");
+
+    private async Task UpdateBalanceAsync(Guid userId, double delta)
+    {
+        await UsersClient.UpdateBalanceEndpointAsync(userId.ToString(), delta);
+        await EntityTable.ReloadDataAsync();
+    }
 
     private void TogglePasswordVisibility()
     {

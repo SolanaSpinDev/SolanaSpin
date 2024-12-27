@@ -114,7 +114,7 @@ public partial class Tenants
         }
     }
 
-    public class TenantViewModel : TenantDetail
+    public class TenantViewModel : TenantDto
     {
         public bool ShowDetails { get; set; }
     }

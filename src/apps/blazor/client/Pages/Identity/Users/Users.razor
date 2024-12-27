@@ -2,12 +2,17 @@
 
 <PageHeader Title="Users" Header="Users" SubHeader="Manage Users." />
 
-<EntityTable TEntity="UserDetail" TId="Guid" TRequest="RegisterUserCommand" Context="@Context">
+<EntityTable @ref="EntityTable" TEntity="UserDetail" TId="Guid" TRequest="RegisterUserCommand" Context="@Context">
     <ExtraActions>
         <MudMenuItem OnClick="(() => ViewProfile(context.Id))">View Profile</MudMenuItem>
         @if (_canViewRoles)
         {
             <MudMenuItem OnClick="(() => ManageRoles(context.Id))">Manage Roles</MudMenuItem>
+        }
+        @if (_canUpdateUsers)
+        {
+            <MudMenuItem OnClick="(() => UpdateBalanceAsync(context.Id, 1000))">Add 1000 to Balance</MudMenuItem>
+            <MudMenuItem OnClick="(() => UpdateBalanceAsync(context.Id, -context.Balance))">Reset Balance</MudMenuItem>
         }
     </ExtraActions>
 

@@ -10,7 +10,4 @@
     <PackageReference Include="Mapster" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tenant\Dtos\" />
-  </ItemGroup>
 </Project>

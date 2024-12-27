@@ -27,13 +27,17 @@ public interface IUserService
 
     // permisions
     Task<bool> HasPermissionAsync(string userId, string permission, CancellationToken cancellationToken = default);
+    Task<List<string>?> GetPermissionsAsync(string userId, CancellationToken cancellationToken);
 
     // passwords
     Task ForgotPasswordAsync(ForgotPasswordCommand request, string origin, CancellationToken cancellationToken);
     Task ResetPasswordAsync(ResetPasswordCommand request, CancellationToken cancellationToken);
-    Task<List<string>?> GetPermissionsAsync(string userId, CancellationToken cancellationToken);
-
     Task ChangePasswordAsync(ChangePasswordCommand request, string userId);
+
+    // roles
     Task<string> AssignRolesAsync(string userId, AssignUserRoleCommand request, CancellationToken cancellationToken);
     Task<List<UserRoleDetail>> GetUserRolesAsync(string userId, CancellationToken cancellationToken);
+
+    // balance
+    Task<decimal> UpdateBalanceAsync(string userId, decimal delta, CancellationToken cancellationToken);
 }

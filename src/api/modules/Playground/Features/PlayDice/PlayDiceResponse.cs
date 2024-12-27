@@ -13,12 +13,15 @@ public record PlayDiceResult(
 
     public decimal GetNetAmount(decimal playAmount)
     {
-        return playAmount - ReturnAmount + (InnerResult?.GetNetAmount(playAmount) ?? 0);
+        return ReturnAmount - playAmount + (InnerResult?.GetNetAmount(playAmount) ?? 0);
     }
 }
 public record PlayDiceResponse(
+    decimal OldBalance,
     PlayDiceRequest Request,
     PlayDiceResult Result)
 {
     public decimal NetAmount => Result.GetNetAmount(Request.PlayAmount);
+
+    public decimal NewBalance => OldBalance + NetAmount;
 }
