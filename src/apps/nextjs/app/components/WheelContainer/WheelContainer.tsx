@@ -2,12 +2,12 @@ import React, {useCallback, useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
 import {
-    predefinedBets,
+    bets,
     computePrize,
     getRandomNumber,
-    wheelPositions,
+    wheelPositions, gameModes,
 } from "@/lib/utils";
-import clsx from "clsx";
+
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
@@ -15,8 +15,13 @@ import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Balance} from "@/app/components/Balance";
 import Image, {StaticImageData} from "next/legacy/image";
+import "./WheelContainer.css"
+import AuthButton from "@/app/components/AuthButton/Index";
+import {fetchWithAuth} from "@/lib/api";
+import {signIn, signOut, useSession} from "next-auth/react";
 
 const WheelContainer: React.FC = () => {
+
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
     const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -24,7 +29,51 @@ const WheelContainer: React.FC = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
-    const [recentPlays, setRecentPlays] = useState<Play[]>([]);
+    const [activeGameMode, setActiveGameMode] = useState('');
+    const [recentPlays, setRecentPlays] = useState<Play[]>([
+        {
+            name: "Vasilakis cosntinoidsi",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi2",
+            time: new Date(),
+            outcome: "Gift",
+            prize: 1500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi3",
+            time: new Date(),
+            outcome: "Ticket",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi4",
+            time: new Date(),
+            outcome: "10X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi5",
+            time: new Date(),
+            outcome: "5X",
+            prize: 500,
+        },
+        {
+            name: "Vasilakis cosntinoidsi6",
+            time: new Date(),
+            outcome: "2X",
+            prize: 500,
+        },
+    ]);
     const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
@@ -33,7 +82,40 @@ const WheelContainer: React.FC = () => {
     const [videoX, setVideoX] = useState('');
     const [imageX, setImageX] = useState('');
     const [flag, setFlag] = useState(0);
+    const {data: session} = useSession();
 
+    //test for endpoints
+    const fetchData = async () => {
+        try {
+            const data1 = await fetchWithAuth("/api/endpoint1", session?.accessToken as string);
+            console.log(data1);
+
+            const data2 = await fetchWithAuth("/api/endpoint2", session?.accessToken as string);
+            console.log(data2);
+
+            // Add more calls as needed
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+    useEffect(() => {
+        const userAgent = navigator.userAgent;
+
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
+        if (isMobile) {
+            if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
+                setBrowser('safari-mobile');
+            } else if (userAgent.includes('CriOS') || userAgent.includes('Chrome')) {
+                setBrowser('chrome-mobile');
+            } else if (userAgent.includes('FxiOS') || userAgent.includes('Firefox')) {
+                setBrowser('firefox-mobile');
+            } else {
+                setBrowser('default-mobile');
+            }
+        } else {
+            setBrowser('default');
+        }
+    }, []);
     const updateBalance = useCallback((extraValue: number): void => {
         return setBalance(balance => balance + extraValue)
     }, [])
@@ -42,6 +124,10 @@ const WheelContainer: React.FC = () => {
         if (!isPlaying) {
             setActiveBet(bet);
         }
+    }
+
+    function selectGameMode(wheel: string): void {
+        setActiveGameMode(wheel);
     }
 
     const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
@@ -79,23 +165,30 @@ const WheelContainer: React.FC = () => {
 
     const handlePlayVideoDb = async () => {
         const videosList = [
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Gift Box.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X0.1 C.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_Diamond.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_No Win C.mp4",
-            // "https://solanaspin.io/videos/v2/720p/S_W_Separate_Wood_Start_X5.mp4",
-            "https://solanaspin.io/full-videos/gift_diamond.mp4",
-            "https://solanaspin.io/full-videos/diamond_X0.1_B.mp4",
-            "https://solanaspin.io/full-videos/X0.1_B-X0.1_B.mp4",
-            "https://solanaspin.io/full-videos/X0.1_B-X50.mp4",
-            "https://solanaspin.io/full-videos/X050-No_Win_A.mp4",
+            "https://solanaspin.io/full-videos/Gift_Box-Diamond.mp4",
+            "https://solanaspin.io/full-videos/Diamond-X01_B.mp4",
+            "https://solanaspin.io/full-videos/X01_B-X01_B.mp4",
+            "https://solanaspin.io/full-videos/X01_B-X50.mp4",
+            "https://solanaspin.io/full-videos/X50-No_Win_A.mp4",
+            "https://solanaspin.io/full-videos/No_Win_A-No_Win_B.mp4",
+            "https://solanaspin.io/full-videos/No_Win_B-X01_C.mp4",
+            "https://solanaspin.io/full-videos/X01_C-Ticket.mp4",
+            "https://solanaspin.io/full-videos/Ticket-X05_B.mp4",
+            "https://solanaspin.io/full-videos/X05_B-Gift_Box.mp4",
+            "https://solanaspin.io/full-videos/Gift_Box-Free_Spin.mp4",
         ]
         const imageList = [
-            "https://solanaspin.io/full-images/gift_diamond.png",
-            "https://solanaspin.io/full-images/diamond_X0.1_B.png",
-            "https://solanaspin.io/full-images/X0.1_B-X0.1_B.png",
-            "https://solanaspin.io/full-images/X0.1_B-X50.png",
-            "https://solanaspin.io/full-images/X050-No_Win_A.png",
+            "https://solanaspin.io/full-images/Diamond.webp",
+            "https://solanaspin.io/full-images/X01_B.webp",
+            "https://solanaspin.io/full-images/X01_B.png",
+            "https://solanaspin.io/full-images/X50.png",
+            "https://solanaspin.io/full-images/No_Win_A.png",
+            "https://solanaspin.io/full-images/No_Win_B.png",
+            "https://solanaspin.io/full-images/X01_C.png",
+            "https://solanaspin.io/full-images/Ticket.png",
+            "https://solanaspin.io/full-images/X05_B.png",
+            "https://solanaspin.io/full-images/Gift_Box.png",
+            "https://solanaspin.io/full-images/Free_Spin.png",
         ]
         setIsLoading(true);
         setIsPlaying(true);
@@ -123,7 +216,6 @@ const WheelContainer: React.FC = () => {
                 setImageX(urlImage);
             }, 1000)
         } catch (err: unknown) {
-            console.log(err)
             console.log('error')
             setIsLoading(false);
 
@@ -164,6 +256,18 @@ const WheelContainer: React.FC = () => {
                 style={imageX ? {backgroundImage: `url('${imageX}')`} : undefined}
                 className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
             </div>
+
+            {/*header*/}
+            <div
+                className="w-full h-[30px] lg:h-[80px] border-b-1 relative z-10 border-slate-800 border-solid flex justify-between items-center">
+                <LogoTitle/>
+                <div className="absolute left-1/2 -translate-x-1/2 text-center">
+                    <Balance balance={balance}/>
+                </div>
+                <AuthButton/>
+            </div>
+            {/*end header*/}
+
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                     <Loading/>
@@ -191,7 +295,7 @@ const WheelContainer: React.FC = () => {
             }
 
             {!isPlaying && !isLoading && activeBet > 0 && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100] xxxxx">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <button
                         onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {
@@ -209,56 +313,61 @@ const WheelContainer: React.FC = () => {
                                onAnimationComplete={handlePrizeAnimationEnd}
             />
 
-            <div className="grid grid-cols-3 gap-4 min-h-screen z-20">
-                <div className="relative flex flex-col items-center justify-center z-20">
-                    <LogoTitle/>
-                    <Jackpot jackpotReached={handleJackpot}/>
-                </div>
-                <div
-                    className={clsx(
-                        {
-                            'pb-10': browser === 'default' || browser === 'chrome-mobile',
-                            'pb-[70px]': browser === 'safari-mobile',
-                            'pb-3': browser === 'firefox-mobile',
-                        },
-                        "middle-container h-screen min-h-screen relative flex flex-col items-center justify-between z-50 text-white"
-                    )}
-
-                >
-                    <Balance balance={balance}/>
-
-                    <div
-                        className="relative flex flex-row  items-center justify-center w-full pb-4">
-                        {predefinedBets.map((bet: { value: number, src: StaticImageData }) => (
-                            <div className="relative lg:mr-4 lg:mb-4 cursor-pointer" key={bet.value}>
-                                <Image
-                                    src={bet.src}
-                                    className=""
-                                    alt="lorem"
-                                    width={443}
-                                    height={256}
-                                    onClick={() => selectBet(bet.value)}
-                                />
+            {/*middle container end*/}
+            <div className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px]">
+                <div className="relative flex flex-col items-center justify-center z-20 pl-[7%]">
+                    <div className="text-white pb-1">Game Modes</div>
+                    <div className="flex justify-between items-center pb-2">
+                        {gameModes.map((gameMode) => (
+                            <div key={gameMode}>
+                                <button
+                                    className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] uppercase rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
+                                    onClick={() => selectGameMode(gameMode)}>{gameMode}</button>
                             </div>
                         ))}
                     </div>
+                    <Jackpot jackpotReached={handleJackpot}/>
                 </div>
 
-                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
-                    <div className="absolute top-[40px] xl:top-[80px] right-[40px] xl:right-[80px]">
-                        <div className="flex items center justify-center space-x-4">
-                            {isMuted &&
-                                <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                            }
-                            {!isMuted &&
-                                <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
-                            }
-                            <Socials/>
-                        </div>
-                    </div>
+                <div className="relative flex flex-col items-center justify-center z-20 pr-2 xl:mr-1 2xl:mr-5">
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
                 </div>
             </div>
+
+            {/*footer*/}
+            <div className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[50px] xl:h-[80px] pb-2">
+                <div className="relative flex items-center justify-between w-full">
+                    <div className="flex items center justify-center space-x-4">
+                        {isMuted &&
+                            <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                        }
+                        {!isMuted &&
+                            <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                        }
+                        <Socials/>
+                    </div>
+                    <div className="bets-container absolute left-1/2 -translate-x-1/2 text-center">
+                        <div
+                            className="relative flex flex-row  items-center justify-center w-full pb-1">
+                            {bets.map((bet: { value: number, src: StaticImageData }) => (
+                                <div
+                                    className={`flex relative cursor-pointer rounded-lg max-w-[50px] lg:max-w-[100px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
+                                    key={bet.value}>
+                                    <Image
+                                        src={bet.src}
+                                        className=""
+                                        alt="lorem"
+                                        width={443}
+                                        height={256}
+                                        onClick={() => selectBet(bet.value)}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/*end footer*/}
         </div>
     );
 };

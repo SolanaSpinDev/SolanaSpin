@@ -37,3 +37,5 @@ next-env.d.ts
 
 *.iml
 /.idea
+!src/apps/nextjs/public/images/
+!/public/images/

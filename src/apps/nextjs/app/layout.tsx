@@ -4,16 +4,18 @@ import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
 import React from "react";
 import Script from 'next/script';
+import {SessionProvider} from "next-auth/react";
+import ClientSessionProvider from "@/app/components/ClientSessionProvider/Index";
 
 // import Header from './components/Header';
 const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";
-const description =  "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
-        " place your bets, and enjoy a chance to win crypto rewards. Safe, secure, and full of excitement—join now " +
-        "and see where the wheel takes you!\"";
+const description = "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
+    " place your bets, and enjoy a chance to win crypto rewards. Safe, secure, and full of excitement—join now " +
+    "and see where the wheel takes you!\"";
 
 export const metadata: Metadata = {
     title: title,
-    description:description,
+    description: description,
     openGraph: {
         title: title,
         description: description,
@@ -50,7 +52,9 @@ export default function RootLayout({
         <NextUIProvider>
             <div className="min-h-screen ">
                 {/*<Header/>*/}
-                <main>{children}</main>
+                <ClientSessionProvider>
+                    <main>{children}</main>
+                </ClientSessionProvider>
             </div>
         </NextUIProvider>
         <script
