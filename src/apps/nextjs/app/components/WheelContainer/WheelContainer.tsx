@@ -282,7 +282,7 @@ const WheelContainer = () => {
                         playsInline
                         preload="auto"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}
-                        src={video}
+                        src={video === '' ? undefined : video}
                     />
                 </>
             )

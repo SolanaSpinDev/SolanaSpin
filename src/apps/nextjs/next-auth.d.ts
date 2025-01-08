@@ -71,6 +71,7 @@ declare module "next-auth" {
             surname: string;
             firstName: string;
             email: string;
+            name: string
         };
     }
 

@@ -1,4 +1,3 @@
-
 /**
  * Log in a user by sending a POST request to the backend using the supplied credentials.
  *
@@ -9,8 +8,8 @@
  * @returns A BackendJWT response from the backend.
  */
 export async function login(
-    email: string,
-    password: string
+    email: string | unknown,
+    password: string | unknown
 ): Promise<Response> {
     console.debug("Logging in");
 
@@ -20,7 +19,9 @@ export async function login(
     if (!password) {
         throw new Error("Password is required");
     }
-
+    console.log('sunt bune pass si email')
+    console.log('email and pass are')
+    console.log(email,password)
     return await fetch(process.env.BASE_URL + '/api/token', {
         method: 'POST',
         headers: {

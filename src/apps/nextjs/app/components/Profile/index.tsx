@@ -85,3 +85,12 @@ export const Profile = () => {
 //   "phoneNumber": "0722111333"
 // }
 // bfaac79a-0dab-4d5e-88ea-848b74af8f68
+// {
+//     "firstName": "vasile",
+//     "lastName": "cccc",
+//     "email": "ddd@ddd.com",
+//     "userName": "ffff",
+//     "password": "tttttt123!",
+//     "confirmPassword": "tttttt123!",
+//     "phoneNumber": "07564636634"
+// }

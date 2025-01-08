@@ -1,22 +1,18 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import type {AuthOptions, Awaitable, RequestInternal} from "next-auth";
+import type {NextAuthConfig, User} from "next-auth"
+import Credentials from "next-auth/providers/credentials";
+import {Awaitable} from "@auth/core/types";
 
-
-export const AuthenticationsOptions: () => AuthOptions = () => ({
-    secret: process.env.NEXTAUTH_SECRET,
-    session: {
-        strategy: "jwt",
-    },
+export default {
     providers: [
-        CredentialsProvider({
-            type: "credentials",
+        Credentials({
             name: "Login",
             credentials: {
                 email: {label: "Email", type: "email"},
                 password: {label: "Password", type: "password"},
             },
-            // @ts-expect-error for Awaitable
-            async authorize(credentials, req: Pick<RequestInternal, "body" | "query" | "headers" | "method">): Awaitable<never | null | User> {
+
+            async authorize(credentials): Promise<User | null> {
+                console.log('YYYYY')
                 const res = await fetch(
                     process.env.BASE_URL + "/api/auth/login",
                     {
@@ -39,6 +35,9 @@ export const AuthenticationsOptions: () => AuthOptions = () => ({
                     user: {
                         name: tokens.name,
                         email: tokens.email,
+                        surname: tokens.surname,
+                        firstName: tokens.firstName,
+                        id: tokens.id
                     },
                     validity: {
                         valid_until: tokens.valid_until,
@@ -64,11 +63,12 @@ export const AuthenticationsOptions: () => AuthOptions = () => ({
 
         // Make custom fields available in the session
         async session({session, token}) {
+            // @ts-expect-error type mismatch
             session.user = token.data.user;
             session.validity = token.data.validity;
             session.tokens = token.data.tokens;
             session.error = token.error; // Include error if applicable
             return session;
         },
-    },
-});
+    }
+} satisfies NextAuthConfig

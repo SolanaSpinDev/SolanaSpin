@@ -1,10 +1,5 @@
 import {NextResponse} from "next/server";
-import type {AuthOptions} from "next-auth";
-import {getServerSession} from "next-auth";
-import {AuthenticationsOptions} from "../utils/auth";
-
-const authOptions: AuthOptions = AuthenticationsOptions();
-
+import {auth} from "@/app/api/auth";
 
 export async function GET(req: Request) {
     // const APPURI = "https://game-dev.solanaspin.io/"
@@ -14,7 +9,7 @@ export async function GET(req: Request) {
     console.log('se face getXXXXX')
     try {
         // Retrieve session using getServerSession without exporting authOptions
-        const session = await getServerSession(authOptions);
+        const session = await auth();
         // const cookies = req.headers.get("cookie");
         // console.log("Cookies in GET:", cookies);
         console.log('session%%%%%%%%%%', session);
