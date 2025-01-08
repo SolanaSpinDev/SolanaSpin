@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+
 import {login, refresh} from "@/app/api/utils/user-auth";
 import type {
-    AuthOptions,
     User,
     UserObject,
     AuthValidity,
@@ -12,6 +11,7 @@ import type {
 } from "next-auth";
 import type {JWT} from "next-auth/jwt";
 import {jwtDecode} from "jwt-decode";
+import Credentials from "next-auth/providers/credentials";
 
 async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
     try {
@@ -36,20 +36,28 @@ async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
     }
 }
 
-const authOptions: AuthOptions = {
-    secret: process.env.NEXTAUTH_SECRET,
+const {auth, handlers, signIn, signOut} = NextAuth({
     session: {strategy: "jwt"},
+    theme: {
+        colorScheme: "dark",
+        brandColor: "#0070f3",
+        logo: "https://solanaspin.vercel.app/images/logo.svg",
+        buttonText: "Sign in",
+    },
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
-        CredentialsProvider({
+        Credentials({
             name: "Login",
             credentials: {
                 email: {label: "Email", type: "email", placeholder: "john@mail.com"},
                 password: {label: "Password", type: "password"}
             },
-            async authorize(credentials) {
+
+            async authorize(credentials: Partial<Record<"email" | "password", unknown>>) {
+                console.log('XXXXXXXXXXXXXX -  ', credentials);
                 try {
                     const res = await login(
-                        credentials?.email || "",
+                        credentials.email || "",
                         credentials?.password || ""
                     );
                     const tokens: BackendJWT = await res.json();
@@ -79,18 +87,13 @@ const authOptions: AuthOptions = {
                         validity: validity
                     } as unknown as User;
                 } catch (error) {
+                    console.log('nu a mers login function')
                     console.error(error);
                     return null;
                 }
             }
         })
     ],
-    theme: {
-        colorScheme: "dark",
-        brandColor: "#0070f3",
-        logo: "https://solanaspin.vercel.app/images/logo.svg",
-        buttonText: "Sign in",
-    },
     callbacks: {
         async redirect({url, baseUrl}) {
             return url.startsWith(baseUrl)
@@ -131,7 +134,5 @@ const authOptions: AuthOptions = {
             return session;
         }
     }
-};
-
-const handler = NextAuth(authOptions);
-export {handler as GET, handler as POST};
+})
+export const {GET, POST} = handlers

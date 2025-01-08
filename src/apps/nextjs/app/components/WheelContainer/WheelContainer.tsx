@@ -72,7 +72,7 @@ const WheelContainer = () => {
     const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
     const [error, setError] = useState(null); // State to handle errors
-    const [video, setVideo] = useState(null);
+    const [video, setVideo] = useState('');
     const [videoBackgroundImage, setVideoBackgroundImage] = useState(''); //todo rename this to imgBackground
     const [flag, setFlag] = useState(0);
     const router = useRouter();
@@ -282,7 +282,7 @@ const WheelContainer = () => {
                         playsInline
                         preload="auto"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0`}
-                        src={video}
+                        src={video === '' ? undefined : video}
                     />
                 </>
             )

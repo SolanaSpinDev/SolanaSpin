@@ -10,7 +10,7 @@ export function AuthForm({
                              children,
                              defaultEmail = '',
                          }: Readonly<{
-    action: any;
+    action: never;
     children: React.ReactNode;
     defaultEmail?: string;
 }>) {

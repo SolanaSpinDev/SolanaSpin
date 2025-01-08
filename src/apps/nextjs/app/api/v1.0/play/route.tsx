@@ -1,14 +1,11 @@
-import {AuthOptions, getServerSession} from "next-auth";
-import {AuthenticationsOptions} from "@/app/api/utils/auth";
 import {NextApiResponse} from "next";
 import {NextResponse} from "next/server";
+import {auth} from "@/app/api/auth";
 
-const authOptions: AuthOptions = AuthenticationsOptions();
-
-export async function POST(req: Request, res: NextApiResponse) {
+export async function POST(req: Request) {
     const {pathname} = new URL(req.url);
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
         if (!session?.validity?.valid_until) {
             return NextResponse.json(
                 {error: "Unauthorized: No valid session"},

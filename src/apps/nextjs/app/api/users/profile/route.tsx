@@ -1,16 +1,18 @@
 import {NextResponse} from "next/server";
-import type {AuthOptions} from "next-auth";
-import {getServerSession} from "next-auth";
-import {AuthenticationsOptions} from "@/app/api/utils/auth";
+import { auth } from "@/app/api/auth"
+// import type {AuthOptions} from "next-auth";
+// import {getServerSession} from "next-auth";
+// import {AuthenticationsOptions} from "@/app/api/utils/auth";
+// import {NextAuthConfig} from "next-auth";
 
-const authOptions: AuthOptions = AuthenticationsOptions();
+// const authOptions: NextAuthConfig = AuthenticationsOptions();
 
 //this is get from the aps.net
 export async function GET(req: Request) {
     const {pathname} = new URL(req.url);
     try {
         // Retrieve session using getServerSession without exporting authOptions
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session?.validity?.valid_until) {
             return NextResponse.json(
