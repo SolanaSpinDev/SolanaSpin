@@ -63,6 +63,7 @@ export default {
 
         // Make custom fields available in the session
         async session({session, token}) {
+            // @ts-expect-error type mismatch
             session.user = token.data.user;
             session.validity = token.data.validity;
             session.tokens = token.data.tokens;

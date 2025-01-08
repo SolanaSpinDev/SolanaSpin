@@ -126,6 +126,7 @@ const {auth, handlers, signIn, signOut} = NextAuth({
             return {...token, error: "RefreshTokenExpired"} as JWT;
         },
         async session({session, token, user}) {
+            // @ts-expect-error type mismatch
             session.user = token.data.user;
             session.validity = token.data.validity;
             session.error = token.error;
