@@ -72,7 +72,7 @@ const WheelContainer = () => {
     const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
     const [error, setError] = useState(null); // State to handle errors
-    const [video, setVideo] = useState('');
+    const [video, setVideo] = useState(null);
     const [videoBackgroundImage, setVideoBackgroundImage] = useState(''); //todo rename this to imgBackground
     const [flag, setFlag] = useState(0);
     const router = useRouter();
