@@ -6,7 +6,7 @@ import {RegisterActionState} from '@/lib/actions';
 import {ZodIssue} from "zod";
 
 interface AuthFormProps {
-    action: (formData: FormData) => Promise<RegisterActionState>;
+    action: (formData: FormData) => void;
     children: React.ReactNode;
     formValues: {
         firstName: string;

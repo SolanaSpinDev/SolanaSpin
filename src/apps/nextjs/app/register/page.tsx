@@ -61,7 +61,7 @@ export default function Page() {
     )
     ;
 
-    const handleSubmit = (formData: FormData) => {
+    const handleSubmit = (formData: FormData): void => {
         setFormValues({
             firstName: formData.get('firstName') as string || '',
             lastName: formData.get('lastName') as string || '',
