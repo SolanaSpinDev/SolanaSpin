@@ -55,7 +55,7 @@ export default function RootLayout({
         <Script
             strategy="lazyOnload"
             src="https://embed.tawk.to/YOUR_PROPERTY_ID/default"
-            crossOrigin="*"
+            crossOrigin="anonymous"
         />
         <Script id="tawkto-script" strategy="lazyOnload">
             {`
