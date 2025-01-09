@@ -4,6 +4,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
 import React from "react";
 import ClientSessionProvider from "@/app/components/ClientSessionProvider/Index";
+import Script from 'next/script';
 
 const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";
 const description = "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
@@ -51,8 +52,29 @@ export default function RootLayout({
                 </ClientSessionProvider>
             </div>
         </NextUIProvider>
+        <Script
+            strategy="lazyOnload"
+            src="https://embed.tawk.to/YOUR_PROPERTY_ID/default"
+            crossOrigin="*"
+        />
+        <Script id="tawkto-script" strategy="lazyOnload">
+            {`
+          var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/67801e7e49e2fd8dfe054f06/1ih67e89a';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+            })();
+        `}
+        </Script>
         {/*todo uncomment this section when the app si ready to go*/}
+
+
         {/*<script*/}
+        {/*tickets@solanaspin.p.tawk.email*/}
         {/*    type="text/javascript"*/}
         {/*    async*/}
         {/*    dangerouslySetInnerHTML={{*/}
