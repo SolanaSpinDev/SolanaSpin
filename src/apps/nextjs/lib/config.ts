@@ -9,7 +9,6 @@ const supportedChains: Chain[] = [sepolia, bscTestnet, blastSepolia];
 
 export const config = getDefaultConfig({
     appName: 'WalletConnection',
-    // @ts-expect-error blocks the ui
     projectId,
     chains: supportedChains as never,
     ssr: true,
