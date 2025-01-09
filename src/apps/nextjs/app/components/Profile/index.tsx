@@ -1,15 +1,19 @@
+'use client';
+
 import React, {useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/react";
 import {fetchWithAuth} from "@/app/api/utils/api";
 
 import {FaSignInAlt, FaUserCircle} from "react-icons/fa";
 import {FaCircleUser} from "react-icons/fa6";
+import {TiClipboard} from "react-icons/ti";
+import { useRouter} from 'next/navigation';
 
 export const Profile = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const {data: session} = useSession();
+    const router = useRouter();
 
-    console.log('session = ', session);
     const getProfile = async () => {
 
         if (!session?.tokens?.token) {
@@ -28,6 +32,9 @@ export const Profile = () => {
         }
     };
 
+    const handleRegister = () => {
+        router.push('/register');
+    };
     return (
         <div className="flex pr-4"
              role="button"
@@ -42,7 +49,7 @@ export const Profile = () => {
             <FaCircleUser className="xl:text-2xl"/>
             {session?.user?.firstName && <div className="ml-2">Hello {session?.user?.firstName}</div>}
             {isMenuVisible && (
-                <div className="absolute right-1.5 mt-2 w-40 bg-gray-500 border border-gray-600 shadow-lg rounded-lg">
+                <div className="absolute right-1.5 mt-2 w-40 bg-primary border border-gray-600 shadow-lg rounded-lg">
                     <ul>
                         <li>
                             <button
@@ -53,6 +60,16 @@ export const Profile = () => {
                                 <span className="text-white">{session ? 'Sign Out' : 'Sign In'}</span>
                             </button>
                         </li>
+                        {!session?.tokens?.token &&
+                            <li onClick={handleRegister}>
+                                <button
+                                    className="flex items-center w-full px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                                >
+                                    <TiClipboard className="mr-2 text-white"/>
+                                    <span className="text-white">Register</span>
+                                </button>
+                            </li>
+                        }
                         {!session || !session.tokens || !session.tokens.token &&
                             <li className="flex items-center px-4 py-2 hover:bg-gray-700 cursor-pointer">
                                 <FaUserCircle className="mr-2 text-white"/>
@@ -75,22 +92,3 @@ export const Profile = () => {
         </div>
     )
 }
-// {
-//   "firstName": "Vasile",
-//   "lastName": "Costel",
-//   "email": "vasile@vasile.com",
-//   "userName": "vasile",
-//   "password": "###vasile$$$",
-//   "confirmPassword": "###vasile$$$",
-//   "phoneNumber": "0722111333"
-// }
-// bfaac79a-0dab-4d5e-88ea-848b74af8f68
-// {
-//     "firstName": "vasile",
-//     "lastName": "cccc",
-//     "email": "ddd@ddd.com",
-//     "userName": "ffff",
-//     "password": "tttttt123!",
-//     "confirmPassword": "tttttt123!",
-//     "phoneNumber": "07564636634"
-// }
