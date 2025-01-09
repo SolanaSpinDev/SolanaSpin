@@ -3,6 +3,7 @@ import Image5 from "@/public/images/bank_note_5.png";
 import Image10 from "@/public/images/bank_note_10.png";
 import Image20 from "@/public/images/bank_note_20.png";
 import Image50 from "@/public/images/bank_note_50.png";
+import {Slide} from "react-toastify";
 
 export const middleEllipsis = (str: string, len: number) => {
     if (!str) {
@@ -228,3 +229,28 @@ export const imagesWood = [
     "https://solanaspin.io/images-wood/Gift_Box.png",
     "https://solanaspin.io/images-wood/Free_Spin.png",
 ]
+
+export class BackendValidationError extends Error {
+    details: Record<string, string>;
+
+    constructor(message: string, details) {
+        super(message);
+        this.name = "BackendValidationError";
+        this.details = details.details;
+    }
+}
+
+export const ToasterConfig = {
+    position: "top-right",
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    transition: Slide,
+    onOpen: () => {
+        localStorage.setItem('toastShown', 'true');
+    },
+}

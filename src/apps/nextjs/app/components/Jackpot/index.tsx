@@ -38,7 +38,7 @@ export const Jackpot = ({jackpotReached, gameMode}) => {
             <div className="relative w-[130px] lg:w-[200px] xl:w-[300px] h-[130px] lg:h-[200px] xl:h-[300px]">
                 <Image
                     src={`/images/${gameMode}/jackpot.png`}
-                    alt="Centered Image"
+                    alt="Jackpot Image"
                     loading="lazy"
                     quality={75}
                     fill

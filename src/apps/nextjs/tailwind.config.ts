@@ -6,7 +6,7 @@ const config: Config = {
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./node_modules/@nextui-org/theme/dist/components/(button|ripple|spinner).js"
+        "./node_modules/@nextui-org/theme/dist/components/(button|ripple|spinner|input).js"
     ],
     theme: {
         extend: {
@@ -16,6 +16,9 @@ const config: Config = {
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
+                primary: {
+                    DEFAULT: '#1c283e',
+                }
             },
             keyframes: {
                 spinSlowFastSlow: {
