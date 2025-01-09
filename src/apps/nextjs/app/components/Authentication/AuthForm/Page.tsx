@@ -2,15 +2,11 @@ import Link from 'next/link';
 import {Input} from "@nextui-org/input";
 import {useEffect, useState} from "react";
 import {IoEyeOffOutline, IoEyeOutline} from "react-icons/io5";
+import {RegisterActionState} from '@/lib/actions';
+import {ZodIssue} from "zod";
 
-export function AuthForm({
-                             action,
-                             children,
-                             formValues,
-                             errors,
-                             backendError,
-                         }: Readonly<{
-    action: any;
+interface AuthFormProps {
+    action: (formData: FormData) => Promise<RegisterActionState>;
     children: React.ReactNode;
     formValues: {
         firstName: string;
@@ -21,9 +17,17 @@ export function AuthForm({
         password: string;
         confirmPassword: string;
     };
-    backendError: string[],
-    errors: unknown
-}>) {
+    errors: ZodIssue[];
+    backendError?: string[]; // Make it optional
+}
+
+export function AuthForm({
+                             action,
+                             children,
+                             formValues,
+                             errors,
+                             backendError,
+                         }: AuthFormProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 

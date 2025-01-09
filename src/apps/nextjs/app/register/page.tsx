@@ -12,8 +12,6 @@ import {register, RegisterActionState} from '@/lib/actions';
 export default function Page() {
     const router = useRouter();
     const [isSuccessful, setIsSuccessful] = useState(false);
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState(''); // Add password state
     const [formValues, setFormValues] = useState({
         firstName: '',
         lastName: '',
@@ -59,7 +57,7 @@ export default function Page() {
             }
         }
         ,
-        [state, router]
+        [state, router, formValues.email, formValues.password]
     )
     ;
 
@@ -82,8 +80,11 @@ export default function Page() {
                 <title>Register | Solanaspin</title>
             </Head>
             <Panel>
-                <AuthForm action={handleSubmit} formValues={formValues} errors={state.errors}
-                          backendError={state.backEndError}>
+                <AuthForm action={handleSubmit}
+                          formValues={formValues}
+                          errors={state.errors}
+                          backendError={state.backEndError}
+                >
                     <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
                 </AuthForm>
             </Panel>
