@@ -239,18 +239,3 @@ export class BackendValidationError extends Error {
         this.details = details.details;
     }
 }
-
-export const ToasterConfig = {
-    position: "top-right",
-    autoClose: 2500,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
-    transition: Slide,
-    onOpen: () => {
-        localStorage.setItem('toastShown', 'true');
-    },
-}

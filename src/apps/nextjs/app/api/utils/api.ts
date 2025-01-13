@@ -56,11 +56,17 @@ export const registerUser = async (data: {
     if (!res.ok) {
         const errorData = await res.json();
         return NextResponse.json(
-            { error: 'Registration failed on backend', ...errorData },
-            { status: res.status }
+            {error: 'Registration failed on backend', ...errorData},
+            {status: res.status}
         );
         // throw new Error(errorData || 'Failed to self-register user');
     }
 
     return res.json();
+}
+
+export const forgotPasswordUser = async (data: {
+    email?: ZodString["_output"];
+}) => {
+    return true;
 }
