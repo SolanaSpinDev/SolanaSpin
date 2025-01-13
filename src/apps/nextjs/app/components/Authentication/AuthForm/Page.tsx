@@ -176,7 +176,7 @@ export function AuthForm({
                                 variant="underlined"
                                 color="primary"
                                 defaultValue={formValues.confirmPassword}
-                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$"
+                                pattern="^(?=.*[A-Za-z])(?=.*\d).{6,20}$"
                             />
                             <button
                                 type="button"
