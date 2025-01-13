@@ -44,6 +44,7 @@ export const registerUser = async (data: {
         headers: {
             'accept': 'application/json',
             "Content-Type": "application/json",
+            'tenant': 'root',
         },
     }
     options = {
@@ -53,6 +54,8 @@ export const registerUser = async (data: {
     const url = `${process.env.BASE_URL_INTERNAL}/api/users/register-user`;
     console.log('url')
     console.log(url)
+    console.log('options')
+    console.log(options)
     const res = await fetch(url, {...options});
     console.log('res in registerUser method')
     console.log(res)

@@ -16,6 +16,9 @@ export function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
+    if (url.pathname.startsWith("/api/users/self-register")) {
+        return NextResponse.next();
+    }
     // 2. Redirect root path "/" to default game mode
     if (url.pathname === "/") {
         return NextResponse.redirect(new URL("/game/default", request.url));
