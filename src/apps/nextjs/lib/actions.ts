@@ -61,10 +61,12 @@ export const register = async (
             const res = await registerUser(payload);
 
             //todo review this assumption of userId
+            console.log('res from the backend')
+            console.log(res)
             if (!res.userId) {
                 const errorData = await res?.json();
                 console.error('Backend responded with an error:', errorData);
-                return {status: "user_exists", errors: [], backEndError: errorData.details.errors};
+                return {status: "user_exists", errors: [], backEndError: errorData?.details?.errors};
             }
 
             return {status: "success"};
