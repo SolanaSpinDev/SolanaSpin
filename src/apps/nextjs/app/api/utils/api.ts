@@ -50,7 +50,7 @@ export const registerUser = async (data: {
         ...options,
         body: JSON.stringify(data)
     }
-    const url = `${process.env.BASE_URL_INTERNAL}api/users/register`;
+    const url = `${process.env.BASE_URL_INTERNAL}/api/users/register-user`;
     console.log('url')
     console.log(url)
     const res = await fetch(url, {...options});
