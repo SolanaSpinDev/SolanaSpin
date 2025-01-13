@@ -22,11 +22,7 @@ const authFormSchema = z.object({
     phoneNumber: z.string(),
     email: z.string().email(),
     password: z.string()
-        .min(6, "Password must be at least 6 characters.")
-        .regex(
-            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-            "Password must contain at least one letter and one number."
-        ),
+        .min(6, "Password must be at least 6 characters."),
     confirmPassword: z.string().min(6, "Confirm Password must be at least 6 characters."),
 }).refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],

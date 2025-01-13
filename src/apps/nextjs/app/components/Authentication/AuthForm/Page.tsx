@@ -142,7 +142,6 @@ export function AuthForm({
                                 autoFocus
                                 variant="underlined"
                                 color="primary"
-                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$"
                             />
                             <button
                                 type="button"
@@ -176,7 +175,6 @@ export function AuthForm({
                                 variant="underlined"
                                 color="primary"
                                 defaultValue={formValues.confirmPassword}
-                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$"
                             />
                             <button
                                 type="button"
