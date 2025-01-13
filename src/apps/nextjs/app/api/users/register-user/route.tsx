@@ -1,8 +1,9 @@
-// /app/api/users/register/route.tsx
+// /app/api/users/register-user/route.tsx
 
 import {NextResponse} from 'next/server';
 
 export async function POST(req: Request) {
+    console.log('--- /api/users/register-user route is invoked ---')
     try {
         console.log('Received request in Next.js API route for self-registration');
 
