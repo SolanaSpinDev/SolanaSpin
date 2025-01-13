@@ -50,14 +50,20 @@ export const registerUser = async (data: {
         ...options,
         body: JSON.stringify(data)
     }
-    const res = await fetch(`${process.env.BASE_URL_INTERNAL}/api/users/register`, {
-        ...options,
-    });
+    const url = `${process.env.BASE_URL_INTERNAL}/api/users/register`;
+    console.log('url')
+    console.log(url)
+    const res = await fetch(url, {...options});
+    console.log('res in registerUser method')
+    console.log(res)
     if (!res.ok) {
+        console.log('se pare ca nu a mers register method');
         const errorData = await res.json();
+        console.log('errorData is')
+        console.log(errorData)
         return NextResponse.json(
-            { error: 'Registration failed on backend', ...errorData },
-            { status: res.status }
+            {error: 'Registration failed on backend', ...errorData},
+            {status: res.status}
         );
         // throw new Error(errorData || 'Failed to self-register user');
     }
