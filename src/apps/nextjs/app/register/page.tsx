@@ -33,7 +33,7 @@ export default function Page() {
     useEffect(() => {
             //todo update the toast message here
             if (state.status === 'user_exists') {
-                const err = state.backEndError?.length > 1 ? state.backEndError?.join("\n") : state.backEndError[0];
+                const err = state.backEndError?.length > 1 ? state.backEndError?.join("\n") : state?.backEndError[0];
                 toast.error(err);
             } else if (state.status === 'failed') {
                 toast.error('Failed to create account, please try again later');
