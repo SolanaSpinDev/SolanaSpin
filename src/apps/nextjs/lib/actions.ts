@@ -51,8 +51,8 @@ export const register = async (
         });
 
         if (!validatedData.success) {
-            console.error("Validation Errors:", validatedData.error.errors);
-            return {status: "invalid_data", errors: validatedData.error.errors};
+            console.error("Validation Errors:", validatedData.error?.errors);
+            return {status: "invalid_data", errors: validatedData.error?.errors};
         }
         const payload = {...validatedData.data};
         delete payload.confirmPassword;
