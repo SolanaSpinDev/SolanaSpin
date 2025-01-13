@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import {Input} from "@nextui-org/input";
 import {useEffect, useState} from "react";
-import {IoEyeOffOutline, IoEyeOutline} from "react-icons/io5";
-import {RegisterActionState} from '@/lib/actions';
+import {IoEyeOffOutline, IoEyeOutline, IoInformationCircleOutline} from "react-icons/io5";
 import {ZodIssue} from "zod";
 
 interface AuthFormProps {
@@ -128,6 +127,8 @@ export function AuthForm({
                     {/*password*/}
                     <div className="mt-4">
                         <div className="relative">
+                            <IoInformationCircleOutline className="absolute -left-4 top-2"
+                                                        title="At least 1 letter and 1 number"/>
                             <Input
                                 id="password"
                                 name="password"
@@ -155,16 +156,17 @@ export function AuthForm({
                                     <IoEyeOutline className="h-5 w-5 text-gray-500"/>
                                 )}
                             </button>
-                            <span className="text-tiny">*At least 1 letter and 1 number</span>
                         </div>
                     </div>
                     {/*confirm password*/}
                     <div className="mt-4">
                         <div className="relative">
+                            <IoInformationCircleOutline className="absolute -left-4 top-2"
+                                                        title="Passwords must match"/>
                             <Input
                                 id="confirmPassword"
                                 name="confirmPassword"
-                                className="max-w-xs"
+                                className="max-w-xs "
                                 isRequired
                                 label="Confirm Password"
                                 type={showConfirmPassword ? "text" : "password"}
@@ -188,7 +190,6 @@ export function AuthForm({
                                     <IoEyeOutline className="h-5 w-5 text-gray-500"/>
                                 )}
                             </button>
-                            <span className="text-tiny">*Passwords must match</span>
                         </div>
                     </div>
                     {/*Phone number*/}

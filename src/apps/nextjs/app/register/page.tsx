@@ -8,6 +8,8 @@ import {AuthenticationLayout} from "@/app/components/Authentication/Authenticati
 import {AuthForm} from '@/app/components/Authentication/AuthForm/Page';
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
 import {register, RegisterActionState} from '@/lib/actions';
+import {Slide, toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Page() {
     const router = useRouter();
@@ -30,16 +32,22 @@ export default function Page() {
 
     useEffect(() => {
             //todo update the toast message here
-            console.log(state)
             if (state.status === 'user_exists') {
-                // toast.error(state.backEndError);
+                const err = state.backEndError.length > 1 ? state.backEndError.join("\n") : state.backEndError[0];
+                toast.error(err);
             } else if (state.status === 'failed') {
-                // toast.error('Failed to create account');
+                toast.error('Failed to create account, please try again later');
             } else if (state.status === 'invalid_data') {
-                // toast.error('Registration failed', ToasterConfig )
-                // toast.error('Failed validating your submission!');
+                let err: string = '';
+                if (state.errors.length > 1) {
+                    err = state.errors.map(error => error.message).join("\n");
+                }
+                if (state.errors.length === 1) {
+                    err = state.errors[0].message
+                }
+                toast.error("Failed validating your submission!" + "\n" + err);
             } else if (state.status === 'success') {
-                // toast.success('Account created successfully');
+                toast.success('Account created successfully');
                 signIn('credentials', {
                     redirect: false,
                     email: formValues.email,
@@ -76,6 +84,18 @@ export default function Page() {
 
     return (
         <AuthenticationLayout>
+            <ToastContainer
+                position="top-right"
+                autoClose={2500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             <Head>
                 <title>Register | Solanaspin</title>
             </Head>
