@@ -44,7 +44,6 @@ export const registerUser = async (data: {
         headers: {
             'accept': 'application/json',
             "Content-Type": "application/json",
-            'tenant': 'root',
         },
     }
     options = {
@@ -52,18 +51,11 @@ export const registerUser = async (data: {
         body: JSON.stringify(data)
     }
     const url = `${process.env.BASE_URL_INTERNAL}/api/users/register-user`;
-    console.log('url')
-    console.log(url)
-    console.log('options')
-    console.log(options)
+
     const res = await fetch(url, {...options});
-    console.log('res in registerUser method')
-    console.log(res)
+
     if (!res.ok) {
-        console.log('se pare ca nu a mers register method');
         const errorData = await res.json();
-        console.log('errorData is')
-        console.log(errorData)
         return NextResponse.json(
             {error: 'Registration failed on backend', ...errorData},
             {status: res.status}

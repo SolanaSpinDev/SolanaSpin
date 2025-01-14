@@ -128,7 +128,7 @@ export function AuthForm({
                     <div className="mt-4">
                         <div className="relative">
                             <IoInformationCircleOutline className="absolute -left-4 top-2"
-                                                        title="At least 1 letter and 1 number"/>
+                                                        title="We strongly suggest you should use a strong password"/>
                             <Input
                                 id="password"
                                 name="password"

@@ -3,9 +3,7 @@
 import {NextResponse} from 'next/server';
 
 export async function POST(req: Request) {
-    console.log('--- /api/users/register-user route is invoked ---')
     try {
-        console.log('Received request in Next.js API route for self-registration');
 
         // Parse the incoming JSON data from the request
         const data = await req.json();
@@ -24,8 +22,6 @@ export async function POST(req: Request) {
             },
             body: JSON.stringify(data),
         });
-        console.log('res from the backend (backendResponse) (dotnet) is')
-        console.log(backendResponse)
         // Check if the backend response is successful
         if (!backendResponse.ok) {
             const errorData = await backendResponse.json();
