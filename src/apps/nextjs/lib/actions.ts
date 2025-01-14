@@ -1,14 +1,15 @@
 'use server';
 
 import {z} from 'zod';
+
 import {forgotPasswordUser, registerUser} from "@/app/api/utils/api";
-import {BackendValidationError} from "@/lib/utils";
 import {
     forgotPasswordFormSchema,
     authFormSchema,
     ForgotPasswordActionState,
     RegisterActionState
 } from "@/lib/actions-utils"; // Import useRouter for redirection
+import {BackendValidationError} from "@/lib/utils"; // Import useRouter for redirection
 
 export const register = async (
     _: RegisterActionState,
@@ -28,8 +29,8 @@ export const register = async (
         });
 
         if (!validatedData.success) {
-            console.error("Validation Errors:", validatedData.error.errors);
-            return {status: "invalid_data", errors: validatedData.error.errors};
+            console.error("Validation Errors:", validatedData.error?.errors);
+            return {status: "invalid_data", errors: validatedData.error?.errors};
         }
         const payload = {...validatedData.data};
         delete payload.confirmPassword;
@@ -41,7 +42,7 @@ export const register = async (
             if (!res.userId) {
                 const errorData = await res?.json();
                 console.error('Backend responded with an error:', errorData);
-                return {status: "user_exists", errors: [], backEndError: errorData.details.errors};
+                return {status: "user_exists", errors: [], backEndError: errorData?.details?.errors};
             }
 
             return {status: "success"};

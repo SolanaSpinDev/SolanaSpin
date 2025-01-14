@@ -128,7 +128,7 @@ export function AuthForm({
                     <div className="mt-4">
                         <div className="relative">
                             <IoInformationCircleOutline className="absolute -left-4 top-2"
-                                                        title="At least 1 letter and 1 number"/>
+                                                        title="We strongly suggest you should use a strong password"/>
                             <Input
                                 id="password"
                                 name="password"
@@ -142,7 +142,6 @@ export function AuthForm({
                                 autoFocus
                                 variant="underlined"
                                 color="primary"
-                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$"
                             />
                             <button
                                 type="button"
@@ -176,7 +175,6 @@ export function AuthForm({
                                 variant="underlined"
                                 color="primary"
                                 defaultValue={formValues.confirmPassword}
-                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$"
                             />
                             <button
                                 type="button"

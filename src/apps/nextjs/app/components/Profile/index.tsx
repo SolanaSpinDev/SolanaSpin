@@ -33,7 +33,7 @@ export const Profile = () => {
     };
 
     const handleRegister = () => {
-        router.push('/register');
+        router.push('/register-user');
     };
     return (
         <div className="flex pr-4"

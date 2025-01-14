@@ -1,8 +1,7 @@
-import { NextResponse } from 'next/server';
+import {NextResponse} from 'next/server';
 
 export async function POST(req: Request) {
     try {
-        console.log('Received request in Next.js API route for self-registration');
 
         // Parse the incoming JSON data from the request
         const data = await req.json();
@@ -21,14 +20,13 @@ export async function POST(req: Request) {
             },
             body: JSON.stringify(data),
         });
-
         // Check if the backend response is successful
         if (!backendResponse.ok) {
             const errorData = await backendResponse.json();
             console.error('Backend responded with an error:', errorData);
             return NextResponse.json(
-                { error: 'Registration failed on backend', details: errorData },
-                { status: backendResponse.status }
+                {error: 'Registration failed on backend', details: errorData},
+                {status: backendResponse.status}
             );
         }
 
@@ -38,12 +36,12 @@ export async function POST(req: Request) {
         console.log('The user is:', data);
 
         // Return the backend response to the frontend
-        return NextResponse.json(responseData, { status: 200 });
+        return NextResponse.json(responseData, {status: 200});
     } catch (error) {
         console.error('Error during registration process:', error);
         return NextResponse.json(
-            { error: 'Internal Server Error' },
-            { status: 500 }
+            {error: 'Internal Server Error'},
+            {status: 500}
         );
     }
 }
