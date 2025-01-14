@@ -7,7 +7,8 @@ import {Panel} from "@/app/components/Authentication/Panel/Page";
 import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
 import {AuthForm} from '@/app/components/Authentication/AuthForm/Page';
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
-import {register, RegisterActionState} from '@/lib/actions';
+import {register} from '@/lib/actions';
+import {RegisterActionState} from '@/lib/actions-utils';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 

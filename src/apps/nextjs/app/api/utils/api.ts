@@ -69,5 +69,28 @@ export const registerUser = async (data: {
 export const forgotPasswordUser = async (data: {
     email?: ZodString["_output"];
 }) => {
-    return true;
+    let options: RequestInit = {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            "Content-Type": "application/json",
+            "tenant": "root",
+        },
+    }
+    options = {
+        ...options,
+        body: JSON.stringify(data)
+    }
+    const url = `${process.env.BASE_URL_INTERNAL}/api/users/forgot-password`;
+    const res = await fetch(url, {...options});
+    if (!res.ok) {
+        const errorData = await res.json();
+        return NextResponse.json(
+            {error: 'Forgot password failed on backend', ...errorData},
+            {status: res.status}
+        );
+        // throw new Error(errorData || 'Failed forgot-password user');
+    }
+
+    return res.json();
 }

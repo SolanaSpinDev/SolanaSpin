@@ -1,7 +1,6 @@
 'use server';
 
 import {z} from 'zod';
-
 import {forgotPasswordUser, registerUser} from "@/app/api/utils/api";
 import {
     forgotPasswordFormSchema,
@@ -15,8 +14,6 @@ export const register = async (
     _: RegisterActionState,
     formData: FormData,
 ): Promise<RegisterActionState> => {
-    console.log('formData')
-    console.log(formData)
     try {
         const validatedData = authFormSchema.safeParse({
             email: formData.get("email") ?? undefined,
@@ -74,8 +71,6 @@ export const forgotPassword = async (
     _: ForgotPasswordActionState,
     formData: FormData,
 ): Promise<ForgotPasswordActionState> => {
-    console.log('formData')
-    console.log(formData)
     try {
         const validatedData = forgotPasswordFormSchema.safeParse({
             email: formData.get("email") ?? undefined,
@@ -90,13 +85,11 @@ export const forgotPassword = async (
         try {
             const res = await forgotPasswordUser(payload);
 
-            //todo review this assumption of status
-            // if (!res.status === 200) {
-            //     const errorData = await res?.json();
-            //     console.error('Backend responded with an error:', errorData);
-            //     return {status: "email_exists", errors: [], backEndError: errorData.details.errors};
-            // }
-
+            if (!(res.status === 200)) {
+                const errorData = await res?.json();
+                console.error('Backend responded with an error:', errorData);
+                return {status: "failed", errors: [], backEndError: errorData.details.detail};
+            }
             return {status: "success"};
         } catch (error) {
             if (error instanceof BackendValidationError) {

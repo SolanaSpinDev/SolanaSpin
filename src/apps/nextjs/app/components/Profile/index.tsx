@@ -6,6 +6,7 @@ import {fetchWithAuth} from "@/app/api/utils/api";
 
 import {FaSignInAlt, FaUserCircle} from "react-icons/fa";
 import {FaCircleUser} from "react-icons/fa6";
+import { TbPasswordUser } from "react-icons/tb";
 import {TiClipboard} from "react-icons/ti";
 import { useRouter} from 'next/navigation';
 
@@ -35,6 +36,9 @@ export const Profile = () => {
     const handleRegister = () => {
         router.push('/register-user');
     };
+    const handleForgotPassword = () =>{
+        router.push('/forgot-password')
+    }
     return (
         <div className="flex pr-4"
              role="button"
@@ -49,7 +53,7 @@ export const Profile = () => {
             <FaCircleUser className="xl:text-2xl"/>
             {session?.user?.firstName && <div className="ml-2">Hello {session?.user?.firstName}</div>}
             {isMenuVisible && (
-                <div className="absolute right-1.5 mt-2 w-40 bg-primary border border-gray-600 shadow-lg rounded-lg">
+                <div className="absolute right-1.5 mt-2 w-52 bg-primary border border-gray-600 shadow-lg rounded-lg">
                     <ul>
                         <li>
                             <button
@@ -67,6 +71,16 @@ export const Profile = () => {
                                 >
                                     <TiClipboard className="mr-2 text-white"/>
                                     <span className="text-white">Register</span>
+                                </button>
+                            </li>
+                        }
+                        {!session?.tokens?.token &&
+                            <li onClick={handleForgotPassword}>
+                                <button
+                                    className="flex items-center w-full px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                                >
+                                    <TbPasswordUser className="mr-2 text-white"/>
+                                    <span className="text-white">Forgot password</span>
                                 </button>
                             </li>
                         }

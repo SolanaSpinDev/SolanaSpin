@@ -18,7 +18,6 @@ export interface ForgotPasswordActionState {
         | "in_progress"
         | "success"
         | "failed"
-        | "email_exists"
         | "invalid_data";
     errors?: z.ZodIssue[];
     backEndError?: string[];
@@ -27,15 +26,14 @@ export interface ForgotPasswordActionState {
 export const authFormSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
-    username: z.string().min(3).max(20).regex(/^[A-Za-z]+$/, "username should contain only letters"),
+    username: z.string().min(3).max(20).regex(/^[A-Za-z0-9]+$/, "username should contain only letters"),
     phoneNumber: z.string(),
     email: z.string().email(),
     password: z.string()
         .min(6, "Password must be at least 6 characters.")
-        .regex(
-            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-            "Password must contain at least one letter and one number."
-        ),
+        .regex(/^(?=.*[A-Za-z])(?=.*\d).{6,}$/, {
+            message: "Password must contain at least one letter and one number.",
+        }),
     confirmPassword: z.string().min(6, "Confirm Password must be at least 6 characters."),
 }).refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
