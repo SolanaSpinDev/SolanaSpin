@@ -1,24 +1,30 @@
 'use client';
+
 import {useEffect, useState, useActionState} from 'react';
 import Head from "next/head";
 import {useRouter} from 'next/navigation';
 import {Panel} from "@/app/components/Authentication/Panel/Page";
 import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
-import {forgotPassword} from '@/lib/actions';
-import {ForgotPasswordActionState} from '@/lib/actions-utils';
+import {resetPassword} from '@/lib/actions';
+import {ResetPasswordActionState} from '@/lib/actions-utils';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {ForgotPasswordForm} from "@/app/components/Authentication/ForgotPasswordForm/Page";
+import {ResetPasswordForm} from "@/app/components/Authentication/ResetPasswordForm/Page";
+import {useSearchParams} from "next/navigation";
 
 export default function Page() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const token = searchParams.get("token");
+    const email = searchParams.get("email");
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [formValues, setFormValues] = useState({
-        email: '',
+        password: '',
+        confirmPassword: '',
     });
-    const [state, formAction] = useActionState<ForgotPasswordActionState, FormData>(
-        forgotPassword,
+    const [state, formAction] = useActionState<ResetPasswordActionState, FormData>(
+        resetPassword,
         {
             status: 'idle',
         }
@@ -37,8 +43,9 @@ export default function Page() {
                 }
                 toast.error("Failed validating your submission!" + "\n" + err);
             } else if (state.status === 'success') {
+                console.log('s a facut reset de pass cu success')
                 console.log('here i need to redirect the user to login page')
-                toast.success('Email sent', {
+                toast.success('Reset password successfully', {
                     onClose: () => {
                         //todo update the route with new login path
                         router.push('/api/auth/signin')
@@ -50,14 +57,22 @@ export default function Page() {
             }
         }
         ,
-        [state, router, formValues.email]
+        [state, router, formValues.password]
     )
     ;
 
     const handleSubmit = (formData: FormData): void => {
-        setFormValues({
-            email: formData.get('email') as string || '',
-        });
+        const password = formData.get('password') as string || '';
+        const confirmPassword = formData.get('confirmPassword') as string || '';
+        setFormValues({ password, confirmPassword });
+
+        if (token) {
+            formData.append('token', token);
+        }
+        if (email) {
+            formData.append('email', email);
+        }
+
         formAction(formData);
     };
 
@@ -76,17 +91,17 @@ export default function Page() {
                 theme="dark"
             />
             <Head>
-                <title>Forgot Password | Solanaspin</title>
+                <title>Reset Password | Solanaspin</title>
             </Head>
             <Panel>
-                <ForgotPasswordForm
+                <ResetPasswordForm
                     action={handleSubmit}
                     formValues={formValues}
                     errors={state.errors}
                     backendError={state.backEndError}
                 >
-                    <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
-                </ForgotPasswordForm>
+                    <SubmitButton isSuccessful={isSuccessful}>Submit password</SubmitButton>
+                </ResetPasswordForm>
             </Panel>
         </AuthenticationLayout>
     );
