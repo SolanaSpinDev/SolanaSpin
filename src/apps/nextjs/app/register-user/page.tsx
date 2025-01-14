@@ -8,7 +8,7 @@ import {AuthenticationLayout} from "@/app/components/Authentication/Authenticati
 import {AuthForm} from '@/app/components/Authentication/AuthForm/Page';
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
 import {register, RegisterActionState} from '@/lib/actions';
-import {Slide, toast, ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Page() {
