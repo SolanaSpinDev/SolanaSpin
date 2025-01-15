@@ -7,8 +7,8 @@ import {
     authFormSchema,
     ForgotPasswordActionState,
     RegisterActionState, ResetPasswordActionState, resetPasswordFormSchema
-} from "@/lib/actions-utils"; // Import useRouter for redirection
-import {BackendValidationError} from "@/lib/utils"; // Import useRouter for redirection
+} from "@/lib/actions-utils";
+import {BackendValidationError} from "@/lib/utils";
 
 export const register = async (
     _: RegisterActionState,

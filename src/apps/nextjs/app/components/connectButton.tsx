@@ -8,7 +8,7 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect, useBalance } from "wagmi";
 import { emojiAvatarForAddress } from "@/lib/emojiAvatarForAddress";
-
+//todo to be deleted
 export const ConnectBtn = () => {
     const { isConnecting, address, isConnected, chain } = useAccount();
     const { color: backgroundColor, emoji } = emojiAvatarForAddress(

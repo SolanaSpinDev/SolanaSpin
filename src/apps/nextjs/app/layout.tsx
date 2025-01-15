@@ -3,7 +3,7 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
 import React from "react";
-import ClientSessionProvider from "@/app/components/ClientSessionProvider/Index";
+import ClientSessionProvider from "@/app/context/ClientSessionProvider";
 import Script from 'next/script';
 
 const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";

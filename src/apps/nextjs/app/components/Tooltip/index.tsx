@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+//todo review the use of this one(maybe for info at forms)
 export default function Tooltip({text}) {
     const [isHovered, setIsHovered] = useState(false);
 
