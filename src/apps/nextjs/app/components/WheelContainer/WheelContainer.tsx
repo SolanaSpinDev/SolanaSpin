@@ -17,7 +17,7 @@ const WheelContainer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
     const videoRef = useRef<HTMLVideoElement | null>(null);
-    const [localBalance, setLocalBalance] = useState(1000);
+    const [localBalance, setLocalBalance] = useState(999);
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);

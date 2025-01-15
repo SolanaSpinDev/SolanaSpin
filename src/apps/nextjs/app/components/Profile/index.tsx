@@ -6,14 +6,16 @@ import {fetchWithAuth} from "@/app/api/utils/api";
 
 import {FaSignInAlt, FaUserCircle} from "react-icons/fa";
 import {FaCircleUser} from "react-icons/fa6";
-import { TbPasswordUser } from "react-icons/tb";
+import {TbPasswordUser} from "react-icons/tb";
 import {TiClipboard} from "react-icons/ti";
-import { useRouter} from 'next/navigation';
+import {useRouter} from 'next/navigation';
+import {useBalance} from "@/app/context/BalanceContext";
 
 export const Profile = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const {data: session} = useSession();
     const router = useRouter();
+    const { setBalance } = useBalance();
 
     const getProfile = async () => {
 
@@ -25,9 +27,9 @@ export const Profile = () => {
         try {
             const url = "/api/users/profile"
             const data = await fetchWithAuth(url, "GET", session.tokens?.token)
-
-            //todo remove this console.log
-            console.log("Protected data:", data);
+            if (typeof (data.balance)==='number' && !isNaN(data.balance)) {
+                setBalance(data.balance);
+            }
         } catch (error) {
             console.error("Error fetching protected data:", error);
         }
@@ -36,7 +38,7 @@ export const Profile = () => {
     const handleRegister = () => {
         router.push('/register-user');
     };
-    const handleForgotPassword = () =>{
+    const handleForgotPassword = () => {
         router.push('/forgot-password')
     }
     return (
