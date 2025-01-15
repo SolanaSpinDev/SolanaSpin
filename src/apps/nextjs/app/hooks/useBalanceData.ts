@@ -1,38 +1,28 @@
-import useSWR from 'swr';
-import {useBalance} from '@/app/context/BalanceContext';
-import React from "react";
-import { useSession } from 'next-auth/react';
+import {useSession} from 'next-auth/react';
 import {fetchWithAuth} from "@/app/api/utils/api";
 
-export const useBalanceData = () => {
-    const {setBalance} = useBalance();
-    const { data: session } = useSession();
+export const useBalanceData = (setBalance: (balance: number) => void) => {
+    const {data: session, status} = useSession();
 
-    const fetcher = async (url: string, token: string) => {
-        if (!token) {
-            throw new Error('No authentication token found');
+    const getBalance = async () => {
+        if (status !== 'authenticated' || !session?.tokens?.token) {
+            console.error("User is not authenticated or token is missing");
+            return;
         }
 
-        const data = await fetchWithAuth(url, 'GET', token);
-        return data;
-    };
+        try {
+            const url = "/api/users/profile";
+            const response = await fetchWithAuth(url, "GET", session.tokens.token);
 
-    const { data, error, mutate } = useSWR(
-        session && session.tokens?.token ? ['/api/users/profile', session.tokens.token] : null,
-        fetcher
-    );
-
-    React.useEffect(() => {
-        if (data && data.balance !== undefined) {
-            console.log('Fetched balance:', data.balance);
-            setBalance(data.balance);
+            if (typeof response.balance === 'number') {
+                setBalance(response.balance);
+            } else {
+                throw new Error("Invalid balance data received");
+            }
+        } catch (error) {
+            console.error("Error fetching balance:", error.message);
         }
-    }, [data, setBalance]);
-
-    return {
-        balance: data?.balance,
-        isLoading: !error && !data,
-        isError: error,
-        mutate,
     };
+
+    return {getBalance};
 };

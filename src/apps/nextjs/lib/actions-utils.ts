@@ -35,7 +35,7 @@ export interface ForgotPasswordActionState {
     backEndError?: string[];
 }
 
-export const authFormSchema = z.object({
+export const registerFormSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
     username: z.string().min(3).max(20).regex(/^[A-Za-z0-9]+$/, FormMessages.UsernameNotValidMessage),
@@ -65,3 +65,15 @@ export const resetPasswordFormSchema = z.object({
 });
 
 export const forgotPasswordFormSchema = z.object({email: z.string().email()})
+
+//login
+export const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string()
+        .min(6, FormMessages.PasswordNotValidLength)
+        .regex(/^(?=.*[A-Za-z])(?=.*\d).{6,}$/, {
+            message: FormMessages.PasswordNotValidMessage,
+        }),
+});
+
+export type LoginFormInputs = z.infer<typeof loginSchema>;

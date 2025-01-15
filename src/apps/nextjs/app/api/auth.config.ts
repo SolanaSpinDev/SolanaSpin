@@ -12,7 +12,6 @@ export default {
             },
 
             async authorize(credentials): Promise<User | null> {
-                console.log('YYYYY')
                 const res = await fetch(
                     process.env.BASE_URL + "/api/auth/login",
                     {
@@ -26,7 +25,6 @@ export default {
                 );
 
                 if (!res.ok) return null;
-
                 const tokens = await res.json();
 
                 return {
@@ -70,5 +68,7 @@ export default {
             session.error = token.error; // Include error if applicable
             return session;
         },
-    }
+    },
+    session: { strategy: "jwt" },
+    secret: process.env.NEXTAUTH_SECRET,
 } satisfies NextAuthConfig

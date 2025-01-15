@@ -20,7 +20,7 @@ interface AuthFormProps {
     backendError?: string[]; // Make it optional
 }
 
-export function AuthForm({
+export function RegisterForm({
                              action,
                              children,
                              formValues,

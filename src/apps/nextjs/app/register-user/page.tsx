@@ -5,7 +5,7 @@ import {signIn} from "next-auth/react";
 import {useRouter} from 'next/navigation';
 import {Panel} from "@/app/components/Authentication/Panel/Page";
 import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
-import {AuthForm} from '@/app/components/Authentication/AuthForm/Page';
+import {RegisterForm} from '@/app/components/Authentication/RegisterForm/Page';
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
 import {register} from '@/lib/actions';
 import {RegisterActionState} from '@/lib/actions-utils';
@@ -104,13 +104,13 @@ export default function Page() {
                 <title>Register | Solanaspin</title>
             </Head>
             <Panel>
-                <AuthForm action={handleSubmit}
-                          formValues={formValues}
-                          errors={state.errors}
-                          backendError={state.backEndError}
+                <RegisterForm action={handleSubmit}
+                              formValues={formValues}
+                              errors={state.errors}
+                              backendError={state.backEndError}
                 >
                     <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
-                </AuthForm>
+                </RegisterForm>
             </Panel>
         </AuthenticationLayout>
     );

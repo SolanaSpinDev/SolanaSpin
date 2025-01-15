@@ -38,12 +38,6 @@ async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
 
 const {auth, handlers, signIn, signOut} = NextAuth({
     session: {strategy: "jwt"},
-    theme: {
-        colorScheme: "dark",
-        brandColor: "#0070f3",
-        logo: "https://solanaspin.vercel.app/images/logo.svg",
-        buttonText: "Sign in",
-    },
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
         Credentials({
