@@ -3,6 +3,8 @@ import React from "react";
 import {NauSea} from "@/app/fonts/fonts";
 import { FaBan } from "react-icons/fa6";
 // <FaBan />
+
+//todo to be deleted
 type GameModesProps = {
     activeGameMode: string;
     onSelectGameMode: (gameMode: string) => void;

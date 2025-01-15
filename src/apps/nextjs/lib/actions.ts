@@ -4,18 +4,20 @@ import {z} from 'zod';
 import {forgotPasswordUser, registerUser, resetPasswordUser} from "@/app/api/utils/api";
 import {
     forgotPasswordFormSchema,
-    authFormSchema,
+    registerFormSchema,
+    resetPasswordFormSchema,
     ForgotPasswordActionState,
-    RegisterActionState, ResetPasswordActionState, resetPasswordFormSchema
-} from "@/lib/actions-utils"; // Import useRouter for redirection
-import {BackendValidationError} from "@/lib/utils"; // Import useRouter for redirection
+    RegisterActionState,
+    ResetPasswordActionState,
+} from "@/lib/actions-utils";
+import {BackendValidationError} from "@/lib/utils";
 
 export const register = async (
     _: RegisterActionState,
     formData: FormData,
 ): Promise<RegisterActionState> => {
     try {
-        const validatedData = authFormSchema.safeParse({
+        const validatedData = registerFormSchema.safeParse({
             email: formData.get("email") ?? undefined,
             firstName: formData.get('firstName') ?? undefined,
             lastName: formData.get('lastName') ?? undefined,

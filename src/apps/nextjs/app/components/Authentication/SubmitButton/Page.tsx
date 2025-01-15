@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom';
 
 // import { LoaderIcon } from '@/components/custom/icons';
 
-import { Button } from '@/app/Button/Page';
+import { Button } from '@/app/components/Button/Page';
 
 export function SubmitButton({
                                  children,
@@ -18,7 +18,7 @@ export function SubmitButton({
     return (
         //todo this has been altered compared to the ai-chatbot example - aria-disabled={isPending}
         <Button
-            className="mt-4 w-full"
+            className="mt-4 w-full relative"
         >
             {children}
 

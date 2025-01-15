@@ -3,7 +3,6 @@
 import React, {useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/react";
 import {fetchWithAuth} from "@/app/api/utils/api";
-
 import {FaSignInAlt, FaUserCircle} from "react-icons/fa";
 import {FaCircleUser} from "react-icons/fa6";
 import {TbPasswordUser} from "react-icons/tb";
@@ -15,7 +14,7 @@ export const Profile = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const {data: session} = useSession();
     const router = useRouter();
-    const { setBalance } = useBalance();
+    const {setBalance} = useBalance();
 
     const getProfile = async () => {
 
@@ -27,7 +26,7 @@ export const Profile = () => {
         try {
             const url = "/api/users/profile"
             const data = await fetchWithAuth(url, "GET", session.tokens?.token)
-            if (typeof (data.balance)==='number' && !isNaN(data.balance)) {
+            if (typeof (data.balance) === 'number' && !isNaN(data.balance)) {
                 setBalance(data.balance);
             }
         } catch (error) {
@@ -35,9 +34,14 @@ export const Profile = () => {
         }
     };
 
+    const handleLogin = () => {
+        router.push('/login');
+    }
+
     const handleRegister = () => {
         router.push('/register-user');
     };
+
     const handleForgotPassword = () => {
         router.push('/forgot-password')
     }
@@ -57,13 +61,24 @@ export const Profile = () => {
             {isMenuVisible && (
                 <div className="absolute right-1.5 mt-2 w-52 bg-primary border border-gray-600 shadow-lg rounded-lg">
                     <ul>
+                        {/*old signinbutton*/}
+
+                        {/*<li>*/}
+                        {/*    <button*/}
+                        {/*        onClick={() => session ? signOut() : signIn("Login")}*/}
+                        {/*        className="flex items-center w-full px-4 py-2 hover:bg-gray-700 cursor-pointer"*/}
+                        {/*    >*/}
+                        {/*        <FaSignInAlt className="mr-2 text-white"/>*/}
+                        {/*        <span className="text-white">{session ? 'Sign Out' : 'Sign In'}</span>*/}
+                        {/*    </button>*/}
+                        {/*</li>*/}
                         <li>
                             <button
-                                onClick={() => session ? signOut() : signIn("Login")}
+                                onClick={() => session ? signOut() : handleLogin()}
                                 className="flex items-center w-full px-4 py-2 hover:bg-gray-700 cursor-pointer"
                             >
                                 <FaSignInAlt className="mr-2 text-white"/>
-                                <span className="text-white">{session ? 'Sign Out' : 'Sign In'}</span>
+                                <span className="text-white">{session ? 'Sign Out' : 'Login'}</span>
                             </button>
                         </li>
                         {!session?.tokens?.token &&
@@ -92,7 +107,7 @@ export const Profile = () => {
                                 <span className="text-white">Profile</span>
                             </li>}
 
-                        <li>
+                        {!session || !session.tokens || !session.tokens.token &&<li>
                             <button
                                 onClick={getProfile}
                                 className="flex items-center w-full px-4 py-2 hover:bg-gray-700 cursor-pointer"
@@ -100,8 +115,7 @@ export const Profile = () => {
                                 <FaUserCircle className="mr-2 text-white"/>
                                 <span className="text-white">Profile</span>
                             </button>
-                        </li>
-
+                        </li>}
                     </ul>
                 </div>
             )}

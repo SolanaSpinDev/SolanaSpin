@@ -24,8 +24,6 @@ export const fetchWithAuth = async (
             body: JSON.stringify(body)
         }
     }
-    console.log('url')
-    console.log(url)
     const res = await fetch(url, options);
     if (!res.ok) {
         throw new Error('Failed to fetch data');

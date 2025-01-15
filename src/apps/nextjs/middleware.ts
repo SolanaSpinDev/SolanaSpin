@@ -25,8 +25,9 @@ export function middleware(request: NextRequest) {
     const isProtectedRoute = url.pathname.startsWith("/protected/");
     const token = request.cookies.get("next-auth.session-token");
 
+    //todo update this redirect
     if (isProtectedRoute && !token) {
-        return NextResponse.redirect(new URL("/auth/signin", request.url));
+        return NextResponse.redirect(new URL("/login", request.url));
     }
 
     return NextResponse.next();

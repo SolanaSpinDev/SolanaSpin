@@ -4,6 +4,7 @@ import { useAccount, useBalance, useEnsName } from "wagmi";
 import { middleEllipsis } from "@/lib/utils";
 import { formatUnits } from "viem";
 
+//todo to be deleted
 export default function oldProfile() {
     // const { address, chain } = useAccount();
     //
