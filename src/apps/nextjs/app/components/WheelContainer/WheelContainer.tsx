@@ -9,8 +9,9 @@ import {Footer} from "@/app/components/Footer";
 import {GameMode} from "@/app/components/GameModes";
 import {useSession} from "next-auth/react";
 import {fetchWithAuth} from "@/app/api/utils/api";
-import "./WheelContainer.css"
 import {wheelsConfig} from "@/lib/utils";
+import {useBalance} from "@/app/context/BalanceContext";
+import "./WheelContainer.css"
 
 const WheelContainer = () => {
 
@@ -80,6 +81,7 @@ const WheelContainer = () => {
     const activeGameMode = pathname.split("/")[2] || "wood";
     const {data: session} = useSession();
     const [lastPrize, setLastPrize] = useState(''); //use convention in wheelsConfig
+    const { setBalance } = useBalance();
 
     useEffect(() => {
         // Update the background image based on the active game mode
@@ -105,6 +107,8 @@ const WheelContainer = () => {
         }
     }, []);
     const updateBalance = useCallback((extraValue: number): void => {
+        //todo here setBalance by using BalanceContext and setting state in here and passing the value to Header-Balance
+        // setBalance(balance); // it will be in the play response
         return setLocalBalance(localBalance => localBalance + extraValue)
     }, [])
 
@@ -261,7 +265,7 @@ const WheelContainer = () => {
                 className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
             </div>
 
-            <Header localBalance={localBalance}/>
+            <Header/>
 
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">

@@ -4,7 +4,7 @@ import {formatCurrency} from "@/lib/utils";
 import React from "react";
 import { useBalance } from "@/app/context/BalanceContext";
 
-export const Balance = React.memo(({localBalance}: { localBalance: number }) => {
+export const Balance = React.memo(() => {
     const { balance } = useBalance();
 
     return (<div className="font-bold text-xs lg:text-2xl">
