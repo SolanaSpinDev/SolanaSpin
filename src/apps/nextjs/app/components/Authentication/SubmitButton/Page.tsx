@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom';
 
 // import { LoaderIcon } from '@/components/custom/icons';
 
-import { Button } from '@/app/Button/Page';
+import { Button } from '@/app/components/Button/Page';
 
 export function SubmitButton({
                                  children,
