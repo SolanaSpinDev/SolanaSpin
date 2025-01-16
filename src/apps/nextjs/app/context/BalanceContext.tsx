@@ -1,4 +1,5 @@
-import React, {createContext, useContext, useState, ReactNode} from 'react';
+'use client';
+import React, {createContext, useContext, useState, useEffect, ReactNode} from 'react';
 import {useBalanceData} from '@/app/hooks/useBalanceData';
 
 interface BalanceContextType {
@@ -20,9 +21,11 @@ export const useBalance = (): BalanceContextType => {
 
 export const BalanceProvider = ({children}: { children: ReactNode }) => {
     const [balance, setBalance] = useState<number | null>(null);
-
-    useBalanceData(setBalance);
     const {getBalance} = useBalanceData(setBalance);
+
+    useEffect(() => {
+        getBalance().then(r => r);
+    }, [getBalance]);
 
     return (
         <BalanceContext.Provider value={{balance, setBalance, getBalance}}>
