@@ -44,6 +44,7 @@ export async function login(
  */
 export async function refresh(token: string, refreshToken: string): Promise<Response> {
     console.debug("Refreshing token");
+
     if (!token) {
         throw new Error("Token is required");
     }

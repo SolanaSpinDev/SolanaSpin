@@ -139,7 +139,8 @@ export const wheelsConfig = {
             },
             {
                 "resultType": 1,
-                "resultValue": "X05_A",
+                "resultValue": "0.5",
+                "videoNamingConvention": "X05_A",
             }
         ]
     },
