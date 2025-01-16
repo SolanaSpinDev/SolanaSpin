@@ -160,7 +160,8 @@ export default function Page() {
                                     : 'bg-indigo-600 hover:bg-indigo-700'
                             }`}
                         >
-                            {isLoading ? 'Loading...' : 'Login'}
+                            {isLoading ? <div
+                                className="animate-spin h-6 w-6 border-4 border-t-transparent border-gray-400 rounded-full"></div> : 'Login'}
                         </button>
                         <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
                             {'Forgot your credentials? '}
