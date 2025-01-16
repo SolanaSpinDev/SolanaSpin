@@ -22,7 +22,6 @@ export const register = async (
             firstName: formData.get('firstName') ?? undefined,
             lastName: formData.get('lastName') ?? undefined,
             username: formData.get('username') ?? undefined,
-            phoneNumber: formData.get('phoneNumber') ?? undefined,
             password: formData.get("password") ?? undefined,
             confirmPassword: formData.get('confirmPassword') ?? undefined,
         });

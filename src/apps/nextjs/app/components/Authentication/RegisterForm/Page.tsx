@@ -11,7 +11,6 @@ interface AuthFormProps {
         firstName: string;
         lastName: string;
         username: string;
-        phoneNumber: string;
         email: string;
         password: string;
         confirmPassword: string;
@@ -38,7 +37,7 @@ export function RegisterForm({
     return (
         <form action={action} className="space-y-3">
             <div className="flex-1 rounded-lg bg-[#1d3155] px-6 pb-4 pt-8 opacity-95">
-                <h1 className="mb-3 text-2xl">
+                <h1 className="mb-3 text-2xl text-white">
                     Create an account.
                 </h1>
                 {backendError?.length > 0 &&
@@ -52,7 +51,7 @@ export function RegisterForm({
                                 id="email"
                                 name="email"
                                 isRequired
-                                className="max-w-xs"
+                                className="max-w-xs text-white"
                                 label="Email"
                                 type="email"
                                 placeholder="user@acme.com"
@@ -71,7 +70,7 @@ export function RegisterForm({
                             <Input
                                 id="firstName"
                                 name="firstName"
-                                className="max-w-xs"
+                                className="max-w-xs text-white"
                                 label="First Name"
                                 type="text"
                                 placeholder="First Name"
@@ -89,7 +88,7 @@ export function RegisterForm({
                             <Input
                                 id="lastName"
                                 name="lastName"
-                                className="max-w-xs"
+                                className="max-w-xs text-white"
                                 label="Last Name"
                                 type="text"
                                 placeholder="Last Name"
@@ -108,7 +107,7 @@ export function RegisterForm({
                                 id="username"
                                 name="username"
                                 isRequired
-                                className="max-w-xs"
+                                className="max-w-xs text-white"
                                 label="Username"
                                 type="text"
                                 placeholder="Last Name"
@@ -132,7 +131,7 @@ export function RegisterForm({
                             <Input
                                 id="password"
                                 name="password"
-                                className="max-w-xs"
+                                className="max-w-xs  text-white"
                                 isRequired
                                 label="Password"
                                 type={showPassword ? "text" : "password"}
@@ -145,7 +144,7 @@ export function RegisterForm({
                             />
                             <button
                                 type="button"
-                                className="absolute inset-y-0 right-0 flex items-center pr-3"
+                                className="absolute inset-y-0 right-0 flex items-center pr-3 text-white"
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 aria-label={showPassword ? "Hide password" : "Show password"}
                             >
@@ -165,7 +164,7 @@ export function RegisterForm({
                             <Input
                                 id="confirmPassword"
                                 name="confirmPassword"
-                                className="max-w-xs "
+                                className="max-w-xs text-white"
                                 isRequired
                                 label="Confirm Password"
                                 type={showConfirmPassword ? "text" : "password"}
@@ -188,23 +187,6 @@ export function RegisterForm({
                                     <IoEyeOutline className="h-5 w-5 text-gray-500"/>
                                 )}
                             </button>
-                        </div>
-                    </div>
-                    {/*Phone number*/}
-                    <div className="mt-4">
-                        <div className="relative">
-                            <Input
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                className="max-w-xs"
-                                label="Phone Number"
-                                type="phoneNumber"
-                                placeholder="Phone Number"
-                                defaultValue={formValues.phoneNumber}
-                                autoFocus
-                                color="primary"
-                                variant="underlined"
-                            />
                         </div>
                     </div>
                 </div>
