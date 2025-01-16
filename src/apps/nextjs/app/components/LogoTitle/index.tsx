@@ -2,7 +2,7 @@ import Image from "next/image";
 import {NauSea} from "@/app/fonts/fonts";
 import React from "react";
 
-export const LogoTitle = React.memo(() => {
+export const LogoTitle = React.memo(({ showBeta = true }: { showBeta?: boolean }) => {
     return (
         <div
             className=" flex lg:flex-row items-center justify-center">
@@ -22,7 +22,7 @@ export const LogoTitle = React.memo(() => {
             </div>
             <div className="flex">
                 <div className={`${NauSea.className} text-white text-tiny lg:text-3xl`}>
-                    <span>Solana spin</span> - <span>beta</span>
+                    <span>Solana spin</span> {showBeta && <span>-<span>beta</span></span>}
                 </div>
             </div>
         </div>
