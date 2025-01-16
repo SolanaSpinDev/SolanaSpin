@@ -12,6 +12,8 @@ import {fetchWithAuth} from "@/app/api/utils/api";
 import {wheelsConfig} from "@/lib/utils";
 import {useBalance} from "@/app/context/BalanceContext";
 import "./WheelContainer.css"
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const WheelContainer = () => {
 
@@ -81,8 +83,8 @@ const WheelContainer = () => {
     const activeGameMode = pathname.split("/")[2] || "wood";
     const {data: session, status} = useSession();
     const [lastPrize, setLastPrize] = useState(''); //use convention in wheelsConfig
-    const { setBalance } = useBalance();
-
+    const {setBalance} = useBalance();
+    const {getBalance} = useBalance();
     useEffect(() => {
         // Update the background image based on the active game mode
         setVideoBackgroundImage(`/images/${activeGameMode}/default-bg-start.webp`);
@@ -91,6 +93,7 @@ const WheelContainer = () => {
     useEffect(() => {
         const userAgent = navigator.userAgent;
 
+        //todo review the use of this isMobile const
         const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
         if (isMobile) {
             if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
@@ -106,6 +109,8 @@ const WheelContainer = () => {
             setBrowser('default');
         }
     }, []);
+
+    //todo remove this updateBalance
     const updateBalance = useCallback((extraValue: number): void => {
         //todo here setBalance by using BalanceContext and setting state in here and passing the value to Header-Balance
         // setBalance(balance); // it will be in the play response
@@ -114,7 +119,7 @@ const WheelContainer = () => {
 
     function handleSelectBet(bet: number): void {
         //if user is not authenticated can't play
-        if(status === 'unauthenticated'){
+        if (status === 'unauthenticated') {
             router.push('/login');
         }
 
@@ -179,7 +184,7 @@ const WheelContainer = () => {
                 playAmount: playAmount
             }
             const data = await fetchWithAuth(url, 'POST', session.tokens?.token, body)
-            console.log("Protected dataQQQQQ:", data);
+            console.log("Protected data:", data);
 
             return data;
         } catch (error) {
@@ -189,7 +194,7 @@ const WheelContainer = () => {
 
     const handlePlayVideoDb = async () => {
         //if user is not authenticated can't play
-        if(status === 'unauthenticated'){
+        if (status === 'unauthenticated') {
             router.push('/login');
         }
         setIsLoading(true);
@@ -232,19 +237,19 @@ const WheelContainer = () => {
                 setVideoBackgroundImage(urlImage);
             }, 1000)
         } catch (err: unknown) {
-            console.log('error ', err)
+            toast.error('An error has occurred, please try again later');
             setIsLoading(false);
-            //todo here let the user know about the error and make the wheel avaialble
-
+            setIsPlaying(false);
         } finally {
             setIsLoading(false);
-            setFlag(flag + 1);
             //todo remove the flag variable since is not yet usefull
+            setFlag(flag + 1);
+
         }
     }
 
     const handleVideoEnd = (): void => {
-        // The video naturally stays on the last frame when ended, no action needed.
+        getBalance().then((r) => r);
         setIsPlaying(false);
 
         // update Recent plays accordingly
@@ -269,6 +274,18 @@ const WheelContainer = () => {
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden  video-container">
+            <ToastContainer
+                position="top-right"
+                autoClose={2500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             <div
                 style={videoBackgroundImage ? {backgroundImage: `url('${videoBackgroundImage}')`} : undefined}
                 className="bg-video-container-bg bg-cover bg-center absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0">
