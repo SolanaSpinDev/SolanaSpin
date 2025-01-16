@@ -72,6 +72,11 @@
                                 For="@(() => _profileModel.Email)" Variant="Variant.Outlined"
                                 InputType="InputType.Email" Disabled="true" />
                         </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField @bind-Value="@_depositAddress" Label="Desosit Address"
+                                For="@(() => _depositAddress)" Variant="Variant.Outlined"
+                                Disabled="true" />
+                        </MudItem>
                     </MudGrid>
                 </MudCardContent>
                 <MudCardActions Class="pb-4 pl-4">

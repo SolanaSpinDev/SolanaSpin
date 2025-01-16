@@ -30,6 +30,9 @@ public static class ClaimsPrincipalExtensions
         return Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) ? uri : null;
     }
 
+    public static string? GetDepositAddress(this ClaimsPrincipal principal)
+       => principal.FindFirst(IdentityConstants.Claims.DepositAddress)?.Value;
+
     public static DateTimeOffset GetExpiration(this ClaimsPrincipal principal) =>
         DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(
             principal.FindFirstValue(IdentityConstants.Claims.Expiration)));

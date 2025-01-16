@@ -22,6 +22,7 @@ public partial class Profile
     private readonly UpdateUserCommand _profileModel = new();
 
     private string? _imageUrl;
+    private string? _depositAddress;
     private string? _userId;
     private char _firstLetterOfName;
 
@@ -40,6 +41,7 @@ public partial class Profile
             {
                 _imageUrl = user.GetImageUrl()!.ToString();
             }
+            _depositAddress = user.GetDepositAddress();
             if (_userId is not null) _profileModel.Id = _userId;
         }
 

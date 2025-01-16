@@ -20,6 +20,8 @@ using FSH.Framework.Infrastructure.Identity.Persistence;
 using FSH.Framework.Infrastructure.Identity.Roles;
 using FSH.Framework.Infrastructure.Tenant;
 using SolanaSpin.WebApi.Shared.Authorization;
+using Solnet.Wallet;
+using Solnet.Wallet.Bip39;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -49,7 +51,8 @@ internal sealed partial class UserService(
 
     private static (string, string) GenerateDepositAddressWithPrivateKey()
     {
-        return ("DsarxGTHs9aJGuyedk9w9FwhqSme4Pt4nVG3DG3wjWns", "");
+        Wallet wallet = new(new Mnemonic(WordList.English, WordCount.Twelve));
+        return (wallet.Account.PublicKey, wallet.Account.PrivateKey);
     }
 
     public Task<string> ConfirmEmailAsync(string userId, string code, string tenant, CancellationToken cancellationToken)

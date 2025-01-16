@@ -28,6 +28,7 @@ internal static class IdentityConstants
         public const string Fullname = "fullName";
         public const string Permission = "permission";
         public const string ImageUrl = "image_url";
+        public const string DepositAddress = "deposit_address";
         public const string IpAddress = "ipAddress";
         public const string Expiration = "exp";
     }
