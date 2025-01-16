@@ -33,7 +33,7 @@ export const MobileMessageWheelWrapper = () => {
         }
     }, []);
     useEffect(() => {
-        toast.info('🎉 Welcome to Our Demo! 🎉\n' +
+        toast.info('🎉 Welcome to Solanaspin! 🎉\n' +
             'Stay tuned for updates, and have fun spinning! 🎡', {
             position: "top-right",
             autoClose: 2500,

@@ -208,6 +208,8 @@ const WheelContainer = () => {
             const diceFace = wheelsConfig[activeGameMode].faces[diceRes.result.faceIndex];
             const {videoNamingConvention} = diceFace;
             //update balance
+            console.log(videoNamingConvention);
+            console.log('videoNamingConvention');
 
             console.log('update balance with !! it has been substracted the bet value initially', diceRes.result.returnAmount);
             const resourcesUrl = 'https://solanaspin.io' //todo maybe move this to an env var
