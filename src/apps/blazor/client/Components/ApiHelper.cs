@@ -1,6 +1,6 @@
-﻿using SolanaSpin.Blazor.Infrastructure.Api;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using SolanaSpin.Blazor.Infrastructure.Api;
 
 namespace SolanaSpin.Blazor.Client.Components;
 
@@ -20,7 +20,7 @@ public static class ApiHelper
 
             if (!string.IsNullOrWhiteSpace(successMessage))
             {
-                snackbar.Add(successMessage, Severity.Info);
+                _ = snackbar.Add(successMessage, Severity.Info);
             }
 
             return result;
@@ -31,12 +31,18 @@ public static class ApiHelper
             {
                 navigationManager.NavigateTo("/admin/logout");
             }
-            var message = ex.Message switch
+            else if (ex.StatusCode == 400)
             {
-                "TypeError: Failed to fetch" => "Unable to Reach API",
-                _ => ex.Message
-            };
-            snackbar.Add(message, Severity.Error);
+            }
+            else
+            {
+                var message = ex.Message switch
+                {
+                    "TypeError: Failed to fetch" => "Unable to Reach API",
+                    _ => ex.Message
+                };
+                _ = snackbar.Add(message, Severity.Error);
+            }
         }
 
         return default;
@@ -55,14 +61,14 @@ public static class ApiHelper
 
             if (!string.IsNullOrWhiteSpace(successMessage))
             {
-                snackbar.Add(successMessage, Severity.Success);
+                _ = snackbar.Add(successMessage, Severity.Success);
             }
 
             return true;
         }
         catch (ApiException ex)
         {
-            snackbar.Add(ex.Message, Severity.Error);
+            _ = snackbar.Add(ex.Message, Severity.Error);
         }
 
         return false;

@@ -47,6 +47,11 @@ internal sealed partial class UserService(
         }
     }
 
+    private static (string, string) GenerateDepositAddressWithPrivateKey()
+    {
+        return ("DsarxGTHs9aJGuyedk9w9FwhqSme4Pt4nVG3DG3wjWns", "");
+    }
+
     public Task<string> ConfirmEmailAsync(string userId, string code, string tenant, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
@@ -103,6 +108,8 @@ internal sealed partial class UserService(
 
     public async Task<RegisterUserResponse> RegisterAsync(RegisterUserCommand request, string origin, CancellationToken cancellationToken)
     {
+        var depositAddressWithPrivateKey = GenerateDepositAddressWithPrivateKey();
+
         // create user entity
         var user = new FshUser
         {
@@ -112,7 +119,9 @@ internal sealed partial class UserService(
             UserName = request.UserName,
             PhoneNumber = request.PhoneNumber,
             IsActive = true,
-            EmailConfirmed = true
+            EmailConfirmed = false,
+            DepositAddress = depositAddressWithPrivateKey.Item1,
+            DepositAddressPrivateKey = depositAddressWithPrivateKey.Item2
         };
 
         // register user
@@ -197,8 +206,17 @@ internal sealed partial class UserService(
 
         _ = user ?? throw new NotFoundException("User Not Found.");
 
-        user.IsActive = false;
-        IdentityResult? result = await userManager.UpdateAsync(user);
+        bool isAdmin = await userManager.IsInRoleAsync(user, IdentityConstants.Roles.Admin);
+
+        // Get count of users in Admin Role
+        IList<FshUser> admins = await userManager.GetUsersInRoleAsync(FshRoles.Admin);
+
+        if (isAdmin && admins.Count <= 1)
+        {
+            throw new FshException("tenant should have at least 1 admin.");
+        }
+
+        IdentityResult? result = await userManager.DeleteAsync(user);
 
         if (!result.Succeeded)
         {
@@ -247,9 +265,9 @@ internal sealed partial class UserService(
                     throw new FshException("action not permitted");
                 }
             }
-            else if (adminCount <= 2)
+            else if (adminCount <= 1)
             {
-                throw new FshException("tenant should have at least 2 admins.");
+                throw new FshException("tenant should have at least 1 admin.");
             }
         }
 

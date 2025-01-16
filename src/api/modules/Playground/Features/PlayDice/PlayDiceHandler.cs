@@ -61,7 +61,7 @@ public sealed class PlayDiceHandler(
                 var newDiceSlug = face.ResultValue!;
                 var newDice = await GetDiceAsync(newDiceSlug, false, cancellationToken);
                 var innerResult = await PlayDiceAsync(newDice, playAmount, cancellationToken);
-                return new PlayDiceResult(dice, faceIndex, innerResult.ReturnAmount, innerResult);
+                return new PlayDiceResult(dice, faceIndex, playAmount, innerResult);
             case FaceResultType.RaffleTicket:
                 return new PlayDiceResult(dice, faceIndex, playAmount);
             default:
@@ -94,6 +94,16 @@ public sealed class PlayDiceHandler(
         }
 
         var dice = await GetDiceAsync(request.DiceSlug, true, cancellationToken);
+        if (dice.MaximumPlayAmount.HasValue && dice.MaximumPlayAmount.Value < request.PlayAmount)
+        {
+            throw new PlayAmountTooHighException(dice.MaximumPlayAmount.Value, request.PlayAmount);
+        }
+
+        if (dice.MinimumPlayAmount.HasValue && dice.MinimumPlayAmount.Value > request.PlayAmount)
+        {
+            throw new PlayAmountTooLowException(dice.MinimumPlayAmount.Value, request.PlayAmount);
+        }
+
         var result = await PlayDiceAsync(dice, request.PlayAmount, cancellationToken);
         var response = new PlayDiceResponse(user.Balance, request, result);
         _ = await userService.UpdateBalanceAsync(userId, response.NetAmount, cancellationToken);

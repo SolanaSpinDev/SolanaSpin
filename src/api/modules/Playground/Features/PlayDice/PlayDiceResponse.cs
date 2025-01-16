@@ -1,4 +1,5 @@
-﻿using SolanaSpin.WebApi.Playground.Domain;
+﻿using System.Text.Json.Serialization;
+using SolanaSpin.WebApi.Playground.Domain;
 
 namespace SolanaSpin.WebApi.Playground.Features.PlayDice;
 public record PlayDiceResult(
@@ -7,9 +8,9 @@ public record PlayDiceResult(
     decimal ReturnAmount,
     PlayDiceResult? InnerResult = null)
 {
-    public Face Face => Dice.Faces.ElementAt(FaceIndex);
-    public FaceResultType ResultType => Face.ResultType;
-    public string? ResultValue => Face.ResultValue;
+    [JsonIgnore] public Face Face => Dice.Faces.ElementAt(FaceIndex);
+    [JsonIgnore] public FaceResultType ResultType => Face.ResultType;
+    [JsonIgnore] public string? ResultValue => Face.ResultValue;
 
     public decimal GetNetAmount(decimal playAmount)
     {
@@ -18,10 +19,9 @@ public record PlayDiceResult(
 }
 public record PlayDiceResponse(
     decimal OldBalance,
-    PlayDiceRequest Request,
+    [property: JsonIgnore] PlayDiceRequest Request,
     PlayDiceResult Result)
 {
-    public decimal NetAmount => Result.GetNetAmount(Request.PlayAmount);
-
+    [JsonIgnore] public decimal NetAmount => Result.GetNetAmount(Request.PlayAmount);
     public decimal NewBalance => OldBalance + NetAmount;
 }

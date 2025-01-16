@@ -32,6 +32,8 @@ public partial class UserProfile
     private string? _phoneNumber;
     private string? _email;
     private Uri? _imageUrl;
+    private double _balance;
+    private string? _depositAddress;
     private bool _loaded;
     private bool _canToggleUserStatus;
 
@@ -58,6 +60,8 @@ public partial class UserProfile
             _active = user.IsActive;
             _emailConfirmed = user.EmailConfirmed;
             _imageUrl = user.ImageUrl;
+            _balance = user.Balance;
+            _depositAddress = user.DepositAddress;
             Title = $"{_firstName} {_lastName}'s Profile";
             Description = _email;
             if (_firstName?.Length > 0)

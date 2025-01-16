@@ -111,6 +111,12 @@ namespace SolanaSpin.WebApi.Migrations.PostgreSQL.Identity
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
+                    b.Property<string>("DepositAddress")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DepositAddressPrivateKey")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");

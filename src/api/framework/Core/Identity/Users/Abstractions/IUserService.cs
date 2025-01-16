@@ -40,4 +40,5 @@ public interface IUserService
 
     // balance
     Task<decimal> UpdateBalanceAsync(string userId, decimal delta, CancellationToken cancellationToken);
+    Task CheckDepositAddressAsync(string userId, CancellationToken cancellationToken);
 }

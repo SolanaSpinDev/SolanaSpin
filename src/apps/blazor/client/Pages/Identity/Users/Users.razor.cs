@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
-using static SolanaSpin.Blazor.Client.Pages.Multitenancy.Tenants;
+using SolanaSpin.Blazor.Client.Components;
 
 namespace SolanaSpin.Blazor.Client.Pages.Identity.Users;
 
@@ -27,6 +27,7 @@ public partial class Users
 
     private bool _canExportUsers;
     private bool _canUpdateUsers;
+    private bool _canDeleteUsers;
     private bool _canViewRoles;
 
     // Fields for editform
@@ -42,6 +43,7 @@ public partial class Users
         var user = (await AuthState).User;
         _canExportUsers = await AuthService.HasPermissionAsync(user, FshAction.Export, FshResource.Users);
         _canUpdateUsers = await AuthService.HasPermissionAsync(user, FshAction.Update, FshResource.Users);
+        _canDeleteUsers = await AuthService.HasPermissionAsync(user, FshAction.Delete, FshResource.Users);
         _canViewRoles = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.UserRoles);
 
         Context = new(
@@ -60,7 +62,8 @@ public partial class Users
                 new(user => user.PhoneNumber, "Phone Number"),
                 new(user => user.EmailConfirmed, "Email Confirmation", Type: typeof(bool)),
                 new(user => user.IsActive, "Active", Type: typeof(bool)),
-                new(user => user.Balance, "Balance", Type: typeof(decimal))
+                new(user => user.Balance, "Balance", Type: typeof(decimal)),
+                new(user => user.DepositAddress, "Deposit Address", Type: typeof(decimal))
             },
             idFunc: user => user.Id,
             loadDataFunc: async () => (await UsersClient.GetUsersListEndpointAsync()).ToList(),
@@ -84,7 +87,27 @@ public partial class Users
 
     private async Task UpdateBalanceAsync(Guid userId, double delta)
     {
-        await UsersClient.UpdateBalanceEndpointAsync(userId.ToString(), delta);
+        await ApiHelper.ExecuteCallGuardedAsync(
+            () => UsersClient.UpdateBalanceEndpointAsync(userId.ToString(), delta),
+            Toast, Navigation,
+            null,
+            "Balance Updated.");
+        await EntityTable.ReloadDataAsync();
+    }
+
+    private async Task<bool> DeleteUserAsync(string userId)
+    {
+        await UsersClient.DeleteUserEndpointAsync(userId);
+        return true;
+    }
+
+    private async Task DeleteUserAsync(Guid userId)
+    {
+        await ApiHelper.ExecuteCallGuardedAsync(
+            () => DeleteUserAsync(userId.ToString()),
+            Toast, Navigation,
+            null,
+            "User Deleted.");
         await EntityTable.ReloadDataAsync();
     }
 

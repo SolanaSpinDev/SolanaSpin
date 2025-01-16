@@ -25,7 +25,7 @@ public partial class Dice
                 new(item => item.Id, "Wheel Id"),
                 new(item => item.Title, "Title"),
                 new(item => item.Slug, "Slug"),
-                new(item => item.IsPubliclyPlayable, "Public"),
+                new(item => item.IsPubliclyPlayable, "Public", Type: typeof(bool)),
                 new(item => item.MinimumPlayAmount, "Min Amount"),
                 new(item => item.MaximumPlayAmount, "Max Amount"),
                 new(item => $"{item.Faces?.Count ?? 0} outcomes", "Outcome Count"),

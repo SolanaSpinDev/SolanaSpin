@@ -20,4 +20,6 @@ public class UserDetail
     public Uri? ImageUrl { get; set; }
 
     public decimal Balance { get; set; }
+
+    public string? DepositAddress { get; set; }
 }

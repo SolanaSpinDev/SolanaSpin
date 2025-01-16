@@ -14,6 +14,10 @@
             <MudMenuItem OnClick="(() => UpdateBalanceAsync(context.Id, 1000))">Add 1000 to Balance</MudMenuItem>
             <MudMenuItem OnClick="(() => UpdateBalanceAsync(context.Id, -context.Balance))">Reset Balance</MudMenuItem>
         }
+        @if (_canDeleteUsers)
+        {
+            <MudMenuItem Style="color:red!important" OnClick="@(() => DeleteUserAsync(context.Id))">Delete User</MudMenuItem>
+        }
     </ExtraActions>
 
     <EditFormContent>

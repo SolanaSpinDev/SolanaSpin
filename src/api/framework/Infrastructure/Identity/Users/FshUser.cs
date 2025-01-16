@@ -10,6 +10,8 @@ public class FshUser : IdentityUser
     public string? RefreshToken { get; set; }
     public DateTime RefreshTokenExpiryTime { get; set; }
     public decimal Balance { get; set; }
+    public string? DepositAddress { get; set; }
+    public string? DepositAddressPrivateKey { get; set; }
 
     public string? ObjectId { get; set; }
 }

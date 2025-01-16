@@ -32,7 +32,7 @@ public partial class SelfRegister
 
         if (response != null)
         {
-            Toast.Add($"user {response.UserId} registered.", Severity.Success);
+            Toast.Add($"user {_createUserRequest.Email} registered.", Severity.Success);
             Navigation.NavigateTo("/admin/login");
         }
 

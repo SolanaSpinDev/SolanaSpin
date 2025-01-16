@@ -23,7 +23,7 @@ else
                         <MudCardContent Class="pa-46" Style="padding:26px!important">
                             <MudGrid Style="padding-left:14px">
                                     <MudSwitch T="bool" @bind-Value="@_active" Color="Color.Primary" Label="Active?"></MudSwitch>
-                                <MudSwitch T="bool" ReadOnly @bind-Value="@_emailConfirmed" Disabled Label="Email Confirmed?" Color="Color.Secondary"></MudSwitch>
+                                <MudSwitch T="bool" @bind-Value="@_emailConfirmed" Disabled Label="Email Confirmed?" Color="Color.Secondary"></MudSwitch>
                                 <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"
                             OnClick="ToggleUserStatus" ButtonType="ButtonType.Submit">Save Changes
                                 </MudButton>
@@ -88,6 +88,12 @@ else
                         </MudItem>
                         <MudItem xs="12" md="6">
                             <MudField Label="Email" Variant="Variant.Outlined">@_email</MudField>
+                        </MudItem>
+                        <MudItem xs="12" md="6">
+                            <MudField Label="Balance" Variant="Variant.Outlined">@_balance</MudField>
+                        </MudItem>
+                        <MudItem xs="12" md="6">
+                            <MudField Label="Deposit Address" Variant="Variant.Outlined">@_depositAddress</MudField>
                         </MudItem>
                     </MudGrid>
                 </MudCardContent>
