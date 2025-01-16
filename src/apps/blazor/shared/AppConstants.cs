@@ -3,7 +3,7 @@
 namespace SolanaSpin.Blazor.Shared;
 public static class AppConstants
 {
-    public static readonly Collection<string> SupportedImageFormats = new()
+    public static readonly IEnumerable<string> SupportedImageFormats = new Collection<string>()
     {
         ".jpeg",
         ".jpg",

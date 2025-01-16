@@ -399,18 +399,19 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 dotnet_style_namespace_match_folder = true:suggestion
 
+tab_width = 4
+indent_size = 4
+end_of_line = lf
 dotnet_diagnostic.CS1591.severity = none
 dotnet_diagnostic.CA1724.severity = none
 dotnet_diagnostic.CA1305.severity = none
 dotnet_diagnostic.CA1040.severity = none
 dotnet_diagnostic.CA1848.severity = none
 dotnet_diagnostic.CA1034.severity = none
-tab_width = 4
-indent_size = 4
-end_of_line = lf
 dotnet_diagnostic.CA1711.severity = none
 dotnet_diagnostic.CA1716.severity = none
 dotnet_diagnostic.CA1062.severity = none
 dotnet_diagnostic.CA1031.severity = none
 dotnet_diagnostic.CA1861.severity = none
 dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.S3358.severity = none

@@ -16,7 +16,7 @@ public partial class Login()
 
     public bool BusySubmitting { get; set; }
 
-    private readonly TokenGenerationCommand _tokenRequest = new();
+    private readonly GenerateTokenCommand _tokenRequest = new();
     private string TenantId { get; set; } = "root";
     private bool _passwordVisibility;
     private InputType _passwordInput = InputType.Password;

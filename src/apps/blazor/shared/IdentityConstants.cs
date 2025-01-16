@@ -8,16 +8,20 @@ internal static class IdentityConstants
     public const string RootTenant = "root";
     public const string DefaultPassword = "123Pa$$word!";
 
-    public static class Roles
-    {
-        public const string Admin = nameof(Admin);
-        public const string Basic = nameof(Basic);
-        public static IReadOnlyList<string> DefaultRoles { get; } = new ReadOnlyCollection<string>(new[]
-        {
-            Admin,
-            Basic
-        });
-    }
+#pragma warning disable S125
+    //public static class Roles
+    // Sections of code should not be commented out
+    //{
+    //    public const string Admin = nameof(Admin);
+    //    public const string Basic = nameof(Basic);
+    //    public static IReadOnlyList<string> DefaultRoles { get; } = new ReadOnlyCollection<string>(new[]
+    //    {
+    //        Admin,
+    //        Basic
+    //    });
+    //}
+#pragma warning restore S125 // Sections of code should not be commented out
+
     public static class Claims
     {
         public const string Tenant = "tenant";

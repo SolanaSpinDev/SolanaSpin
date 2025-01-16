@@ -55,9 +55,9 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
         return new AuthenticationState(new ClaimsPrincipal(claimsIdentity));
     }
 
-    public async Task<bool> LoginAsync(string tenantId, TokenGenerationCommand request)
+    public async Task<bool> LoginAsync(string tenantId, GenerateTokenCommand request)
     {
-        var tokenResponse = await _client.TokenGenerationEndpointAsync(tenantId, request);
+        var tokenResponse = await _client.GenerateTokenEndpointAsync(tenantId, request);
 
         string? token = tokenResponse.Token;
         string? refreshToken = tokenResponse.RefreshToken;

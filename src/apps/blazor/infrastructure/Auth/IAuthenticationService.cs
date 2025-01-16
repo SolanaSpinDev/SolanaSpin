@@ -7,7 +7,7 @@ public interface IAuthenticationService
 
     void NavigateToExternalLogin(string tenantId, string provider);
 
-    Task<bool> LoginAsync(string tenantId, TokenGenerationCommand request);
+    Task<bool> LoginAsync(string tenantId, GenerateTokenCommand request);
 
     Task LogoutAsync();
 

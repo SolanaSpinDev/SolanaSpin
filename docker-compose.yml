@@ -6,14 +6,14 @@ services:
     image: ${WEBAPI_IMAGE}
     pull_policy: always
     networks:
-      - internal
+      - solanaspin
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: https://+:7000;http://+:5000
       ASPNETCORE_HTTPS_PORT: 7000
       ASPNETCORE_Kestrel__Certificates__Default__Password: password!
       ASPNETCORE_Kestrel__Certificates__Default__Path: /webapi/cert.pfx
-      DatabaseOptions__ConnectionString: Server=postgres;Port=5433;Database=game;User Id=pgadmin;Password=pgadmin
+      DatabaseOptions__ConnectionString: Host=postgres.epoch2140.com;Username=postgres;Password=Nc72MKBJge;Database=game
       DatabaseOptions__Provider: postgresql
       JwtOptions__Key: QsJbczCNysv/5SGh+U7sxedX8C07TPQPBdsnSDKZ/aE=
       HangfireOptions__Username: admin
@@ -33,12 +33,9 @@ services:
       OriginOptions__OriginUrl: ${GAME_URL}
     volumes:
       - $BASE_PATH/webapi:/webapi:ro
-    ports:
-      - 7000:7000
-      - 5000:5000
-    depends_on:
-      postgres:
-        condition: service_healthy
+    #ports:
+    #  - 7000:7000
+    #  - 5000:5000
     restart: unless-stopped
 
   webapi_dev:
@@ -46,14 +43,14 @@ services:
     image: ${WEBAPI_DEV_IMAGE}
     pull_policy: always
     networks:
-      - internal
+      - solanaspin
     environment:
       ASPNETCORE_ENVIRONMENT: Staging
       ASPNETCORE_URLS: https://+:7000;http://+:5000
       ASPNETCORE_HTTPS_PORT: 7000
       ASPNETCORE_Kestrel__Certificates__Default__Password: password!
       ASPNETCORE_Kestrel__Certificates__Default__Path: /webapi/cert.pfx
-      DatabaseOptions__ConnectionString: Server=postgres;Port=5433;Database=game_dev;User Id=pgadmin;Password=pgadmin
+      DatabaseOptions__ConnectionString: Host=postgres.epoch2140.com;Username=postgres;Password=Nc72MKBJge;Database=game_dev
       DatabaseOptions__Provider: postgresql
       JwtOptions__Key: QsJbczCNysv/5SGh+U7sxedX8C07TPQPBdsnSDKZ/aE=
       HangfireOptions__Username: admin
@@ -73,9 +70,9 @@ services:
       OriginOptions__OriginUrl: ${GAME_DEV_URL}
     volumes:
       - $BASE_PATH/webapi:/webapi:ro
-    ports:
-      - 7000:7000
-      - 5000:5000
+    #ports:
+    #  - 7000:7000
+    #  - 5000:5000
     depends_on:
       postgres:
         condition: service_healthy
@@ -91,7 +88,7 @@ services:
       FSHStarterBlazorClient_ApiBaseUrl: ${GAME_URL}
       ApiBaseUrl: ${GAME_URL}
     networks:
-      - internal
+      - solanaspin
     entrypoint: [
         "/bin/sh",
         "-c",
@@ -101,8 +98,8 @@ services:
         /usr/share/nginx/html -type f | xargs chmod +r && exec nginx -g
         'daemon off;'",
       ]
-    ports:
-      - 5100:5100
+    #ports:
+    #  - 5100:5100
     depends_on:
       - webapi
     restart: unless-stopped
@@ -117,7 +114,7 @@ services:
       FSHStarterBlazorClient_ApiBaseUrl: ${GAME_DEV_URL}
       ApiBaseUrl: ${GAME_DEV_URL}
     networks:
-      - internal
+      - solanaspin
     entrypoint: [
         "/bin/sh",
         "-c",
@@ -127,8 +124,8 @@ services:
         /usr/share/nginx/html -type f | xargs chmod +r && exec nginx -g
         'daemon off;'",
       ]
-    ports:
-      - 5100:5100
+    #ports:
+    #  - 5100:5100
     depends_on:
       - webapi_dev
     restart: unless-stopped
@@ -141,9 +138,9 @@ services:
       API_BASE_URL: ${GAME_URL}
       PORT: "5200"
     networks:
-      - internal
-    ports:
-      - 5200:5200
+      - solanaspin
+    #ports:
+    #  - 5200:5200
     depends_on:
       - webapi
     restart: unless-stopped
@@ -156,49 +153,11 @@ services:
       API_BASE_URL: ${GAME_DEV_URL}
       PORT: "5200"
     networks:
-      - internal
-    ports:
-      - 5200:5200
+      - solanaspin
+    #ports:
+    #  - 5200:5200
     depends_on:
       - webapi_dev
-    restart: unless-stopped
-
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
-    networks:
-      - internal
-      - external
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - $BASE_PATH/nginx/conf.d:/etc/nginx/conf.d:ro
-      - $BASE_PATH/nginx/ssl:/etc/nginx/ssl:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-    depends_on:
-      - webapi
-      - blazor
-    restart: unless-stopped
-
-  postgres:
-    container_name: postgres
-    image: postgres:15-alpine
-    networks:
-      - internal
-    environment:
-      POSTGRES_USER: pgadmin
-      POSTGRES_PASSWORD: pgadmin
-      PGPORT: 5433
-    ports:
-      - 5433:5433
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pgadmin"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     restart: unless-stopped
 
   prometheus:
@@ -206,7 +165,7 @@ services:
     image: prom/prometheus:latest
     restart: unless-stopped
     networks:
-      - internal
+      - solanaspin
     volumes:
       - $BASE_PATH/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
@@ -229,11 +188,13 @@ services:
       - prometheus
     restart: unless-stopped
     networks:
-      - internal
+      - solanaspin
 
   otel-collector:
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib:latest
+    logging:
+      driver: none
     command: --config /etc/otel/config.yaml
     environment:
       JAEGER_ENDPOINT: "jaeger:4317"
@@ -254,7 +215,7 @@ services:
       - 4318:4318 # OTLP Http receiver (Protobuf)
     restart: unless-stopped
     networks:
-      - internal
+      - solanaspin
 
   jaeger:
     container_name: jaeger
@@ -272,7 +233,7 @@ services:
       - "16686:16686"
     restart: unless-stopped
     networks:
-      - internal
+      - solanaspin
 
   loki:
     container_name: loki
@@ -284,7 +245,7 @@ services:
       - "3100:3100"
     restart: unless-stopped
     networks:
-      - internal
+      - solanaspin
 
   node_exporter:
     container_name: node_exporter
@@ -297,7 +258,7 @@ services:
       - /:/rootfs:ro
     restart: unless-stopped
     networks:
-      - internal
+      - solanaspin
 
 volumes:
   postgres_data:
@@ -306,14 +267,7 @@ volumes:
     name: grafana_data
   prometheus_data:
     name: prometheus_data
-  mysql_data:
-    name: mysql_data
-  wordpress_data:
-    name: wordpress_data
 
 networks:
-  internal:
-    driver: bridge
-    internal: true
-  external:
+  solanaspin:
     driver: bridge

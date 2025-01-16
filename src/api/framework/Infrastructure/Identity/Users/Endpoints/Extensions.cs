@@ -19,6 +19,7 @@ internal static class Extensions
         app.ToggleUserStatusEndpointEndpoint();
         app.MapAssignRolesToUserEndpoint();
         app.MapGetUserRolesEndpoint();
+        app.MapUpdateBalanceEndpoint();
         return app;
     }
 }
