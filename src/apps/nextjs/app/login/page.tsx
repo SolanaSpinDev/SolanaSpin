@@ -64,8 +64,6 @@ export default function Page() {
             setIsLoggingIn(false);
             toast.error(res.error);
         } else {
-
-
             toast.success('Logged in successfully!', {
                 onClose: () => {
                     router.push('/');

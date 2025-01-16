@@ -79,7 +79,7 @@ const WheelContainer = () => {
     const router = useRouter();
     const pathname = usePathname();
     const activeGameMode = pathname.split("/")[2] || "wood";
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
     const [lastPrize, setLastPrize] = useState(''); //use convention in wheelsConfig
     const { setBalance } = useBalance();
 
@@ -113,6 +113,11 @@ const WheelContainer = () => {
     }, [])
 
     function handleSelectBet(bet: number): void {
+        //if user is not authenticated can't play
+        if(status === 'unauthenticated'){
+            router.push('/login');
+        }
+
         if (!isPlaying) {
             setActiveBet(bet);
         }
@@ -183,6 +188,10 @@ const WheelContainer = () => {
     }
 
     const handlePlayVideoDb = async () => {
+        //if user is not authenticated can't play
+        if(status === 'unauthenticated'){
+            router.push('/login');
+        }
         setIsLoading(true);
         setIsPlaying(true);
         setError(null); // Reset any previous errors

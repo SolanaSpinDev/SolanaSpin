@@ -48,7 +48,7 @@ const {auth, handlers, signIn, signOut} = NextAuth({
             },
 
             async authorize(credentials: Partial<Record<"email" | "password", unknown>>) {
-                console.log('XXXXXXXXXXXXXX -  ', credentials);
+                console.debug('credentials in authorize -  ', credentials);
                 try {
                     const res = await login(
                         credentials.email || "",
@@ -58,8 +58,7 @@ const {auth, handlers, signIn, signOut} = NextAuth({
                     if (!res.ok) throw tokens;
 
                     const access: DecodedJWT = jwtDecode(tokens.token);
-                    console.log('accessXXXXXXXXXXXX = ', access);
-                    console.log('tokensXXXXXXXXXXXX = ', tokens);
+                    console.debug('access and tokens = ', access ,tokens);
                     // Extract the user from the access token
                     //todo update the user Object with shorter keys to map
                     const user: UserObject = {
@@ -81,7 +80,7 @@ const {auth, handlers, signIn, signOut} = NextAuth({
                         validity: validity
                     } as unknown as User;
                 } catch (error) {
-                    console.log('nu a mers login function')
+                    console.log('login function failled')
                     console.error(error);
                     return null;
                 }

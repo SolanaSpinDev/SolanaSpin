@@ -5,7 +5,8 @@ export const useBalanceData = (setBalance: (balance: number) => void) => {
     const {data: session, status} = useSession();
 
     const getBalance = async () => {
-        if (status === 'loading') {
+
+        if (status === 'loading' || session == undefined) {
             // Authentication is still in progress; do not proceed.
             return;
         }
