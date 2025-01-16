@@ -39,7 +39,6 @@ export const registerFormSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
     username: z.string().min(3).max(20).regex(/^[A-Za-z0-9]+$/, FormMessages.UsernameNotValidMessage),
-    phoneNumber: z.string(),
     email: z.string().email(),
     password: z.string()
         .min(6, FormMessages.PasswordNotValidLength)
