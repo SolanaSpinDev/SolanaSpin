@@ -5,6 +5,10 @@ export const useBalanceData = (setBalance: (balance: number) => void) => {
     const {data: session, status} = useSession();
 
     const getBalance = async () => {
+        if (status === 'loading') {
+            // Authentication is still in progress; do not proceed.
+            return;
+        }
         if (status !== 'authenticated' || !session?.tokens?.token) {
             console.error("User is not authenticated or token is missing");
             return;
