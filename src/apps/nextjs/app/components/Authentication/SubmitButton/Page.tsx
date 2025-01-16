@@ -1,9 +1,6 @@
 'use client';
 
 import { useFormStatus } from 'react-dom';
-
-// import { LoaderIcon } from '@/components/custom/icons';
-
 import { Button } from '@/app/components/Button/Page';
 
 export function SubmitButton({
@@ -23,9 +20,7 @@ export function SubmitButton({
             {children}
 
             {(pending || isSuccessful) && (
-                <span className="animate-spin absolute right-4">
-         Loading...
-        </span>
+                <div className="animate-spin h-6 w-6 border-4 border-t-transparent border-gray-400 rounded-full"></div>
             )}
 
             <span aria-live="polite" className="sr-only" role="output">
