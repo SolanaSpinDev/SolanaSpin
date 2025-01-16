@@ -11,7 +11,6 @@ interface AuthFormProps {
         firstName: string;
         lastName: string;
         username: string;
-        phoneNumber: string;
         email: string;
         password: string;
         confirmPassword: string;
@@ -188,23 +187,6 @@ export function RegisterForm({
                                     <IoEyeOutline className="h-5 w-5 text-gray-500"/>
                                 )}
                             </button>
-                        </div>
-                    </div>
-                    {/*Phone number*/}
-                    <div className="mt-4">
-                        <div className="relative">
-                            <Input
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                className="max-w-xs text-white"
-                                label="Phone Number"
-                                type="phoneNumber"
-                                placeholder="Phone Number"
-                                defaultValue={formValues.phoneNumber}
-                                autoFocus
-                                color="primary"
-                                variant="underlined"
-                            />
                         </div>
                     </div>
                 </div>
