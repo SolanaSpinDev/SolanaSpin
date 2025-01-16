@@ -19,9 +19,7 @@ export async function login(
     if (!password) {
         throw new Error("Password is required");
     }
-    console.log('sunt bune pass si email')
-    console.log('email and pass are')
-    console.log(email,password)
+    console.debug('email and pass are before getting the token', email, password)
     return await fetch(process.env.BASE_URL + '/api/token', {
         method: 'POST',
         headers: {
