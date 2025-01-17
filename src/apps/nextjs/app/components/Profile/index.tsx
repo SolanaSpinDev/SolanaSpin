@@ -8,7 +8,7 @@ import {useRouter} from 'next/navigation';
 import {useBalance} from "@/app/context/BalanceContext";
 import {Button} from "@/app/components/Button/Page";
 
-export const Profile = ({children}) => {
+export const Profile = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const {data: session} = useSession();
     const router = useRouter();
@@ -52,18 +52,18 @@ export const Profile = ({children}) => {
                 </li>
             }
             {session?.tokens?.token &&
-                <Button  onClick={getProfile}>{children}
+                <Button  onClick={getProfile}>
                     <span className="text-white">Deposit</span>
                 </Button>
             }
             <li>
-                <Button onClick={() => session ? signOut() : handleLogin()}>{children}
+                <Button onClick={() => session ? signOut() : handleLogin()}>
                     <span className="text-white">{session ? 'Sign Out' : 'Login'}</span>
                 </Button>
             </li>
             {!session?.tokens?.token &&
                 <li>
-                    <Button onClick={handleRegister}>{children}
+                    <Button onClick={handleRegister}>
                         <span className="text-white">Register</span>
                     </Button>
                 </li>
