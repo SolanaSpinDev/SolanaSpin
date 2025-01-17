@@ -1,18 +1,19 @@
 import {gameModes} from "@/lib/utils";
 import React from "react";
 import {NauSea} from "@/app/fonts/fonts";
-import { FaBan } from "react-icons/fa6";
+import {FaBan} from "react-icons/fa6";
 // <FaBan />
 
 //todo to be deleted
 type GameModesProps = {
     activeGameMode: string;
     onSelectGameMode: (gameMode: string) => void;
+    tooltip: string;
 };
-export const GameMode = ({activeGameMode, onSelectGameMode}: GameModesProps) => {
+export const GameMode = ({activeGameMode, onSelectGameMode, tooltip}: GameModesProps) => {
     return (<>
-        <div className={`${NauSea.className} text-white pb-1`}>Game Modes </div>
-        <div className="flex justify-between items-center pb-2">
+        <div className={`${NauSea.className} text-white pb-1`}>Game Modes</div>
+        <div className="flex justify-between items-center pb-2" title={tooltip}>
             {gameModes.map((gameMode) => (
                 <div key={gameMode}>
                     <button

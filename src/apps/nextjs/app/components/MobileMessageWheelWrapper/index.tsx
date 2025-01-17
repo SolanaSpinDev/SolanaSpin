@@ -33,7 +33,6 @@ export const MobileMessageWheelWrapper = () => {
         }
     }, []);
     useEffect(() => {
-        // Avoid SSR issues: check that we are in a browser environment
         if (typeof window !== 'undefined') {
             const hasShownToast = localStorage.getItem('welcomeToastShown');
 

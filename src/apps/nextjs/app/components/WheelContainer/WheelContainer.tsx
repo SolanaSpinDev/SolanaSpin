@@ -24,50 +24,7 @@ const WheelContainer = () => {
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [activeBet, setActiveBet] = useState(0);
-    const [recentPlays, setRecentPlays] = useState<Play[]>([
-        {
-            name: "Vasilakis cosntinoidsi",
-            time: new Date(),
-            outcome: "2X",
-            prize: 500,
-        },
-        {
-            name: "Vasilakis cosntinoidsi",
-            time: new Date(),
-            outcome: "2X",
-            prize: 500,
-        },
-        {
-            name: "Vasilakis cosntinoidsi2",
-            time: new Date(),
-            outcome: "Gift",
-            prize: 1500,
-        },
-        {
-            name: "Vasilakis cosntinoidsi3",
-            time: new Date(),
-            outcome: "Ticket",
-            prize: 500,
-        },
-        {
-            name: "Vasilakis cosntinoidsi4",
-            time: new Date(),
-            outcome: "10X",
-            prize: 500,
-        },
-        {
-            name: "Vasilakis cosntinoidsi5",
-            time: new Date(),
-            outcome: "5X",
-            prize: 500,
-        },
-        {
-            name: "Vasilakis cosntinoidsi6",
-            time: new Date(),
-            outcome: "2X",
-            prize: 500,
-        },
-    ]);
+    const [recentPlays, setRecentPlays] = useState<Play[]>([]);
 
     //todo review the necessity of browser
     const [browser, setBrowser] = useState('');
@@ -82,7 +39,8 @@ const WheelContainer = () => {
     const pathname = usePathname();
     const activeGameMode = pathname.split("/")[2] || "wood";
     const {data: session, status} = useSession();
-    const [lastPrize, setLastPrize] = useState(''); //use convention in wheelsConfig
+    const [lastOutcome, setLastOutcome] = useState(''); //use convention in wheelsConfig
+    const [lastOutcomeAmount, setLastOutcomeAmount] = useState(0); //use convention in wheelsConfig
     const {setBalance} = useBalance();
     const {getBalance} = useBalance();
     useEffect(() => {
@@ -132,7 +90,7 @@ const WheelContainer = () => {
         if (gameMode !== activeGameMode) {
             router.push(`/game/${gameMode}`);
             const initialWheelPosition = wheelsConfig[gameMode].faces[0].videoNamingConvention;
-            setLastPrize(initialWheelPosition)
+            setLastOutcome(initialWheelPosition)
         }
     };
 
@@ -184,7 +142,6 @@ const WheelContainer = () => {
                 playAmount: playAmount
             }
             const data = await fetchWithAuth(url, 'POST', session.tokens?.token, body)
-            console.log("Protected data:", data);
 
             return data;
         } catch (error) {
@@ -207,20 +164,17 @@ const WheelContainer = () => {
             //todo handle errors for this one
             const diceFace = wheelsConfig[activeGameMode].faces[diceRes.result.faceIndex];
             const {videoNamingConvention} = diceFace;
-            //update balance
-            console.log(videoNamingConvention);
-            console.log('videoNamingConvention');
 
-            console.log('update balance with !! it has been substracted the bet value initially', diceRes.result.returnAmount);
             const resourcesUrl = 'https://solanaspin.io' //todo maybe move this to an env var
-            const oldPrize = lastPrize ? lastPrize : wheelsConfig[activeGameMode].faces[0].videoNamingConvention;
+            const oldPrize = lastOutcome ? lastOutcome : wheelsConfig[activeGameMode].faces[0].videoNamingConvention;
             const videoUrl = `${resourcesUrl}/videos-${activeGameMode}/${oldPrize}-${videoNamingConvention}.mp4`;
             const imageUrl = `${resourcesUrl}/images-${activeGameMode}/${videoNamingConvention}.webp`;
             const [responseVideo, responseImage] = await Promise.all([
                 fetch(videoUrl),
                 fetch(imageUrl),
             ]);
-            setLastPrize(videoNamingConvention);
+            setLastOutcome(videoNamingConvention);
+            setLastOutcomeAmount(diceRes.result.returnAmount);
 
             if (!responseVideo.ok || !responseImage.ok) {
                 throw new Error('Failed to fetch data');
@@ -244,7 +198,7 @@ const WheelContainer = () => {
             setIsPlaying(false);
         } finally {
             setIsLoading(false);
-            //todo remove the flag variable since is not yet usefull
+            //todo remove the flag variable since is not yet useful
             setFlag(flag + 1);
 
         }
@@ -253,25 +207,13 @@ const WheelContainer = () => {
     const handleVideoEnd = (): void => {
         getBalance().then((r) => r);
         setIsPlaying(false);
-
-
-        // update Recent plays accordingly
-
-        // const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
-        // if (videoRefs.current[videoId - 1]) {
-        //     videoRefs.current[videoId - 1]?.pause();
-        //     if (videoId > wheelPositions) {
-        //         const {prize, outcome} = computePrize(videoId, wheelPositions, activeBet);
-        //         const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
-        //         setRecentPlays([...recentPlays, lastPlay]);
-        //
-        //         if (prize === 1) {
-        //             setTicket(ticket + prize);
-        //         } else {
-        //             updateBalance(prize);
-        //         }
-        //     }
-        // }
+        const lastPlay = {
+            name: session?.user?.firstName || "Anonymous",
+            time: new Date(),
+            prize: lastOutcomeAmount,
+            outcome: lastOutcome
+        };
+        setRecentPlays([...recentPlays, lastPlay]);
     };
 
     return (
@@ -344,7 +286,8 @@ const WheelContainer = () => {
             <div
                 className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px] mx-auto">
                 <div className="relative flex flex-col items-center justify-center z-20 w-[35%]">
-                    <GameMode activeGameMode={activeGameMode} onSelectGameMode={handleSelectGameMode}/>
+                    <GameMode activeGameMode={activeGameMode} onSelectGameMode={handleSelectGameMode}
+                              tooltip={isPlaying ? "Can't change game while a game is playing" : ""}/>
                     <Jackpot jackpotReached={handleJackpot} gameMode={activeGameMode} key={activeGameMode}/>
                 </div>
 
