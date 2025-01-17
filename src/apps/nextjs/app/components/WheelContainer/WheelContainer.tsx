@@ -254,6 +254,7 @@ const WheelContainer = () => {
         getBalance().then((r) => r);
         setIsPlaying(false);
 
+
         // update Recent plays accordingly
 
         // const newVideoId = getRandomNumber(wheelPositions + 1, wheelPositions * 2);
