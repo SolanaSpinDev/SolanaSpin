@@ -33,21 +33,30 @@ export const MobileMessageWheelWrapper = () => {
         }
     }, []);
     useEffect(() => {
-        toast.info('🎉 Welcome to Solanaspin! 🎉\n' +
-            'Stay tuned for updates, and have fun spinning! 🎡', {
-            position: "top-right",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Slide,
-            onOpen: () => {
-                localStorage.setItem('toastShown', 'true');
-            },
-        });
+        // Avoid SSR issues: check that we are in a browser environment
+        if (typeof window !== 'undefined') {
+            const hasShownToast = localStorage.getItem('welcomeToastShown');
+
+            // Only show the toast if we haven't done so before
+            if (!hasShownToast) {
+                toast.info(
+                    "🎉 Welcome to Solanaspin! 🎉\nStay tuned for updates, and have fun spinning! 🎡",
+                    {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        transition: Slide
+                    }
+                );
+
+                localStorage.setItem("welcomeToastShown", "true");
+            }
+        }
     }, []);
 
 
@@ -67,18 +76,6 @@ export const MobileMessageWheelWrapper = () => {
             </div>
         ) : (
             <>
-                {/*<ToastContainer*/}
-                {/*    position="top-right"*/}
-                {/*    autoClose={2500}*/}
-                {/*    hideProgressBar={false}*/}
-                {/*    newestOnTop={false}*/}
-                {/*    closeOnClick*/}
-                {/*    rtl={false}*/}
-                {/*    pauseOnFocusLoss*/}
-                {/*    draggable*/}
-                {/*    pauseOnHover*/}
-                {/*    theme="dark"*/}
-                {/*/>*/}
                 <WheelContainer/>
             </>
         )}
