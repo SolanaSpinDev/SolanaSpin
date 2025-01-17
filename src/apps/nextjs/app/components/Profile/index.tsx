@@ -93,7 +93,7 @@ export const Profile = () => {
             </ModalContent>
         </Modal>
         {/*end modal*/}
-        <ul className="flex items-center justify-center gap-3">
+        <ul className="flex items-center justify-center gap-3 text-white">
             {session?.tokens?.token &&
                 <li className="flex justify-center items-center">
                     <FaCircleUser className="xl:text-2xl"/>
