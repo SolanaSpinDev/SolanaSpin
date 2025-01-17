@@ -164,7 +164,7 @@ export default function Page() {
                                 className="animate-spin h-6 w-6 border-4 border-t-transparent border-gray-400 rounded-full"></div> : 'Login'}
                         </button>
                         <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
-                            {'Forgot your credentials? '}
+                            {'Don\'t have an account ? '}
                             <Link
                                 href="/register-user"
                                 className="font-semibold text-indigo-400 hover:underline dark:black"
@@ -172,6 +172,15 @@ export default function Page() {
                                 Register
                             </Link>
                             {' instead.'}
+                        </p>
+                        <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+                            {'Forgot your credentials? '}
+                            <Link
+                                href="/forgot-password"
+                                className="font-semibold text-indigo-400 hover:underline dark:black"
+                            >
+                                Forgot password
+                            </Link>
                         </p>
                     </div>
                 </form>
