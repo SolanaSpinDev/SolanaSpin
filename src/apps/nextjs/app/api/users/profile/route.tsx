@@ -35,7 +35,6 @@ export async function GET(req: Request) {
                 },
             }
         );
-
         if (!backendResponse.ok) {
             throw new Error("Failed to fetch user profile");
         }
