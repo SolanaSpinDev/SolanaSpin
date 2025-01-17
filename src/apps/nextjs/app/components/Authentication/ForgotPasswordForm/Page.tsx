@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Input} from "@nextui-org/input";
+import {Input} from "@heroui/input";
 import {useEffect} from "react";
 import {ZodIssue} from "zod";
 

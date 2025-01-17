@@ -1,7 +1,7 @@
 import type {Metadata} from "next";
 import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import {NextUIProvider} from '@nextui-org/react';
+import {HeroUIProvider} from "@heroui/react";
 import React from "react";
 import ClientSessionProvider from "@/app/context/ClientSessionProvider";
 import Script from 'next/script';
@@ -45,13 +45,13 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className="antialiased">
-        <NextUIProvider>
+        <HeroUIProvider>
             <div className="min-h-screen ">
                 <ClientSessionProvider>
                     <main>{children}</main>
                 </ClientSessionProvider>
             </div>
-        </NextUIProvider>
+        </HeroUIProvider>
         <Script
             strategy="lazyOnload"
             src="https://embed.tawk.to/YOUR_PROPERTY_ID/default"

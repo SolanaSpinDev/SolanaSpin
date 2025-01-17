@@ -14,7 +14,7 @@ import {
     LoginFormInputs,
 } from "@/lib/actions-utils";
 import {zodResolver} from '@hookform/resolvers/zod';
-import {Input} from "@nextui-org/input";
+import {Input} from "@heroui/input";
 import {IoEyeOffOutline, IoEyeOutline} from "react-icons/io5";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
