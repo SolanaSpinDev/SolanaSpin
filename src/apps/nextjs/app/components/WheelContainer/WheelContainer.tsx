@@ -142,7 +142,6 @@ const WheelContainer = () => {
                 playAmount: playAmount
             }
             const data = await fetchWithAuth(url, 'POST', session.tokens?.token, body)
-            console.log("Protected data:", data);
 
             return data;
         } catch (error) {
@@ -165,7 +164,7 @@ const WheelContainer = () => {
             //todo handle errors for this one
             const diceFace = wheelsConfig[activeGameMode].faces[diceRes.result.faceIndex];
             const {videoNamingConvention} = diceFace;
-            
+
             const resourcesUrl = 'https://solanaspin.io' //todo maybe move this to an env var
             const oldPrize = lastOutcome ? lastOutcome : wheelsConfig[activeGameMode].faces[0].videoNamingConvention;
             const videoUrl = `${resourcesUrl}/videos-${activeGameMode}/${oldPrize}-${videoNamingConvention}.mp4`;
@@ -208,7 +207,12 @@ const WheelContainer = () => {
     const handleVideoEnd = (): void => {
         getBalance().then((r) => r);
         setIsPlaying(false);
-        const lastPlay = {name: "Anonymous", time: new Date(), prize: lastOutcomeAmount, outcome: lastOutcome};
+        const lastPlay = {
+            name: session?.user?.firstName || "Anonymous",
+            time: new Date(),
+            prize: lastOutcomeAmount,
+            outcome: lastOutcome
+        };
         setRecentPlays([...recentPlays, lastPlay]);
     };
 
