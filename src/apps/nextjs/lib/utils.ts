@@ -2,8 +2,6 @@ import Image1 from "@/public/images/bank_note_1.png";
 import Image5 from "@/public/images/bank_note_5.png";
 import Image10 from "@/public/images/bank_note_10.png";
 import Image20 from "@/public/images/bank_note_20.png";
-import Image50 from "@/public/images/bank_note_50.png";
-import {Slide} from "react-toastify";
 
 export const middleEllipsis = (str: string, len: number) => {
     if (!str) {
@@ -191,45 +189,6 @@ export const wheelsConfig = {
         ]
     }
 }
-// todo remove this hardcoded paths after final implementation
-export const videos50 = [
-    "https://solanaspin.io/videos-50/X2-No_Win.mp4",
-    "https://solanaspin.io/videos-50/No_Win-No_Win.mp4",
-    "https://solanaspin.io/videos-50/No_Win-X2.mp4",
-    "https://solanaspin.io/videos-50/X2-X2.mp4",
-];
-export const images50 = [
-    "https://solanaspin.io/images-50/X2.webp",
-    "https://solanaspin.io/images-50/No_Win.webp",
-    "https://solanaspin.io/images-50/X2.webp",
-    "https://solanaspin.io/images-50/X2.webp",
-];
-export const videosWood = [
-    "https://solanaspin.io/videos-wood/Gift_Box-No_Win_A.mp4",
-    "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
-    "https://solanaspin.io/videos-wood/No_Win_B-No_Win_C.mp4",
-    "https://solanaspin.io/videos-wood/X01_C-X01_A.mp4",
-    "https://solanaspin.io/videos-wood/X50-No_Win_A.mp4",
-    "https://solanaspin.io/videos-wood/No_Win_A-No_Win_B.mp4",
-    "https://solanaspin.io/videos-wood/No_Win_B-X01_C.mp4",
-    "https://solanaspin.io/videos-wood/X01_C-Ticket.mp4",
-    "https://solanaspin.io/videos-wood/Ticket-X05_B.mp4",
-    "https://solanaspin.io/videos-wood/X05_B-Gift_Box.mp4",
-    "https://solanaspin.io/videos-wood/Gift_Box-Free_Spin.mp4",
-]
-export const imagesWood = [
-    "https://solanaspin.io/images-wood/No_Win_A.png",
-    "https://solanaspin.io/images-wood/No_Win_B.png",
-    "https://solanaspin.io/images-wood/No_Win_C.png",
-    "https://solanaspin.io/images-wood/X01_A.png",
-    "https://solanaspin.io/images-wood/No_Win_A.png",
-    "https://solanaspin.io/images-wood/No_Win_B.png",
-    "https://solanaspin.io/images-wood/X01_C.png",
-    "https://solanaspin.io/images-wood/Ticket.png",
-    "https://solanaspin.io/images-wood/X05_B.png",
-    "https://solanaspin.io/images-wood/Gift_Box.png",
-    "https://solanaspin.io/images-wood/Free_Spin.png",
-]
 
 export class BackendValidationError extends Error {
     details: Record<string, string>;
