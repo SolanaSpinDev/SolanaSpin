@@ -14,6 +14,7 @@ import {
     useDisclosure
 } from "@heroui/modal";
 import {toast} from "react-toastify";
+import DepositModal from "@/app/components/DepositModal/Page";
 
 export const Profile = () => {
     const [depositAddress, setDepositAddress] = useState()
@@ -68,31 +69,9 @@ export const Profile = () => {
     }
 
     return (<div className="mr-2">
-        {/*modal*/}
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur" size="lg">
-            <ModalContent>
-                {(onClose) => (
-                    <>
-                        <ModalHeader className="flex flex-col gap-1 bg-[#1d3155] text-xl">Your deposit
-                            address</ModalHeader>
-                        <ModalBody className="bg-[#1d3155] p-5">
-                            <p className="mb-10">
-                                Use this address to deposit your funds. After deposit your funds will be visible in your
-                                balance
-                            </p>
-                            <p className="flex items-center justify-center gap-3">
-                                <button>
-                                    <FaRegCopy onClick={handleCopy}/>
-                                </button>
-                                <span>{depositAddress}</span>
-                            </p>
-
-                        </ModalBody>
-                    </>
-                )}
-            </ModalContent>
-        </Modal>
-        {/*end modal*/}
+        <DepositModal depositAddress={depositAddress}
+                      isOpen={isOpen}
+                      onOpenChange={onOpenChange}/>
         <ul className="flex items-center justify-center gap-3 text-white">
             {session?.tokens?.token &&
                 <li className="flex justify-center items-center">

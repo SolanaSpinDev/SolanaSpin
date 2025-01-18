@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
     }
 
     // Add custom logic for protected routes if needed
-    const isProtectedRoute = url.pathname.startsWith("/protected/");
+    const isProtectedRoute = url.pathname.startsWith("/user/");
     const token = request.cookies.get("next-auth.session-token");
 
     //todo update this redirect
