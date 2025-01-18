@@ -41,8 +41,7 @@ const WheelContainer = () => {
     const {data: session, status} = useSession();
     const [lastOutcome, setLastOutcome] = useState(''); //use convention in wheelsConfig
     const [lastOutcomeAmount, setLastOutcomeAmount] = useState(0); //use convention in wheelsConfig
-    const {setBalance} = useBalance();
-    const {getBalance} = useBalance();
+    const {balance, getBalance} = useBalance();
     useEffect(() => {
         // Update the background image based on the active game mode
         setVideoBackgroundImage(`/images/${activeGameMode}/default-bg-start.webp`);
@@ -79,6 +78,12 @@ const WheelContainer = () => {
         //if user is not authenticated can't play
         if (status === 'unauthenticated') {
             router.push('/login');
+            return;
+        }
+
+        if (balance < bet) {
+            toast.info('You don\'t have enough money, please add more money \n use the ');
+            return;
         }
 
         if (!isPlaying) {
