@@ -104,7 +104,7 @@ export default function Page() {
                                         id="email"
                                         name="email"
                                         isRequired
-                                        className="max-w-xs"
+                                        className="max-w-xs text-white"
                                         label="Email"
                                         type="email"
                                         placeholder="user@acme.com"
@@ -124,7 +124,7 @@ export default function Page() {
                                     <Input
                                         id="password"
                                         name="password"
-                                        className="max-w-xs"
+                                        className="max-w-xs text-white"
                                         isRequired
                                         label="Password"
                                         type={showPassword ? "text" : "password"}
