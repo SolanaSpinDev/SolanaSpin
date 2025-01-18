@@ -73,71 +73,85 @@ export const wheelsConfig = {
             {
                 "resultType": 4,
                 "resultValue": "🎁 gift",
+                "resultValueToShow": "🎁 gift",
                 "videoNamingConvention": "Gift_Box",
             },
             {
                 "resultType": 1,
                 "resultValue": "0.1",
+                "resultValueToShow": "X0.1",
                 "videoNamingConvention": "X01_C",
             },
             {
                 "resultType": 3,
                 "resultValue": "diamond",
+                "resultValueToShow": "diamond",
                 "videoNamingConvention": "Diamond",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
+                "resultValueToShow": "💀 lose",
                 "videoNamingConvention": "No_Win_C",
             },
             {
                 "resultType": 1,
                 "resultValue": "5",
+                "resultValueToShow": "X5",
                 "videoNamingConvention": "X5",
             },
             {
                 "resultType": 1,
                 "resultValue": "0.1",
+                "resultValueToShow": "X0.1",
                 "videoNamingConvention": "X01_B",
             },
             {
                 "resultType": 1,
                 "resultValue": "0.5",
+                "resultValueToShow": "X0.5",
                 "videoNamingConvention": "X05_B",
             },
             {
                 "resultType": 4,
                 "resultValue": "🎟️ ticket",
+                "resultValueToShow": "🎟️ ticket",
                 "videoNamingConvention": "Ticket",
             },
             {
                 "resultType": 1,
                 "resultValue": "0.1",
+                "resultValueToShow": "X0.1",
                 "videoNamingConvention": "X01_A",
             },
             {
                 "resultType": 3,
                 "resultValue": "wood",
+                "resultValueToShow": "Free Spin",
                 "videoNamingConvention": "Free_Spin",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
+                "resultValueToShow": "💀 lose",
                 "videoNamingConvention": "No_Win_B",
             },
             {
                 "resultType": 1,
                 "resultValue": "50",
+                "resultValueToShow": "X50",
                 "videoNamingConvention": "X50",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
+                "resultValueToShow": "💀 lose",
                 "videoNamingConvention": "No_Win_A",
             },
             {
                 "resultType": 1,
                 "resultValue": "0.5",
+                "resultValueToShow": "X0.5",
                 "videoNamingConvention": "X05_A",
             }
         ]

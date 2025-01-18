@@ -39,8 +39,11 @@ const WheelContainer = () => {
     const pathname = usePathname();
     const activeGameMode = pathname.split("/")[2] || "wood";
     const {data: session, status} = useSession();
-    const [lastOutcome, setLastOutcome] = useState(''); //use convention in wheelsConfig
-    const [lastOutcomeAmount, setLastOutcomeAmount] = useState(0); //use convention in wheelsConfig
+    const [outcome, setOutcome] = useState<{ outcome: string, amount: number, resultValueToShow: string }>({
+        outcome: '',
+        amount: null,
+        resultValueToShow: ''
+    })
     const {balance, getBalance} = useBalance();
     useEffect(() => {
         // Update the background image based on the active game mode
@@ -80,7 +83,7 @@ const WheelContainer = () => {
             router.push('/login');
             return;
         }
-
+        //if user has no money in the bank or less than what he wants to bet
         if (balance < bet) {
             toast.info('You don\'t have enough money, please add more money \n use the ');
             return;
@@ -95,7 +98,7 @@ const WheelContainer = () => {
         if (gameMode !== activeGameMode) {
             router.push(`/game/${gameMode}`);
             const initialWheelPosition = wheelsConfig[gameMode].faces[0].videoNamingConvention;
-            setLastOutcome(initialWheelPosition)
+            setOutcome({outcome: initialWheelPosition, amount: null, resultValueToShow: ''})
         }
     };
 
@@ -168,18 +171,18 @@ const WheelContainer = () => {
 
             //todo handle errors for this one
             const diceFace = wheelsConfig[activeGameMode].faces[diceRes.result.faceIndex];
-            const {videoNamingConvention} = diceFace;
+            const {videoNamingConvention, resultValueToShow} = diceFace;
 
             const resourcesUrl = 'https://solanaspin.io' //todo maybe move this to an env var
-            const oldPrize = lastOutcome ? lastOutcome : wheelsConfig[activeGameMode].faces[0].videoNamingConvention;
+            const lastOutcm = outcome.outcome;
+            const oldPrize = lastOutcm ? lastOutcm : wheelsConfig[activeGameMode].faces[0].videoNamingConvention;
             const videoUrl = `${resourcesUrl}/videos-${activeGameMode}/${oldPrize}-${videoNamingConvention}.mp4`;
             const imageUrl = `${resourcesUrl}/images-${activeGameMode}/${videoNamingConvention}.webp`;
             const [responseVideo, responseImage] = await Promise.all([
                 fetch(videoUrl),
                 fetch(imageUrl),
             ]);
-            setLastOutcome(videoNamingConvention);
-            setLastOutcomeAmount(diceRes.result.returnAmount);
+            setOutcome({outcome: videoNamingConvention, amount: diceRes.result.returnAmount, resultValueToShow})
 
             if (!responseVideo.ok || !responseImage.ok) {
                 throw new Error('Failed to fetch data');
@@ -215,8 +218,8 @@ const WheelContainer = () => {
         const lastPlay = {
             name: session?.user?.firstName || "Anonymous",
             time: new Date(),
-            prize: lastOutcomeAmount,
-            outcome: lastOutcome
+            prize: outcome.amount,
+            outcome: outcome.resultValueToShow
         };
         setRecentPlays([...recentPlays, lastPlay]);
     };
