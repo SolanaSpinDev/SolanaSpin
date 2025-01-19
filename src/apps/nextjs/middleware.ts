@@ -36,5 +36,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/user/:path*", "/api/auth/:path*"], // Ensure /api/auth routes are handled
+    matcher: ["/api/auth/:path*"], // Ensure /api/auth routes are handled
 };
