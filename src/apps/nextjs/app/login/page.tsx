@@ -93,7 +93,7 @@ export default function Page() {
             <Panel>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-[#1d3155] px-6 pb-4 pt-8 opacity-95">
-                        <h1 className="mb-3 text-2xl">
+                        <h1 className="mb-3 text-2xl text-white">
                             Login to your account
                         </h1>
                         <div className="flex flex-col gap-4">
@@ -105,6 +105,9 @@ export default function Page() {
                                         name="email"
                                         isRequired
                                         className="max-w-xs text-white"
+                                        classNames={{
+                                            label: "!text-white", // ← force label color to white
+                                        }}
                                         label="Email"
                                         type="email"
                                         placeholder="user@acme.com"
@@ -125,6 +128,9 @@ export default function Page() {
                                         id="password"
                                         name="password"
                                         className="max-w-xs text-white"
+                                        classNames={{
+                                            label: "!text-white",
+                                        }}
                                         isRequired
                                         label="Password"
                                         type={showPassword ? "text" : "password"}
@@ -163,7 +169,7 @@ export default function Page() {
                             {isLoading ? <div
                                 className="animate-spin h-6 w-6 border-4 border-t-transparent border-gray-400 rounded-full"></div> : 'Login'}
                         </button>
-                        <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+                        <p className="text-center text-sm text-gray-400 mt-4 dark:text-zinc-400">
                             {'Don\'t have an account ? '}
                             <Link
                                 href="/register-user"
@@ -173,7 +179,7 @@ export default function Page() {
                             </Link>
                             {' instead.'}
                         </p>
-                        <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+                        <p className="text-center text-sm text-gray-400 mt-4 dark:text-zinc-400">
                             {'Forgot your credentials? '}
                             <Link
                                 href="/forgot-password"

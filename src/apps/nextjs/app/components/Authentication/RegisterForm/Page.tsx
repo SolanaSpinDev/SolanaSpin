@@ -52,6 +52,9 @@ export function RegisterForm({
                                 name="email"
                                 isRequired
                                 className="max-w-xs text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 label="Email"
                                 type="email"
                                 placeholder="user@acme.com"
@@ -71,6 +74,9 @@ export function RegisterForm({
                                 id="firstName"
                                 name="firstName"
                                 className="max-w-xs text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 label="First Name"
                                 type="text"
                                 placeholder="First Name"
@@ -89,6 +95,9 @@ export function RegisterForm({
                                 id="lastName"
                                 name="lastName"
                                 className="max-w-xs text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 label="Last Name"
                                 type="text"
                                 placeholder="Last Name"
@@ -108,6 +117,9 @@ export function RegisterForm({
                                 name="username"
                                 isRequired
                                 className="max-w-xs text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 label="Username"
                                 type="text"
                                 placeholder="Last Name"
@@ -126,12 +138,15 @@ export function RegisterForm({
                     {/*password*/}
                     <div className="mt-4">
                         <div className="relative">
-                            <IoInformationCircleOutline className="absolute -left-4 top-2"
+                            <IoInformationCircleOutline className="absolute -left-4 top-2 text-white"
                                                         title="We strongly suggest you should use a strong password"/>
                             <Input
                                 id="password"
                                 name="password"
                                 className="max-w-xs  text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 isRequired
                                 label="Password"
                                 type={showPassword ? "text" : "password"}
@@ -159,12 +174,15 @@ export function RegisterForm({
                     {/*confirm password*/}
                     <div className="mt-4">
                         <div className="relative">
-                            <IoInformationCircleOutline className="absolute -left-4 top-2"
+                            <IoInformationCircleOutline className="absolute -left-4 top-2 text-white"
                                                         title="Passwords must match"/>
                             <Input
                                 id="confirmPassword"
                                 name="confirmPassword"
                                 className="max-w-xs text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 isRequired
                                 label="Confirm Password"
                                 type={showConfirmPassword ? "text" : "password"}
@@ -191,7 +209,7 @@ export function RegisterForm({
                     </div>
                 </div>
                 {children}
-                <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+                <p className="text-center text-sm text-gray-400 mt-4 dark:text-zinc-400">
                     {'Already have an account? '}
                     <Link
                         href="/login"

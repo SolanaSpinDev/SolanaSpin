@@ -41,7 +41,10 @@ export function ResetPasswordForm({
                             <Input
                                 id="password"
                                 name="password"
-                                className="max-w-xs"
+                                className="max-w-xs text-white"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 isRequired
                                 label="Password"
                                 type={showPassword ? "text" : "password"}
@@ -74,9 +77,12 @@ export function ResetPasswordForm({
                             <Input
                                 id="confirmPassword"
                                 name="confirmPassword"
-                                className="max-w-xs "
+                                className="max-w-xs text-white"
                                 isRequired
                                 label="Confirm Password"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 type={showConfirmPassword ? "text" : "password"}
                                 placeholder="Confirm Password"
                                 required

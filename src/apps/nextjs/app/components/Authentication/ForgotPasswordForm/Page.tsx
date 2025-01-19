@@ -22,7 +22,7 @@ export function ForgotPasswordForm({
     return (
         <form action={action} className="space-y-3">
             <div className="flex-1 rounded-lg bg-[#1d3155] px-6 pb-4 pt-8 opacity-95">
-                <h1 className="mb-3 text-2xl">
+                <h1 className="mb-3 text-2xl text-white">
                     Forgot password
                 </h1>
                 {backendError && <div className="text-tiny text-danger">* {backendError}</div>}
@@ -34,8 +34,11 @@ export function ForgotPasswordForm({
                                 id="email"
                                 name="email"
                                 isRequired
-                                className="max-w-xs"
+                                className="max-w-xs text-white"
                                 label="Email"
+                                classNames={{
+                                    label: "!text-white",
+                                }}
                                 type="email"
                                 placeholder="user@acme.com"
                                 autoComplete="email"
@@ -49,7 +52,7 @@ export function ForgotPasswordForm({
                     </div>
                 </div>
                 {children}
-                <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
+                <p className="text-center text-sm text-gray-400 mt-4 dark:text-zinc-400">
                     {'Already have an account? '}
                     <Link
                         href="/login"
