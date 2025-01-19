@@ -102,7 +102,7 @@ export default function Withdraw() {
                           isOpen={isOpen}
                           onOpenChange={onOpenChange}/>
             <Panel className={`!w-[800px] overflow-x-auto !p-1 md:!p-6`}>
-                <div className="p-4">
+                <div className="p-4 text-white">
                     <div
                         className={`flex justify-between  border-b-1 border-b-blue-800 p-2 ${isMobile && isPortrait ? "items-baseline flex-col" : " items-center flex-row"}`}>
                         <div className="mb-1">Balance: {formatCurrency(balance)}</div>

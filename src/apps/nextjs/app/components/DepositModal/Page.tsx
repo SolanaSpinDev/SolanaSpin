@@ -25,7 +25,7 @@ export default function DepositModal({depositAddress, isOpen, onOpenChange}: Dep
     }
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="text-white" placement="top-center">
             <ModalContent>
                 {(onClose) => (
                     <>
