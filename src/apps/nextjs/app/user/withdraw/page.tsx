@@ -6,12 +6,13 @@ import {fetchWithAuth} from "@/app/api/utils/api";
 import {useSession} from "next-auth/react";
 import {useBalance} from "@/app/context/BalanceContext";
 import {formatCurrency} from "@/lib/utils";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "@/app/components/Button/Page";
 import {useRouter} from "next/navigation";
 import clsx from "clsx";
 import DepositModal from "@/app/components/DepositModal/Page";
 import {useDisclosure} from "@heroui/modal";
+import {IoReturnUpForwardOutline} from "react-icons/io5";
 
 export interface userAction {
     actionType: string,
@@ -23,6 +24,8 @@ export interface userAction {
 export default function Withdraw() {
     const {data: session} = useSession();
     const [isLoading, setIsLoading] = useState(true);
+    const [isPortrait, setIsPortrait] = useState(false);
+    const [isMobile, setIsMobile] = useState(true);
     const [depositAddress, setDepositAddress] = useState()
     const [data, setData] = useState<userAction[]>([
         {actionType: 'deposit', amount: 300, date: '02/01/2025', status: 'completed'},
@@ -64,17 +67,19 @@ export default function Withdraw() {
         }
 
         try {
-            const url = "XXXX"
+            const url = "/api/withdraw"
             const data = await fetchWithAuth(url, "GET", session.tokens?.token)
 
-            if (data.depositAddress) {
-                //set data
-            }
+            //todo set withdraws list here
+
+            // if (data.depositAddress) {
+            //     //set data
+            // }
         } catch (error) {
             console.error("Error fetching protected data:", error);
         }
     };
-    
+
     const handleDeposit = () => {
         getProfile();
     }
@@ -87,15 +92,20 @@ export default function Withdraw() {
     const handleReturn = () => {
         router.push("/");
     }
+    useEffect(() => {
+        setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+        setIsMobile(window.innerWidth <= 980);
+    }, []);
     return (
         <AuthenticationLayout>
             <DepositModal depositAddress={depositAddress}
                           isOpen={isOpen}
                           onOpenChange={onOpenChange}/>
-            <Panel className="!w-[800px]">
+            <Panel className={`!w-[800px] overflow-x-auto !p-1 md:!p-6`}>
                 <div className="p-4">
-                    <div className="flex items-center justify-between  border-b-1 border-b-blue-800 p-2">
-                        <div>Balance: {formatCurrency(balance)}</div>
+                    <div
+                        className={`flex justify-between  border-b-1 border-b-blue-800 p-2 ${isMobile && isPortrait ? "items-baseline flex-col" : " items-center flex-row"}`}>
+                        <div className="mb-1">Balance: {formatCurrency(balance)}</div>
                         <div className="flex items-center justify-center gap-2">
                             {session?.tokens?.token &&
                                 <Button onClick={handleDeposit}>
@@ -113,8 +123,9 @@ export default function Withdraw() {
                                 </Button>
                             }
                             {session?.tokens?.token &&
-                                <Button onClick={handleReturn}>
-                                    <span className="text-white">Return to game</span>
+                                <Button onClick={handleReturn} className="bg-transparent">
+                                    <span className="text-white mr-1">Return </span>
+                                    <IoReturnUpForwardOutline/>
                                 </Button>
                             }
                         </div>
