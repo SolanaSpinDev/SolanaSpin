@@ -11,8 +11,10 @@ import {NextRequest, NextResponse} from "next/server";
 export function middleware(request: NextRequest) {
     const url = request.nextUrl;
     console.log('@Middleware.ts');
+
     //1. Exclude NextAuth API routes
     if (url.pathname.startsWith("/api/auth/")) {
+
         return NextResponse.next();
     }
 
@@ -22,8 +24,8 @@ export function middleware(request: NextRequest) {
     }
 
     // Add custom logic for protected routes if needed
-    const isProtectedRoute = url.pathname.startsWith("/protected/");
-    const token = request.cookies.get("next-auth.session-token");
+    const isProtectedRoute = url.pathname.startsWith("/user/");
+    const token = request.cookies.get("authjs.session-token");
 
     //todo update this redirect
     if (isProtectedRoute && !token) {
@@ -34,5 +36,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/protected/:path*", "/api/auth/:path*"], // Ensure /api/auth routes are handled
+    matcher: ["/user/:path*", "/api/auth/:path*"], // Ensure /api/auth routes are handled
 };
