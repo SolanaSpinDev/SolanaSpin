@@ -3,18 +3,16 @@
 import React, {useState} from "react";
 import {signOut, useSession} from "next-auth/react";
 import {fetchWithAuth} from "@/app/api/utils/api";
-import {FaCircleUser, FaRegCopy} from "react-icons/fa6";
+import {FaCircleUser} from "react-icons/fa6";
 import {useRouter} from 'next/navigation';
 import {Button} from "@/app/components/Button/Page";
 import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
     useDisclosure
 } from "@heroui/modal";
 import {toast} from "react-toastify";
 import DepositModal from "@/app/components/DepositModal/Page";
+import { GiCardJoker } from "react-icons/gi";
+import { TbJoker } from "react-icons/tb";
 
 export const Profile = () => {
     const [depositAddress, setDepositAddress] = useState()
@@ -41,6 +39,11 @@ export const Profile = () => {
             console.error("Error fetching protected data:", error);
         }
     };
+
+
+    function handleProfile() {
+        router.push('/user/withdraw')
+    }
 
     const handleDeposit = () => {
         getProfile()
@@ -74,8 +77,9 @@ export const Profile = () => {
                       onOpenChange={onOpenChange}/>
         <ul className="flex items-center justify-center gap-3 text-white">
             {session?.tokens?.token &&
-                <li className="flex justify-center items-center">
-                    <FaCircleUser className="xl:text-2xl"/>
+                <li className="flex justify-center items-center cursor-pointer" onClick={handleProfile}>
+                    {/*<FaCircleUser className="xl:text-2xl"/>*/}
+                    <TbJoker className="xl:text-2xl"/>
                     {session?.user?.firstName && <div className="ml-2">Hello {session?.user?.firstName}</div>}
                 </li>
             }

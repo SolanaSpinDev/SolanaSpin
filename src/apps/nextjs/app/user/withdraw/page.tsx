@@ -30,7 +30,7 @@ export default function Withdraw() {
     const [data, setData] = useState<userAction[]>([
         {actionType: 'deposit', amount: 300, date: '02/01/2025', status: 'completed'},
         {actionType: 'withdraw', amount: 200, date: '03/01/2025', status: 'pending'},
-        {actionType: 'deposit', amount: 500, date: '06/01/2025', status: 'in progress'},
+        {actionType: 'deposit', amount: 500, date: '06/01/2025', status: 'progress'},
         {actionType: 'deposit', amount: 600, date: '09/01/2025', status: 'completed'},
         {actionType: 'deposit', amount: 700, date: '11/01/2025', status: 'failed'},
         {actionType: 'deposit', amount: 50, date: '12/01/2025', status: 'pending'},
@@ -95,6 +95,19 @@ export default function Withdraw() {
     useEffect(() => {
         setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
         setIsMobile(window.innerWidth <= 980);
+
+        const mediaQueryList = window.matchMedia("(orientation: portrait)");
+
+        const handleOrientationChange = (event: MediaQueryListEvent) => {
+            setIsPortrait(event.matches);
+            setIsMobile(window.innerWidth <= 980);
+        };
+
+        mediaQueryList.addEventListener("change", handleOrientationChange);
+
+        return () => {
+            mediaQueryList.removeEventListener("change", handleOrientationChange);
+        };
     }, []);
     return (
         <AuthenticationLayout>
@@ -144,11 +157,11 @@ export default function Withdraw() {
                                         <span className={clsx("mr-2 rounded-full w-[10px] h-[10px]", {
                                             "bg-green-500": dt.status === "completed",
                                             "bg-red-500": dt.status === "failed",
-                                            "bg-orange-500": dt.status === "in progress",
+                                            "bg-orange-500": dt.status === "progress",
                                             "bg-sky-500": dt.status === "pending",
                                         })}
                                         ></span>
-                                        <span>{dt.status}</span>
+                                        <span className="text-sm">{dt.status}</span>
                                     </div>
                                 </div>))}
                         </div>}

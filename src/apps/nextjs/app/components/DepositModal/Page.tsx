@@ -25,7 +25,7 @@ export default function DepositModal({depositAddress, isOpen, onOpenChange}: Dep
     }
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="text-white" placement="top-center">
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl" className="text-white" placement="top-center">
             <ModalContent>
                 {(onClose) => (
                     <>
@@ -40,7 +40,7 @@ export default function DepositModal({depositAddress, isOpen, onOpenChange}: Dep
                                 <button>
                                     <FaRegCopy onClick={handleCopy}/>
                                 </button>
-                                <span>{depositAddress}</span>
+                                <span className="overflow-x-hidden whitespace-nowrap text-ellipsis">{depositAddress}</span>
                             </p>
 
                         </ModalBody>
