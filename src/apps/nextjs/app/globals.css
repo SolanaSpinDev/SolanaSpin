@@ -40,6 +40,7 @@ select:-webkit-autofill:focus {
 
     /* Optional: remove the autofill animation if needed */
     transition: background-color 5000s ease-in-out 0s;
+    background: transparent;
 }
 
 @layer utilities {
