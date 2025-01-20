@@ -29,9 +29,9 @@ export default function DepositModal({depositAddress, isOpen, onOpenChange}: Dep
             <ModalContent>
                 {(onClose) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1 bg-[#1d3155] text-xl">Your deposit
+                        <ModalHeader className="flex flex-col gap-1 bg-sky-950 text-xl">Your deposit
                             address</ModalHeader>
-                        <ModalBody className="bg-[#1d3155] p-5">
+                        <ModalBody className="bg-sky-950 p-5">
                             <p className="mb-10">
                                 Use this address to deposit your funds. After deposit your funds will be visible in your
                                 balance
