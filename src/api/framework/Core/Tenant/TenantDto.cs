@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Tenant;
+﻿namespace SolanaSpin.Framework.Core.Tenant;
 public class TenantDto
 {
     public string Id { get; set; } = default!;

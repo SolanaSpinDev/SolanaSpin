@@ -20,10 +20,10 @@ public partial class Users
     [Inject]
     protected IApiClient UsersClient { get; set; } = default!;
 
-    public EntityTable<UserDetail, Guid, RegisterUserCommand> EntityTable { get; set; } = default!;
+    public EntityTable<UserDto, Guid, RegisterUserCommand> EntityTable { get; set; } = default!;
 
 
-    protected EntityClientTableContext<UserDetail, Guid, RegisterUserCommand> Context { get; set; } = default!;
+    protected EntityClientTableContext<UserDto, Guid, RegisterUserCommand> Context { get; set; } = default!;
 
     private bool _canExportUsers;
     private bool _canUpdateUsers;
@@ -41,16 +41,16 @@ public partial class Users
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthState).User;
-        _canExportUsers = await AuthService.HasPermissionAsync(user, FshAction.Export, FshResource.Users);
-        _canUpdateUsers = await AuthService.HasPermissionAsync(user, FshAction.Update, FshResource.Users);
-        _canDeleteUsers = await AuthService.HasPermissionAsync(user, FshAction.Delete, FshResource.Users);
-        _canViewRoles = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.UserRoles);
+        _canExportUsers = await AuthService.HasPermissionAsync(user, AppAction.Export, AppResource.Users);
+        _canUpdateUsers = await AuthService.HasPermissionAsync(user, AppAction.Update, AppResource.Users);
+        _canDeleteUsers = await AuthService.HasPermissionAsync(user, AppAction.Delete, AppResource.Users);
+        _canViewRoles = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.UserRoles);
 
         Context = new(
             entityName: "User",
             entityNamePlural: "Users",
-            entityResource: FshResource.Users,
-            searchAction: FshAction.View,
+            entityResource: AppResource.Users,
+            searchAction: AppAction.View,
             updateAction: string.Empty,
             deleteAction: string.Empty,
             fields: new()

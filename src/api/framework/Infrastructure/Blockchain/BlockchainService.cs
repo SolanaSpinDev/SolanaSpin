@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Core.Blockchain;
+﻿using SolanaSpin.Framework.Core.Blockchain;
 using Microsoft.Extensions.Configuration;
 using Solnet.Programs;
 using Solnet.Rpc;
@@ -6,7 +6,7 @@ using Solnet.Rpc.Builders;
 using Solnet.Rpc.Models;
 using Solnet.Wallet;
 
-namespace FSH.Framework.Infrastructure.Blockchain;
+namespace SolanaSpin.Framework.Infrastructure.Blockchain;
 
 internal class BlockchainService : IBlockchainService
 {

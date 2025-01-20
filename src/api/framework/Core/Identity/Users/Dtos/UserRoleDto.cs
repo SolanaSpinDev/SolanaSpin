@@ -1,5 +1,5 @@
-﻿namespace FSH.Framework.Core.Identity.Users.Dtos;
-public class UserRoleDetail
+﻿namespace SolanaSpin.Framework.Core.Identity.Users.Dtos;
+public class UserRoleDto
 {
     public string? RoleId { get; set; }
     public string? RoleName { get; set; }

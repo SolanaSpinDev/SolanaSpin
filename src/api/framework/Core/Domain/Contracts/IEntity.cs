@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using FSH.Framework.Core.Domain.Events;
+using SolanaSpin.Framework.Core.Domain.Events;
 
-namespace FSH.Framework.Core.Domain.Contracts;
+namespace SolanaSpin.Framework.Core.Domain.Contracts;
 
 public interface IEntity
 {

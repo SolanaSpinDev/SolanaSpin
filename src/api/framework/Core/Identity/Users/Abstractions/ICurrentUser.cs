@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace FSH.Framework.Core.Identity.Users.Abstractions;
+namespace SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 public interface ICurrentUser
 {
     string? Name { get; }

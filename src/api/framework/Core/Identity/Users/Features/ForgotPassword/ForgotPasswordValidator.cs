@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Identity.Users.Features.ForgotPassword;
+namespace SolanaSpin.Framework.Core.Identity.Users.Features.ForgotPassword;
 public class ForgotPasswordValidator : AbstractValidator<ForgotPasswordCommand>
 {
     public ForgotPasswordValidator()

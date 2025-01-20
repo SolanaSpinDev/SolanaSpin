@@ -11,7 +11,7 @@
                     <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Inherit" Edge="Edge.Start" Href="/admin/login" />
                 </MudTooltip>
                 <br />
-                <div class="fsh-center-text" style="padding-top: 20px;">
+                <div class="app-center-text" style="padding-top: 20px;">
                     <MudText Typo="Typo.h4" GutterBottom="true" style="margin-bottom:5px">
                         Register
                     </MudText>
@@ -22,7 +22,7 @@
         <MudCardContent>
             <MudGrid>
                 <DataAnnotationsValidator />
-                <FshValidation @ref="_customValidation" />
+                <AppValidation @ref="_customValidation" />
                 <MudItem xs="12" md="6">
                     <MudTextField T="string" Label="Tenant Name" Variant="Variant.Outlined" @bind-Value="Tenant"
                                   For="@(() => Tenant)" Required />

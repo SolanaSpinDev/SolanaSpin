@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using FSH.Framework.Core.Persistence;
+using SolanaSpin.Framework.Core.Persistence;
 
-namespace FSH.Framework.Core.Tenant.Features.CreateTenant;
+namespace SolanaSpin.Framework.Core.Tenant.Features.CreateTenant;
 public class CreateTenantValidator : AbstractValidator<CreateTenantCommand>
 {
     public CreateTenantValidator(

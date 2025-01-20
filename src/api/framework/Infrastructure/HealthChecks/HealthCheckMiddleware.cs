@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace FSH.Framework.Infrastructure.HealthChecks;
+namespace SolanaSpin.Framework.Infrastructure.HealthChecks;
 
 public class HealthCheckMiddleware
 {

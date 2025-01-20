@@ -19,7 +19,7 @@ public partial class UserRoles
     [Inject]
     protected IApiClient UsersClient { get; set; } = default!;
 
-    private List<UserRoleDetail> _userRolesList = default!;
+    private List<UserRoleDto> _userRolesList = default!;
 
     private string _title = string.Empty;
     private string _description = string.Empty;
@@ -34,19 +34,19 @@ public partial class UserRoles
     {
         var state = await AuthState;
 
-        _canEditUsers = await AuthService.HasPermissionAsync(state.User, FshAction.Update, FshResource.Users);
-        _canSearchRoles = await AuthService.HasPermissionAsync(state.User, FshAction.View, FshResource.UserRoles);
+        _canEditUsers = await AuthService.HasPermissionAsync(state.User, AppAction.Update, AppResource.Users);
+        _canSearchRoles = await AuthService.HasPermissionAsync(state.User, AppAction.View, AppResource.UserRoles);
 
         if (await ApiHelper.ExecuteCallGuardedAsync(
                 () => UsersClient.GetUserEndpointAsync(Id!), Toast, Navigation)
-            is UserDetail user)
+            is UserDto user)
         {
             _title = $"{user.FirstName} {user.LastName}'s Roles";
             _description = string.Format("Manage {0} {1}'s Roles", user.FirstName, user.LastName);
 
             if (await ApiHelper.ExecuteCallGuardedAsync(
                     () => UsersClient.GetUserRolesEndpointAsync(user.Id.ToString()), Toast, Navigation)
-                is ICollection<UserRoleDetail> response)
+                is ICollection<UserRoleDto> response)
             {
                 _userRolesList = response.ToList();
             }
@@ -72,7 +72,7 @@ public partial class UserRoles
         Navigation.NavigateTo("/admin/users");
     }
 
-    private bool Search(UserRoleDetail userRole) =>
+    private bool Search(UserRoleDto userRole) =>
         string.IsNullOrWhiteSpace(_searchString)
             || userRole.RoleName?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) is true;
 }

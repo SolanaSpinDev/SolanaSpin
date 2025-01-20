@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Infrastructure.Auth.Policy;
-using FSH.Framework.Infrastructure.Identity.Users.Endpoints;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Infrastructure.Auth.Policy;
+using SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace FSH.Framework.Infrastructure.HealthChecks;
+namespace SolanaSpin.Framework.Infrastructure.HealthChecks;
 public static class HealthCheckEndpoint
 {
     internal static RouteHandlerBuilder MapCustomHealthCheckEndpoint(this IEndpointRouteBuilder endpoints)

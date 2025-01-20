@@ -1,10 +1,10 @@
-﻿using FSH.Framework.Core.Persistence;
+﻿using SolanaSpin.Framework.Core.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
-namespace FSH.Framework.Infrastructure.Persistence.Services;
+namespace SolanaSpin.Framework.Infrastructure.Persistence.Services;
 internal sealed class ConnectionStringValidator(IOptions<DatabaseOptions> dbSettings, ILogger<ConnectionStringValidator> logger) : IConnectionStringValidator
 {
     private readonly DatabaseOptions _dbSettings = dbSettings.Value;

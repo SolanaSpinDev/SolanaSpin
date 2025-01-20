@@ -51,7 +51,7 @@ public partial class UserProfile
     {
         if (await ApiHelper.ExecuteCallGuardedAsync(
                 () => UsersClient.GetUserEndpointAsync(Id!), Toast, Navigation)
-            is UserDetail user)
+            is UserDto user)
         {
             _firstName = user.FirstName;
             _lastName = user.LastName;
@@ -71,7 +71,7 @@ public partial class UserProfile
         }
 
         var state = await AuthState;
-        _canToggleUserStatus = await AuthService.HasPermissionAsync(state.User, FshAction.Update, FshResource.Users);
+        _canToggleUserStatus = await AuthService.HasPermissionAsync(state.User, AppAction.Update, AppResource.Users);
         _loaded = true;
     }
 }

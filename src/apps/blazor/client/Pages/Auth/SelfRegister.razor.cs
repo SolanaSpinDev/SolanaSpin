@@ -9,7 +9,7 @@ namespace SolanaSpin.Blazor.Client.Pages.Auth;
 public partial class SelfRegister
 {
     private readonly RegisterUserCommand _createUserRequest = new();
-    private FshValidation? _customValidation;
+    private AppValidation? _customValidation;
     private bool BusySubmitting { get; set; }
 
     [Inject]

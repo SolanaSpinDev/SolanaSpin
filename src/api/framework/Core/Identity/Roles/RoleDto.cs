@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Identity.Roles;
+﻿namespace SolanaSpin.Framework.Core.Identity.Roles;
 
 public class RoleDto
 {

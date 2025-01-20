@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Identity.Tokens.Features.RefreshToken;
+namespace SolanaSpin.Framework.Core.Identity.Tokens.Features.RefreshToken;
 
 public class RefreshTokenValidator : AbstractValidator<RefreshTokenCommand>
 {

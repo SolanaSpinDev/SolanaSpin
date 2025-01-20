@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Identity.Users.Features.ToggleUserStatus;
+﻿namespace SolanaSpin.Framework.Core.Identity.Users.Features.ToggleUserStatus;
 public class ToggleUserStatusCommand
 {
     public bool ActivateUser { get; set; }

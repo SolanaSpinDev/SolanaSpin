@@ -1,28 +1,28 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.EntityFrameworkCore;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Identity.RoleClaims;
-using FSH.Framework.Infrastructure.Identity.Roles;
-using FSH.Framework.Infrastructure.Identity.Users;
-using FSH.Framework.Infrastructure.Persistence;
-using FSH.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Identity.RoleClaims;
+using SolanaSpin.Framework.Infrastructure.Identity.Roles;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
+using SolanaSpin.Framework.Infrastructure.Persistence;
+using SolanaSpin.Framework.Infrastructure.Tenant;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.Identity.Persistence;
-public class IdentityDbContext : MultiTenantIdentityDbContext<FshUser,
-    FshRole,
+namespace SolanaSpin.Framework.Infrastructure.Identity.Persistence;
+public class IdentityDbContext : MultiTenantIdentityDbContext<AppUser,
+    AppRole,
     string,
     IdentityUserClaim<string>,
     IdentityUserRole<string>,
     IdentityUserLogin<string>,
-    FshRoleClaim,
+    AppRoleClaim,
     IdentityUserToken<string>>
 {
     private readonly DatabaseOptions _settings;
-    private new FshTenantInfo TenantInfo { get; set; }
-    public IdentityDbContext(IMultiTenantContextAccessor<FshTenantInfo> multiTenantContextAccessor, DbContextOptions<IdentityDbContext> options, IOptions<DatabaseOptions> settings) : base(multiTenantContextAccessor, options)
+    private new AppTenantInfo TenantInfo { get; set; }
+    public IdentityDbContext(IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor, DbContextOptions<IdentityDbContext> options, IOptions<DatabaseOptions> settings) : base(multiTenantContextAccessor, options)
     {
         _settings = settings.Value;
         TenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo!;

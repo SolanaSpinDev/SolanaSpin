@@ -1,11 +1,11 @@
-﻿using FSH.Framework.Core.Exceptions;
+﻿using SolanaSpin.Framework.Core.Exceptions;
 using System.Security.Claims;
-using FSH.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
 public static class GetUserProfileEndpoint
 {
     internal static RouteHandlerBuilder MapGetMeEndpoint(this IEndpointRouteBuilder endpoints)
@@ -17,7 +17,9 @@ public static class GetUserProfileEndpoint
                 throw new UnauthorizedException();
             }
 
-            return await service.GetAsync(userId, cancellationToken);
+            var profile =  await service.GetAsync(userId, cancellationToken);
+            profile.Balance = await service.RefreshBalanceAsync(userId, cancellationToken);
+            return profile;
         })
         .WithName("GetMeEndpoint")
         .WithSummary("Get current user information based on token")

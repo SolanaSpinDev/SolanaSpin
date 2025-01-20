@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.RateLimit;
+﻿namespace SolanaSpin.Framework.Infrastructure.RateLimit;
 
 public class RateLimitOptions
 {

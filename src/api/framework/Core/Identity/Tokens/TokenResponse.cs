@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Identity.Tokens;
+﻿namespace SolanaSpin.Framework.Core.Identity.Tokens;
 public record TokenResponse(
     string Token,
     string RefreshToken,

@@ -1,4 +1,4 @@
-namespace FSH.Framework.Core.Caching;
+namespace SolanaSpin.Framework.Core.Caching;
 
 public class CacheOptions
 {

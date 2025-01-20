@@ -24,11 +24,11 @@ public partial class NavMenu
     protected override async Task OnParametersSetAsync()
     {
         var user = (await AuthState).User;
-        _canViewHangfire = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.Hangfire);
-        _canViewDashboard = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.Dashboard);
-        _canViewRoles = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.Roles);
-        _canViewUsers = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.Users);
-        _canViewDice = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.Dice);
-        _canViewTenants = await AuthService.HasPermissionAsync(user, FshAction.View, FshResource.Tenants);
+        _canViewHangfire = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.Hangfire);
+        _canViewDashboard = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.Dashboard);
+        _canViewRoles = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.Roles);
+        _canViewUsers = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.Users);
+        _canViewDice = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.Dice);
+        _canViewTenants = await AuthService.HasPermissionAsync(user, AppAction.View, AppResource.Tenants);
     }
 }

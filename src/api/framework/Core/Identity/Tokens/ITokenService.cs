@@ -1,7 +1,7 @@
-﻿using FSH.Framework.Core.Identity.Tokens.Features.GenerateToken;
-using FSH.Framework.Core.Identity.Tokens.Features.RefreshToken;
+﻿using SolanaSpin.Framework.Core.Identity.Tokens.Features.GenerateToken;
+using SolanaSpin.Framework.Core.Identity.Tokens.Features.RefreshToken;
 
-namespace FSH.Framework.Core.Identity.Tokens;
+namespace SolanaSpin.Framework.Core.Identity.Tokens;
 public interface ITokenService
 {
     Task<TokenResponse> GenerateTokenAsync(GenerateTokenCommand request, string ipAddress, CancellationToken cancellationToken);

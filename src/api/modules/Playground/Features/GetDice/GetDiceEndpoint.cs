@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Infrastructure.Auth.Policy;
+﻿using SolanaSpin.Framework.Infrastructure.Auth.Policy;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

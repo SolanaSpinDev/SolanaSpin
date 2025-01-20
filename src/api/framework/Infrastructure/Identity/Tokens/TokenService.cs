@@ -3,25 +3,25 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Auth.Jwt;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Tokens;
-using FSH.Framework.Core.Identity.Tokens.Features.GenerateToken;
-using FSH.Framework.Core.Identity.Tokens.Features.RefreshToken;
-using FSH.Framework.Infrastructure.Auth.Jwt;
-using FSH.Framework.Infrastructure.Identity.Users;
-using FSH.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Core.Auth.Jwt;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Tokens;
+using SolanaSpin.Framework.Core.Identity.Tokens.Features.GenerateToken;
+using SolanaSpin.Framework.Core.Identity.Tokens.Features.RefreshToken;
+using SolanaSpin.Framework.Infrastructure.Auth.Jwt;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
+using SolanaSpin.Framework.Infrastructure.Tenant;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FSH.Framework.Infrastructure.Identity.Tokens;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Tokens;
 public sealed class TokenService : ITokenService
 {
-    private readonly UserManager<FshUser> _userManager;
-    private readonly IMultiTenantContextAccessor<FshTenantInfo>? _multiTenantContextAccessor;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly IMultiTenantContextAccessor<AppTenantInfo>? _multiTenantContextAccessor;
     private readonly JwtOptions _jwtOptions;
-    public TokenService(IOptions<JwtOptions> jwtOptions, UserManager<FshUser> userManager, IMultiTenantContextAccessor<FshTenantInfo>? multiTenantContextAccessor)
+    public TokenService(IOptions<JwtOptions> jwtOptions, UserManager<AppUser> userManager, IMultiTenantContextAccessor<AppTenantInfo>? multiTenantContextAccessor)
     {
         _jwtOptions = jwtOptions.Value;
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
@@ -77,7 +77,7 @@ public sealed class TokenService : ITokenService
 
         return await GenerateTokensAndUpdateUser(user, ipAddress);
     }
-    private async Task<TokenResponse> GenerateTokensAndUpdateUser(FshUser user, string ipAddress)
+    private async Task<TokenResponse> GenerateTokensAndUpdateUser(AppUser user, string ipAddress)
     {
         string token = GenerateJwt(user, ipAddress);
 
@@ -89,7 +89,7 @@ public sealed class TokenService : ITokenService
         return new TokenResponse(token, user.RefreshToken, user.RefreshTokenExpiryTime);
     }
 
-    private string GenerateJwt(FshUser user, string ipAddress) =>
+    private string GenerateJwt(AppUser user, string ipAddress) =>
     GenerateEncryptedToken(GetSigningCredentials(), GetClaims(user, ipAddress));
 
     private SigningCredentials GetSigningCredentials()
@@ -111,7 +111,7 @@ public sealed class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
-    private List<Claim> GetClaims(FshUser user, string ipAddress) =>
+    private List<Claim> GetClaims(AppUser user, string ipAddress) =>
         new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id),

@@ -7,7 +7,7 @@ namespace SolanaSpin.Blazor.Client.Layout;
 public partial class BaseLayout
 {
     private ClientPreference? _themePreference;
-    private MudTheme _currentTheme = new FshTheme();
+    private MudTheme _currentTheme = new AppTheme();
     private bool _themeDrawerOpen;
     private bool _rightToLeft;
     private bool _isDarkMode;

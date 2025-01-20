@@ -33,14 +33,14 @@ public partial class RolePermissions
     private bool _canSearchRoleClaims;
     private bool _loaded;
 
-    static RolePermissions() => TypeAdapterConfig<FshPermission, PermissionViewModel>.NewConfig().MapToConstructor(true);
+    static RolePermissions() => TypeAdapterConfig<AppPermission, PermissionViewModel>.NewConfig().MapToConstructor(true);
 
     protected override async Task OnInitializedAsync()
     {
         var state = await AuthState;
 
-        _canEditRoleClaims = await AuthService.HasPermissionAsync(state.User, FshAction.Update, FshResource.RoleClaims);
-        _canSearchRoleClaims = await AuthService.HasPermissionAsync(state.User, FshAction.View, FshResource.RoleClaims);
+        _canEditRoleClaims = await AuthService.HasPermissionAsync(state.User, AppAction.Update, AppResource.RoleClaims);
+        _canSearchRoleClaims = await AuthService.HasPermissionAsync(state.User, AppAction.View, AppResource.RoleClaims);
 
         if (await ApiHelper.ExecuteCallGuardedAsync(
                 () => RolesClient.GetRolePermissionsEndpointAsync(Id), Toast, Navigation)
@@ -50,8 +50,8 @@ public partial class RolePermissions
             _description = string.Format("Manage {0} Role Permissions", role.Name);
 
             var permissions = state.User.GetTenant() == TenantConstants.Root.Id
-                ? FshPermissions.All
-                : FshPermissions.Admin;
+                ? AppPermissions.All
+                : AppPermissions.Admin;
 
             _groupedRoleClaims = permissions
                 .GroupBy(p => p.Resource)
@@ -99,7 +99,7 @@ public partial class RolePermissions
             || permission.Description.Contains(_searchString, StringComparison.OrdinalIgnoreCase) is true;
 }
 
-public record PermissionViewModel : FshPermission
+public record PermissionViewModel : AppPermission
 {
     public bool Enabled { get; set; }
 

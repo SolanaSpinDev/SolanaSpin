@@ -3,7 +3,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Filters;
 
-namespace FSH.Framework.Infrastructure.Logging.Serilog;
+namespace SolanaSpin.Framework.Infrastructure.Logging.Serilog;
 
 public static class Extensions
 {

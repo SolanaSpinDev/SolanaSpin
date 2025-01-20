@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Domain.Contracts;
+﻿namespace SolanaSpin.Framework.Core.Domain.Contracts;
 
 public interface ISoftDeletable
 {

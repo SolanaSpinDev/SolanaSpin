@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using MediatR;
 
-namespace FSH.Framework.Core.Identity.Users.Features.RegisterUser;
+namespace SolanaSpin.Framework.Core.Identity.Users.Features.RegisterUser;
 public class RegisterUserCommand : IRequest<RegisterUserResponse>
 {
     public string FirstName { get; set; } = default!;

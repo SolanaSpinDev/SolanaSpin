@@ -2,9 +2,9 @@
 
 namespace SolanaSpin.Blazor.Infrastructure.Themes;
 
-public class FshTheme : MudTheme
+public class AppTheme : MudTheme
 {
-    public FshTheme()
+    public AppTheme()
     {
         PaletteLight = new PaletteLight()
         {
@@ -50,7 +50,7 @@ public class FshTheme : MudTheme
             DefaultBorderRadius = "5px"
         };
 
-        Typography = CustomTypography.FshTypography;
+        Typography = CustomTypography.AppTypography;
         Shadows = new Shadow();
         ZIndex = new ZIndex() { Drawer = 1300 };
     }

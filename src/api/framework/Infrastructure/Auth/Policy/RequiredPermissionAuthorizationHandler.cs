@@ -1,9 +1,9 @@
-﻿using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Infrastructure.Identity.Users;
+﻿using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
-namespace FSH.Framework.Infrastructure.Auth.Policy;
+namespace SolanaSpin.Framework.Infrastructure.Auth.Policy;
 public sealed class RequiredPermissionAuthorizationHandler(IUserService userService) : AuthorizationHandler<PermissionAuthorizationRequirement>
 {
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionAuthorizationRequirement requirement)

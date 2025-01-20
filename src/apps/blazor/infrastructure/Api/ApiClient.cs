@@ -666,7 +666,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserDetail> GetMeEndpointAsync();
+        System.Threading.Tasks.Task<UserDto> GetMeEndpointAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -677,7 +677,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserDetail> GetMeEndpointAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<UserDto> GetMeEndpointAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// get users list
@@ -687,7 +687,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDetail>> GetUsersListEndpointAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDto>> GetUsersListEndpointAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -698,7 +698,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDetail>> GetUsersListEndpointAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDto>> GetUsersListEndpointAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// delete user profile
@@ -729,7 +729,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserDetail> GetUserEndpointAsync(string id);
+        System.Threading.Tasks.Task<UserDto> GetUserEndpointAsync(string id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -740,7 +740,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserDetail> GetUserEndpointAsync(string id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<UserDto> GetUserEndpointAsync(string id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Forgot password
@@ -876,7 +876,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDetail>> GetUserRolesEndpointAsync(string id);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDto>> GetUserRolesEndpointAsync(string id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -887,7 +887,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDetail>> GetUserRolesEndpointAsync(string id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDto>> GetUserRolesEndpointAsync(string id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// update user balance with delta
@@ -3836,7 +3836,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<UserDetail> GetMeEndpointAsync()
+        public virtual System.Threading.Tasks.Task<UserDto> GetMeEndpointAsync()
         {
             return GetMeEndpointAsync(System.Threading.CancellationToken.None);
         }
@@ -3850,7 +3850,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UserDetail> GetMeEndpointAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<UserDto> GetMeEndpointAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -3891,7 +3891,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<UserDetail>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<UserDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -3926,7 +3926,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDetail>> GetUsersListEndpointAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDto>> GetUsersListEndpointAsync()
         {
             return GetUsersListEndpointAsync(System.Threading.CancellationToken.None);
         }
@@ -3940,7 +3940,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDetail>> GetUsersListEndpointAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserDto>> GetUsersListEndpointAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -3981,7 +3981,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<UserDetail>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<UserDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -4104,7 +4104,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<UserDetail> GetUserEndpointAsync(string id)
+        public virtual System.Threading.Tasks.Task<UserDto> GetUserEndpointAsync(string id)
         {
             return GetUserEndpointAsync(id, System.Threading.CancellationToken.None);
         }
@@ -4118,7 +4118,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UserDetail> GetUserEndpointAsync(string id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<UserDto> GetUserEndpointAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4163,7 +4163,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<UserDetail>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<UserDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -4761,7 +4761,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDetail>> GetUserRolesEndpointAsync(string id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDto>> GetUserRolesEndpointAsync(string id)
         {
             return GetUserRolesEndpointAsync(id, System.Threading.CancellationToken.None);
         }
@@ -4775,7 +4775,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDetail>> GetUserRolesEndpointAsync(string id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserRoleDto>> GetUserRolesEndpointAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4821,7 +4821,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<UserRoleDetail>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<UserRoleDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -5168,7 +5168,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("userRoles")]
-        public System.Collections.Generic.ICollection<UserRoleDetail>? UserRoles { get; set; } = default!;
+        public System.Collections.Generic.ICollection<UserRoleDto>? UserRoles { get; set; } = default!;
 
     }
 
@@ -5884,7 +5884,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class UserDetail
+    public partial class UserDto
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
@@ -5923,7 +5923,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Api
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.2.0.0 (NJsonSchema v11.1.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class UserRoleDetail
+    public partial class UserRoleDto
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("roleId")]

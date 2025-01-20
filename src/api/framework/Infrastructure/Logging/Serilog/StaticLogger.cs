@@ -3,7 +3,7 @@ using Serilog.Core;
 using Serilog.OpenTelemetry;
 using Serilog.Sinks.OpenTelemetry;
 
-namespace FSH.Framework.Infrastructure.Logging.Serilog;
+namespace SolanaSpin.Framework.Infrastructure.Logging.Serilog;
 public static class StaticLogger
 {
     public static void EnsureInitialized()

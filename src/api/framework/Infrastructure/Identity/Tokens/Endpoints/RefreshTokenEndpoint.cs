@@ -1,12 +1,12 @@
-﻿using FSH.Framework.Core.Identity.Tokens;
-using FSH.Framework.Core.Identity.Tokens.Features.RefreshToken;
-using FSH.Framework.Core.Tenant;
+﻿using SolanaSpin.Framework.Core.Identity.Tokens;
+using SolanaSpin.Framework.Core.Identity.Tokens.Features.RefreshToken;
+using SolanaSpin.Framework.Core.Tenant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Tokens.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Tokens.Endpoints;
 public static class RefreshTokenEndpoint
 {
     internal static RouteHandlerBuilder MapRefreshTokenEndpoint(this IEndpointRouteBuilder endpoints)

@@ -1,6 +1,6 @@
-﻿using FSH.Framework.Core.Tenant.Features.CreateTenant;
+﻿using SolanaSpin.Framework.Core.Tenant.Features.CreateTenant;
 
-namespace FSH.Framework.Core.Tenant;
+namespace SolanaSpin.Framework.Core.Tenant;
 
 public interface ITenantService
 {

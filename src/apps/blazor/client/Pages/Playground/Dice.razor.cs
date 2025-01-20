@@ -20,7 +20,7 @@ public partial class Dice
         Context = new(
             entityName: "Wheel",
             entityNamePlural: "Wheels",
-            entityResource: FshResource.Dice,
+            entityResource: AppResource.Dice,
             fields: [
                 new(item => item.Id, "Wheel Id"),
                 new(item => item.Title, "Title"),

@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
 
-namespace FSH.Framework.Core.Exceptions;
-public class UnauthorizedException : FshException
+namespace SolanaSpin.Framework.Core.Exceptions;
+public class UnauthorizedException : AppException
 {
     public UnauthorizedException()
         : base("authentication failed", new Collection<string>(), HttpStatusCode.Unauthorized)

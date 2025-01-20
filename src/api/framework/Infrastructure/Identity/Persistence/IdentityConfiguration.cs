@@ -1,16 +1,16 @@
 ﻿using Finbuckle.MultiTenant;
-using FSH.Framework.Infrastructure.Identity.RoleClaims;
-using FSH.Framework.Infrastructure.Identity.Roles;
-using FSH.Framework.Infrastructure.Identity.Users;
+using SolanaSpin.Framework.Infrastructure.Identity.RoleClaims;
+using SolanaSpin.Framework.Infrastructure.Identity.Roles;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FSH.Framework.Infrastructure.Identity.Persistence;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Persistence;
 
-public class ApplicationUserConfig : IEntityTypeConfiguration<FshUser>
+public class ApplicationUserConfig : IEntityTypeConfiguration<AppUser>
 {
-    public void Configure(EntityTypeBuilder<FshUser> builder)
+    public void Configure(EntityTypeBuilder<AppUser> builder)
     {
         builder
             .ToTable("Users", IdentityConstants.SchemaName)
@@ -22,18 +22,18 @@ public class ApplicationUserConfig : IEntityTypeConfiguration<FshUser>
     }
 }
 
-public class ApplicationRoleConfig : IEntityTypeConfiguration<FshRole>
+public class ApplicationRoleConfig : IEntityTypeConfiguration<AppRole>
 {
-    public void Configure(EntityTypeBuilder<FshRole> builder) =>
+    public void Configure(EntityTypeBuilder<AppRole> builder) =>
         builder
             .ToTable("Roles", IdentityConstants.SchemaName)
             .IsMultiTenant()
                 .AdjustUniqueIndexes();
 }
 
-public class ApplicationRoleClaimConfig : IEntityTypeConfiguration<FshRoleClaim>
+public class ApplicationRoleClaimConfig : IEntityTypeConfiguration<AppRoleClaim>
 {
-    public void Configure(EntityTypeBuilder<FshRoleClaim> builder) =>
+    public void Configure(EntityTypeBuilder<AppRoleClaim> builder) =>
         builder
             .ToTable("RoleClaims", IdentityConstants.SchemaName)
             .IsMultiTenant();

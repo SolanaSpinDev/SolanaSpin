@@ -1,5 +1,5 @@
-﻿using FSH.Framework.Core.Caching;
-using FSH.Framework.Core.Exceptions;
+﻿using SolanaSpin.Framework.Core.Caching;
+using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Mapster;
@@ -11,7 +11,7 @@ using Solnet.Rpc.Core.Http;
 using Solnet.Rpc.Builders;
 using Solnet.Programs;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Services;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 internal sealed partial class UserService
 {
     public async Task<decimal> UpdateBalanceAsync(string userId, decimal delta, CancellationToken cancellationToken)
@@ -34,7 +34,6 @@ internal sealed partial class UserService
             .Where(u => u.Id == userId)
             .FirstOrDefaultAsync(cancellationToken)
             ?? throw new NotFoundException("user not found");
-
         var userAddress = user.DepositAddress
             ?? throw new Exception("User does not have a deposit address");
         ulong userBalance = await blockchainService.GetBalanceAsync(userAddress);

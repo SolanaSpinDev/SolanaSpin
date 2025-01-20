@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.SecurityHeaders;
+﻿namespace SolanaSpin.Framework.Infrastructure.SecurityHeaders;
 
 public class SecurityHeaders
 {

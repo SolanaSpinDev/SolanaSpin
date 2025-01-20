@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FSH.Framework.Core.Tenant.Features.CreateTenant;
+namespace SolanaSpin.Framework.Core.Tenant.Features.CreateTenant;
 public sealed class CreateTenantHandler(ITenantService service) : IRequestHandler<CreateTenantCommand, CreateTenantResponse>
 {
     public async Task<CreateTenantResponse> Handle(CreateTenantCommand request, CancellationToken cancellationToken)

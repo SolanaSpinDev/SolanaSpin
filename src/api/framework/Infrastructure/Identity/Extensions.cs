@@ -1,25 +1,25 @@
-﻿using FSH.Framework.Core.Identity.Roles;
-using FSH.Framework.Core.Identity.Tokens;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Auth;
-using FSH.Framework.Infrastructure.Identity.Persistence;
-using FSH.Framework.Infrastructure.Identity.Roles;
-using FSH.Framework.Infrastructure.Identity.Roles.Endpoints;
-using FSH.Framework.Infrastructure.Identity.Social.Endpoints;
-using FSH.Framework.Infrastructure.Identity.Tokens;
-using FSH.Framework.Infrastructure.Identity.Tokens.Endpoints;
-using FSH.Framework.Infrastructure.Identity.Users;
-using FSH.Framework.Infrastructure.Identity.Users.Endpoints;
-using FSH.Framework.Infrastructure.Identity.Users.Services;
-using FSH.Framework.Infrastructure.Persistence;
+﻿using SolanaSpin.Framework.Core.Identity.Roles;
+using SolanaSpin.Framework.Core.Identity.Tokens;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Auth;
+using SolanaSpin.Framework.Infrastructure.Identity.Persistence;
+using SolanaSpin.Framework.Infrastructure.Identity.Roles;
+using SolanaSpin.Framework.Infrastructure.Identity.Roles.Endpoints;
+using SolanaSpin.Framework.Infrastructure.Identity.Social.Endpoints;
+using SolanaSpin.Framework.Infrastructure.Identity.Tokens;
+using SolanaSpin.Framework.Infrastructure.Identity.Tokens.Endpoints;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
+using SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
+using SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
+using SolanaSpin.Framework.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Identity;
+namespace SolanaSpin.Framework.Infrastructure.Identity;
 internal static class Extensions
 {
     internal static IServiceCollection ConfigureIdentity(this IServiceCollection services)
@@ -33,7 +33,7 @@ internal static class Extensions
         services.AddTransient<IRoleService, RoleService>();
         services.BindDbContext<IdentityDbContext>();
         services.AddScoped<IDbInitializer, IdentityDbInitializer>();
-        services.AddIdentity<FshUser, FshRole>(options =>
+        services.AddIdentity<AppUser, AppRole>(options =>
            {
                options.Password.RequiredLength = IdentityConstants.PasswordLength;
                options.Password.RequireDigit = false;

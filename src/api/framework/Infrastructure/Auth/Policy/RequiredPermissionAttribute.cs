@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Auth.Policy;
+﻿namespace SolanaSpin.Framework.Infrastructure.Auth.Policy;
 public interface IRequiredPermissionMetadata
 {
     HashSet<string> RequiredPermissions { get; }

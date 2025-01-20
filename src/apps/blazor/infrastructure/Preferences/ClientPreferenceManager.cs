@@ -77,9 +77,9 @@ public class ClientPreferenceManager : IClientPreferenceManager
     public async Task<MudTheme> GetCurrentThemeAsync()
     {
         if (await GetPreference() is ClientPreference preference && preference.IsDarkMode)
-            return new FshTheme();
+            return new AppTheme();
 
-        return new FshTheme();
+        return new AppTheme();
     }
 
     public async Task<string> GetPrimaryColorAsync()

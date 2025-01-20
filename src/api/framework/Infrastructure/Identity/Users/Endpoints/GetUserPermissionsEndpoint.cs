@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
 public static class GetUserPermissionsEndpoint
 {
     internal static RouteHandlerBuilder MapGetCurrentUserPermissionsEndpoint(this IEndpointRouteBuilder endpoints)

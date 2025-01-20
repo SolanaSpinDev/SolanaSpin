@@ -1,6 +1,6 @@
-﻿using FSH.Framework.Core.Domain.Contracts;
+﻿using SolanaSpin.Framework.Core.Domain.Contracts;
 
-namespace FSH.Framework.Core.Domain;
+namespace SolanaSpin.Framework.Core.Domain;
 
 public class AuditableEntity<TId> : BaseEntity<TId>, IAuditable, ISoftDeletable
 {

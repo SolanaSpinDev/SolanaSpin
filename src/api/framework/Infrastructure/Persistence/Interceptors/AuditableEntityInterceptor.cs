@@ -1,10 +1,10 @@
-﻿using FSH.Framework.Core.Domain;
-using FSH.Framework.Core.Identity.Users.Abstractions;
+﻿using SolanaSpin.Framework.Core.Domain;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace FSH.Framework.Infrastructure.Persistence.Interceptors;
+namespace SolanaSpin.Framework.Infrastructure.Persistence.Interceptors;
 public class AuditableEntityInterceptor(ICurrentUser currentUser, TimeProvider timeProvider) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)

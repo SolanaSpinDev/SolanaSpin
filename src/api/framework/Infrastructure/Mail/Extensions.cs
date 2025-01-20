@@ -1,7 +1,7 @@
-﻿using FSH.Framework.Core.Mail;
+﻿using SolanaSpin.Framework.Core.Mail;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Mail;
+namespace SolanaSpin.Framework.Infrastructure.Mail;
 internal static class Extensions
 {
     internal static IServiceCollection ConfigureMailing(this IServiceCollection services)

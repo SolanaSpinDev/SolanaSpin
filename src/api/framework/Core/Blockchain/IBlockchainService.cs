@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Blockchain;
+﻿namespace SolanaSpin.Framework.Core.Blockchain;
 
 public interface IBlockchainService
 {

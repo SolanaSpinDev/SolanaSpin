@@ -1,39 +1,39 @@
 ﻿using System.Reflection;
 using Asp.Versioning.Conventions;
 using FluentValidation;
-using FSH.Framework.Core;
-using FSH.Framework.Core.Origin;
-using FSH.Framework.Infrastructure.Auth;
-using FSH.Framework.Infrastructure.Auth.Jwt;
-using FSH.Framework.Infrastructure.Behaviours;
-using FSH.Framework.Infrastructure.Caching;
-using FSH.Framework.Infrastructure.Cors;
-using FSH.Framework.Infrastructure.Exceptions;
-using FSH.Framework.Infrastructure.Identity;
-using FSH.Framework.Infrastructure.Jobs;
-using FSH.Framework.Infrastructure.Logging.Serilog;
-using FSH.Framework.Infrastructure.Mail;
-using FSH.Framework.Infrastructure.OpenApi;
-using FSH.Framework.Infrastructure.Persistence;
-using FSH.Framework.Infrastructure.RateLimit;
-using FSH.Framework.Infrastructure.SecurityHeaders;
-using FSH.Framework.Infrastructure.Storage.Files;
-using FSH.Framework.Infrastructure.Tenant;
-using FSH.Framework.Infrastructure.Tenant.Endpoints;
+using SolanaSpin.Framework.Core;
+using SolanaSpin.Framework.Core.Origin;
+using SolanaSpin.Framework.Infrastructure.Auth;
+using SolanaSpin.Framework.Infrastructure.Auth.Jwt;
+using SolanaSpin.Framework.Infrastructure.Behaviours;
+using SolanaSpin.Framework.Infrastructure.Caching;
+using SolanaSpin.Framework.Infrastructure.Cors;
+using SolanaSpin.Framework.Infrastructure.Exceptions;
+using SolanaSpin.Framework.Infrastructure.Identity;
+using SolanaSpin.Framework.Infrastructure.Jobs;
+using SolanaSpin.Framework.Infrastructure.Logging.Serilog;
+using SolanaSpin.Framework.Infrastructure.Mail;
+using SolanaSpin.Framework.Infrastructure.OpenApi;
+using SolanaSpin.Framework.Infrastructure.Persistence;
+using SolanaSpin.Framework.Infrastructure.RateLimit;
+using SolanaSpin.Framework.Infrastructure.SecurityHeaders;
+using SolanaSpin.Framework.Infrastructure.Storage.Files;
+using SolanaSpin.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Infrastructure.Tenant.Endpoints;
 using SolanaSpin.Aspire.ServiceDefaults;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using FSH.Framework.Infrastructure.Auth.Social;
-using FSH.Framework.Infrastructure.Blockchain;
+using SolanaSpin.Framework.Infrastructure.Auth.Social;
+using SolanaSpin.Framework.Infrastructure.Blockchain;
 
-namespace FSH.Framework.Infrastructure;
+namespace SolanaSpin.Framework.Infrastructure;
 
 public static class Extensions
 {
-    public static WebApplicationBuilder ConfigureFshFramework(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder ConfigureAppFramework(this WebApplicationBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
         builder.AddServiceDefaults();
@@ -59,7 +59,7 @@ public static class Extensions
         // Define module assemblies
         var assemblies = new Assembly[]
         {
-            typeof(FshCore).Assembly
+            typeof(AppCore).Assembly
         };
 
         // Register validators
@@ -78,7 +78,7 @@ public static class Extensions
         return builder;
     }
 
-    public static WebApplication UseFshFramework(this WebApplication app)
+    public static WebApplication UseAppFramework(this WebApplication app)
     {
         app.MapDefaultEndpoints();
         app.UseRateLimit();

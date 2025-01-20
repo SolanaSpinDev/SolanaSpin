@@ -1,9 +1,9 @@
-﻿using FSH.Framework.Core.Caching;
-using FSH.Framework.Core.Exceptions;
+﻿using SolanaSpin.Framework.Core.Caching;
+using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.EntityFrameworkCore;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Services;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 internal sealed partial class UserService
 {
     public async Task<List<string>?> GetPermissionsAsync(string userId, CancellationToken cancellationToken)
@@ -23,7 +23,7 @@ internal sealed partial class UserService
                     .ToListAsync(cancellationToken))
                 {
                     permissions.AddRange(await db.RoleClaims
-                        .Where(rc => rc.RoleId == role.Id && rc.ClaimType == FshClaims.Permission)
+                        .Where(rc => rc.RoleId == role.Id && rc.ClaimType == AppClaims.Permission)
                         .Select(rc => rc.ClaimValue!)
                         .ToListAsync(cancellationToken));
                 }

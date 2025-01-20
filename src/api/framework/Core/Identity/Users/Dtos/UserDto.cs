@@ -1,5 +1,5 @@
-﻿namespace FSH.Framework.Core.Identity.Users.Dtos;
-public class UserDetail
+﻿namespace SolanaSpin.Framework.Core.Identity.Users.Dtos;
+public class UserDto
 {
     public Guid Id { get; set; }
 

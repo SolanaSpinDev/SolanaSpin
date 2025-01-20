@@ -1,7 +1,7 @@
-﻿using FSH.Framework.Core.Storage.File.Features;
+﻿using SolanaSpin.Framework.Core.Storage.File.Features;
 using MediatR;
 
-namespace FSH.Framework.Core.Identity.Users.Features.UpdateUser;
+namespace SolanaSpin.Framework.Core.Identity.Users.Features.UpdateUser;
 public class UpdateUserCommand : IRequest
 {
     public string Id { get; set; } = default!;

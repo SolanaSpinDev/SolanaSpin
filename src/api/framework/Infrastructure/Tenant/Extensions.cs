@@ -1,12 +1,12 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.Stores.DistributedCacheStore;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Infrastructure.Persistence;
-using FSH.Framework.Infrastructure.Persistence.Services;
-using FSH.Framework.Infrastructure.Tenant.Persistence;
-using FSH.Framework.Infrastructure.Tenant.Services;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Infrastructure.Persistence;
+using SolanaSpin.Framework.Infrastructure.Persistence.Services;
+using SolanaSpin.Framework.Infrastructure.Tenant.Persistence;
+using SolanaSpin.Framework.Infrastructure.Tenant.Services;
 using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace FSH.Framework.Infrastructure.Tenant;
+namespace SolanaSpin.Framework.Infrastructure.Tenant;
 internal static class Extensions
 {
     public static IServiceCollection ConfigureMultitenancy(this IServiceCollection services)
@@ -23,28 +23,28 @@ internal static class Extensions
         services.AddTransient<IConnectionStringValidator, ConnectionStringValidator>();
         services.BindDbContext<TenantDbContext>();
         services
-            .AddMultiTenant<FshTenantInfo>(config =>
+            .AddMultiTenant<AppTenantInfo>(config =>
             {
                 // to save database calls to resolve tenant
                 // this was happening for every request earlier, leading to ineffeciency
                 config.Events.OnTenantResolveCompleted = async (context) =>
                 {
-                    if (context.IsResolved && context.MultiTenantContext.StoreInfo!.StoreType != typeof(DistributedCacheStore<FshTenantInfo>))
+                    if (context.IsResolved && context.MultiTenantContext.StoreInfo!.StoreType != typeof(DistributedCacheStore<AppTenantInfo>))
                     {
                         var sp = ((HttpContext)context.Context!).RequestServices;
                         var distributedCacheStore = sp
-                            .GetService<IEnumerable<IMultiTenantStore<FshTenantInfo>>>()!
-                            .FirstOrDefault(s => s.GetType() == typeof(DistributedCacheStore<FshTenantInfo>));
+                            .GetService<IEnumerable<IMultiTenantStore<AppTenantInfo>>>()!
+                            .FirstOrDefault(s => s.GetType() == typeof(DistributedCacheStore<AppTenantInfo>));
 
                         await distributedCacheStore!.TryAddAsync(context.MultiTenantContext.TenantInfo!);
                     }
                     await Task.FromResult(0);
                 };
             })
-            .WithClaimStrategy(FshClaims.Tenant)
+            .WithClaimStrategy(AppClaims.Tenant)
             .WithHeaderStrategy(TenantConstants.Identifier)
             .WithDistributedCacheStore(TimeSpan.FromMinutes(60))
-            .WithEFCoreStore<TenantDbContext, FshTenantInfo>();
+            .WithEFCoreStore<TenantDbContext, AppTenantInfo>();
         services.AddScoped<ITenantService, TenantService>();
         return services;
     }
@@ -63,7 +63,7 @@ internal static class Extensions
         return app;
     }
 
-    private static IApplicationBuilder SetupTenantDatabases(this IApplicationBuilder app, IEnumerable<FshTenantInfo> tenants)
+    private static IApplicationBuilder SetupTenantDatabases(this IApplicationBuilder app, IEnumerable<AppTenantInfo> tenants)
     {
         foreach (var tenant in tenants)
         {
@@ -72,7 +72,7 @@ internal static class Extensions
 
             //set current tenant so that the right connection string is used
             tenantScope.ServiceProvider.GetRequiredService<IMultiTenantContextSetter>()
-                .MultiTenantContext = new MultiTenantContext<FshTenantInfo>()
+                .MultiTenantContext = new MultiTenantContext<AppTenantInfo>()
                 {
                     TenantInfo = tenant
                 };
@@ -88,7 +88,7 @@ internal static class Extensions
         return app;
     }
 
-    private static IEnumerable<FshTenantInfo> TenantStoreSetup(IApplicationBuilder app)
+    private static IEnumerable<AppTenantInfo> TenantStoreSetup(IApplicationBuilder app)
     {
         var scope = app.ApplicationServices.CreateScope();
 
@@ -103,7 +103,7 @@ internal static class Extensions
         // default tenant seeding
         if (tenantDbContext.TenantInfo.Find(TenantConstants.Root.Id) is null)
         {
-            var rootTenant = new FshTenantInfo(
+            var rootTenant = new AppTenantInfo(
                 TenantConstants.Root.Id,
                 TenantConstants.Root.Name,
                 string.Empty,
@@ -116,7 +116,7 @@ internal static class Extensions
         }
 
         // get all tenants from store
-        var tenantStore = scope.ServiceProvider.GetRequiredService<IMultiTenantStore<FshTenantInfo>>();
+        var tenantStore = scope.ServiceProvider.GetRequiredService<IMultiTenantStore<AppTenantInfo>>();
         var tenants = tenantStore.GetAllAsync().Result;
 
         //dispose scope

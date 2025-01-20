@@ -39,7 +39,7 @@
             </MudExpansionPanel>
         }
 
-        <FshTable @ref="_table" Outlined ServerData="@ServerReloadFunc" Items="@_entityList" Filter="LocalSearch"
+        <AppTable @ref="_table" Outlined ServerData="@ServerReloadFunc" Items="@_entityList" Filter="LocalSearch"
             Loading="@Loading" LoadingProgressColor="@Color.Secondary" ChildRowContent="@ChildRowContent">
 
             <ToolBarContent>
@@ -128,7 +128,7 @@
                     }
                     else
                     {
-                        <MudButton Variant="Variant.Filled" DropShadow="false" 
+                        <MudButton Variant="Variant.Filled" DropShadow="false"
                             StartIcon="@Icons.Material.Filled.DoNotTouch" IconColor="Color.Secondary" Size="Size.Small"
                         Color="Color.Surface">
                             No Allowed Actions
@@ -141,10 +141,10 @@
                 <TablePager />
             </PagerContent>
 
-        </FshTable>
+        </AppTable>
 
     </ChildContent>
     <ErrorContent>
-        <FshCustomError />
+        <AppCustomError />
     </ErrorContent>
 </ErrorBoundary>

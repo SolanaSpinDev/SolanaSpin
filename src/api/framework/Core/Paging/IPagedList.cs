@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Paging;
+﻿namespace SolanaSpin.Framework.Core.Paging;
 
 public interface IPagedList<T>
     where T : class

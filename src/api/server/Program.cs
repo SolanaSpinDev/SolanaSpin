@@ -1,5 +1,5 @@
-using FSH.Framework.Infrastructure;
-using FSH.Framework.Infrastructure.Logging.Serilog;
+using SolanaSpin.Framework.Infrastructure;
+using SolanaSpin.Framework.Infrastructure.Logging.Serilog;
 using SolanaSpin.WebApi.Host;
 using Serilog;
 
@@ -8,12 +8,12 @@ Log.Information("server booting up..");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    builder.ConfigureFshFramework();
+    builder.ConfigureAppFramework();
     builder.RegisterModules();
 
     var app = builder.Build();
 
-    app.UseFshFramework();
+    app.UseAppFramework();
     app.UseModules();
     await app.RunAsync();
 }

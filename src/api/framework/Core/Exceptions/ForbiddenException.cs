@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
 
-namespace FSH.Framework.Core.Exceptions;
-public class ForbiddenException : FshException
+namespace SolanaSpin.Framework.Core.Exceptions;
+public class ForbiddenException : AppException
 {
     public ForbiddenException()
         : base("unauthorized", new Collection<string>(), HttpStatusCode.Forbidden)

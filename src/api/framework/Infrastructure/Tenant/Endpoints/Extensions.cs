@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Tenant.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Tenant.Endpoints;
 public static class Extensions
 {
     public static IEndpointRouteBuilder MapTenantEndpoints(this IEndpointRouteBuilder app)

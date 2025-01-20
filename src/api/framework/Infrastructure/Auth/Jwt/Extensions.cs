@@ -1,11 +1,11 @@
-﻿using FSH.Framework.Core.Auth.Jwt;
-using FSH.Framework.Infrastructure.Auth.Policy;
+﻿using SolanaSpin.Framework.Core.Auth.Jwt;
+using SolanaSpin.Framework.Infrastructure.Auth.Policy;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.Auth.Jwt;
+namespace SolanaSpin.Framework.Infrastructure.Auth.Jwt;
 internal static class Extensions
 {
     internal static AuthenticationBuilder ConfigureJwtAuth(this IServiceCollection services)

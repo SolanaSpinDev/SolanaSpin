@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Persistence;
+﻿namespace SolanaSpin.Framework.Core.Persistence;
 public interface IDbInitializer
 {
     Task MigrateAsync(CancellationToken cancellationToken);

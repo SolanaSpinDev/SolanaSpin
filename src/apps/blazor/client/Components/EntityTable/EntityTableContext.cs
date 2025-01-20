@@ -65,12 +65,12 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public string? EntityNamePlural { get; }
 
     /// <summary>
-    /// The FSHResource that is representing this entity. This is used in combination with the xxActions to check for permissions.
+    /// The AppResource that is representing this entity. This is used in combination with the xxActions to check for permissions.
     /// </summary>
     public string? EntityResource { get; }
 
     /// <summary>
-    /// The FSHAction name of the search permission. This is FSHAction.Search by default.
+    /// The AppAction name of the search permission. This is AppAction.Search by default.
     /// When empty, no search functionality will be available.
     /// When the string is "true", search funtionality will be enabled,
     /// otherwise it will only be enabled if the user has permission for this action on the EntityResource.
@@ -78,7 +78,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public string SearchAction { get; }
 
     /// <summary>
-    /// The permission name of the create permission. This is FSHAction.Create by default.
+    /// The permission name of the create permission. This is AppAction.Create by default.
     /// When empty, no create functionality will be available.
     /// When the string "true", create funtionality will be enabled,
     /// otherwise it will only be enabled if the user has permission for this action on the EntityResource.
@@ -86,7 +86,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public string CreateAction { get; }
 
     /// <summary>
-    /// The permission name of the update permission. This is FSHAction.Update by default.
+    /// The permission name of the update permission. This is AppAction.Update by default.
     /// When empty, no update functionality will be available.
     /// When the string is "true", update funtionality will be enabled,
     /// otherwise it will only be enabled if the user has permission for this action on the EntityResource.
@@ -94,7 +94,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public string UpdateAction { get; }
 
     /// <summary>
-    /// The permission name of the delete permission. This is FSHAction.Delete by default.
+    /// The permission name of the delete permission. This is AppAction.Delete by default.
     /// When empty, no delete functionality will be available.
     /// When the string is "true", delete funtionality will be enabled,
     /// otherwise it will only be enabled if the user has permission for this action on the EntityResource.
@@ -102,7 +102,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     public string DeleteAction { get; }
 
     /// <summary>
-    /// The permission name of the export permission. This is FSHAction.Export by default.
+    /// The permission name of the export permission. This is AppAction.Export by default.
     /// </summary>
     public string ExportAction { get; }
 
@@ -158,11 +158,11 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
         GetDetailsFunc = getDetailsFunc;
         UpdateFunc = updateFunc;
         DeleteFunc = deleteFunc;
-        SearchAction = searchAction ?? FshAction.Search;
-        CreateAction = createAction ?? FshAction.Create;
-        UpdateAction = updateAction ?? FshAction.Update;
-        DeleteAction = deleteAction ?? FshAction.Delete;
-        ExportAction = exportAction ?? FshAction.Export;
+        SearchAction = searchAction ?? AppAction.Search;
+        CreateAction = createAction ?? AppAction.Create;
+        UpdateAction = updateAction ?? AppAction.Update;
+        DeleteAction = deleteAction ?? AppAction.Delete;
+        ExportAction = exportAction ?? AppAction.Export;
         EditFormInitializedFunc = editFormInitializedFunc;
         HasExtraActionsFunc = hasExtraActionsFunc;
         CanUpdateEntityFunc = canUpdateEntityFunc;

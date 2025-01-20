@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Persistence;
+﻿namespace SolanaSpin.Framework.Infrastructure.Persistence;
 internal static class DbProviders
 {
     public const string PostgreSQL = "POSTGRESQL";

@@ -1,5 +1,5 @@
-﻿using FSH.Framework.Core.Domain;
-using FSH.Framework.Core.Domain.Contracts;
+﻿using SolanaSpin.Framework.Core.Domain;
+using SolanaSpin.Framework.Core.Domain.Contracts;
 using SolanaSpin.WebApi.Playground.Domain.Events;
 using SolanaSpin.WebApi.Playground.Features.CreateDice;
 using SolanaSpin.WebApi.Playground.Features.UpdateDice;

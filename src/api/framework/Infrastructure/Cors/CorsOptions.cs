@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Cors;
+﻿namespace SolanaSpin.Framework.Infrastructure.Cors;
 using System.Collections.ObjectModel;
 
 public class CorsOptions

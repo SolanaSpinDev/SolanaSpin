@@ -1,10 +1,10 @@
-﻿namespace FSH.Framework.Infrastructure.Mail;
+﻿namespace SolanaSpin.Framework.Infrastructure.Mail;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FSH.Framework.Core.Mail;
+using SolanaSpin.Framework.Core.Mail;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;

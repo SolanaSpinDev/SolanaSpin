@@ -1,7 +1,7 @@
-﻿using FSH.Framework.Core.Identity.Users.Abstractions;
+﻿using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 using Microsoft.AspNetCore.Http;
 
-namespace FSH.Framework.Infrastructure.Auth;
+namespace SolanaSpin.Framework.Infrastructure.Auth;
 public class CurrentUserMiddleware(ICurrentUserInitializer currentUserInitializer) : IMiddleware
 {
     private readonly ICurrentUserInitializer _currentUserInitializer = currentUserInitializer;

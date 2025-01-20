@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FSH.Framework.Core.Persistence;
+namespace SolanaSpin.Framework.Core.Persistence;
 public class DatabaseOptions : IValidatableObject
 {
     public string Provider { get; set; } = "postgresql";

@@ -2,10 +2,10 @@
 using System.Reflection;
 using System.Text.Json;
 using Ardalis.Specification;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Paging;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Paging;
 
-namespace FSH.Framework.Core.Specifications;
+namespace SolanaSpin.Framework.Core.Specifications;
 
 // See https://github.com/ardalis/Specification/issues/53
 public static class SpecificationBuilderExtensions

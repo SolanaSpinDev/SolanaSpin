@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FSH.Framework.Core.Auth.Social;
+namespace SolanaSpin.Framework.Core.Auth.Social;
 
 public class GooogleOptions
 {

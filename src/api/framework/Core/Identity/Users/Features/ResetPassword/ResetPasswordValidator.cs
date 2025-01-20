@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Identity.Users.Features.ResetPassword;
+namespace SolanaSpin.Framework.Core.Identity.Users.Features.ResetPassword;
 
 public class ResetPasswordValidator : AbstractValidator<ResetPasswordCommand>
 {

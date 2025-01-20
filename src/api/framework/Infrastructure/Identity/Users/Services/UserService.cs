@@ -2,23 +2,23 @@
 using System.Security.Claims;
 using System.Text;
 using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Caching;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Identity.Users.Dtos;
-using FSH.Framework.Core.Identity.Users.Features.AssignUserRole;
-using FSH.Framework.Core.Identity.Users.Features.RegisterUser;
-using FSH.Framework.Core.Identity.Users.Features.ToggleUserStatus;
-using FSH.Framework.Core.Identity.Users.Features.UpdateUser;
-using FSH.Framework.Core.Jobs;
-using FSH.Framework.Core.Mail;
-using FSH.Framework.Core.Storage;
-using FSH.Framework.Core.Storage.File;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Infrastructure.Constants;
-using FSH.Framework.Infrastructure.Identity.Persistence;
-using FSH.Framework.Infrastructure.Identity.Roles;
-using FSH.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Core.Caching;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Identity.Users.Dtos;
+using SolanaSpin.Framework.Core.Identity.Users.Features.AssignUserRole;
+using SolanaSpin.Framework.Core.Identity.Users.Features.RegisterUser;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ToggleUserStatus;
+using SolanaSpin.Framework.Core.Identity.Users.Features.UpdateUser;
+using SolanaSpin.Framework.Core.Jobs;
+using SolanaSpin.Framework.Core.Mail;
+using SolanaSpin.Framework.Core.Storage;
+using SolanaSpin.Framework.Core.Storage.File;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Infrastructure.Constants;
+using SolanaSpin.Framework.Infrastructure.Identity.Persistence;
+using SolanaSpin.Framework.Infrastructure.Identity.Roles;
+using SolanaSpin.Framework.Infrastructure.Tenant;
 using SolanaSpin.WebApi.Shared.Authorization;
 using Solnet.Wallet;
 using Solnet.Wallet.Bip39;
@@ -26,19 +26,19 @@ using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using FSH.Framework.Core.Blockchain;
+using SolanaSpin.Framework.Core.Blockchain;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Services;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 
 internal sealed partial class UserService(
-    UserManager<FshUser> userManager,
-    SignInManager<FshUser> signInManager,
-    RoleManager<FshRole> roleManager,
+    UserManager<AppUser> userManager,
+    SignInManager<AppUser> signInManager,
+    RoleManager<AppRole> roleManager,
     IdentityDbContext db,
     ICacheService cache,
     IJobService jobService,
     IMailService mailService,
-    IMultiTenantContextAccessor<FshTenantInfo> multiTenantContextAccessor,
+    IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor,
     IStorageService storageService,
     IBlockchainService blockchainService
     ) : IUserService
@@ -71,7 +71,7 @@ internal sealed partial class UserService(
     public async Task<bool> ExistsWithEmailAsync(string email, string? exceptId = null)
     {
         EnsureValidTenant();
-        return await userManager.FindByEmailAsync(email.Normalize()) is FshUser user && user.Id != exceptId;
+        return await userManager.FindByEmailAsync(email.Normalize()) is AppUser user && user.Id != exceptId;
     }
 
     public async Task<bool> ExistsWithNameAsync(string name)
@@ -83,10 +83,10 @@ internal sealed partial class UserService(
     public async Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, string? exceptId = null)
     {
         EnsureValidTenant();
-        return await userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber) is FshUser user && user.Id != exceptId;
+        return await userManager.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber) is AppUser user && user.Id != exceptId;
     }
 
-    public async Task<UserDetail> GetAsync(string userId, CancellationToken cancellationToken)
+    public async Task<UserDto> GetAsync(string userId, CancellationToken cancellationToken)
     {
         var user = await userManager.Users
             .AsNoTracking()
@@ -95,16 +95,16 @@ internal sealed partial class UserService(
 
         _ = user ?? throw new NotFoundException("user not found");
 
-        return user.Adapt<UserDetail>();
+        return user.Adapt<UserDto>();
     }
 
     public Task<int> GetCountAsync(CancellationToken cancellationToken) =>
         userManager.Users.AsNoTracking().CountAsync(cancellationToken);
 
-    public async Task<List<UserDetail>> GetListAsync(CancellationToken cancellationToken)
+    public async Task<List<UserDto>> GetListAsync(CancellationToken cancellationToken)
     {
         var users = await userManager.Users.AsNoTracking().ToListAsync(cancellationToken);
-        return users.Adapt<List<UserDetail>>();
+        return users.Adapt<List<UserDto>>();
     }
 
     public Task<string> GetOrCreateFromPrincipalAsync(ClaimsPrincipal principal)
@@ -117,7 +117,7 @@ internal sealed partial class UserService(
         var depositAddressWithPrivateKey = GenerateDepositAddressWithPrivateKey();
 
         // create user entity
-        var user = new FshUser
+        var user = new AppUser
         {
             Email = request.Email,
             FirstName = request.FirstName,
@@ -135,7 +135,7 @@ internal sealed partial class UserService(
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(error => error.Description).ToList();
-            throw new FshException("error while registering a new user", errors);
+            throw new AppException("error while registering a new user", errors);
         }
 
         // add basic role
@@ -164,7 +164,7 @@ internal sealed partial class UserService(
         bool isAdmin = await userManager.IsInRoleAsync(user, IdentityConstants.Roles.Admin);
         if (isAdmin)
         {
-            throw new FshException("Administrators Profile's Status cannot be toggled");
+            throw new AppException("Administrators Profile's Status cannot be toggled");
         }
 
         user.IsActive = request.ActivateUser;
@@ -181,7 +181,7 @@ internal sealed partial class UserService(
         Uri imageUri = user.ImageUrl ?? null!;
         if (request.Image != null || request.DeleteCurrentImage)
         {
-            user.ImageUrl = await storageService.UploadAsync<FshUser>(request.Image, FileType.Image);
+            user.ImageUrl = await storageService.UploadAsync<AppUser>(request.Image, FileType.Image);
             if (request.DeleteCurrentImage && imageUri != null)
             {
                 storageService.Remove(imageUri);
@@ -202,24 +202,24 @@ internal sealed partial class UserService(
 
         if (!result.Succeeded)
         {
-            throw new FshException("Update profile failed");
+            throw new AppException("Update profile failed");
         }
     }
 
     public async Task DeleteAsync(string userId)
     {
-        FshUser? user = await userManager.FindByIdAsync(userId);
+        AppUser? user = await userManager.FindByIdAsync(userId);
 
         _ = user ?? throw new NotFoundException("User Not Found.");
 
         bool isAdmin = await userManager.IsInRoleAsync(user, IdentityConstants.Roles.Admin);
 
         // Get count of users in Admin Role
-        IList<FshUser> admins = await userManager.GetUsersInRoleAsync(FshRoles.Admin);
+        IList<AppUser> admins = await userManager.GetUsersInRoleAsync(AppRoles.Admin);
 
         if (isAdmin && admins.Count <= 1)
         {
-            throw new FshException("tenant should have at least 1 admin.");
+            throw new AppException("tenant should have at least 1 admin.");
         }
 
         IdentityResult? result = await userManager.DeleteAsync(user);
@@ -227,11 +227,11 @@ internal sealed partial class UserService(
         if (!result.Succeeded)
         {
             List<string> errors = result.Errors.Select(error => error.Description).ToList();
-            throw new FshException("Delete profile failed", errors);
+            throw new AppException("Delete profile failed", errors);
         }
     }
 
-    private async Task<string> GetEmailVerificationUriAsync(FshUser user, string origin)
+    private async Task<string> GetEmailVerificationUriAsync(AppUser user, string origin)
     {
         EnsureValidTenant();
 
@@ -256,11 +256,11 @@ internal sealed partial class UserService(
         _ = user ?? throw new NotFoundException("user not found");
 
         // Check if the user is an admin for which the admin role is getting disabled
-        if (await userManager.IsInRoleAsync(user, FshRoles.Admin)
-            && request.UserRoles.Exists(a => !a.Enabled && a.RoleName == FshRoles.Admin))
+        if (await userManager.IsInRoleAsync(user, AppRoles.Admin)
+            && request.UserRoles.Exists(a => !a.Enabled && a.RoleName == AppRoles.Admin))
         {
             // Get count of users in Admin Role
-            int adminCount = (await userManager.GetUsersInRoleAsync(FshRoles.Admin)).Count;
+            int adminCount = (await userManager.GetUsersInRoleAsync(AppRoles.Admin)).Count;
 
             // Check if user is not Root Tenant Admin
             // Edge Case : there are chances for other tenants to have users with the same email as that of Root Tenant Admin. Probably can add a check while User Registration
@@ -268,12 +268,12 @@ internal sealed partial class UserService(
             {
                 if (multiTenantContextAccessor?.MultiTenantContext?.TenantInfo?.Id == TenantConstants.Root.Id)
                 {
-                    throw new FshException("action not permitted");
+                    throw new AppException("action not permitted");
                 }
             }
             else if (adminCount <= 1)
             {
-                throw new FshException("tenant should have at least 1 admin.");
+                throw new AppException("tenant should have at least 1 admin.");
             }
         }
 
@@ -302,15 +302,15 @@ internal sealed partial class UserService(
 
     }
 
-    public async Task<List<UserRoleDetail>> GetUserRolesAsync(string userId, CancellationToken cancellationToken)
+    public async Task<List<UserRoleDto>> GetUserRolesAsync(string userId, CancellationToken cancellationToken)
     {
-        var userRoles = new List<UserRoleDetail>();
+        var userRoles = new List<UserRoleDto>();
 
         var user = await userManager.FindByIdAsync(userId) ?? throw new NotFoundException("user not found");
         var roles = await roleManager.Roles.AsNoTracking().ToListAsync(cancellationToken) ?? throw new NotFoundException("roles not found");
         foreach (var role in roles)
         {
-            userRoles.Add(new UserRoleDetail
+            userRoles.Add(new UserRoleDto
             {
                 RoleId = role.Id,
                 RoleName = role.Name,

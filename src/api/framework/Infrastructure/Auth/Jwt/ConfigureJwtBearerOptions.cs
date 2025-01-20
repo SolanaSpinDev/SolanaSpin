@@ -1,12 +1,12 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using FSH.Framework.Core.Auth.Jwt;
-using FSH.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Auth.Jwt;
+using SolanaSpin.Framework.Core.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FSH.Framework.Infrastructure.Auth.Jwt;
+namespace SolanaSpin.Framework.Infrastructure.Auth.Jwt;
 public class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _options;

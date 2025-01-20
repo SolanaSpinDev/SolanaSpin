@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Tenant;
+﻿namespace SolanaSpin.Framework.Core.Tenant;
 public static class TenantConstants
 {
     public static class Root

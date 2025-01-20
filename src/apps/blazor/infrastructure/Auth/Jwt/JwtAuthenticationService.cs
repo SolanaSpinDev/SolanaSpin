@@ -49,7 +49,7 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
         // Add cached permissions as claims
         if (await GetCachedPermissionsAsync() is List<string> cachedPermissions)
         {
-            claimsIdentity.AddClaims(cachedPermissions.Select(p => new Claim(FshClaims.Permission, p)));
+            claimsIdentity.AddClaims(cachedPermissions.Select(p => new Claim(AppClaims.Permission, p)));
         }
 
         return new AuthenticationState(new ClaimsPrincipal(claimsIdentity));

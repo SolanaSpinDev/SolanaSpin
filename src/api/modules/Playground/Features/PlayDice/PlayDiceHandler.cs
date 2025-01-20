@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Security.Cryptography;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Identity.Users;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
 using Mapster;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

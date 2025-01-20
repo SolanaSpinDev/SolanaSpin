@@ -1,21 +1,21 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Infrastructure.Constants;
-using FSH.Framework.Infrastructure.Identity.Users;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Infrastructure.Constants;
+using SolanaSpin.Framework.Infrastructure.Identity.Users;
 using Hangfire.Client;
 using Hangfire.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Jobs;
+namespace SolanaSpin.Framework.Infrastructure.Jobs;
 
-public class FshJobFilter : IClientFilter
+public class AppJobFilter : IClientFilter
 {
     private static readonly ILog Logger = LogProvider.GetCurrentClassLogger();
 
     private readonly IServiceProvider _services;
 
-    public FshJobFilter(IServiceProvider services) => _services = services;
+    public AppJobFilter(IServiceProvider services) => _services = services;
 
     public void OnCreating(CreatingContext context)
     {

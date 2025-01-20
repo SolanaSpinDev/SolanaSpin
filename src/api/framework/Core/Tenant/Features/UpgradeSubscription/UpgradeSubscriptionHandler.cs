@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FSH.Framework.Core.Tenant.Features.UpgradeSubscription;
+namespace SolanaSpin.Framework.Core.Tenant.Features.UpgradeSubscription;
 
 public class UpgradeSubscriptionHandler : IRequestHandler<UpgradeSubscriptionCommand, UpgradeSubscriptionResponse>
 {

@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Identity.Users.Features.ToggleUserStatus;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ToggleUserStatus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
 
 public static class ToggleUserStatusEndpoint
 {

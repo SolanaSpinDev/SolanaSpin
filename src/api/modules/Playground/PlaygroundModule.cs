@@ -1,6 +1,6 @@
 ﻿using Carter;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Persistence;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;

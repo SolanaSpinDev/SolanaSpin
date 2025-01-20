@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Origin;
+﻿namespace SolanaSpin.Framework.Core.Origin;
 
 public class OriginOptions
 {

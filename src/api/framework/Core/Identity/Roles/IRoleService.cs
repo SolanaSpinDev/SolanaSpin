@@ -1,7 +1,7 @@
-﻿using FSH.Framework.Core.Identity.Roles.Features.CreateOrUpdateRole;
-using FSH.Framework.Core.Identity.Roles.Features.UpdatePermissions;
+﻿using SolanaSpin.Framework.Core.Identity.Roles.Features.CreateOrUpdateRole;
+using SolanaSpin.Framework.Core.Identity.Roles.Features.UpdatePermissions;
 
-namespace FSH.Framework.Core.Identity.Roles;
+namespace SolanaSpin.Framework.Core.Identity.Roles;
 
 public interface IRoleService
 {

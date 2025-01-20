@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Cors;
+namespace SolanaSpin.Framework.Infrastructure.Cors;
 public static class Extensions
 {
     private const string CorsPolicy = nameof(CorsPolicy);

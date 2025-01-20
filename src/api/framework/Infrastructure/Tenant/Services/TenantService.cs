@@ -1,22 +1,22 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Core.Tenant.Features.CreateTenant;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Core.Tenant.Features.CreateTenant;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.Tenant.Services;
+namespace SolanaSpin.Framework.Infrastructure.Tenant.Services;
 
 public sealed class TenantService : ITenantService
 {
-    private readonly IMultiTenantStore<FshTenantInfo> _tenantStore;
+    private readonly IMultiTenantStore<AppTenantInfo> _tenantStore;
     private readonly DatabaseOptions _config;
     private readonly IServiceProvider _serviceProvider;
 
-    public TenantService(IMultiTenantStore<FshTenantInfo> tenantStore, IOptions<DatabaseOptions> config, IServiceProvider serviceProvider)
+    public TenantService(IMultiTenantStore<AppTenantInfo> tenantStore, IOptions<DatabaseOptions> config, IServiceProvider serviceProvider)
     {
         _tenantStore = tenantStore;
         _config = config.Value;
@@ -29,7 +29,7 @@ public sealed class TenantService : ITenantService
 
         if (tenant.IsActive)
         {
-            throw new FshException($"tenant {id} is already activated");
+            throw new AppException($"tenant {id} is already activated");
         }
 
         tenant.Activate();
@@ -47,7 +47,7 @@ public sealed class TenantService : ITenantService
             connectionString = string.Empty;
         }
 
-        FshTenantInfo tenant = new(request.Id, request.Name, connectionString, request.AdminEmail, request.Issuer);
+        AppTenantInfo tenant = new(request.Id, request.Name, connectionString, request.AdminEmail, request.Issuer);
         await _tenantStore.TryAddAsync(tenant).ConfigureAwait(false);
 
         await InitializeDatabase(tenant).ConfigureAwait(false);
@@ -55,14 +55,14 @@ public sealed class TenantService : ITenantService
         return tenant.Id;
     }
 
-    private async Task InitializeDatabase(FshTenantInfo tenant)
+    private async Task InitializeDatabase(AppTenantInfo tenant)
     {
         // First create a new scope
         using var scope = _serviceProvider.CreateScope();
 
         // Then set current tenant so the right connection string is used
         scope.ServiceProvider.GetRequiredService<IMultiTenantContextSetter>()
-            .MultiTenantContext = new MultiTenantContext<FshTenantInfo>()
+            .MultiTenantContext = new MultiTenantContext<AppTenantInfo>()
             {
                 TenantInfo = tenant
             };
@@ -81,7 +81,7 @@ public sealed class TenantService : ITenantService
         var tenant = await GetTenantInfoAsync(id).ConfigureAwait(false);
         if (!tenant.IsActive)
         {
-            throw new FshException($"tenant {id} is already deactivated");
+            throw new AppException($"tenant {id} is already deactivated");
         }
 
         tenant.Deactivate();
@@ -113,7 +113,7 @@ public sealed class TenantService : ITenantService
         return tenant.ValidUpto;
     }
 
-    private async Task<FshTenantInfo> GetTenantInfoAsync(string id) =>
+    private async Task<AppTenantInfo> GetTenantInfoAsync(string id) =>
     await _tenantStore.TryGetAsync(id).ConfigureAwait(false)
-        ?? throw new NotFoundException($"{typeof(FshTenantInfo).Name} {id} Not Found.");
+        ?? throw new NotFoundException($"{typeof(AppTenantInfo).Name} {id} Not Found.");
 }

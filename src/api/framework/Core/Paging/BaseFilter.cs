@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Paging;
+﻿namespace SolanaSpin.Framework.Core.Paging;
 
 public class BaseFilter
 {

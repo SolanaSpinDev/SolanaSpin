@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace FSH.Framework.Infrastructure.Identity.Users;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users;
 public static class ClaimsPrincipalExtensions
 {
     public static string? GetEmail(this ClaimsPrincipal principal)

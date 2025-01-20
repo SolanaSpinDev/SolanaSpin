@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Domain.Events;
+﻿namespace SolanaSpin.Framework.Core.Domain.Events;
 public interface IDomainEvent
 {
 }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
 
-namespace FSH.Framework.Core.Exceptions;
-public class BadRequestException : FshException
+namespace SolanaSpin.Framework.Core.Exceptions;
+public class BadRequestException : AppException
 {
     public BadRequestException(string message)
         : base(message, new Collection<string>(), HttpStatusCode.BadRequest)

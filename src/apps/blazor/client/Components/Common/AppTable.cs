@@ -6,7 +6,7 @@ using MudBlazor;
 
 namespace SolanaSpin.Blazor.Client.Components.Common;
 
-public class FshTable<T> : MudTable<T>
+public class AppTable<T> : MudTable<T>
 {
     [Inject]
     private IClientPreferenceManager ClientPreferences { get; set; } = default!;
@@ -21,7 +21,7 @@ public class FshTable<T> : MudTable<T>
             SetTablePreference(clientPreference.TablePreference);
         }
 
-        Courier.SubscribeWeak<NotificationWrapper<FshTablePreference>>(wrapper =>
+        Courier.SubscribeWeak<NotificationWrapper<AppTablePreference>>(wrapper =>
         {
             SetTablePreference(wrapper.Notification);
             StateHasChanged();
@@ -30,7 +30,7 @@ public class FshTable<T> : MudTable<T>
         await base.OnInitializedAsync();
     }
 
-    private void SetTablePreference(FshTablePreference tablePreference)
+    private void SetTablePreference(AppTablePreference tablePreference)
     {
         Dense = tablePreference.IsDense;
         Striped = tablePreference.IsStriped;

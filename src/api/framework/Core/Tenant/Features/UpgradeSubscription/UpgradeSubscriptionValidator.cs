@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Tenant.Features.UpgradeSubscription;
+namespace SolanaSpin.Framework.Core.Tenant.Features.UpgradeSubscription;
 public class UpgradeSubscriptionValidator : AbstractValidator<UpgradeSubscriptionCommand>
 {
     public UpgradeSubscriptionValidator()

@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Core.Exceptions;
+﻿using SolanaSpin.Framework.Core.Exceptions;
 
 namespace SolanaSpin.WebApi.Playground.Exceptions;
 internal sealed class JackpotNotFoundException : NotFoundException

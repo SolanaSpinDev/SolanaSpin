@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Auth.Jwt;
+﻿namespace SolanaSpin.Framework.Infrastructure.Auth.Jwt;
 internal static class JwtAuthConstants
 {
     public const string Issuer = "https://game.solanaspin.io";

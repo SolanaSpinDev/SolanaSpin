@@ -1,20 +1,20 @@
 ﻿using System.Net;
 
-namespace FSH.Framework.Core.Exceptions;
-public class FshException : Exception
+namespace SolanaSpin.Framework.Core.Exceptions;
+public class AppException : Exception
 {
     public IEnumerable<string> ErrorMessages { get; }
 
     public HttpStatusCode StatusCode { get; }
 
-    public FshException(string message, IEnumerable<string> errors, HttpStatusCode statusCode = HttpStatusCode.InternalServerError)
+    public AppException(string message, IEnumerable<string> errors, HttpStatusCode statusCode = HttpStatusCode.InternalServerError)
         : base(message)
     {
         ErrorMessages = errors;
         StatusCode = statusCode;
     }
 
-    public FshException(string message) : base(message)
+    public AppException(string message) : base(message)
     {
         ErrorMessages = new List<string>();
     }

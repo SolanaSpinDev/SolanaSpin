@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Identity.Users.Features.ResetPassword;
-using FSH.Framework.Core.Tenant;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ResetPassword;
+using SolanaSpin.Framework.Core.Tenant;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
 
 public static class ResetPasswordEndpoint
 {

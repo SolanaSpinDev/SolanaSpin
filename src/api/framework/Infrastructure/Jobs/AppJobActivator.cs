@@ -1,20 +1,20 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Infrastructure.Constants;
-using FSH.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Infrastructure.Constants;
+using SolanaSpin.Framework.Infrastructure.Tenant;
 using Hangfire;
 using Hangfire.Server;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Jobs;
+namespace SolanaSpin.Framework.Infrastructure.Jobs;
 
-public class FshJobActivator : JobActivator
+public class AppJobActivator : JobActivator
 {
     private readonly IServiceScopeFactory _scopeFactory;
 
-    public FshJobActivator(IServiceScopeFactory scopeFactory) =>
+    public AppJobActivator(IServiceScopeFactory scopeFactory) =>
         _scopeFactory = scopeFactory ?? throw new ArgumentNullException(nameof(scopeFactory));
 
     public override JobActivatorScope BeginScope(PerformContext context) =>
@@ -35,11 +35,11 @@ public class FshJobActivator : JobActivator
 
         private void ReceiveParameters()
         {
-            var tenantInfo = _context.GetJobParameter<FshTenantInfo>(TenantConstants.Identifier);
+            var tenantInfo = _context.GetJobParameter<AppTenantInfo>(TenantConstants.Identifier);
             if (tenantInfo is not null)
             {
                 _scope.ServiceProvider.GetRequiredService<IMultiTenantContextSetter>()
-                    .MultiTenantContext = new MultiTenantContext<FshTenantInfo>
+                    .MultiTenantContext = new MultiTenantContext<AppTenantInfo>
                     {
                         TenantInfo = tenantInfo
                     };

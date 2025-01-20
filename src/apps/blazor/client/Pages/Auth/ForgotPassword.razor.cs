@@ -8,7 +8,7 @@ namespace SolanaSpin.Blazor.Client.Pages.Auth;
 public partial class ForgotPassword
 {
     private readonly ForgotPasswordCommand _forgotPasswordRequest = new();
-    private FshValidation? _customValidation;
+    private AppValidation? _customValidation;
     private bool BusySubmitting { get; set; }
 
     [Inject]

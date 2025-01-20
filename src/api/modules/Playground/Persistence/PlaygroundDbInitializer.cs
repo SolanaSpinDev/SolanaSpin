@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Core.Persistence;
+﻿using SolanaSpin.Framework.Core.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

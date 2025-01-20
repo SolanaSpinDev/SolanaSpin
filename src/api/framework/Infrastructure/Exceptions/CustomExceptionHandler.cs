@@ -1,11 +1,11 @@
-﻿using FSH.Framework.Core.Exceptions;
+﻿using SolanaSpin.Framework.Core.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
 
-namespace FSH.Framework.Infrastructure.Exceptions;
+namespace SolanaSpin.Framework.Infrastructure.Exceptions;
 public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
             problemDetails.Extensions.Add("errors", validationErrors);
         }
 
-        else if (exception is FshException e)
+        else if (exception is AppException e)
         {
             httpContext.Response.StatusCode = (int)e.StatusCode;
             problemDetails.Detail = e.Message;

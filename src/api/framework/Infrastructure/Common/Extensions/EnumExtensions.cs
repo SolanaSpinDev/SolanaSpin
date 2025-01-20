@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 
-namespace FSH.Framework.Infrastructure.Common.Extensions;
+namespace SolanaSpin.Framework.Infrastructure.Common.Extensions;
 public static class EnumExtensions
 {
     public static string GetDescription(this Enum enumValue)

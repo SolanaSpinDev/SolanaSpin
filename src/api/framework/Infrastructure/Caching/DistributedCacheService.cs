@@ -1,10 +1,10 @@
 using System.Text;
 using System.Text.Json;
-using FSH.Framework.Core.Caching;
+using SolanaSpin.Framework.Core.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 
-namespace FSH.Framework.Infrastructure.Caching;
+namespace SolanaSpin.Framework.Infrastructure.Caching;
 
 public class DistributedCacheService : ICacheService
 {

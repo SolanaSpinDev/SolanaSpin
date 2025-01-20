@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.SecurityHeaders;
+namespace SolanaSpin.Framework.Infrastructure.SecurityHeaders;
 
 public static class Extensions
 {

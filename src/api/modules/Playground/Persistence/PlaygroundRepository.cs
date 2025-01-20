@@ -1,7 +1,7 @@
 ﻿using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
-using FSH.Framework.Core.Domain.Contracts;
-using FSH.Framework.Core.Persistence;
+using SolanaSpin.Framework.Core.Domain.Contracts;
+using SolanaSpin.Framework.Core.Persistence;
 using Mapster;
 
 namespace SolanaSpin.WebApi.Playground.Persistence;

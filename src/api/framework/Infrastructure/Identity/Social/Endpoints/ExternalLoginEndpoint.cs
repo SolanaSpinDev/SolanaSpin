@@ -1,11 +1,11 @@
-﻿using FSH.Framework.Core.Tenant;
+﻿using SolanaSpin.Framework.Core.Tenant;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Social.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Social.Endpoints;
 public static class ExternalLoginEndpoint
 {
     internal static RouteHandlerBuilder MapExternalLoginEndpoint(this IEndpointRouteBuilder endpoints)

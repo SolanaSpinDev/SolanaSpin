@@ -1,7 +1,7 @@
-﻿using FSH.Framework.Core.Storage.File;
-using FSH.Framework.Core.Storage.File.Features;
+﻿using SolanaSpin.Framework.Core.Storage.File;
+using SolanaSpin.Framework.Core.Storage.File.Features;
 
-namespace FSH.Framework.Core.Storage;
+namespace SolanaSpin.Framework.Core.Storage;
 
 public interface IStorageService
 {

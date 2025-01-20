@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
-using FSH.Framework.Core.Jobs;
+using SolanaSpin.Framework.Core.Jobs;
 using Hangfire;
 
-namespace FSH.Framework.Infrastructure.Jobs;
+namespace SolanaSpin.Framework.Infrastructure.Jobs;
 
 public class HangfireService : IJobService
 {

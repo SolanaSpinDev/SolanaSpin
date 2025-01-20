@@ -1,9 +1,9 @@
-﻿using FSH.Framework.Core.Caching;
+﻿using SolanaSpin.Framework.Core.Caching;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace FSH.Framework.Infrastructure.Caching;
+namespace SolanaSpin.Framework.Infrastructure.Caching;
 internal static class Extensions
 {
     private static readonly ILogger _logger = Log.ForContext(typeof(Extensions));

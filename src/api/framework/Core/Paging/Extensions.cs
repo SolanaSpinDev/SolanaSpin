@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace FSH.Framework.Core.Paging;
+namespace SolanaSpin.Framework.Core.Paging;
 public static class Extensions
 {
     public static async Task<PagedList<TDestination>> PaginatedListAsync<T, TDestination>(

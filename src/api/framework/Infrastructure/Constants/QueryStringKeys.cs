@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Constants;
+﻿namespace SolanaSpin.Framework.Infrastructure.Constants;
 public static class QueryStringKeys
 {
     public const string Code = "code";

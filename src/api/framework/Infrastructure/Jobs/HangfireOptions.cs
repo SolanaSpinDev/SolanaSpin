@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Jobs;
+﻿namespace SolanaSpin.Framework.Infrastructure.Jobs;
 public class HangfireOptions
 {
     public string UserName { get; set; } = "admin";

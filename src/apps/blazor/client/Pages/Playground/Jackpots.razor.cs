@@ -20,7 +20,7 @@ public partial class Jackpots
         Context = new(
             entityName: "Jackpot",
             entityNamePlural: "Jackpots",
-            entityResource: FshResource.Jackpots,
+            entityResource: AppResource.Jackpots,
             fields: [
                 new(item => item.Id, "Jackpot Id"),
                 new(item => item.Title, "Title"),

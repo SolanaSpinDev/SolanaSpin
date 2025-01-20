@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace SolanaSpin.WebApi.Shared.Authorization;
 
-public static class FshRoles
+public static class AppRoles
 {
     public const string Admin = nameof(Admin);
     public const string Basic = nameof(Basic);

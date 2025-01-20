@@ -1,10 +1,10 @@
-﻿using FSH.Framework.Core.Identity.Roles;
-using FSH.Framework.Infrastructure.Auth.Policy;
+﻿using SolanaSpin.Framework.Core.Identity.Roles;
+using SolanaSpin.Framework.Infrastructure.Auth.Policy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace FSH.Framework.Infrastructure.Identity.Roles.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Roles.Endpoints;
 
 public static class GetRoleByIdEndpoint
 {

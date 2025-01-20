@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace FSH.Framework.Infrastructure.Common.Extensions;
+namespace SolanaSpin.Framework.Infrastructure.Common.Extensions;
 public static class RegexExtensions
 {
     private static readonly Regex Whitespace = new(@"\s+");

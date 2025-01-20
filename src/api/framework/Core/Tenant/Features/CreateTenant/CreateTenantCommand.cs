@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FSH.Framework.Core.Tenant.Features.CreateTenant;
+namespace SolanaSpin.Framework.Core.Tenant.Features.CreateTenant;
 public sealed record CreateTenantCommand(
     string Id,
     string Name,

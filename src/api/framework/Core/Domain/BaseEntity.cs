@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using FSH.Framework.Core.Domain.Contracts;
-using FSH.Framework.Core.Domain.Events;
+using SolanaSpin.Framework.Core.Domain.Contracts;
+using SolanaSpin.Framework.Core.Domain.Events;
 
-namespace FSH.Framework.Core.Domain;
+namespace SolanaSpin.Framework.Core.Domain;
 
 public abstract class BaseEntity<TId> : IEntity<TId>
 {

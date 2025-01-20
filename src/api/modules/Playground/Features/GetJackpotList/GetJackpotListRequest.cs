@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Core.Paging;
+﻿using SolanaSpin.Framework.Core.Paging;
 using MediatR;
 using SolanaSpin.WebApi.Playground.Domain;
 

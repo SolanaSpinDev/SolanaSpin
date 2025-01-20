@@ -10,5 +10,5 @@ public class ClientPreference : IPreference
     public string PrimaryColor { get; set; } = CustomColors.Light.Primary;
     public string SecondaryColor { get; set; } = CustomColors.Light.Secondary;
     public double BorderRadius { get; set; } = 5;
-    public FshTablePreference TablePreference { get; set; } = new FshTablePreference();
+    public AppTablePreference TablePreference { get; set; } = new AppTablePreference();
 }

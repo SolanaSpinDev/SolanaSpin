@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Users.Features.ChangePassword;
-using FSH.Framework.Core.Identity.Users.Features.ForgotPassword;
-using FSH.Framework.Core.Identity.Users.Features.ResetPassword;
-using FSH.Framework.Core.Mail;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ChangePassword;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ForgotPassword;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ResetPassword;
+using SolanaSpin.Framework.Core.Mail;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Services;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 internal sealed partial class UserService
 {
     public async Task ForgotPasswordAsync(ForgotPasswordCommand request, string origin, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ internal sealed partial class UserService
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(e => e.Description).ToList();
-            throw new FshException("error resetting password", errors);
+            throw new AppException("error resetting password", errors);
         }
     }
 
@@ -68,7 +68,7 @@ internal sealed partial class UserService
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(e => e.Description).ToList();
-            throw new FshException("failed to change password", errors);
+            throw new AppException("failed to change password", errors);
         }
     }
 }

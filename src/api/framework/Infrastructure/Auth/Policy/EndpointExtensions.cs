@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace FSH.Framework.Infrastructure.Auth.Policy;
+namespace SolanaSpin.Framework.Infrastructure.Auth.Policy;
 public static class EndpointExtensions
 {
     public static TBuilder RequirePermission<TBuilder>(

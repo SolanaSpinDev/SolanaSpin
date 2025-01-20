@@ -1,6 +1,6 @@
-﻿using FSH.Framework.Core.Paging;
+﻿using SolanaSpin.Framework.Core.Paging;
 
-namespace FSH.Framework.Core.Specifications;
+namespace SolanaSpin.Framework.Core.Specifications;
 
 public class EntitiesByPaginationFilterSpec<T, TResult> : EntitiesByBaseFilterSpec<T, TResult>
 {

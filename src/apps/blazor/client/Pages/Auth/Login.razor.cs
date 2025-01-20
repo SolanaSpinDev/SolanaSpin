@@ -12,7 +12,7 @@ public partial class Login()
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = default!;
 
-    private FshValidation? _customValidation;
+    private AppValidation? _customValidation;
 
     public bool BusySubmitting { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Infrastructure.Blockchain;
+﻿namespace SolanaSpin.Framework.Infrastructure.Blockchain;
 using System.Collections.ObjectModel;
 
 public class BlockchainOptions

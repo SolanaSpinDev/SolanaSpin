@@ -1,12 +1,12 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using FSH.Framework.Core.Origin;
-using FSH.Framework.Core.Storage;
-using FSH.Framework.Core.Storage.File;
-using FSH.Framework.Core.Storage.File.Features;
-using FSH.Framework.Infrastructure.Common.Extensions;
+using SolanaSpin.Framework.Core.Origin;
+using SolanaSpin.Framework.Core.Storage;
+using SolanaSpin.Framework.Core.Storage.File;
+using SolanaSpin.Framework.Core.Storage.File.Features;
+using SolanaSpin.Framework.Infrastructure.Common.Extensions;
 using Microsoft.Extensions.Options;
-namespace FSH.Framework.Infrastructure.Storage.Files
+namespace SolanaSpin.Framework.Infrastructure.Storage.Files
 {
     public class LocalFileStorageService(IOptions<OriginOptions> originSettings) : IStorageService
     {

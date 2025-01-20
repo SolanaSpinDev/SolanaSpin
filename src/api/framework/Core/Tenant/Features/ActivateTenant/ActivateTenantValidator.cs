@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Tenant.Features.ActivateTenant;
+namespace SolanaSpin.Framework.Core.Tenant.Features.ActivateTenant;
 public sealed class ActivateTenantValidator : AbstractValidator<ActivateTenantCommand>
 {
     public ActivateTenantValidator() =>

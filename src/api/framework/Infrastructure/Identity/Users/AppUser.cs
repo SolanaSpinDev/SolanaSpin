@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FSH.Framework.Infrastructure.Identity.Users;
-public class FshUser : IdentityUser
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users;
+public class AppUser : IdentityUser
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

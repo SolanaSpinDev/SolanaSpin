@@ -4,7 +4,7 @@
 
 <PageTitle>Login</PageTitle>
 
-<div class="fsh-center-text">
+<div class="app-center-text">
     <MudText Typo="Typo.h4" GutterBottom="true">Sign In</MudText>
     <MudText>
         Enter your credentials to get started.
@@ -14,7 +14,7 @@
 <EditForm Model="@_tokenRequest" OnValidSubmit="SubmitAsync">
     <MudGrid>
         <DataAnnotationsValidator />
-        <FshValidation @ref="_customValidation" />
+        <AppValidation @ref="_customValidation" />
         <MudItem xs="12">
             <MudTextField T="string" Label="E-mail" Variant="Variant.Outlined" @bind-Value="_tokenRequest.Email"
                           For="@(() => _tokenRequest.Email)" />

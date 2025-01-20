@@ -1,14 +1,14 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.EntityFrameworkCore;
-using FSH.Framework.Core.Domain.Contracts;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Core.Domain.Contracts;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Tenant;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.Persistence;
-public class FshDbContext(IMultiTenantContextAccessor<FshTenantInfo> multiTenantContextAccessor,
+namespace SolanaSpin.Framework.Infrastructure.Persistence;
+public class AppDbContext(IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor,
     DbContextOptions options,
     IPublisher publisher,
     IOptions<DatabaseOptions> settings)

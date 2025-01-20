@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Identity.Users.Features.ChangePassword;
-using FSH.Framework.Core.Origin;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Identity.Users.Features.ChangePassword;
+using SolanaSpin.Framework.Core.Origin;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Endpoints;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Endpoints;
 public static class ChangePasswordEndpoint
 {
     internal static RouteHandlerBuilder MapChangePasswordEndpoint(this IEndpointRouteBuilder endpoints)

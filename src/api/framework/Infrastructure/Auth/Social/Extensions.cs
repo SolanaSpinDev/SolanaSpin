@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Core.Auth.Social;
+﻿using SolanaSpin.Framework.Core.Auth.Social;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication;
 
-namespace FSH.Framework.Infrastructure.Auth.Social;
+namespace SolanaSpin.Framework.Infrastructure.Auth.Social;
 internal static class Extensions
 {
     internal static AuthenticationBuilder AddSocialAuth(this AuthenticationBuilder auth, IConfiguration config)

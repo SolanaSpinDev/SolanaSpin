@@ -1,6 +1,6 @@
 ﻿namespace SolanaSpin.WebApi.Shared.Authorization;
 
-public static class FshClaims
+public static class AppClaims
 {
     public const string Tenant = "tenant";
     public const string Fullname = "fullName";

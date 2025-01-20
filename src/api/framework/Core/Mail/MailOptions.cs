@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Mail;
+﻿namespace SolanaSpin.Framework.Core.Mail;
 public class MailOptions
 {
     public string? From { get; set; }

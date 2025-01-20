@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Identity.Roles.Features.UpdatePermissions;
+namespace SolanaSpin.Framework.Core.Identity.Roles.Features.UpdatePermissions;
 public class UpdatePermissionsValidator : AbstractValidator<UpdatePermissionsCommand>
 {
     public UpdatePermissionsValidator()

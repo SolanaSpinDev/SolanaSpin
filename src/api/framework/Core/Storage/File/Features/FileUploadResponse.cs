@@ -1,4 +1,4 @@
-﻿namespace FSH.Framework.Core.Storage.File.Features;
+﻿namespace SolanaSpin.Framework.Core.Storage.File.Features;
 
 public class FileUploadResponse
 {

@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace FSH.Framework.Core.Exceptions;
+namespace SolanaSpin.Framework.Core.Exceptions;
 
 public class CustomException : Exception
 {

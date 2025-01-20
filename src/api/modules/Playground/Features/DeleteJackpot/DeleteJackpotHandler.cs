@@ -1,4 +1,4 @@
-﻿using FSH.Framework.Core.Persistence;
+﻿using SolanaSpin.Framework.Core.Persistence;
 using SolanaSpin.WebApi.Playground.Domain;
 using SolanaSpin.WebApi.Playground.Exceptions;
 using MediatR;

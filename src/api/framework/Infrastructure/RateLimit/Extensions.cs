@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace FSH.Framework.Infrastructure.RateLimit;
+namespace SolanaSpin.Framework.Infrastructure.RateLimit;
 
 public static class Extensions
 {

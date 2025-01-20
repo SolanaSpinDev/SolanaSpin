@@ -1,21 +1,21 @@
-﻿using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Jobs;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Persistence;
+﻿using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Jobs;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Persistence;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Jobs;
+namespace SolanaSpin.Framework.Infrastructure.Jobs;
 
 internal static class Extensions
 {
     internal static IServiceCollection ConfigureJobs(this IServiceCollection services, IConfiguration configuration)
     {
         var dbOptions = configuration.GetSection(nameof(DatabaseOptions)).Get<DatabaseOptions>() ??
-            throw new FshException("database options cannot be null");
+            throw new AppException("database options cannot be null");
 
         services.AddHangfireServer(o =>
         {
@@ -41,10 +41,10 @@ internal static class Extensions
                     break;
 
                 default:
-                    throw new FshException($"hangfire storage provider {dbOptions.Provider} is not supported");
+                    throw new AppException($"hangfire storage provider {dbOptions.Provider} is not supported");
             }
 
-            config.UseFilter(new FshJobFilter(provider));
+            config.UseFilter(new AppJobFilter(provider));
             config.UseFilter(new LogJobFilter());
         });
 

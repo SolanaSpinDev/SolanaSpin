@@ -7,7 +7,7 @@ namespace SolanaSpin.Blazor.Client.Layout;
 public partial class NotFound
 {
     private ClientPreference? _themePreference;
-    private MudTheme _theme = new FshTheme();
+    private MudTheme _theme = new AppTheme();
     private bool _isDarkMode;
 
     protected override async Task OnInitializedAsync()
@@ -20,7 +20,7 @@ public partial class NotFound
     private void SetCurrentTheme(ClientPreference themePreference)
     {
         _isDarkMode = themePreference.IsDarkMode;
-        //_currentTheme = new FshTheme();
+        //_currentTheme = new AppTheme();
         //if (themePreference.IsDarkMode)
         //{
         //    _currentTheme.

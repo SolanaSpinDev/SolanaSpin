@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 
-namespace FSH.Framework.Infrastructure.Identity.Users.Services;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 public class CurrentUser : ICurrentUser, ICurrentUserInitializer
 {
     private ClaimsPrincipal? _user;
@@ -39,7 +39,7 @@ public class CurrentUser : ICurrentUser, ICurrentUserInitializer
     {
         if (_user != null)
         {
-            throw new FshException("Method reserved for in-scope initialization");
+            throw new AppException("Method reserved for in-scope initialization");
         }
 
         _user = user;
@@ -49,7 +49,7 @@ public class CurrentUser : ICurrentUser, ICurrentUserInitializer
     {
         if (_userId != Guid.Empty)
         {
-            throw new FshException("Method reserved for in-scope initialization");
+            throw new AppException("Method reserved for in-scope initialization");
         }
 
         if (!string.IsNullOrEmpty(userId))

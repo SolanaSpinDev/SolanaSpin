@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace FSH.Framework.Infrastructure.Identity;
+namespace SolanaSpin.Framework.Infrastructure.Identity;
 internal static class IdentityConstants
 {
     public const int PasswordLength = 6;

@@ -1,8 +1,8 @@
 ﻿using Finbuckle.MultiTenant.EntityFrameworkCore.Stores.EFCoreStore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FSH.Framework.Infrastructure.Tenant.Persistence;
-public class TenantDbContext : EFCoreStoreDbContext<FshTenantInfo>
+namespace SolanaSpin.Framework.Infrastructure.Tenant.Persistence;
+public class TenantDbContext : EFCoreStoreDbContext<AppTenantInfo>
 {
     public const string Schema = "tenant";
     public TenantDbContext(DbContextOptions<TenantDbContext> options)
@@ -17,6 +17,6 @@ public class TenantDbContext : EFCoreStoreDbContext<FshTenantInfo>
 
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<FshTenantInfo>().ToTable("Tenants", Schema);
+        modelBuilder.Entity<AppTenantInfo>().ToTable("Tenants", Schema);
     }
 }

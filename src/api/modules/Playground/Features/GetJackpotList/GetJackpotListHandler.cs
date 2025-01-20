@@ -1,6 +1,6 @@
-﻿using FSH.Framework.Core.Paging;
-using FSH.Framework.Core.Persistence;
-using FSH.Framework.Core.Specifications;
+﻿using SolanaSpin.Framework.Core.Paging;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Core.Specifications;
 using SolanaSpin.WebApi.Playground.Domain;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

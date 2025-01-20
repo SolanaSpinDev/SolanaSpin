@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FSH.Framework.Core.Identity.Tokens.Features.GenerateToken;
+namespace SolanaSpin.Framework.Core.Identity.Tokens.Features.GenerateToken;
 
 public class GenerateTokenValidator : AbstractValidator<GenerateTokenCommand>
 {

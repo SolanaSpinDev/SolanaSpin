@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FSH.Framework.Core.Auth.Jwt;
+namespace SolanaSpin.Framework.Core.Auth.Jwt;
 public class JwtOptions : IValidatableObject
 {
     public string Key { get; set; } = string.Empty;

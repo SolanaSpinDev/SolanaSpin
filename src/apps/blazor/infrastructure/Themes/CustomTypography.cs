@@ -4,7 +4,7 @@ namespace SolanaSpin.Blazor.Infrastructure.Themes;
 
 public static class CustomTypography
 {
-    public static Typography FshTypography => new Typography()
+    public static Typography AppTypography => new Typography()
     {
         Default = new Default()
         {

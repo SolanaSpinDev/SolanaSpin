@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace FSH.Framework.Infrastructure.Auth.Policy;
+namespace SolanaSpin.Framework.Infrastructure.Auth.Policy;
 public static class RequiredPermissionDefaults
 {
     public const string PolicyName = "RequiredPermission";

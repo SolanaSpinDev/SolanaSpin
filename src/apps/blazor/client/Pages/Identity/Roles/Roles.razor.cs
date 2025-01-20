@@ -24,13 +24,13 @@ public partial class Roles
     protected override async Task OnInitializedAsync()
     {
         var state = await AuthState;
-        _canViewRoleClaims = await AuthService.HasPermissionAsync(state.User, FshAction.View, FshResource.RoleClaims);
+        _canViewRoleClaims = await AuthService.HasPermissionAsync(state.User, AppAction.View, AppResource.RoleClaims);
 
         Context = new(
             entityName: "Role",
             entityNamePlural: "Roles",
-            entityResource: FshResource.Roles,
-            searchAction: FshAction.View,
+            entityResource: AppResource.Roles,
+            searchAction: AppAction.View,
             fields: new()
             {
                 new(role => role.Id, "Id"),
@@ -47,8 +47,8 @@ public partial class Roles
             updateFunc: async (_, role) => await RolesClient.CreateOrUpdateRoleEndpointAsync(role),
             deleteFunc: async id => await RolesClient.DeleteRoleEndpointAsync(id!),
             hasExtraActionsFunc: () => _canViewRoleClaims,
-            canUpdateEntityFunc: e => !FshRoles.IsDefault(e.Name!),
-            canDeleteEntityFunc: e => !FshRoles.IsDefault(e.Name!),
+            canUpdateEntityFunc: e => !AppRoles.IsDefault(e.Name!),
+            canDeleteEntityFunc: e => !AppRoles.IsDefault(e.Name!),
             exportAction: string.Empty);
     }
 

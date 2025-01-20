@@ -1,16 +1,16 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Infrastructure.Tenant.Abstractions;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Infrastructure.Tenant.Abstractions;
 
-namespace FSH.Framework.Infrastructure.Tenant;
-public sealed class FshTenantInfo : IFshTenantInfo
+namespace SolanaSpin.Framework.Infrastructure.Tenant;
+public sealed class AppTenantInfo : IAppTenantInfo
 {
-    public FshTenantInfo()
+    public AppTenantInfo()
     {
     }
 
-    public FshTenantInfo(string id, string name, string? connectionString, string adminEmail, string? issuer = null)
+    public AppTenantInfo(string id, string name, string? connectionString, string adminEmail, string? issuer = null)
     {
         Id = id;
         Identifier = id;
@@ -40,7 +40,7 @@ public sealed class FshTenantInfo : IFshTenantInfo
     public void SetValidity(in DateTime validTill) =>
         ValidUpto = ValidUpto < validTill
             ? validTill
-            : throw new FshException("Subscription cannot be backdated.");
+            : throw new AppException("Subscription cannot be backdated.");
 
     public void Activate()
     {
@@ -64,5 +64,5 @@ public sealed class FshTenantInfo : IFshTenantInfo
     string? ITenantInfo.Id { get => Id; set => Id = value ?? throw new InvalidOperationException("Id can't be null."); }
     string? ITenantInfo.Identifier { get => Identifier; set => Identifier = value ?? throw new InvalidOperationException("Identifier can't be null."); }
     string? ITenantInfo.Name { get => Name; set => Name = value ?? throw new InvalidOperationException("Name can't be null."); }
-    string? IFshTenantInfo.ConnectionString { get => ConnectionString; set => ConnectionString = value ?? throw new InvalidOperationException("ConnectionString can't be null."); }
+    string? IAppTenantInfo.ConnectionString { get => ConnectionString; set => ConnectionString = value ?? throw new InvalidOperationException("ConnectionString can't be null."); }
 }

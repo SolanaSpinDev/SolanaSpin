@@ -1,5 +1,5 @@
-﻿using FSH.Framework.Core.Caching;
-using FSH.Framework.Core.Domain.Events;
+﻿using SolanaSpin.Framework.Core.Caching;
+using SolanaSpin.Framework.Core.Domain.Events;
 using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;

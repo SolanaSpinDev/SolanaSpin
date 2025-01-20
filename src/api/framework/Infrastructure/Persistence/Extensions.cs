@@ -1,5 +1,5 @@
-﻿using FSH.Framework.Core.Persistence;
-using FSH.Framework.Infrastructure.Persistence.Interceptors;
+﻿using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Persistence.Interceptors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Serilog;
 
-namespace FSH.Framework.Infrastructure.Persistence;
+namespace SolanaSpin.Framework.Infrastructure.Persistence;
 public static class Extensions
 {
     internal static DbContextOptionsBuilder ConfigureDatabase(this DbContextOptionsBuilder builder, string dbProvider, string connectionString)

@@ -1,10 +1,10 @@
-﻿using FSH.Framework.Core.Storage;
+﻿using SolanaSpin.Framework.Core.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 
-namespace FSH.Framework.Infrastructure.Storage.Files;
+namespace SolanaSpin.Framework.Infrastructure.Storage.Files;
 
 internal static class Extension
 {

@@ -83,9 +83,9 @@ services:
     image: ${BLAZOR_IMAGE}
     pull_policy: always
     environment:
-      Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
-      Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
-      FSHStarterBlazorClient_ApiBaseUrl: ${GAME_URL}
+      BlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
+      BlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
+      BlazorClient_ApiBaseUrl: ${GAME_URL}
       ApiBaseUrl: ${GAME_URL}
     networks:
       - solanaspin
@@ -93,8 +93,8 @@ services:
         "/bin/sh",
         "-c",
         "envsubst <
-        $${Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate} >
-        $${Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson} && find
+        $${BlazorClient_Settings__AppSettingsTemplate} >
+        $${BlazorClient_Settings__AppSettingsJson} && find
         /usr/share/nginx/html -type f | xargs chmod +r && exec nginx -g
         'daemon off;'",
       ]
@@ -109,9 +109,9 @@ services:
     image: ${BLAZOR_DEV_IMAGE}
     pull_policy: always
     environment:
-      Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
-      Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
-      FSHStarterBlazorClient_ApiBaseUrl: ${GAME_DEV_URL}
+      BlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
+      BlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
+      BlazorClient_ApiBaseUrl: ${GAME_DEV_URL}
       ApiBaseUrl: ${GAME_DEV_URL}
     networks:
       - solanaspin
@@ -119,8 +119,8 @@ services:
         "/bin/sh",
         "-c",
         "envsubst <
-        $${Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate} >
-        $${Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson} && find
+        $${BlazorClient_Settings__AppSettingsTemplate} >
+        $${BlazorClient_Settings__AppSettingsJson} && find
         /usr/share/nginx/html -type f | xargs chmod +r && exec nginx -g
         'daemon off;'",
       ]

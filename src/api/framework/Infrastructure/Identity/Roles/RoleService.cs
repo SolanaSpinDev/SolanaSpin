@@ -1,25 +1,25 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
-using FSH.Framework.Core.Exceptions;
-using FSH.Framework.Core.Identity.Roles;
-using FSH.Framework.Core.Identity.Roles.Features.CreateOrUpdateRole;
-using FSH.Framework.Core.Identity.Roles.Features.UpdatePermissions;
-using FSH.Framework.Core.Identity.Users.Abstractions;
-using FSH.Framework.Core.Tenant;
-using FSH.Framework.Infrastructure.Identity.Persistence;
-using FSH.Framework.Infrastructure.Identity.RoleClaims;
-using FSH.Framework.Infrastructure.Tenant;
+using SolanaSpin.Framework.Core.Exceptions;
+using SolanaSpin.Framework.Core.Identity.Roles;
+using SolanaSpin.Framework.Core.Identity.Roles.Features.CreateOrUpdateRole;
+using SolanaSpin.Framework.Core.Identity.Roles.Features.UpdatePermissions;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
+using SolanaSpin.Framework.Core.Tenant;
+using SolanaSpin.Framework.Infrastructure.Identity.Persistence;
+using SolanaSpin.Framework.Infrastructure.Identity.RoleClaims;
+using SolanaSpin.Framework.Infrastructure.Tenant;
 using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FSH.Framework.Infrastructure.Identity.Roles;
+namespace SolanaSpin.Framework.Infrastructure.Identity.Roles;
 
-public class RoleService(RoleManager<FshRole> roleManager,
+public class RoleService(RoleManager<AppRole> roleManager,
     IdentityDbContext context,
-    IMultiTenantContextAccessor<FshTenantInfo> multiTenantContextAccessor,
+    IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor,
     ICurrentUser currentUser) : IRoleService
 {
-    private readonly RoleManager<FshRole> _roleManager = roleManager;
+    private readonly RoleManager<AppRole> _roleManager = roleManager;
 
     public async Task<IEnumerable<RoleDto>> GetRolesAsync()
     {
@@ -30,7 +30,7 @@ public class RoleService(RoleManager<FshRole> roleManager,
 
     public async Task<RoleDto?> GetRoleAsync(string id)
     {
-        FshRole? role = await _roleManager.FindByIdAsync(id);
+        AppRole? role = await _roleManager.FindByIdAsync(id);
 
         _ = role ?? throw new NotFoundException("role not found");
 
@@ -39,7 +39,7 @@ public class RoleService(RoleManager<FshRole> roleManager,
 
     public async Task<RoleDto> CreateOrUpdateRoleAsync(CreateOrUpdateRoleCommand command)
     {
-        FshRole? role = await _roleManager.FindByIdAsync(command.Id);
+        AppRole? role = await _roleManager.FindByIdAsync(command.Id);
 
         if (role != null)
         {
@@ -49,7 +49,7 @@ public class RoleService(RoleManager<FshRole> roleManager,
         }
         else
         {
-            role = new FshRole(command.Name, command.Description);
+            role = new AppRole(command.Name, command.Description);
             await _roleManager.CreateAsync(role);
         }
 
@@ -58,7 +58,7 @@ public class RoleService(RoleManager<FshRole> roleManager,
 
     public async Task DeleteRoleAsync(string id)
     {
-        FshRole? role = await _roleManager.FindByIdAsync(id);
+        AppRole? role = await _roleManager.FindByIdAsync(id);
 
         _ = role ?? throw new NotFoundException("role not found");
 
@@ -71,7 +71,7 @@ public class RoleService(RoleManager<FshRole> roleManager,
         _ = role ?? throw new NotFoundException("role not found");
 
         role.Permissions = await context.RoleClaims
-            .Where(c => c.RoleId == id && c.ClaimType == FshClaims.Permission)
+            .Where(c => c.RoleId == id && c.ClaimType == AppClaims.Permission)
             .Select(c => c.ClaimValue!)
             .ToListAsync(cancellationToken);
 
@@ -82,9 +82,9 @@ public class RoleService(RoleManager<FshRole> roleManager,
     {
         var role = await _roleManager.FindByIdAsync(request.RoleId);
         _ = role ?? throw new NotFoundException("role not found");
-        if (role.Name == FshRoles.Admin)
+        if (role.Name == AppRoles.Admin)
         {
-            throw new FshException("operation not permitted");
+            throw new AppException("operation not permitted");
         }
 
         if (multiTenantContextAccessor?.MultiTenantContext?.TenantInfo?.Id != TenantConstants.Root.Id)
@@ -102,7 +102,7 @@ public class RoleService(RoleManager<FshRole> roleManager,
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(error => error.Description).ToList();
-                throw new FshException("operation failed", errors);
+                throw new AppException("operation failed", errors);
             }
         }
 
@@ -111,10 +111,10 @@ public class RoleService(RoleManager<FshRole> roleManager,
         {
             if (!string.IsNullOrEmpty(permission))
             {
-                context.RoleClaims.Add(new FshRoleClaim
+                context.RoleClaims.Add(new AppRoleClaim
                 {
                     RoleId = role.Id,
-                    ClaimType = FshClaims.Permission,
+                    ClaimType = AppClaims.Permission,
                     ClaimValue = permission,
                     CreatedBy = currentUser.GetUserId().ToString()
                 });

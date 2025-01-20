@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace FSH.Framework.Core.Jobs;
+namespace SolanaSpin.Framework.Core.Jobs;
 
 public interface IJobService
 {

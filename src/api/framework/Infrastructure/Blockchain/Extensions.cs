@@ -1,9 +1,9 @@
-﻿using FSH.Framework.Core.Blockchain;
+﻿using SolanaSpin.Framework.Core.Blockchain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FSH.Framework.Infrastructure.Blockchain;
+namespace SolanaSpin.Framework.Infrastructure.Blockchain;
 public static class Extensions
 {
     internal static IServiceCollection AddBlockchain(this IServiceCollection services, IConfiguration config)
