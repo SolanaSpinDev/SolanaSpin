@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using FSH.Framework.Infrastructure.Auth.Social;
+using FSH.Framework.Infrastructure.Blockchain;
 
 namespace FSH.Framework.Infrastructure;
 
@@ -40,6 +41,7 @@ public static class Extensions
         builder.ConfigureDatabase();
         builder.Services.ConfigureMultitenancy();
         builder.Services.ConfigureIdentity();
+        builder.Services.AddBlockchain(builder.Configuration);
         builder.Services.AddCorsPolicy(builder.Configuration);
         builder.Services.ConfigureFileStorage();
         builder.Services.ConfigureJwtAuth()

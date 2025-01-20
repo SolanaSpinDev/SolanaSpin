@@ -3,7 +3,7 @@ using SolanaSpin.WebApi.Playground.Domain;
 
 namespace SolanaSpin.WebApi.Playground.Features.PlayDice;
 public record PlayDiceResult(
-    DiceDto Dice,
+    [property: JsonIgnore] DiceDto Dice,
     int FaceIndex,
     decimal ReturnAmount,
     PlayDiceResult? InnerResult = null)
@@ -18,10 +18,10 @@ public record PlayDiceResult(
     }
 }
 public record PlayDiceResponse(
-    decimal OldBalance,
+    [property: JsonIgnore] decimal OldBalance,
     [property: JsonIgnore] PlayDiceRequest Request,
     PlayDiceResult Result)
 {
-    [JsonIgnore] public decimal NetAmount => Result.GetNetAmount(Request.PlayAmount);
-    public decimal NewBalance => OldBalance + NetAmount;
+    public decimal NetAmount => Result.GetNetAmount(Request.PlayAmount);
+    [JsonIgnore] public decimal NewBalance => OldBalance + NetAmount;
 }

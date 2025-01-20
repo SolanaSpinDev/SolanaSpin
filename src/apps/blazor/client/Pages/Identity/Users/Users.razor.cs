@@ -95,6 +95,16 @@ public partial class Users
         await EntityTable.ReloadDataAsync();
     }
 
+    private async Task RefreshBalanceAsync(Guid userId)
+    {
+        await ApiHelper.ExecuteCallGuardedAsync(
+            () => UsersClient.RefreshBalanceEndpointAsync(userId.ToString()),
+            Toast, Navigation,
+            null,
+            "Balance Refreshed.");
+        await EntityTable.ReloadDataAsync();
+    }
+
     private async Task<bool> DeleteUserAsync(string userId)
     {
         await UsersClient.DeleteUserEndpointAsync(userId);

@@ -26,6 +26,7 @@ using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using FSH.Framework.Core.Blockchain;
 
 namespace FSH.Framework.Infrastructure.Identity.Users.Services;
 
@@ -38,7 +39,8 @@ internal sealed partial class UserService(
     IJobService jobService,
     IMailService mailService,
     IMultiTenantContextAccessor<FshTenantInfo> multiTenantContextAccessor,
-    IStorageService storageService
+    IStorageService storageService,
+    IBlockchainService blockchainService
     ) : IUserService
 {
     private void EnsureValidTenant()
@@ -51,7 +53,8 @@ internal sealed partial class UserService(
 
     private static (string, string) GenerateDepositAddressWithPrivateKey()
     {
-        Wallet wallet = new(new Mnemonic(WordList.English, WordCount.Twelve));
+        Mnemonic mnemonic = new(WordList.English, WordCount.Twelve);
+        Wallet wallet = new(mnemonic);
         return (wallet.Account.PublicKey, wallet.Account.PrivateKey);
     }
 
