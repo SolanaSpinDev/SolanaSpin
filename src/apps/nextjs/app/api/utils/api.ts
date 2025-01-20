@@ -1,4 +1,4 @@
-import {ZodString} from "zod";
+import {ZodNumber, ZodString} from "zod";
 import {NextResponse} from "next/server";
 import {Headers} from "@/app/api/utils/utils";
 
@@ -114,6 +114,35 @@ export const forgotPasswordUser = async (data: {
         const errorData = await res.json();
         return NextResponse.json(
             {error: 'Forgot password failed on backend', ...errorData},
+            {status: res.status}
+        );
+        // throw new Error(errorData || 'Failed forgot-password user');
+    }
+
+    return res.json();
+}
+
+export const withdrawFounds = async (data: {
+    amount?: ZodNumber["_output"];
+    address?: ZodString["_output"];
+    token?: ZodString["_output"];
+}) => {
+    let options: RequestInit = {
+        method: 'POST',
+        headers: {
+            ...Headers(),
+        },
+    }
+    options = {
+        ...options,
+        body: JSON.stringify(data)
+    }
+    const url = `${process.env.BASE_URL_INTERNAL}/api/withdraw`;
+    const res = await fetch(url, {...options});
+    if (!res.ok) {
+        const errorData = await res.json();
+        return NextResponse.json(
+            {error: 'Withdraw failed on backend', ...errorData},
             {status: res.status}
         );
         // throw new Error(errorData || 'Failed forgot-password user');

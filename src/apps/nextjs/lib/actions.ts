@@ -1,14 +1,14 @@
 'use server';
 
 import {z} from 'zod';
-import {forgotPasswordUser, registerUser, resetPasswordUser} from "@/app/api/utils/api";
+import {forgotPasswordUser, registerUser, resetPasswordUser, withdrawFounds} from "@/app/api/utils/api";
 import {
     forgotPasswordFormSchema,
     registerFormSchema,
     resetPasswordFormSchema,
     ForgotPasswordActionState,
     RegisterActionState,
-    ResetPasswordActionState,
+    ResetPasswordActionState, WithdrawActionState, withdrawFormSchema,
 } from "@/lib/actions-utils";
 import {BackendValidationError} from "@/lib/utils";
 
@@ -171,3 +171,62 @@ export const resetPassword = async (
         return {status: "failed"};
     }
 };
+
+export const withdraw = async (
+    _: WithdrawActionState,
+    formData: FormData,
+): Promise<WithdrawActionState> => {
+    console.log('CCCCC')
+    console.log(formData)
+    try {
+        const validatedData = withdrawFormSchema.safeParse({
+            amount: +(formData.get("amount") ?? undefined),
+            address: formData.get('address') ?? undefined,
+        });
+
+        if (!validatedData.success) {
+            console.error("Validation Errors:", validatedData.error?.errors);
+            return {status: "invalid_data", errors: validatedData.error?.errors};
+        }
+
+        //todo check the source of this token
+        const payload = {
+            ...validatedData.data,
+            token: formData.get('token') as string,
+        };
+
+        try {
+            const res = await withdrawFounds(payload);
+
+            if (!(res.status === 200)) {
+                const errorData = await res?.json();
+                console.error('Backend responded with an error:', errorData);
+                return {status: "failed", errors: [], backEndError: errorData.details.detail};
+            }
+
+            return {status: "success"};
+        } catch (error) {
+            if (error instanceof BackendValidationError) {
+                throw error;
+            }
+            console.error("Network or unexpected error:", error);
+            throw new BackendValidationError('Network or unexpected error occurred.', {});
+        }
+
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            const fieldErrors: Record<string, string> = {};
+            error.errors.forEach((err) => {
+                if (err.path.length > 0) {
+                    fieldErrors[err.path[0]] = err.message;
+                }
+            });
+            return {status: "invalid_data"};
+        }
+
+        console.error("Registration Failed:", error);
+        return {status: "failed"};
+    }
+};
+
+
