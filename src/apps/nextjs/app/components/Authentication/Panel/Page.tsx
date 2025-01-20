@@ -9,7 +9,7 @@ interface PanelProps {
 export function Panel({ children, className }: PanelProps) {
     return (
         <div className={clsx("bg-opacity-50 w-[400px] h-auto p-6", className)}>
-            <div className="rounded-lg bg-[#1d3155]">
+            <div className="rounded-lg bg-sky-950">
                 <LogoTitle showBeta={false}/>
                 <div>{children}</div>
             </div>
