@@ -1,6 +1,17 @@
 import {z} from "zod";
 import {FormMessages} from "@/lib/texts-utils";
 
+export interface WithdrawActionState {
+    status:
+        | "idle"
+        | "in_progress"
+        | "success"
+        | "failed"
+        | "invalid_data";
+    errors?: z.ZodIssue[];
+    backEndError?: string[];
+}
+
 export interface ResetPasswordActionState {
     status:
         | "idle"
@@ -76,3 +87,9 @@ export const loginSchema = z.object({
 });
 
 export type LoginFormInputs = z.infer<typeof loginSchema>;
+
+export const withdrawFormSchema = z.object(
+    {
+        amount: z.number(),
+        address: z.string(),
+    })
