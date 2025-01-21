@@ -80,7 +80,7 @@ export const Profile = () => {
                 <li className="flex justify-center items-center cursor-pointer" onClick={handleProfile}>
                     {/*<FaCircleUser className="xl:text-2xl"/>*/}
                     <TbJoker className="xl:text-2xl"/>
-                    {session?.user?.firstName && <div className="ml-2">Hello {session?.user?.firstName}</div>}
+                    {session?.user?.email && <div className="ml-2">Hello {session?.user?.email}</div>}
                 </li>
             }
             {session?.tokens?.token &&

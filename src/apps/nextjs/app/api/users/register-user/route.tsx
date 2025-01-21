@@ -1,11 +1,17 @@
 import {NextResponse} from 'next/server';
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: Request) {
     try {
 
         // Parse the incoming JSON data from the request
         const data = await req.json();
+        const uniqueGeneratedUsername = uuidv4();
         console.log('Data received from frontend:', data);
+        const updatedData = {
+            ...data,
+            username: uniqueGeneratedUsername,
+        }
 
         // Define the absolute URL of your .NET backend
         const backendUrl = `${process.env.BASE_URL}/api/users/self-register`;
@@ -18,7 +24,7 @@ export async function POST(req: Request) {
                 'Content-Type': 'application/json',
                 'tenant': 'root',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(updatedData),
         });
         // Check if the backend response is successful
         if (!backendResponse.ok) {
@@ -33,7 +39,6 @@ export async function POST(req: Request) {
         // Parse the successful response from the backend
         const responseData = await backendResponse.json();
         console.log('Registration successful:', responseData);
-        console.log('The user is:', data);
 
         // Return the backend response to the frontend
         return NextResponse.json(responseData, {status: 200});
