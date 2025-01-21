@@ -16,9 +16,6 @@ export default function Page() {
     const router = useRouter();
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [formValues, setFormValues] = useState({
-        firstName: '',
-        lastName: '',
-        username: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -74,9 +71,6 @@ export default function Page() {
 
     const handleSubmit = (formData: FormData): void => {
         setFormValues({
-            firstName: formData.get('firstName') as string || '',
-            lastName: formData.get('lastName') as string || '',
-            username: formData.get('username') as string || '',
             email: formData.get('email') as string || '',
             password: formData.get('password') as string || '',
             confirmPassword: formData.get('confirmPassword') as string || '',
