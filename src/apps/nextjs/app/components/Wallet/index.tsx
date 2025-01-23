@@ -11,6 +11,7 @@ import {useSession} from "next-auth/react";
 import {formatCurrency} from "@/lib/utils";
 import {useBalance} from "@/app/context/BalanceContext";
 import {Withdraw} from "@/app/components/Wallet/Withdraw";
+import SolanaQRCode from "@/app/components/Wallet/SolanaQRCode";
 
 interface WalletModalProps {
     isOpen: boolean;
@@ -100,6 +101,7 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
                                         your
                                         balance
                                     </p>
+                                    <SolanaQRCode address={depositAddress}/>
                                     <p className="flex items-center justify-center gap-3">
                                         <button>
                                             <FaRegCopy onClick={handleCopy}/>

@@ -8,9 +8,6 @@ interface AuthFormProps {
     action: (formData: FormData) => void;
     children: React.ReactNode;
     formValues: {
-        firstName: string;
-        lastName: string;
-        username: string;
         email: string;
         password: string;
         confirmPassword: string;
@@ -64,74 +61,6 @@ export function RegisterForm({
                                 defaultValue={formValues.email}
                                 variant="underlined"
                                 color="primary"
-                            />
-                        </div>
-                    </div>
-                    {/*firstName*/}
-                    <div className="flex flex-col gap-2">
-                        <div className="relative">
-                            <Input
-                                id="firstName"
-                                name="firstName"
-                                className="max-w-xs text-white"
-                                classNames={{
-                                    label: "!text-white",
-                                }}
-                                label="First Name"
-                                type="text"
-                                placeholder="First Name"
-                                autoFocus
-                                defaultValue={formValues.firstName}
-                                variant="underlined"
-                                color="primary"
-
-                            />
-                        </div>
-                    </div>
-                    {/*lastName*/}
-                    <div className="flex flex-col gap-2">
-                        <div className="relative">
-                            <Input
-                                id="lastName"
-                                name="lastName"
-                                className="max-w-xs text-white"
-                                classNames={{
-                                    label: "!text-white",
-                                }}
-                                label="Last Name"
-                                type="text"
-                                placeholder="Last Name"
-                                autoFocus
-                                defaultValue={formValues.lastName}
-                                variant="underlined"
-                                color="primary"
-
-                            />
-                        </div>
-                    </div>
-                    {/*username*/}
-                    <div className="flex flex-col gap-2">
-                        <div className="relative">
-                            <Input
-                                id="username"
-                                name="username"
-                                isRequired
-                                className="max-w-xs text-white"
-                                classNames={{
-                                    label: "!text-white",
-                                }}
-                                label="Username"
-                                type="text"
-                                placeholder="Last Name"
-                                variant="underlined"
-                                required
-                                autoFocus
-                                color="primary"
-                                defaultValue={formValues.username}
-                                // @ts-expect-error mismatched type
-                                minLength="2"
-                                // @ts-expect-error mismatched type
-                                maxLength="30"
                             />
                         </div>
                     </div>
