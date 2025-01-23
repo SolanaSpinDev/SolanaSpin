@@ -7,9 +7,10 @@ import clsx from "clsx";
 import {IoMdNotifications} from "react-icons/io";
 import {IoClose} from "react-icons/io5";
 import {FaWallet} from "react-icons/fa6";
+import {formatDate} from "@/lib/utils";
 
 export interface Notification {
-    actionType: string,
+    direction: 'deposit' | 'withdrawal',
     amount: number,
     date: string,
     status: string
@@ -18,15 +19,15 @@ export interface Notification {
 interface NotificationsProps {
     onClose: () => void
 }
+// {direction: 'deposit', amount: 300, date: "2025-01-23T10:05:41.286Z", status: 'completed'},
+// {direction: 'withdrawal', amount: 200, date: "2025-01-23T10:05:41.286Z", status: 'pending'},
+// {direction: 'deposit', amount: 500, date: "2025-01-23T10:05:41.286Z", status: 'progress'},
+// {direction: 'deposit', amount: 600, date: "2025-01-23T10:05:41.286Z", status: 'completed'},
+// {direction: 'withdrawal', amount: 700, date: "2025-01-23T10:05:41.286Z", status: 'failed'},
+// {direction: 'deposit', amount: 50, date: "2025-01-23T10:05:41.286Z", status: 'pending'},
 
 export const Notifications = ({onClose}: NotificationsProps) => {
     const [notifications, setNotifications] = useState<Notification[]>([
-        {actionType: 'deposit', amount: 300, date: '02/01/2025', status: 'completed'},
-        {actionType: 'withdraw', amount: 200, date: '03/01/2025', status: 'pending'},
-        {actionType: 'deposit', amount: 500, date: '06/01/2025', status: 'progress'},
-        {actionType: 'deposit', amount: 600, date: '09/01/2025', status: 'completed'},
-        {actionType: 'withdraw', amount: 700, date: '11/01/2025', status: 'failed'},
-        {actionType: 'deposit', amount: 50, date: '12/01/2025', status: 'pending'},
     ]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -37,25 +38,31 @@ export const Notifications = ({onClose}: NotificationsProps) => {
     }
 
     useEffect(() => {
-        const getNotifications = async () => {
+        const getTransactions = async () => {
 
             if (!session?.tokens?.token) {
                 console.error("User is not authenticated");
                 return;
             }
-
-            try {
-                const url = "/api/withdraw/"
-                const data = await fetchWithAuth(url, "GET", session.tokens?.token)
-                // setNotifications(data)
-                //
-            } catch (error) {
-                console.error("Error fetching protected data:", error);
-                setError("Failed to fetch notifications");
+            if (!session?.user?.id) {
+                console.error("Invalid User");
+                return;
             }
 
+
+            try {
+                const url = `/api/transactions/for-user/${session.user.id}`;
+                const data = await fetchWithAuth(url, "GET", session.tokens?.token)
+
+                console.log('data in Notifications')
+                console.log(data)
+                setNotifications(data);
+            } catch (error) {
+                console.error("Error fetching protected data:", error);
+            }
         };
-        getNotifications();
+
+        getTransactions();
     }, []);
 
     // if (error) {
@@ -74,19 +81,20 @@ export const Notifications = ({onClose}: NotificationsProps) => {
             </div>
         </div>
         <div>
+            {notifications.length === 0 && <div className="flex items-center justify-center">No notifications</div>}
             {notifications.length > 0 &&
-                <div className="w-full max-h-[170px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto ">
+                <div className="w-full max-h-[170px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto">
                     {notifications.map((dt: Notification, i: number) => (
                         <div key={i + "" + dt.amount}
                              className={`w-full flex items-center justify-between p-1.5 border-b-1 border-b-sky-600 border-dashed`}>
                             <div className="p-1">
                                 <FaWallet className="text-sky-500 mr-2"/>
                             </div>
-                            <div className="w-1/4 capitalize">{dt.actionType}</div>
+                            <div className="w-1/4 capitalize">{dt.direction}</div>
                             <div
-                                className={`w-1/4 ${dt.actionType === 'withdraw' ? 'text-red-500' : 'text-green-600'}`}>{dt.actionType === 'withdraw' ? '- ' : "+ "}{dt.amount}</div>
+                                className={`w-1/4 ${dt.direction.toLowerCase() === 'withdrawal' ? 'text-red-500' : 'text-green-600'}`}>{dt.direction.toLowerCase() === 'withdrawal' ? '- ' : "+ "}{dt.amount}</div>
                             <div className="w-1/4 text-tiny">
-                                {dt.date}
+                                {dt.date && formatDate(dt.date)}
                             </div>
                             <div className="w-1/4 capitalize flex items-center">
                                         <span className={clsx("mr-2 rounded-full w-[10px] h-[10px]", {

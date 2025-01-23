@@ -213,3 +213,12 @@ export class BackendValidationError extends Error {
         this.details = details.details;
     }
 }
+
+export const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return  new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).format(date);
+}
