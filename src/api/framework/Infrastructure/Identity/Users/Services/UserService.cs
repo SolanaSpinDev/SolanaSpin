@@ -1,7 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text;
 using Finbuckle.MultiTenant.Abstractions;
+using Mapster;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SolanaSpin.Framework.Core.Blockchain;
 using SolanaSpin.Framework.Core.Caching;
 using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
@@ -12,24 +17,18 @@ using SolanaSpin.Framework.Core.Identity.Users.Features.ToggleUserStatus;
 using SolanaSpin.Framework.Core.Identity.Users.Features.UpdateUser;
 using SolanaSpin.Framework.Core.Jobs;
 using SolanaSpin.Framework.Core.Mail;
+using SolanaSpin.Framework.Core.Persistence;
 using SolanaSpin.Framework.Core.Storage;
 using SolanaSpin.Framework.Core.Storage.File;
 using SolanaSpin.Framework.Core.Tenant;
 using SolanaSpin.Framework.Infrastructure.Constants;
 using SolanaSpin.Framework.Infrastructure.Identity.Persistence;
 using SolanaSpin.Framework.Infrastructure.Identity.Roles;
+using SolanaSpin.Framework.Infrastructure.Identity.Transactions;
 using SolanaSpin.Framework.Infrastructure.Tenant;
 using SolanaSpin.WebApi.Shared.Authorization;
 using Solnet.Wallet;
 using Solnet.Wallet.Bip39;
-using Mapster;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
-using SolanaSpin.Framework.Core.Blockchain;
-using Microsoft.Extensions.DependencyInjection;
-using SolanaSpin.Framework.Core.Persistence;
-using SolanaSpin.Framework.Infrastructure.Identity.Transactions;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 
@@ -102,8 +101,10 @@ internal sealed partial class UserService(
         return user.Adapt<UserDto>();
     }
 
-    public Task<int> GetCountAsync(CancellationToken cancellationToken) =>
-        userManager.Users.AsNoTracking().CountAsync(cancellationToken);
+    public Task<int> GetCountAsync(CancellationToken cancellationToken)
+    {
+        return userManager.Users.AsNoTracking().CountAsync(cancellationToken);
+    }
 
     public async Task<List<UserDto>> GetListAsync(CancellationToken cancellationToken)
     {
@@ -143,17 +144,17 @@ internal sealed partial class UserService(
         }
 
         // add basic role
-        await userManager.AddToRoleAsync(user, IdentityConstants.Roles.Basic);
+        _ = await userManager.AddToRoleAsync(user, IdentityConstants.Roles.Basic);
 
         // send confirmation mail
         if (!string.IsNullOrEmpty(user.Email))
         {
             string emailVerificationUri = await GetEmailVerificationUriAsync(user, origin);
             var mailRequest = new MailRequest(
-                new Collection<string> { user.Email },
+                [user.Email],
                 "Confirm Registration",
                 emailVerificationUri);
-            jobService.Enqueue("email", () => mailService.SendAsync(mailRequest, CancellationToken.None));
+            _ = jobService.Enqueue("email", () => mailService.SendAsync(mailRequest, CancellationToken.None));
         }
 
         return new RegisterUserResponse(user.Id);
@@ -173,7 +174,7 @@ internal sealed partial class UserService(
 
         user.IsActive = request.ActivateUser;
 
-        await userManager.UpdateAsync(user);
+        _ = await userManager.UpdateAsync(user);
     }
 
     public async Task UpdateAsync(UpdateUserCommand request, string userId)
@@ -198,7 +199,7 @@ internal sealed partial class UserService(
         string? phoneNumber = await userManager.GetPhoneNumberAsync(user);
         if (request.PhoneNumber != phoneNumber)
         {
-            await userManager.SetPhoneNumberAsync(user, request.PhoneNumber);
+            _ = await userManager.SetPhoneNumberAsync(user, request.PhoneNumber);
         }
 
         var result = await userManager.UpdateAsync(user);
@@ -291,12 +292,12 @@ internal sealed partial class UserService(
                 {
                     if (!await userManager.IsInRoleAsync(user, userRole.RoleName!))
                     {
-                        await userManager.AddToRoleAsync(user, userRole.RoleName!);
+                        _ = await userManager.AddToRoleAsync(user, userRole.RoleName!);
                     }
                 }
                 else
                 {
-                    await userManager.RemoveFromRoleAsync(user, userRole.RoleName!);
+                    _ = await userManager.RemoveFromRoleAsync(user, userRole.RoleName!);
                 }
             }
         }

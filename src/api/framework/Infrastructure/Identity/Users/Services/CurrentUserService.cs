@@ -18,22 +18,32 @@ public class CurrentUser : ICurrentUser, ICurrentUserInitializer
             : _userId;
     }
 
-    public string? GetUserEmail() =>
-        IsAuthenticated()
+    public string? GetUserEmail()
+    {
+        return IsAuthenticated()
             ? _user!.GetEmail()
             : string.Empty;
+    }
 
-    public bool IsAuthenticated() =>
-        _user?.Identity?.IsAuthenticated is true;
+    public bool IsAuthenticated()
+    {
+        return _user?.Identity?.IsAuthenticated is true;
+    }
 
-    public bool IsInRole(string role) =>
-        _user?.IsInRole(role) is true;
+    public bool IsInRole(string role)
+    {
+        return _user?.IsInRole(role) is true;
+    }
 
-    public IEnumerable<Claim>? GetUserClaims() =>
-        _user?.Claims;
+    public IEnumerable<Claim>? GetUserClaims()
+    {
+        return _user?.Claims;
+    }
 
-    public string? GetTenant() =>
-        IsAuthenticated() ? _user?.GetTenant() : string.Empty;
+    public string? GetTenant()
+    {
+        return IsAuthenticated() ? _user?.GetTenant() : string.Empty;
+    }
 
     public void SetCurrentUser(ClaimsPrincipal user)
     {

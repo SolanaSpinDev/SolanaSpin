@@ -5,6 +5,7 @@ using Solnet.Rpc;
 using Solnet.Rpc.Builders;
 using Solnet.Rpc.Models;
 using Solnet.Wallet;
+using System.Runtime.Intrinsics.Arm;
 
 namespace SolanaSpin.Framework.Infrastructure.Blockchain;
 
@@ -62,8 +63,25 @@ internal class BlockchainService : IBlockchainService
                     transferAmount))
             .Build(account);
         var sendTransactionResult = await _rpcClient.SendTransactionAsync(transaction);
-        return sendTransactionResult.WasSuccessful
-            ? sendTransactionResult.Result
-            : throw new Exception("Transaction failed: " + sendTransactionResult.Reason);
+        if (!sendTransactionResult.WasSuccessful)
+        {
+            throw new Exception("Transaction failed: " + sendTransactionResult.Reason);
+        }
+        var signature = sendTransactionResult.Result;
+
+        bool success = false;
+        int retries = 0;
+        while (!success)
+        {
+            await Task.Delay(1000);
+            var getStatusResult = await _rpcClient.GetSignatureStatusesAsync([signature]);
+            success = getStatusResult.WasSuccessful && getStatusResult.Result.Value.FirstOrDefault() is not null;
+            if (!success && retries++ > 60)
+            {
+                throw new Exception("Transaction failed: " + getStatusResult.Reason);
+            }
+        }
+
+        return signature;
     }
 }

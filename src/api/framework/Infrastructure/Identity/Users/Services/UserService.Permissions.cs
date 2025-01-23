@@ -1,7 +1,7 @@
-﻿using SolanaSpin.Framework.Core.Caching;
+﻿using Microsoft.EntityFrameworkCore;
+using SolanaSpin.Framework.Core.Caching;
 using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.WebApi.Shared.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 internal sealed partial class UserService
