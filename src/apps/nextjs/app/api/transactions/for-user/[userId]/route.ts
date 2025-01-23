@@ -1,8 +1,10 @@
+import {auth} from "@/app/api/auth";
 import {NextResponse} from "next/server";
-import { auth } from "@/app/api/auth"
 
 export async function GET(req: Request) {
     const {pathname} = new URL(req.url);
+    console.log('pathname in route.ts')
+    console.log(pathname)
     try {
         // Retrieve session using getServerSession without exporting authOptions
         const session = await auth();
