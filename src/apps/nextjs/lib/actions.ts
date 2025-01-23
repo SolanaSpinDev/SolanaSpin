@@ -19,9 +19,6 @@ export const register = async (
     try {
         const validatedData = registerFormSchema.safeParse({
             email: formData.get("email") ?? undefined,
-            firstName: formData.get('firstName') ?? undefined,
-            lastName: formData.get('lastName') ?? undefined,
-            username: formData.get('username') ?? undefined,
             password: formData.get("password") ?? undefined,
             confirmPassword: formData.get('confirmPassword') ?? undefined,
         });

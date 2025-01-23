@@ -17,7 +17,7 @@ export const GameMode = ({activeGameMode, onSelectGameMode, tooltip}: GameModesP
             {gameModes.map((gameMode) => (
                 <div key={gameMode}>
                     <button
-                        className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] uppercase rounded text-white ${activeGameMode === gameMode ? 'active' : ''} z-10`}
+                        className={`min-w-[50px] min-h-[30px] wheel border-solid border-1 border-slate-700 px-2 py-[2px] uppercase rounded text-white cursor-pointer ${activeGameMode === gameMode ? 'active' : ''} z-10`}
                         onClick={() => onSelectGameMode(gameMode)}>{gameMode === "blue" ? "50/50" : gameMode}</button>
                 </div>
             ))}
