@@ -1,17 +1,18 @@
-﻿using SolanaSpin.Framework.Core.Identity.Users.Dtos;
+﻿namespace SolanaSpin.Framework.Core.Identity.Transactions.Dtos;
 
-namespace SolanaSpin.Framework.Core.Identity.Transactions;
 public enum TransactionDirection
 {
     Deposit,
     Withdrawal
 }
+
 public enum TransactionStatus
 {
     Pending,
     Completed,
     Failed
 }
+
 public class TransactionDto
 {
     public Guid Id { get; set; }
@@ -19,5 +20,8 @@ public class TransactionDto
     public TransactionDirection Direction { get; set; }
     public string WithAddress { get; set; } = string.Empty;
     public TransactionStatus Status { get; set; }
-    public UserDto? BelongsTo { get; set; }
+    public string? Reason { get; set; }
+    public string? TxHash { get; set; }
+    public DateTimeOffset Created { get; set; }
+    public DateTimeOffset LastModified { get; set; }
 }

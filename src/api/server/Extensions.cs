@@ -2,6 +2,7 @@
 using Asp.Versioning.Conventions;
 using Carter;
 using FluentValidation;
+using SolanaSpin.Framework.Core;
 using SolanaSpin.WebApi.Playground;
 
 namespace SolanaSpin.WebApi.Host;

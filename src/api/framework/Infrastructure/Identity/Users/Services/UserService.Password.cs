@@ -15,10 +15,7 @@ internal sealed partial class UserService
         EnsureValidTenant();
 
         var user = await userManager.FindByEmailAsync(request.Email);
-        if (user == null)
-        {
-            throw new NotFoundException("user not found");
-        }
+        _ = user ?? throw new NotFoundException("user not found");
 
         if (string.IsNullOrWhiteSpace(user.Email))
         {
@@ -42,10 +39,7 @@ internal sealed partial class UserService
         EnsureValidTenant();
 
         var user = await userManager.FindByEmailAsync(request.Email);
-        if (user == null)
-        {
-            throw new NotFoundException("user not found");
-        }
+        _ = user ?? throw new NotFoundException("user not found");
 
         request.Token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Token));
         var result = await userManager.ResetPasswordAsync(user, request.Token, request.Password);

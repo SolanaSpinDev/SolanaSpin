@@ -10,6 +10,7 @@ using Solnet.Rpc;
 using Solnet.Rpc.Core.Http;
 using Solnet.Rpc.Builders;
 using Solnet.Programs;
+using SolanaSpin.Framework.Core.Identity.Transactions.Dtos;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 internal sealed partial class UserService
@@ -54,7 +55,15 @@ internal sealed partial class UserService
                 ulong transferAmount = userBalance - transactionFee;
                 string txHash = await blockchainService.TransferBalance(userAddress, userPrivateKey, transferAmount, latestBlockHash);
 
-                // TODO: Add deposit entry
+                await transactionsRepository.AddAsync(new()
+                {
+                    UserId = user.Id,
+                    Amount = transferAmount / 1_000_000_000m,
+                    Direction = TransactionDirection.Deposit,
+                    WithAddress = userAddress,
+                    Status = TransactionStatus.Completed,
+                    TxHash = txHash
+                });
 
                 user.Balance += transferAmount / 1_000_000_000m;
                 await userManager.UpdateAsync(user);

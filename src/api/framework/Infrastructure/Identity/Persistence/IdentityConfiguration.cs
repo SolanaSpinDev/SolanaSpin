@@ -5,6 +5,7 @@ using SolanaSpin.Framework.Infrastructure.Identity.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SolanaSpin.Framework.Infrastructure.Identity.Transactions;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Persistence;
 
@@ -69,4 +70,19 @@ public class IdentityUserTokenConfig : IEntityTypeConfiguration<IdentityUserToke
         builder
             .ToTable("UserTokens", IdentityConstants.SchemaName)
             .IsMultiTenant();
+}
+
+public class TransactionConfig : IEntityTypeConfiguration<AppTransaction>
+{
+    public void Configure(EntityTypeBuilder<AppTransaction> builder)
+    {
+        builder
+            .ToTable("Transactions", IdentityConstants.SchemaName)
+            .IsMultiTenant();
+        builder.HasKey(x => x.Id);
+        builder.HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }

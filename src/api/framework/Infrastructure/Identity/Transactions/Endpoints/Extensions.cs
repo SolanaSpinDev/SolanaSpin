@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Routing;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Transactions.Endpoints;
-internal class Extensions
+internal static class Extensions
 {
+    public static IEndpointRouteBuilder MapTransactionEndpoints(this IEndpointRouteBuilder app)
+    {
+        app.MapRequestWithdrawalEndpoint();
+        app.MapApproveWithdrawalEndpoint();
+        app.MapRejectWithdrawalEndpoint();
+        app.MapDeleteTransactionEndpoint();
+        app.MapGetTransactionEndpoint();
+        app.MapGetTransactionsListEndpoint();
+        app.MapGetMyTransactionsListEndpoint();
+        return app;
+    }
 }

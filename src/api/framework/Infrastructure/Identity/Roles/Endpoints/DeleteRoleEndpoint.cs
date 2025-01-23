@@ -15,9 +15,9 @@ public static class DeleteRoleEndpoint
             await roleService.DeleteRoleAsync(id);
         })
         .WithName(nameof(DeleteRoleEndpoint))
-        .WithSummary("Delete a role by ID")
-        .RequirePermission("Permissions.Roles.Delete")
-        .WithDescription("Remove a role from the system by its ID.");
+        .WithSummary("Delete a transaction by ID")
+        .RequirePermission("Permissions.Transactions.Delete")
+        .WithDescription("Remove a transaction by its ID.");
     }
 }
 

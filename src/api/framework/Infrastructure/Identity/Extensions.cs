@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using SolanaSpin.Framework.Infrastructure.Identity.Transactions;
+using SolanaSpin.Framework.Infrastructure.Identity.Transactions.Endpoints;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity;
 internal static class Extensions
@@ -32,6 +34,7 @@ internal static class Extensions
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IRoleService, RoleService>();
         services.BindDbContext<IdentityDbContext>();
+        services.AddKeyedScoped<IRepository<AppTransaction>, IdentityRepository<AppTransaction>>("identity:transactions");
         services.AddScoped<IDbInitializer, IdentityDbInitializer>();
         services.AddIdentity<AppUser, AppRole>(options =>
            {
@@ -60,6 +63,10 @@ internal static class Extensions
 
         var roles = app.MapGroup("api/roles").WithTags("roles");
         roles.MapRoleEndpoints();
+
+        var transactions = app.MapGroup("api/transactions").WithTags("transactions");
+        transactions.MapTransactionEndpoints();
+
         return app;
     }
 }

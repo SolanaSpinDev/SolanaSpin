@@ -9,6 +9,7 @@ using SolanaSpin.Framework.Infrastructure.Tenant;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SolanaSpin.Framework.Infrastructure.Identity.Transactions;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Persistence;
 public class IdentityDbContext : MultiTenantIdentityDbContext<AppUser,
@@ -22,6 +23,9 @@ public class IdentityDbContext : MultiTenantIdentityDbContext<AppUser,
 {
     private readonly DatabaseOptions _settings;
     private new AppTenantInfo TenantInfo { get; set; }
+
+    public DbSet<AppTransaction> Transactions { get; set; } = null!;
+
     public IdentityDbContext(IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor, DbContextOptions<IdentityDbContext> options, IOptions<DatabaseOptions> settings) : base(multiTenantContextAccessor, options)
     {
         _settings = settings.Value;

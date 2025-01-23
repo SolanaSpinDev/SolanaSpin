@@ -13,7 +13,7 @@ using SolanaSpin.WebApi.Playground.Features.DeleteJackpot;
 using SolanaSpin.WebApi.Playground.Features.GetDice;
 using SolanaSpin.WebApi.Playground.Features.GetDiceList;
 using SolanaSpin.WebApi.Playground.Features.GetJackpot;
-using SolanaSpin.WebApi.Playground.Features.GetJackpotList;
+using SolanaSpin.WebApi.Playground.Features.GetJackpotsList;
 using SolanaSpin.WebApi.Playground.Features.PlayDice;
 using SolanaSpin.WebApi.Playground.Features.UpdateDice;
 using SolanaSpin.WebApi.Playground.Features.UpdateJackpot;

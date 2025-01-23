@@ -27,6 +27,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using SolanaSpin.Framework.Core.Blockchain;
+using Microsoft.Extensions.DependencyInjection;
+using SolanaSpin.Framework.Core.Persistence;
+using SolanaSpin.Framework.Infrastructure.Identity.Transactions;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 
@@ -40,7 +43,8 @@ internal sealed partial class UserService(
     IMailService mailService,
     IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor,
     IStorageService storageService,
-    IBlockchainService blockchainService
+    IBlockchainService blockchainService,
+    [FromKeyedServices("identity:transactions")] IRepository<AppTransaction> transactionsRepository
     ) : IUserService
 {
     private void EnsureValidTenant()
