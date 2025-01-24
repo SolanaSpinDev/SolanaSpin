@@ -55,16 +55,13 @@ export default function Page() {
                 setIsSuccessful(true);
                 router.refresh();
             }
-        }
-        ,
-        [state, router, formValues.password]
-    )
-    ;
+        }, [state, router, formValues.password]
+    );
 
     const handleSubmit = (formData: FormData): void => {
         const password = formData.get('password') as string || '';
         const confirmPassword = formData.get('confirmPassword') as string || '';
-        setFormValues({ password, confirmPassword });
+        setFormValues({password, confirmPassword});
 
         if (token) {
             formData.append('token', token);

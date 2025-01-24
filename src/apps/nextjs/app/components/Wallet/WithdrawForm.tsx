@@ -22,7 +22,7 @@ export function WithdrawForm({
                                  amountErrors,
                                  backendError,
                              }: WithdrawFormProps) {
-    const {balance} = useBalance();
+    // const {balance} = useBalance();
     return (
         <form action={action} className="space-y-3">
             {errors && JSON.stringify(errors)}

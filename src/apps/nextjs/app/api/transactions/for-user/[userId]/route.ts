@@ -3,8 +3,7 @@ import {NextResponse} from "next/server";
 
 export async function GET(req: Request) {
     const {pathname} = new URL(req.url);
-    console.log('pathname in route.ts')
-    console.log(pathname)
+
     try {
         // Retrieve session using getServerSession without exporting authOptions
         const session = await auth();
@@ -19,9 +18,9 @@ export async function GET(req: Request) {
         const accessToken = session?.tokens.token.toString();
         const urlPath = `${process.env.BASE_URL}${pathname}`;
 
-        // Make a request to your ASP.NET backend
+        // Make a request to  ASP.NET backend
         const backendResponse = await fetch(
-            urlPath, // Replace with your backend URL
+            urlPath,
             {
                 method: "GET",
                 headers: {

@@ -1,11 +1,12 @@
 import {WithdrawForm} from "@/app/components/Wallet/WithdrawForm";
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
-import React, {useActionState, useState} from "react";
-import {RegisterActionState, WithdrawActionState} from "@/lib/actions-utils";
+import React, {useActionState, useEffect, useState} from "react";
+import {WithdrawActionState} from "@/lib/actions-utils";
 import {withdraw} from "@/lib/actions";
 import {useBalance} from "@/app/context/BalanceContext";
-import {setState} from "jest-circus";
 import {z} from "zod";
+import {useSession} from "next-auth/react";
+import {toast} from "react-toastify";
 
 export const Withdraw = () => {
     const [isSuccessful, setIsSuccessful] = useState(false);
@@ -15,9 +16,15 @@ export const Withdraw = () => {
         amount: null,
         address: '',
     });
-
+    const {data: session, status: sessionStatus} = useSession();
     const [state, formAction] = useActionState<WithdrawActionState, FormData>(
-        withdraw,
+        async (formData, state) => {
+            if (session) {
+                return withdraw(formData, state, session.tokens?.token);
+            } else {
+                throw new Error("No session available");
+            }
+        },
         {
             status: 'idle',
         }
@@ -51,6 +58,13 @@ export const Withdraw = () => {
 
         formAction(formData);
     };
+    useEffect(() => {
+        if (state.status === 'success') {
+            toast.success('Your request has been submitted');
+        } else if (state.status === 'failed') {
+            toast.error("An error has occurred, please try again later");
+        }
+    }, [state]);
     return (
         <WithdrawForm action={handleSubmit}
                       formValues={formValues}
