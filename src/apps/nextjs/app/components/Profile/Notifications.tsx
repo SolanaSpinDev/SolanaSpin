@@ -11,7 +11,7 @@ import {formatDate} from "@/lib/utils";
 import {Status, TransactionDirection} from "@/app/enums"
 import {Notification} from "@/app/types"
 import {LoadingSmall} from "@/app/components/LoadingSmall/LoadingSmall";
-import "./Notifications.css";
+
 
 interface NotificationsProps {
     onClose: () => void

@@ -22,13 +22,15 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
     const [depositAddress, setDepositAddress] = useState();
     const [isDepositActive, setIsDepositActive] = useState(false);
     const [isWithdrawActive, setIsWithdrawActive] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [breadcrumb, setBreadcrumb] = useState('Wallet');
     const {data: session} = useSession();
     const {balance} = useBalance();
     const getProfile = async () => {
-
+        setLoading(true)
         if (!session?.tokens?.token) {
             console.error("User is not authenticated");
+            setLoading(false)
             return;
         }
 
@@ -38,9 +40,12 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
 
             if (data.depositAddress) {
                 setDepositAddress(data.depositAddress);
+                setLoading(false)
             }
         } catch (error) {
             console.error("Error fetching protected data:", error);
+            toast.error('Error fetching Deposit address, please try again later');
+            setLoading(false)
         }
     };
 
@@ -78,7 +83,33 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
     }
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl" className="text-white" placement="top-center">
+        <Modal
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            size="xl"
+            className="text-white"
+            placement="top-center"
+            motionProps={{
+                variants: {
+                    enter: {
+                        y: 0,
+                        opacity: 1,
+                        transition: {
+                            duration: 0.3,
+                            ease: "easeOut",
+                        },
+                    },
+                    exit: {
+                        y: -20,
+                        opacity: 0,
+                        transition: {
+                            duration: 0.2,
+                            ease: "easeIn",
+                        },
+                    },
+                },
+            }}
+        >
             <ModalContent>
                 {(onClose) => (
                     <>
@@ -101,14 +132,14 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
                                         your
                                         balance
                                     </p>
-                                    <SolanaQRCode address={depositAddress}/>
-                                    <p className="flex items-center justify-center gap-3">
+                                    {depositAddress &&<SolanaQRCode address={depositAddress}/>}
+                                    {depositAddress &&  <p className="flex items-center justify-center gap-3">
                                         <button>
                                             <FaRegCopy onClick={handleCopy}/>
                                         </button>
                                         <span
                                             className="overflow-x-hidden whitespace-nowrap text-ellipsis">{depositAddress}</span>
-                                    </p>
+                                    </p>}
                                 </>}
                                 {isWithdrawActive && <Withdraw/>}
                             </div>
