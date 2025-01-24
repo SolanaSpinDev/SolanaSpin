@@ -10,17 +10,12 @@ import {FaWallet} from "react-icons/fa6";
 import {formatDate} from "@/lib/utils";
 import {Status, TransactionDirection} from "@/app/enums"
 import {Notification} from "@/app/types"
+import {LoadingSmall} from "@/app/components/LoadingSmall/LoadingSmall";
+import "./Notifications.css";
 
 interface NotificationsProps {
     onClose: () => void
 }
-
-// {direction: 'deposit', amount: 300, date: "2025-01-23T10:05:41.286Z", status: 'completed'},
-// {direction: 'withdrawal', amount: 200, date: "2025-01-23T10:05:41.286Z", status: 'pending'},
-// {direction: 'deposit', amount: 500, date: "2025-01-23T10:05:41.286Z", status: 'progress'},
-// {direction: 'deposit', amount: 600, date: "2025-01-23T10:05:41.286Z", status: 'completed'},
-// {direction: 'withdrawal', amount: 700, date: "2025-01-23T10:05:41.286Z", status: 'failed'},
-// {direction: 'deposit', amount: 50, date: "2025-01-23T10:05:41.286Z", status: 'pending'},
 
 export const Notifications = ({onClose}: NotificationsProps) => {
     const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -34,13 +29,15 @@ export const Notifications = ({onClose}: NotificationsProps) => {
 
     useEffect(() => {
         const getTransactions = async () => {
-
+            setLoading(true)
             if (!session?.tokens?.token) {
                 console.error("User is not authenticated");
+                setLoading(false)
                 return;
             }
             if (!session?.user?.id) {
                 console.error("Invalid User");
+                setLoading(false)
                 return;
             }
 
@@ -48,9 +45,10 @@ export const Notifications = ({onClose}: NotificationsProps) => {
             try {
                 const url = `/api/transactions/for-user/${session.user.id}`;
                 const data = await fetchWithAuth(url, "GET", session.tokens?.token)
-
+                setLoading(false)
                 setNotifications(data);
             } catch (error) {
+                setLoading(false)
                 setError("An error has occurred, please try again later")
                 console.error("Error fetching protected data:", error);
                 setTimeout(() => {
@@ -76,9 +74,11 @@ export const Notifications = ({onClose}: NotificationsProps) => {
             </div>
         </div>
         <div>
-            {notifications.length === 0 && <div className="flex items-center justify-center">No notifications</div>}
+            {loading && <div className="w-full flex items-center justify-center"><LoadingSmall/></div>}
+            {!loading && notifications.length === 0 &&
+                <div className="flex items-center justify-center">No notifications</div>}
             {notifications.length > 0 &&
-                <div className="w-full max-h-[170px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto">
+                <div className="w-full max-h-[170px] lg:max-h-[235px] xl:max-h-[285px] overflow-y-auto fade-in">
                     {notifications.map((dt: Notification, i: number) => (
                         <div key={i + "" + dt.amount}
                              className={`w-full flex items-center justify-between p-1.5 border-b-1 border-b-sky-600 border-dashed`}>
@@ -101,7 +101,7 @@ export const Notifications = ({onClose}: NotificationsProps) => {
                                         </div>
                                         <div className="w-1/2 capitalize flex items-center">
                                         <span className={clsx("mr-2 rounded-full w-[10px] h-[10px]", {
-                                            "bg-sky-500": dt.status === 0,
+                                            "bg-yellow-500": dt.status === 0,
                                             "bg-green-500": dt.status === 1,
                                             "bg-red-500": dt.status === 2,
                                         })}
