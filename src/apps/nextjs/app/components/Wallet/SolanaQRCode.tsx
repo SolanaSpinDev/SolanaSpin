@@ -9,7 +9,9 @@ const SolanaQRCode = ({address}) => {
     return (
         <div style={{textAlign: "center", margin: "20px"}}>
             <h3>Scan to use this Solana address</h3>
-            <div className="flex items-center justify-center p-4"><QRCode value={address} size={128} bgColor={'#54b7fa'}/></div>
+            <div className="flex items-center justify-center p-4 fadeIn">
+                <QRCode value={address} size={128} bgColor={'#54b7fa'}/>
+            </div>
         </div>
     );
 };

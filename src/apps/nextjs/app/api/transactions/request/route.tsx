@@ -1,12 +1,9 @@
 import {NextResponse} from "next/server";
 import {Headers} from "@/app/api/utils/utils";
-import {auth} from "@/app/api/auth";
 
 export async function POST(req: Request) {
     const {pathname} = new URL(req.url);
     try {
-        const session = await auth();
-        console.log('session in request.tsx ', session)
         const payload = await req.json();
         const accessToken = payload.token;
 
@@ -24,14 +21,15 @@ export async function POST(req: Request) {
                 body: JSON.stringify(payload),
             }
         );
+
         if (!backendResponse.ok) {
-            throw new Error("Failed to fetch play");
+            throw new Error("Failed to fetch transactions/request");
         }
 
         const data = {...(await backendResponse.json()), responseStatus: 200};
         return NextResponse.json(data);
     } catch (error) {
-        console.error("Error fetching play:", error);
+        console.error("Error fetching transactions/request:", error);
         return NextResponse.json(
             {error: "Internal Server Error"},
             {status: 500}

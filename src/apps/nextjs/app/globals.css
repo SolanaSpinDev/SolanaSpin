@@ -69,16 +69,6 @@ header nav ul li a {
     text-decoration: none;
 }
 
-/*footer {*/
-/*    background-color: #333;*/
-/*    color: white;*/
-/*    text-align: center;*/
-/*    padding: 1rem;*/
-/*    position: fixed;*/
-/*    width: 100%;*/
-/*    bottom: 0;*/
-/*}*/
-
 /* General button styling */
 .btn {
     background-color: #555;
@@ -155,15 +145,18 @@ h1 {
     margin: 2rem 0;
 }
 
-.p-24 {
-    padding: 1rem;
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.main-canvas {
-    z-index: 1000;
-    position: relative;
-    border: 1px solid var(--foreground);
-    /*background: #dddddd;*/
-    /*background: url('/images/frame-0.png') center;*/
-    /*background-size: cover;*/
+.fade-in {
+    animation: fadeIn 0.9s
 }
