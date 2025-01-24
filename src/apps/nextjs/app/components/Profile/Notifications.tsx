@@ -19,6 +19,7 @@ export interface Notification {
 interface NotificationsProps {
     onClose: () => void
 }
+
 // {direction: 'deposit', amount: 300, date: "2025-01-23T10:05:41.286Z", status: 'completed'},
 // {direction: 'withdrawal', amount: 200, date: "2025-01-23T10:05:41.286Z", status: 'pending'},
 // {direction: 'deposit', amount: 500, date: "2025-01-23T10:05:41.286Z", status: 'progress'},
@@ -27,8 +28,7 @@ interface NotificationsProps {
 // {direction: 'deposit', amount: 50, date: "2025-01-23T10:05:41.286Z", status: 'pending'},
 
 export const Notifications = ({onClose}: NotificationsProps) => {
-    const [notifications, setNotifications] = useState<Notification[]>([
-    ]);
+    const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const {data: session} = useSession()
@@ -54,22 +54,22 @@ export const Notifications = ({onClose}: NotificationsProps) => {
                 const url = `/api/transactions/for-user/${session.user.id}`;
                 const data = await fetchWithAuth(url, "GET", session.tokens?.token)
 
-                console.log('data in Notifications')
-                console.log(data)
                 setNotifications(data);
             } catch (error) {
+                setError("An error has occurred, please try again later")
                 console.error("Error fetching protected data:", error);
+                setTimeout(()=>{
+                    onClose();
+                },5000)
             }
         };
 
         getTransactions();
     }, []);
 
-    // if (error) {
-    //     return <p className="p-4 text-red-500">Error: {error}</p>;
-
-
-    // }
+    if (error) {
+        return <p className="p-4 text-red-500">{error}</p>;
+    }
     return (<div className="bg-sky-950 p-4 rounded">
         <div>
             <div className="flex items-center justify-between mb-4">
