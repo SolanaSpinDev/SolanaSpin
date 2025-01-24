@@ -10,10 +10,13 @@ import {Notifications} from "./Notifications";
 
 export const Profile = () => {
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
     const router = useRouter();
 
     const handleToggleNotifications = () => {
+        if (status === 'unauthenticated') {
+           return router.push('/login');
+        }
         setIsNotificationsOpen((prev) => !prev);
     };
     const handleCloseNotifications = () => {
