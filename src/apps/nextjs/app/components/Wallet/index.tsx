@@ -110,9 +110,7 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
                                             className="overflow-x-hidden whitespace-nowrap text-ellipsis">{depositAddress}</span>
                                     </p>
                                 </>}
-                                {isWithdrawActive && <>
-                                    <Withdraw/>
-                                </>}
+                                {isWithdrawActive && <Withdraw/>}
                             </div>
                         </ModalBody>
                         <ModalFooter className="bg-sky-950">

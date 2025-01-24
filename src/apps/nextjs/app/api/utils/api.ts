@@ -89,7 +89,6 @@ export const resetPasswordUser = async (data: {
             {error: 'Reset password failed on backend', ...errorData},
             {status: res.status}
         );
-        // throw new Error(errorData || 'Failed to self-register user');
     }
 
     return res.json();
@@ -116,7 +115,6 @@ export const forgotPasswordUser = async (data: {
             {error: 'Forgot password failed on backend', ...errorData},
             {status: res.status}
         );
-        // throw new Error(errorData || 'Failed forgot-password user');
     }
 
     return res.json();
@@ -129,15 +127,19 @@ export const withdrawFounds = async (data: {
 }) => {
     let options: RequestInit = {
         method: 'POST',
+        credentials: "include",
         headers: {
             ...Headers(),
         },
     }
+    //backend expects "toAddress"
+    data['toAddress'] =data.address;
+    delete data.address;
     options = {
         ...options,
         body: JSON.stringify(data)
     }
-    const url = `${process.env.BASE_URL_INTERNAL}/api/withdraw`;
+    const url = `${process.env.BASE_URL_INTERNAL}/api/transactions/request`;
     const res = await fetch(url, {...options});
     if (!res.ok) {
         const errorData = await res.json();
@@ -145,7 +147,6 @@ export const withdrawFounds = async (data: {
             {error: 'Withdraw failed on backend', ...errorData},
             {status: res.status}
         );
-        // throw new Error(errorData || 'Failed forgot-password user');
     }
 
     return res.json();

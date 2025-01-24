@@ -1,4 +1,3 @@
-import {NextApiResponse} from "next";
 import {NextResponse} from "next/server";
 import {auth} from "@/app/api/auth";
 

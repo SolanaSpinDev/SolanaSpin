@@ -8,23 +8,9 @@ import {IoMdNotifications} from "react-icons/io";
 import {IoClose} from "react-icons/io5";
 import {FaWallet} from "react-icons/fa6";
 import {formatDate} from "@/lib/utils";
+import {Status, TransactionDirection} from "@/app/enums"
+import {Notification} from "@/app/types"
 
-export enum Status {
-    Pending,
-    Completed,
-    Failed,
-}
-export enum TransactionDirection{
-    Deposit,
-    Withdrawal
-}
-
-export interface Notification {
-    direction: number,
-    amount: number,
-    lastModified: string,
-    status: number
-}
 interface NotificationsProps {
     onClose: () => void
 }
@@ -67,9 +53,9 @@ export const Notifications = ({onClose}: NotificationsProps) => {
             } catch (error) {
                 setError("An error has occurred, please try again later")
                 console.error("Error fetching protected data:", error);
-                setTimeout(()=>{
+                setTimeout(() => {
                     onClose();
-                },5000)
+                }, 5000)
             }
         };
 

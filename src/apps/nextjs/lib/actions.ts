@@ -11,6 +11,8 @@ import {
     ResetPasswordActionState, WithdrawActionState, withdrawFormSchema,
 } from "@/lib/actions-utils";
 import {BackendValidationError} from "@/lib/utils";
+import {auth} from "@/app/api/auth";
+
 
 export const register = async (
     _: RegisterActionState,
@@ -172,9 +174,10 @@ export const resetPassword = async (
 export const withdraw = async (
     _: WithdrawActionState,
     formData: FormData,
+    token: string,
 ): Promise<WithdrawActionState> => {
-    console.log('CCCCC')
-    console.log(formData)
+
+
     try {
         const validatedData = withdrawFormSchema.safeParse({
             amount: +(formData.get("amount") ?? undefined),
@@ -189,13 +192,12 @@ export const withdraw = async (
         //todo check the source of this token
         const payload = {
             ...validatedData.data,
-            token: formData.get('token') as string,
+            token: token,
         };
 
         try {
             const res = await withdrawFounds(payload);
-
-            if (!(res.status === 200)) {
+            if (!(res.responseStatus === 200)) {
                 const errorData = await res?.json();
                 console.error('Backend responded with an error:', errorData);
                 return {status: "failed", errors: [], backEndError: errorData.details.detail};
@@ -218,7 +220,7 @@ export const withdraw = async (
                     fieldErrors[err.path[0]] = err.message;
                 }
             });
-            return {status: "invalid_data"};
+            return {status: "failed"};
         }
 
         console.error("Registration Failed:", error);
