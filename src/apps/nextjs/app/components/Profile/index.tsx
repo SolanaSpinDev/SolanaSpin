@@ -1,12 +1,12 @@
 'use client';
 
-import React,{useState} from "react";
+import React, {useState} from "react";
 import {signOut, useSession} from "next-auth/react";
 import {useRouter} from 'next/navigation';
 import {Button} from "@/app/components/Button/Page";
 import {IoMdNotifications} from "react-icons/io";
-import { FaCircleUser } from "react-icons/fa6";
-import { Notifications } from "./Notifications";
+import {FaCircleUser} from "react-icons/fa6";
+import {Notifications} from "./Notifications";
 
 export const Profile = () => {
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -42,10 +42,13 @@ export const Profile = () => {
             }
             {session?.tokens?.token &&
                 <li>
-                    <IoMdNotifications className="xl:text-2xl" onClick={handleToggleNotifications} />
+                    <IoMdNotifications className="xl:text-2xl" onClick={handleToggleNotifications}/>
                     {isNotificationsOpen && (
-                        <div className="absolute right-10 top-8 xl:top-20 w-96 shadow-lg">
-                            <Notifications onClose={handleCloseNotifications}/>
+                        <div className="fixed top-0 right-0 bottom-0 left-o w-full h-full z-20 bg-black/25"
+                             onClick={() => setIsNotificationsOpen(false)}>
+                            <div className="absolute right-10 top-8 xl:top-20 w-96 shadow-lg">
+                                <Notifications onClose={handleCloseNotifications}/>
+                            </div>
                         </div>
                     )}
                 </li>

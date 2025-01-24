@@ -43,8 +43,6 @@ export default function Page() {
                 }
                 toast.error("Failed validating your submission!" + "\n" + err);
             } else if (state.status === 'success') {
-                console.log('s a facut reset de pass cu success')
-                console.log('here i need to redirect the user to login page')
                 toast.success('Reset password successfully', {
                     onClose: () => {
                         //todo update the route with new login path
