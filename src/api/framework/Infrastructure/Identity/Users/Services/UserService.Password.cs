@@ -1,11 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Text;
+using Microsoft.AspNetCore.WebUtilities;
 using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.Framework.Core.Identity.Users.Features.ChangePassword;
 using SolanaSpin.Framework.Core.Identity.Users.Features.ForgotPassword;
 using SolanaSpin.Framework.Core.Identity.Users.Features.ResetPassword;
 using SolanaSpin.Framework.Core.Mail;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 internal sealed partial class UserService
@@ -27,11 +26,11 @@ internal sealed partial class UserService
 
         var resetPasswordUri = $"{origin}/reset-password?token={token}&email={request.Email}";
         var mailRequest = new MailRequest(
-            new Collection<string> { user.Email },
+            [user.Email],
             "Reset Password",
             $"Please reset your password using the following link: {resetPasswordUri}");
 
-        jobService.Enqueue(() => mailService.SendAsync(mailRequest, CancellationToken.None));
+        _ = jobService.Enqueue(() => mailService.SendAsync(mailRequest, CancellationToken.None));
     }
 
     public async Task ResetPasswordAsync(ResetPasswordCommand request, CancellationToken cancellationToken)

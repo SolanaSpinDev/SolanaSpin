@@ -3,5 +3,19 @@
 <PageHeader Title="Dashboard" Header="Dashboard" SubHeader="Your home page." />
 
 <MudContainer>
-    @* TODO *@
+    <MudCard Outlined>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText>Profile Details</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudStack Row="true" AlignItems="AlignItems.Center">
+                <MudTextField Value="@_profile?.Balance" Label="Balance" Variant="Variant.Outlined"
+                              Disabled="true" />
+                <MudIconButton Icon="@Icons.Material.Filled.Refresh" aria-label="refresh" OnClick="RefreshProfileAsync" />
+            </MudStack>
+        </MudCardContent>
+    </MudCard>
+
 </MudContainer>

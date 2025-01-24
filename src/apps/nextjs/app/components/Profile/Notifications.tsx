@@ -9,13 +9,22 @@ import {IoClose} from "react-icons/io5";
 import {FaWallet} from "react-icons/fa6";
 import {formatDate} from "@/lib/utils";
 
-export interface Notification {
-    direction: 'deposit' | 'withdrawal',
-    amount: number,
-    date: string,
-    status: string
+export enum Status {
+    Pending,
+    Completed,
+    Failed,
+}
+export enum TransactionDirection{
+    Deposit,
+    Withdrawal
 }
 
+export interface Notification {
+    direction: number,
+    amount: number,
+    lastModified: string,
+    status: number
+}
 interface NotificationsProps {
     onClose: () => void
 }
@@ -87,24 +96,34 @@ export const Notifications = ({onClose}: NotificationsProps) => {
                     {notifications.map((dt: Notification, i: number) => (
                         <div key={i + "" + dt.amount}
                              className={`w-full flex items-center justify-between p-1.5 border-b-1 border-b-sky-600 border-dashed`}>
-                            <div className="p-1">
-                                <FaWallet className="text-sky-500 mr-2"/>
-                            </div>
-                            <div className="w-1/4 capitalize">{dt.direction}</div>
-                            <div
-                                className={`w-1/4 ${dt.direction.toLowerCase() === 'withdrawal' ? 'text-red-500' : 'text-green-600'}`}>{dt.direction.toLowerCase() === 'withdrawal' ? '- ' : "+ "}{dt.amount}</div>
-                            <div className="w-1/4 text-tiny">
-                                {dt.date && formatDate(dt.date)}
-                            </div>
-                            <div className="w-1/4 capitalize flex items-center">
+
+                            <div className="flex w-full">
+                                <div className="p-1">
+                                    <FaWallet className="text-sky-500 mr-2"/>
+                                </div>
+                                <div className="flex flex-col flex-auto">
+                                    <div className="flex items-center justify-between w-full">
+
+                                        <div className="w-1/2 capitalize">{TransactionDirection[dt.direction]}</div>
+                                        <div
+                                            className={`w-1/2 ${dt.direction === 1 ? 'text-red-500' : 'text-green-600'}`}>
+                                            {dt.direction === 1 ? '- ' : "+ "}{dt.amount}</div>
+                                    </div>
+                                    <div className="flex items-center justify-between w-full">
+                                        <div className="w-1/2 text-tiny">
+                                            {dt.lastModified && formatDate(dt.lastModified)}
+                                        </div>
+                                        <div className="w-1/2 capitalize flex items-center">
                                         <span className={clsx("mr-2 rounded-full w-[10px] h-[10px]", {
-                                            "bg-green-500": dt.status === "completed",
-                                            "bg-red-500": dt.status === "failed",
-                                            "bg-orange-500": dt.status === "progress",
-                                            "bg-sky-500": dt.status === "pending",
+                                            "bg-sky-500": dt.status === 0,
+                                            "bg-green-500": dt.status === 1,
+                                            "bg-red-500": dt.status === 2,
                                         })}
                                         ></span>
-                                <span className="text-sm">{dt.status}</span>
+                                            <span className="text-sm">{Status[dt.status]}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>))}
                 </div>}
