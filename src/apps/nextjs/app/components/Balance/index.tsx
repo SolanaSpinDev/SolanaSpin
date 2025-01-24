@@ -1,18 +1,24 @@
 'use client'
-import React, {useState} from "react";
+import React from "react";
 import {formatCurrency} from "@/lib/utils";
 
 import {useBalance} from "@/app/context/BalanceContext";
 import Image from "next/image";
-import {
-    useDisclosure
-} from "@heroui/modal";
+import {useDisclosure} from "@heroui/modal";
 import {Wallet} from "@/app/components/Wallet";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 export const Balance = () => {
     const {balance} = useBalance();
     const {isOpen, onOpen, onClose, onOpenChange} = useDisclosure();
+    const {status} = useSession();
+    const router = useRouter();
+
     const handleWallet = () => {
+        if (status === 'unauthenticated') {
+            return router.push('/login');
+        }
         onOpen();
     }
     return (<div className="flex items-center font-bold text-xs lg:text-2xl">
@@ -29,9 +35,10 @@ export const Balance = () => {
             />
             </span>
 
-        <span className="text-white bg-blue-800 p-1 lg:p-3 rounded-tr-[5px] rounded-br-[5px]  cursor-pointer" onClick={handleWallet}>
+        <span className="text-white bg-blue-800 p-1 lg:p-3 rounded-tr-[5px] rounded-br-[5px]  cursor-pointer"
+              onClick={handleWallet}>
             <Wallet isOpen={isOpen}
-                    onOpenChange={onOpenChange} />
+                    onOpenChange={onOpenChange}/>
             Wallet
         </span>
     </div>)
