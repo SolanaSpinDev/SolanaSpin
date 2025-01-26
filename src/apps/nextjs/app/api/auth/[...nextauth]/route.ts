@@ -15,8 +15,10 @@ import Credentials from "next-auth/providers/credentials";
 
 async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
     try {
+        console.debug("Refreshing access token with", nextAuthJWT.data.tokens.refreshToken);
         // Get a new access token from backend using the refresh token
         const res = await refresh(nextAuthJWT.data.tokens.token, nextAuthJWT.data.tokens.refreshToken);
+        console.log('XXXXXXXXXXXXrefresh token res is ', res)
         const accessToken: BackendAccessJWT = await res.json();
 
         if (!res.ok) throw accessToken;
@@ -26,6 +28,7 @@ async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
         nextAuthJWT.data.validity.valid_until = exp;
         nextAuthJWT.data.tokens.token = accessToken.token;
 
+        console.debug("Token refreshed successfully");
         return {...nextAuthJWT};
     } catch (error) {
         console.debug(error);
@@ -58,7 +61,7 @@ const {auth, handlers, signIn, signOut} = NextAuth({
                     if (!res.ok) throw tokens;
 
                     const access: DecodedJWT = jwtDecode(tokens.token);
-                    console.debug('access and tokens = ', access ,tokens);
+                    console.debug('access and tokens = ', access, tokens);
                     // Extract the user from the access token
                     //todo update the user Object with shorter keys to map
                     const user: UserObject = {
@@ -80,7 +83,7 @@ const {auth, handlers, signIn, signOut} = NextAuth({
                         validity: validity
                     } as unknown as User;
                 } catch (error) {
-                    console.log('login function failled')
+                    console.log('login function failed')
                     console.error(error);
                     return null;
                 }
@@ -107,8 +110,12 @@ const {auth, handlers, signIn, signOut} = NextAuth({
             }
 
             // The current access token has expired, but the refresh token is still valid
+            console.log('here it is done the refreshAccesstoken becaus ethe condition isnt met')
             if (Date.now() < token.data.validity.refresh_until * 1000) {
                 console.debug("Access token is being refreshed");
+                console.debug("Date.now() is, ",  Date.now());
+                console.debug("token.data.validity.refresh_until * 1000, ",  token.data.validity.refresh_until * 1000);
+                console.debug("and the condition of Date.now()<token.data.validity.refresh_until * 1000 is fulfilled")
                 return await refreshAccessToken(token);
             }
 
