@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 
 export const Withdraw = () => {
     const [isSuccessful, setIsSuccessful] = useState(false);
-    const {balance} = useBalance();
+    const {balance, getBalance} = useBalance();
     const [amountErrors, setAmountErrors] = useState<z.ZodIssue[]>([]);
     const [formValues, setFormValues] = useState({
         amount: null,
@@ -60,6 +60,7 @@ export const Withdraw = () => {
     useEffect(() => {
         if (state.status === 'success') {
             toast.success('Your request has been submitted');
+            getBalance().then((r) => r);
         } else if (state.status === 'failed') {
             toast.error("An error has occurred, please try again later");
         }
