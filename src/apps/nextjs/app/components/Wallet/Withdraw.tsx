@@ -38,7 +38,6 @@ export const Withdraw = () => {
         }
 
         if (amount > balance) {
-            // 3. update local errors
             setAmountErrors([
                 {
                     code: "custom",

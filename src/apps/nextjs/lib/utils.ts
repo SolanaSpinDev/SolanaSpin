@@ -151,8 +151,8 @@ export const wheelsConfig = {
             {
                 "resultType": 1,
                 "resultValue": "0.5",
-                "resultValueToShow": "X0.5",
                 "videoNamingConvention": "X05_A",
+                "resultValueToShow": "X0.5",
             }
         ]
     },
@@ -164,41 +164,49 @@ export const wheelsConfig = {
                 "resultType": 1,
                 "resultValue": "2",
                 "videoNamingConvention": "X2",
+                "resultValueToShow": "X2",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
                 "videoNamingConvention": "No_Win",
+                "resultValueToShow": "💀 lose",
             },
             {
                 "resultType": 1,
                 "resultValue": "2",
                 "videoNamingConvention": "X2",
+                "resultValueToShow": "X2",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
                 "videoNamingConvention": "No_Win",
+                "resultValueToShow": "💀 lose",
             },
             {
                 "resultType": 1,
                 "resultValue": "2",
                 "videoNamingConvention": "X2",
+                "resultValueToShow": "X2",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
                 "videoNamingConvention": "No_Win",
+                "resultValueToShow": "💀 lose",
             },
             {
                 "resultType": 1,
                 "resultValue": "2",
                 "videoNamingConvention": "X2",
+                "resultValueToShow": "X2",
             },
             {
                 "resultType": 0,
                 "resultValue": "💀 lose",
                 "videoNamingConvention": "No_Win",
+                "resultValueToShow": "💀 lose",
             }
         ]
     }
@@ -216,7 +224,7 @@ export class BackendValidationError extends Error {
 
 export const formatDate = (dateStr: string): string => {
     const date = new Date(dateStr);
-    return  new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',

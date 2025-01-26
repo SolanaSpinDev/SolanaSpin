@@ -182,7 +182,7 @@ const WheelContainer = () => {
                 fetch(videoUrl),
                 fetch(imageUrl),
             ]);
-            setOutcome({outcome: videoNamingConvention, amount: diceRes.result.returnAmount, resultValueToShow})
+            setOutcome({outcome: videoNamingConvention, amount: diceRes.netAmount, resultValueToShow})
 
             if (!responseVideo.ok || !responseImage.ok) {
                 throw new Error('Failed to fetch data');
@@ -213,10 +213,11 @@ const WheelContainer = () => {
     }
 
     const handleVideoEnd = (): void => {
+        //this should update the balance at  video end
         getBalance().then((r) => r);
         setIsPlaying(false);
         const lastPlay = {
-            name: session?.user?.firstName || "Anonymous",
+            name: session?.user?.email || "Anonymous",
             time: new Date(),
             prize: outcome.amount,
             outcome: outcome.resultValueToShow
