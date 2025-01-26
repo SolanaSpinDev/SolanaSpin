@@ -2,6 +2,7 @@ import React from "react";
 import TimeAgo from "@/app/components/TimeAgo";
 import clsx from "clsx";
 import {NauSea} from '@/app/fonts/fonts';
+import {formatCurrency} from "@/lib/utils";
 
 interface RecentPlaysProps {
     plays: Play[];
@@ -27,25 +28,32 @@ const RecentPlays: React.FC<RecentPlaysProps> = React.memo(({plays, ticket}) => 
                             <div className="flex items-center justify-center text-xs   xl:text-base">
                                 <div>
                                     <span
-                                        className="capitalize">{play.name.length > 10 ? play.name.substring(0, 10) + ".." : play.name}</span>
+                                        className="capitalize">{play.name.length > 15 ? play.name.substring(0, 15) + ".." : play.name}</span>
                                     <span className="hidden lg:inline"> spun <span
                                         className="lg:hidden xl:inline-block">a</span></span>
                                 </div>
+                                {/*/todo update colors because outcome is changed/*/}
                                 <div className={clsx("capitalize px-1 ", {
-                                    "text-pink-500": play.outcome === "X1",
-                                    "text-green-500": play.outcome === "X2",
+                                    "text-red-500": play.outcome === "X0.1",
+                                    "text-pink-500": play.outcome === "X0.5",
+                                    "text-green-500": play.outcome === "X50",
                                     "text-sky-500": play.outcome === "X5",
                                     "text-orange-500 font-thin ": play.outcome === "gift",
                                     "text-amber-500": play.outcome === "ticket",
                                     "text-zinc-500": play.outcome === "no win"
                                 })}>{play.outcome} </div>
-                                {play.prize > 0 && <>
-                                    <div><span className="hidden xl:inline">and</span> won</div>
-                                    <div className={clsx(["px-1"], {
-                                        [NauSea.className]: true,
-                                        "text-emerald-500 font-thin ": play.prize > 0
-                                    })}>{play.prize === 1 ? "1 Ticket" : "$" + play.prize}</div>
-                                </>
+                                {typeof (play.prize) === 'number' &&
+                                    <>
+                                        <div>
+                                            <span className="hidden xl:inline"> and </span>
+                                            <span>{play.prize >= 0 ? ' won ' : ' lost '}</span>
+                                        </div>
+                                        <div className={clsx(["px-1"], {
+                                            [NauSea.className]: true,
+                                            "text-emerald-500": play.prize >= 0,
+                                            "text-orange-500 font-thin ": play.prize < 0,
+                                        })}>{formatCurrency(play.prize)}</div>
+                                    </>
                                 }
                             </div>
                             <div className="">
