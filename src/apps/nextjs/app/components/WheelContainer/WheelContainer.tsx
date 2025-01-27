@@ -2,7 +2,6 @@ import React, {useCallback, useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
 import RecentPlays from "@/app/components/RecentPlays";
-import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {usePathname, useRouter} from "next/navigation";
 import {Header} from "@/app/components/Header";
 import {Footer} from "@/app/components/Footer";
@@ -28,8 +27,6 @@ const WheelContainer = () => {
 
     //todo review the necessity of browser
     const [browser, setBrowser] = useState('');
-    const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
-    const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
     const [error, setError] = useState(null); // State to handle errors
     const [video, setVideo] = useState('');
@@ -101,17 +98,6 @@ const WheelContainer = () => {
             setOutcome({outcome: initialWheelPosition, amount: null, resultValueToShow: ''})
         }
     };
-
-    const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
-        updateBalance(data.jackpotValue);
-        setSpecialPrize(data.jackpotValue);
-        setHasWonSpecialPrize(true);
-    }
-
-    const handlePrizeAnimationEnd = useCallback(() => {
-        setHasWonSpecialPrize(false);
-        setSpecialPrize(0);
-    }, []);
 
     const handleToggleMute = (): void => {
         const video = videoRef.current;
@@ -287,17 +273,12 @@ const WheelContainer = () => {
                 </div>
             )}
 
-            <PrizeAnnouncement hasWon={hasWonSpecialPrize}
-                               message={`Jackpot! You won $${specialPrize}!`}
-                               onAnimationComplete={handlePrizeAnimationEnd}
-            />
-
             <div
                 className="flex items-start lg:items-center justify-between z-20 middle-container px-2 pt-[2px] mx-auto">
                 <div className="relative flex flex-col items-center justify-center z-20 w-[35%]">
                     <GameMode activeGameMode={activeGameMode} onSelectGameMode={handleSelectGameMode}
                               tooltip={isPlaying ? "Can't change game while a game is playing" : ""}/>
-                    <Jackpot jackpotReached={handleJackpot} gameMode={activeGameMode} key={activeGameMode}/>
+                    <Jackpot jackpotReached={()=>{}} gameMode={activeGameMode} key={activeGameMode}/>
                 </div>
 
                 <div className="relative flex flex-col items-center justify-center z-20 pr-1 2xl:mr-5">
