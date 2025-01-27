@@ -19,7 +19,7 @@ interface WalletModalProps {
 }
 
 export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
-    const [depositAddress, setDepositAddress] = useState();
+    const [depositAddress, setDepositAddress] = useState('');
     const [isDepositActive, setIsDepositActive] = useState(false);
     const [isWithdrawActive, setIsWithdrawActive] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -86,7 +86,8 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
         <Modal
             isOpen={isOpen}
             onOpenChange={onOpenChange}
-            size="xl"
+            backdrop={"opaque"}
+            size="md"
             className="text-white"
             placement="top-center"
             motionProps={{
@@ -128,17 +129,15 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
                                 {isDepositActive && <>
                                     <p className="mb-10">
                                         Use this address to deposit your funds. After deposit your funds will be visible
-                                        in
-                                        your
-                                        balance
+                                        in your balance
                                     </p>
-                                    {depositAddress &&<SolanaQRCode address={depositAddress}/>}
-                                    {depositAddress &&  <p className="flex items-center justify-center gap-3">
+                                    {depositAddress && <SolanaQRCode address={depositAddress}/>}
+                                    {depositAddress && <p className="flex items-center justify-center gap-3">
                                         <button>
                                             <FaRegCopy onClick={handleCopy}/>
                                         </button>
                                         <span
-                                            className="overflow-x-hidden whitespace-nowrap text-ellipsis">{depositAddress}</span>
+                                            className="overflow-x-hidden whitespace-nowrap text-ellipsis">{depositAddress.slice(0, 4) + "...." + depositAddress.slice(-4)}</span>
                                     </p>}
                                 </>}
                                 {isWithdrawActive && <Withdraw/>}
