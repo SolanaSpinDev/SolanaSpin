@@ -48,12 +48,15 @@ export const Jackpot = ({jackpotReached, gameMode}) => {
                     className="object-contain"
                 />
             </div>
-            <div
-                className="flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">
-                <div className="progress-bar" style={{width: `${progress}%`}}></div>
-                <div
-                    className={`${NauSea.className} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black z-20 tracking-[1px] font-thin`}>${(progress / 100) * jackpotValue}</div>
-            </div>
+            <div className={`${NauSea.className} text-2xl text-amber-500`}>Coming soon!</div>
+            {/*todo temporarily hide the jackpot progress bar*/}
+
+            {/*<div*/}
+            {/*    className="flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">*/}
+            {/*    <div className="progress-bar" style={{width: `${progress}%`}}></div>*/}
+            {/*    <div*/}
+            {/*        className={`${NauSea.className} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black z-20 tracking-[1px] font-thin`}>${(progress / 100) * jackpotValue}</div>*/}
+            {/*</div>*/}
         </div>
     )
 }
