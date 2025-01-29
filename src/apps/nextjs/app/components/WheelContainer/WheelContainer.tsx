@@ -144,6 +144,10 @@ const WheelContainer = () => {
     }
 
     const handlePlayVideoDb = async () => {
+        //block vip and white for playing
+        if (activeGameMode === 'vip' || activeGameMode === 'white') {
+            return;
+        }
         //if user is not authenticated can't play
         if (status === 'unauthenticated') {
             router.push('/login');
@@ -278,7 +282,8 @@ const WheelContainer = () => {
                 <div className="relative flex flex-col items-center justify-center z-20 w-[35%]">
                     <GameMode activeGameMode={activeGameMode} onSelectGameMode={handleSelectGameMode}
                               tooltip={isPlaying ? "Can't change game while a game is playing" : ""}/>
-                    <Jackpot jackpotReached={()=>{}} gameMode={activeGameMode} key={activeGameMode}/>
+                    <Jackpot jackpotReached={() => {
+                    }} gameMode={activeGameMode} key={activeGameMode}/>
                 </div>
 
                 <div className="relative flex flex-col items-center justify-center z-20 pr-1 2xl:mr-5">
@@ -288,6 +293,7 @@ const WheelContainer = () => {
             <div
                 className="absolute flex items-center justify-center bottom-0 z-1 w-full px-2 lg:px-5 h-[50px] xl:h-[80px] pb-2">
                 <Footer isMuted={isMuted}
+                        activeGameMode={activeGameMode}
                         onToggleMute={handleToggleMute}
                         activeBet={activeBet}
                         onSelectBet={handleSelectBet}/>
