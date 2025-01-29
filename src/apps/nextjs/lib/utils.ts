@@ -1,3 +1,4 @@
+//todo remoe those images since they become obsolete
 import Image1 from "@/public/images/bank_note_1.png";
 import Image5 from "@/public/images/bank_note_5.png";
 import Image10 from "@/public/images/bank_note_10.png";
