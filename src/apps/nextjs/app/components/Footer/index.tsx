@@ -1,8 +1,9 @@
 import {GoMute, GoUnmute} from "react-icons/go";
 import {Socials} from "@/app/components/Socials";
 import {bets} from "@/lib/utils";
-import Image, {StaticImageData} from "next/legacy/image";
+import {StaticImageData} from "next/legacy/image";
 import React from "react";
+import {NauSea} from "@/app/fonts/fonts";
 
 type FooterProps = {
     isMuted: boolean;
@@ -12,6 +13,7 @@ type FooterProps = {
 };
 
 export const Footer: React.FC<FooterProps> = ({isMuted, onToggleMute, activeBet, onSelectBet}) => {
+    console.log(bets)
     return (
         <div className="relative flex items-center justify-between w-full">
             <div className="flex items center justify-center space-x-4 pl-4">
@@ -30,14 +32,9 @@ export const Footer: React.FC<FooterProps> = ({isMuted, onToggleMute, activeBet,
                         <div
                             className={`flex relative cursor-pointer rounded-lg max-w-[50px] lg:max-w-[100px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
                             key={bet.value}>
-                            <Image
-                                src={bet.src}
-                                className=""
-                                alt="lorem"
-                                width={443}
-                                height={256}
-                                onClick={() => onSelectBet(bet.value)}
-                            />
+                            <div onClick={() => onSelectBet(bet.value)}
+                                className={`${NauSea.className} w-[400px] h-[56px] bg-black text-white text-3xl flex items-center justify-center border-solid border-1 border-white rounded`}
+                            >$ {bet.value}</div>
                         </div>
                     ))}
                 </div>
