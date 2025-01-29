@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({activeGameMode, isMuted, onToggle
                                 }
                                 return;
                             }}
-                                 className={`${NauSea.className} w-[400px] h-[56px] bg-black text-white text-3xl flex items-center justify-center border-solid border-1 border-white rounded`}
+                                 className={`${NauSea.className} w-[45px] lg:w-[100px] h-[40px] lg:h-[56px] bg-black text-white text-base lg:text-3xl flex items-center justify-center border-solid border-1 border-white rounded`}
                             >$ {bet.value}</div>
                         </div>
                     ))}
