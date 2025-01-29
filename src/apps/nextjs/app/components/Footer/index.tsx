@@ -6,14 +6,14 @@ import React from "react";
 import {NauSea} from "@/app/fonts/fonts";
 
 type FooterProps = {
+    activeGameMode: string,
     isMuted: boolean;
     onToggleMute: () => void;
     activeBet: number;
     onSelectBet: (betValue: number) => void;
 };
 
-export const Footer: React.FC<FooterProps> = ({isMuted, onToggleMute, activeBet, onSelectBet}) => {
-    console.log(bets)
+export const Footer: React.FC<FooterProps> = ({activeGameMode, isMuted, onToggleMute, activeBet, onSelectBet}) => {
     return (
         <div className="relative flex items-center justify-between w-full">
             <div className="flex items center justify-center space-x-4 pl-4">
@@ -32,8 +32,13 @@ export const Footer: React.FC<FooterProps> = ({isMuted, onToggleMute, activeBet,
                         <div
                             className={`flex relative cursor-pointer rounded-lg max-w-[50px] lg:max-w-[100px] mx-[3px] image-button-container ${activeBet === bet.value ? 'active' : ''}`}
                             key={bet.value}>
-                            <div onClick={() => onSelectBet(bet.value)}
-                                className={`${NauSea.className} w-[400px] h-[56px] bg-black text-white text-3xl flex items-center justify-center border-solid border-1 border-white rounded`}
+                            <div onClick={() => {
+                                if (activeGameMode === 'wood' || activeGameMode === 'blue') {
+                                    onSelectBet(bet.value)
+                                }
+                                return;
+                            }}
+                                 className={`${NauSea.className} w-[400px] h-[56px] bg-black text-white text-3xl flex items-center justify-center border-solid border-1 border-white rounded`}
                             >$ {bet.value}</div>
                         </div>
                     ))}
