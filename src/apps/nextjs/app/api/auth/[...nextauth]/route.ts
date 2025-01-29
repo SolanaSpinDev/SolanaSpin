@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-
 import {login, refresh} from "@/app/api/utils/user-auth";
 import type {
     User,
@@ -7,7 +6,7 @@ import type {
     AuthValidity,
     BackendAccessJWT,
     BackendJWT,
-    DecodedJWT
+    DecodedJWT,
 } from "next-auth";
 import type {JWT} from "next-auth/jwt";
 import {jwtDecode} from "jwt-decode";
@@ -17,6 +16,8 @@ async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
     try {
         console.debug("Refreshing access token with", nextAuthJWT.data.tokens.refreshToken);
         // Get a new access token from backend using the refresh token
+        console.log('token param passed to refresh token function is = ', nextAuthJWT.data.tokens.token)
+        console.log('refreshToken param passed to refresh token function is = ', nextAuthJWT.data.tokens.refreshToken)
         const res = await refresh(nextAuthJWT.data.tokens.token, nextAuthJWT.data.tokens.refreshToken);
         console.log('XXXXXXXXXXXXrefresh token res is ', res)
         const accessToken: BackendAccessJWT = await res.json();
@@ -32,6 +33,8 @@ async function refreshAccessToken(nextAuthJWT: JWT): Promise<JWT> {
         return {...nextAuthJWT};
     } catch (error) {
         console.debug(error);
+        console.log('refresh token is not working, should delogate the use')
+        await signOut();
         return {
             ...nextAuthJWT,
             error: "RefreshAccessTokenError"
@@ -113,9 +116,10 @@ const {auth, handlers, signIn, signOut} = NextAuth({
             console.log('here it is done the refreshAccesstoken becaus ethe condition isnt met')
             if (Date.now() < token.data.validity.refresh_until * 1000) {
                 console.debug("Access token is being refreshed");
-                console.debug("Date.now() is, ",  Date.now());
-                console.debug("token.data.validity.refresh_until * 1000, ",  token.data.validity.refresh_until * 1000);
+                console.debug("Date.now() is, ", Date.now());
+                console.debug("token.data.validity.refresh_until * 1000, ", token.data.validity.refresh_until * 1000);
                 console.debug("and the condition of Date.now()<token.data.validity.refresh_until * 1000 is fulfilled")
+                console.log('se cheama refresh token with this param (named token but it is not jsut token is the entire nextAuthJWT) = ', token)
                 return await refreshAccessToken(token);
             }
 

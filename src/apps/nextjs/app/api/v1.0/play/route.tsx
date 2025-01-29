@@ -1,10 +1,16 @@
 import {NextResponse} from "next/server";
 import {auth} from "@/app/api/auth";
+import {refresh} from "@/app/api/utils/user-auth";
 
 export async function POST(req: Request) {
+    console.log('x')
     const {pathname} = new URL(req.url);
     try {
         const session = await auth();
+
+        // refresh(session.tokens.token,session.tokens.refreshToken);
+
+        console.log(session)
         if (!session?.validity?.valid_until) {
             return NextResponse.json(
                 {error: "Unauthorized: No valid session"},
