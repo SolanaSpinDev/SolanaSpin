@@ -1,9 +1,3 @@
-//todo remoe those images since they become obsolete
-import Image1 from "@/public/images/bank_note_1.png";
-import Image5 from "@/public/images/bank_note_5.png";
-import Image10 from "@/public/images/bank_note_10.png";
-import Image20 from "@/public/images/bank_note_20.png";
-
 export const middleEllipsis = (str: string, len: number) => {
     if (!str) {
         return '';
@@ -58,10 +52,10 @@ export const formatCurrency = (number: number) => {
 
 export const jackpotLimit = 500;
 export const bets = [
-    {value: 1, src: Image1},
-    {value: 5, src: Image5},
-    {value: 10, src: Image10},
-    {value: 20, src: Image20},
+    {value: 1},
+    {value: 5},
+    {value: 10},
+    {value: 20,},
 ];
 export const gameModes: string[] = ['blue', 'wood', 'white', 'vip']
 export const wheelsConfig = {
