@@ -37,10 +37,10 @@ export const Profile = () => {
         router.push('/register-user');
     };
     const handleEditProfile = () => {
-        router.push('/edit-profile');
+        router.push('/user/edit-profile');
     }
     const handleReferral = () => {
-        //handle copy url for referral
+        router.push('/user/referral');
     }
     return (<div className="mr-2">
         <ul className="flex items-center justify-center gap-3 text-white height-[40px] relative">
@@ -54,7 +54,7 @@ export const Profile = () => {
                     onBlur={() => setIsMenuVisible(false)}
                     tabIndex={0}>
                     <FaCircleUser className="xl:text-2xl"/>
-                    {session?.user?.email && <div className="ml-2">Hello {session?.user?.email}</div>}
+                    {session?.user?.email && <div className="ml-2 hidden md:inline-block">Hello {session?.user?.email}</div>}
                     {isMenuVisible && (
                         <div
                             className="absolute top-0 w-52 ">

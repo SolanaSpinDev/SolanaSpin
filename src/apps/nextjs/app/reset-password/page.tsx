@@ -4,7 +4,7 @@ import {useEffect, useState, useActionState} from 'react';
 import Head from "next/head";
 import {useRouter} from 'next/navigation';
 import {Panel} from "@/app/components/Authentication/Panel/Page";
-import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
+import {UserLayout} from "@/app/components/UserLayout/Page";
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
 import {resetPassword} from '@/lib/actions';
 import {ResetPasswordActionState} from '@/lib/actions-utils';
@@ -72,7 +72,7 @@ export default function Page() {
     };
 
     return (
-        <AuthenticationLayout>
+        <UserLayout>
             <ToastContainer
                 position="top-right"
                 autoClose={2500}
@@ -98,6 +98,6 @@ export default function Page() {
                     <SubmitButton isSuccessful={isSuccessful}>Submit password</SubmitButton>
                 </ResetPasswordForm>
             </Panel>
-        </AuthenticationLayout>
+        </UserLayout>
     );
 }
