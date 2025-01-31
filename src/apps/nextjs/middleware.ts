@@ -1,16 +1,9 @@
 import {NextRequest, NextResponse} from "next/server";
-// import {withAuth} from "next-auth/middleware"
-
-// export default withAuth({
-//         pages: {
-//           signIn: "/auth/signin", // Redirect to this page if not authenticated
-//           },
-// });
-
+import {RequestCookie} from "next/dist/compiled/@edge-runtime/cookies";
 
 export function middleware(request: NextRequest) {
     const url = request.nextUrl;
-    console.log('@Middleware.ts');
+    console.log("@Middleware.ts - path:", url.pathname);
 
     //1. Exclude NextAuth API routes
     if (url.pathname.startsWith("/api/auth/")) {
@@ -23,12 +16,10 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/game/default", request.url));
     }
 
-    // Add custom logic for protected routes if needed
     const isProtectedRoute = url.pathname.startsWith("/user/");
-    const token = request.cookies.get("authjs.session-token");
+    const token: RequestCookie = request.cookies.get("authjs.session-token");
 
-    //todo update this redirect
-    if (isProtectedRoute && !token) {
+    if (isProtectedRoute && !token.value) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
@@ -36,5 +27,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/api/auth/:path*"], // Ensure /api/auth routes are handled
+    matcher: ["/api/auth/:path*", "/user/:path*"],
 };
