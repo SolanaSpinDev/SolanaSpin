@@ -72,7 +72,7 @@ export default function Referral() {
                     pauseOnHover
                     theme="dark"
                 />
-                <Panel className={`overflow-x-auto !p-1 md:!p-6 mx-auto max-w-full`}>
+                <Panel className={`overflow-x-auto md:w-[600px] lg:w-[800px] !p-1 md:!p-6 mx-auto max-w-full`}>
                     <div className="flex flex-col p-8">
                         <div className="flex flex-col p-4 bg-sky-900 rounded-lg mb-2">
                             <div className="uppercase text-base text-white">Your referral link</div>
