@@ -4,7 +4,7 @@ import Head from "next/head";
 import {signIn} from "next-auth/react";
 import {useRouter} from 'next/navigation';
 import {Panel} from "@/app/components/Authentication/Panel/Page";
-import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
+import {UserLayout} from "@/app/components/UserLayout/Page";
 import {RegisterForm} from '@/app/components/Authentication/RegisterForm/Page';
 import {SubmitButton} from "@/app/components/Authentication/SubmitButton/Page";
 import {register} from '@/lib/actions';
@@ -79,7 +79,7 @@ export default function Page() {
     };
 
     return (
-        <AuthenticationLayout>
+        <UserLayout>
             <ToastContainer
                 position="top-right"
                 autoClose={2500}
@@ -104,6 +104,6 @@ export default function Page() {
                     <SubmitButton isSuccessful={isSuccessful}>Sign Up</SubmitButton>
                 </RegisterForm>
             </Panel>
-        </AuthenticationLayout>
+        </UserLayout>
     );
 }

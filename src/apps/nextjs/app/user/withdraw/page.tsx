@@ -1,7 +1,7 @@
 'use client'
 
 import {Panel} from "@/app/components/Authentication/Panel/Page";
-import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
+import {UserLayout} from "@/app/components/UserLayout/Page";
 import {fetchWithAuth} from "@/app/api/utils/api";
 import {useSession} from "next-auth/react";
 import {useBalance} from "@/app/context/BalanceContext";
@@ -110,7 +110,7 @@ export default function Withdraw() {
         };
     }, []);
     return (
-        <AuthenticationLayout>
+        <UserLayout>
             <DepositModal depositAddress={depositAddress}
                           isOpen={isOpen}
                           onOpenChange={onOpenChange}/>
@@ -167,6 +167,6 @@ export default function Withdraw() {
                         </div>}
                 </div>
             </Panel>
-        </AuthenticationLayout>
+        </UserLayout>
     )
 }

@@ -5,7 +5,7 @@ import React from "react";
 export const LogoTitle = React.memo(({ showBeta = true }: { showBeta?: boolean }) => {
     return (
         <div
-            className=" flex lg:flex-row items-center justify-center">
+            className=" flex lg:flex-row items-center justify-center cursor-pointer">
 
             <div className="relative w-[40px] lg:w-[80px] h-[40px] lg:h-[80px]">
                 <Image

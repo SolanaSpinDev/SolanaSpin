@@ -4,7 +4,7 @@ import Head from "next/head";
 import {signIn} from "next-auth/react";
 import {useRouter} from 'next/navigation';
 import {Panel} from "@/app/components/Authentication/Panel/Page";
-import {AuthenticationLayout} from "@/app/components/Authentication/AuthenticationLayout/Page";
+import {UserLayout} from "@/app/components/UserLayout/Page";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useForm} from 'react-hook-form';
@@ -74,7 +74,7 @@ export default function Page() {
     };
 
     return (
-        <AuthenticationLayout>
+        <UserLayout>
             <ToastContainer
                 position="top-right"
                 autoClose={2500}
@@ -191,6 +191,6 @@ export default function Page() {
                     </div>
                 </form>
             </Panel>
-        </AuthenticationLayout>
+        </UserLayout>
     );
 }
