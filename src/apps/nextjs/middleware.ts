@@ -17,8 +17,7 @@ export function middleware(request: NextRequest) {
     }
 
     const isProtectedRoute = url.pathname.startsWith("/user/");
-    const token: RequestCookie = request.cookies.get("authjs.session-token");
-
+    const token: RequestCookie = request.cookies.get("authjs.session-token") ?? request.cookies.get(" __Secure-authjs.session-token");
     if (isProtectedRoute && !token?.value) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
