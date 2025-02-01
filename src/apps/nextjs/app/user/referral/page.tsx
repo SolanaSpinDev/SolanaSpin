@@ -75,20 +75,20 @@ export default function Referral() {
                 <Panel className={`overflow-x-auto md:w-[600px] lg:w-[800px] !p-1 md:!p-6 mx-auto max-w-full`}>
                     <div className="flex flex-col p-8">
                         <div className="flex flex-col p-4 bg-sky-900 rounded-lg mb-2">
-                            <div className="uppercase text-base text-white">Your referral link</div>
+                            <div className="uppercase text-base text-white">Your referral link </div>
                             <div className="bg-gray-500 w-full h-[1px]"/>
-                            <div className="flex items-center justify-start p-4">
+                            <div className="flex items-center justify-start p-4 text-white">
                                 <button className="mr-4">
                                     <FaRegCopy onClick={handleCopy}/>
                                 </button>
                                 <span
-                                    className="overflow-x-hidden whitespace-nowrap text-ellipsis">{referralLink}</span>
+                                    className="truncate text-ellipsis" style={{ maxWidth: '200px' }}>{referralLink}</span>
                             </div>
                         </div>
                         <div className="flex flex-col p-4 bg-sky-900 rounded-lg">
                             <div className="uppercase text-base text-white">Your Statistics</div>
                             <div className="bg-gray-500 w-full h-[1px]"/>
-                            <div className="flex justify-between p-4">
+                            <div className="flex justify-between p-4 text-white">
                                 <div className="flex flex-col">
                                     <div>
                                         Referrals

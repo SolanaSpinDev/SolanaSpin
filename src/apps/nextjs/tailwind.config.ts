@@ -20,6 +20,9 @@ const config: Config = {
                     DEFAULT: '#1c283e',
                 }
             },
+            screens: {
+                'low-md': '600px',
+            },
             keyframes: {
                 spinSlowFastSlow: {
                     '0%': {transform: 'rotate(0deg)', animationTimingFunction: 'ease-in'},
