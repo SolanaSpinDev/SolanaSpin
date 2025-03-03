@@ -56,7 +56,7 @@ public static class ApproveWithdrawalEndpoint
         })
             .WithName(nameof(ApproveWithdrawalEndpoint))
             .WithSummary("Approve a withdrawal")
-            .RequirePermission("Permissions.Transactions.Approve")
+            .RequirePermission("Permissions.Transactions.Update")
             .WithDescription("Approve a withdrawal");
     }
 }

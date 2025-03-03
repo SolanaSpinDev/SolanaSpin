@@ -44,7 +44,7 @@ public static class RejectWithdrawalEndpoint
         })
             .WithName(nameof(RejectWithdrawalEndpoint))
             .WithSummary("Reject a withdrawal")
-            .RequirePermission("Permissions.Transactions.Reject")
+            .RequirePermission("Permissions.Transactions.Update")
             .WithDescription("Reject a withdrawal");
     }
 }
