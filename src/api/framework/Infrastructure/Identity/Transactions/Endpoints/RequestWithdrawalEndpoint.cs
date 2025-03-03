@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using SolanaSpin.Framework.Core.Blockchain;
 using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.Framework.Core.Identity.Transactions.Dtos;
 using SolanaSpin.Framework.Core.Identity.Transactions.Features.RejectWithdrawal;
@@ -25,6 +26,7 @@ public static class RequestWithdrawalEndpoint
             [FromKeyedServices("identity:transactions")] IRepository<AppTransaction> repository,
             [FromServices] ICurrentUser currentUser,
             [FromServices] IUserService userService,
+            [FromServices] IWalletService walletService,
             CancellationToken cancellationToken) =>
         {
             await validator.ValidateAndThrowAsync(request, cancellationToken);

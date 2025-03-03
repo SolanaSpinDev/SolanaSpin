@@ -42,7 +42,7 @@ internal sealed partial class UserService(
     IMailService mailService,
     IMultiTenantContextAccessor<AppTenantInfo> multiTenantContextAccessor,
     IStorageService storageService,
-    IBlockchainService blockchainService,
+    IWalletService walletService,
     [FromKeyedServices("identity:transactions")] IRepository<AppTransaction> transactionsRepository
     ) : IUserService
 {

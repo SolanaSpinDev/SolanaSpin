@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using SolanaSpin.Framework.Core.Blockchain;
 using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.Framework.Core.Identity.Transactions.Dtos;
 using SolanaSpin.Framework.Core.Identity.Transactions.Features.ApproveWithdrawal;
@@ -21,6 +22,7 @@ public static class ApproveWithdrawalEndpoint
             [FromBody] ApproveWithdrawalCommand request,
             [FromServices] IValidator<ApproveWithdrawalCommand> validator,
             [FromKeyedServices("identity:transactions")] IRepository<AppTransaction> repository,
+            [FromServices] IWalletService walletService,
             CancellationToken cancellationToken) =>
         {
             await validator.ValidateAndThrowAsync(request, cancellationToken);
@@ -38,9 +40,15 @@ public static class ApproveWithdrawalEndpoint
                 throw new BadRequestException("transaction is not pending");
             }
 
-            // TODO: Transfer funds to the user's account
-            var txHash = string.Empty;
+            if (!await walletService.IsWithdrawalAvailableAsync(transaction.Amount))
+            {
+                throw new BadRequestException("withdrawal is not available");
+            }
 
+            (decimal amount, decimal fee, string txHash) = await walletService.ExecuteWithdrawalAsync(transaction.WithAddress, transaction.Amount);
+
+            transaction.Amount = amount;
+            transaction.Fee = fee;
             transaction.Status = TransactionStatus.Completed;
             transaction.Reason = request.Reason;
             transaction.TxHash = txHash;

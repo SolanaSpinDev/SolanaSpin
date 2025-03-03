@@ -8,7 +8,9 @@ public static class Extensions
 {
     internal static IServiceCollection AddBlockchain(this IServiceCollection services, IConfiguration config)
     {
-        return services.AddScoped<IBlockchainService, BlockchainService>();
+        return services
+            .AddScoped<IBlockchainService, BlockchainService>()
+            .AddScoped<IWalletService, WalletService>();
     }
 
     internal static IApplicationBuilder UseBlockchain(this IApplicationBuilder app)

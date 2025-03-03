@@ -223,6 +223,9 @@ namespace SolanaSpin.WebApi.Migrations.PostgreSQL.Identity
                     b.Property<int>("Direction")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("timestamp with time zone");
 

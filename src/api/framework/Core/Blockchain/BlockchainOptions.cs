@@ -1,8 +1,14 @@
 ﻿namespace SolanaSpin.Framework.Infrastructure.Blockchain;
-using System.Collections.ObjectModel;
 
 public class BlockchainOptions
 {
     public int Cluster { get; set; }
-    public string CollectorAddress { get; set; } = string.Empty;
+    public string HotWalletAddress { get; set; } = string.Empty;
+    public string HotWalletAddressAddressPrivateKey { get; set; } = string.Empty;
+    public decimal DepositFee { get; set; }
+    public decimal WithdrawalFee { get; set; }
+    public string FeeCollectorAddress { get; set; } = string.Empty;
+    public ulong TransactionFee { get; set; }
+    public decimal BalanceConversionRate { get; set; }
+
 }

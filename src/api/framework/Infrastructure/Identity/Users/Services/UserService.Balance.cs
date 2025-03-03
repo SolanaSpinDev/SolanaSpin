@@ -27,31 +27,26 @@ internal sealed partial class UserService
             ?? throw new NotFoundException("user not found");
         var userAddress = user.DepositAddress
             ?? throw new NotFoundException("User does not have a deposit address");
-        ulong userBalance = await blockchainService.GetBalanceAsync(userAddress);
 
-        string latestBlockHash = await blockchainService.GetLatestBlockHashAsync();
-
-        var userPrivateKey = user.DepositAddressPrivateKey
-            ?? throw new NotFoundException("User does not have a private key for its deposit address");
-
-        ulong transactionFee = await blockchainService.GetTransactionFeeAsync(latestBlockHash);
-
-        if (userBalance > transactionFee)
+        if (await walletService.IsDepositAvailableAsync(userAddress))
         {
-            ulong transferAmount = userBalance - transactionFee;
-            string txHash = await blockchainService.TransferBalance(userAddress, userPrivateKey, transferAmount, latestBlockHash);
+            var userAddressPrivateKey = user.DepositAddressPrivateKey
+                ?? throw new NotFoundException("User does not have a private key for its deposit address");
+
+            (decimal amount, decimal fee, string txHash) = await walletService.ExecuteDepositAsync(userAddress, userAddressPrivateKey);
 
             _ = await transactionsRepository.AddAsync(new()
             {
                 UserId = user.Id,
-                Amount = transferAmount / 1_000_000_000m,
+                Amount = amount,
                 Direction = TransactionDirection.Deposit,
                 WithAddress = userAddress,
                 Status = TransactionStatus.Completed,
-                TxHash = txHash
+                TxHash = txHash,
+                Fee = fee,
             }, CancellationToken.None);
 
-            user.Balance += transferAmount / 1_000_000_000m;
+            user.Balance += amount;
             _ = await userManager.UpdateAsync(user);
         }
 
