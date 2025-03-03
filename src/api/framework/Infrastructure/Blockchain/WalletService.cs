@@ -26,7 +26,10 @@ internal class WalletService : IWalletService
 
     private async Task<ulong> GetBalanceAsync(string userAddress)
     {
-        return (await _blockchainService.GetBalanceAsync(userAddress) ?? 0) - _blockchainOptions.TransactionFee;
+        var balance = await _blockchainService.GetBalanceAsync(userAddress) ?? 0;
+        return balance > _blockchainOptions.TransactionFee
+            ? balance - _blockchainOptions.TransactionFee
+            : 0;
     }
 
     public async Task<decimal> GetAvailableBalanceAsync(string userAddress)
