@@ -22,4 +22,6 @@ public class UserDto
     public decimal Balance { get; set; }
 
     public string? DepositAddress { get; set; }
+
+    public decimal PendingBalance { get; set; }
 }

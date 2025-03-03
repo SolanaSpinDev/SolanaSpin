@@ -24,31 +24,40 @@ internal class WalletService : IWalletService
         _blockchainService = blockchainService;
     }
 
+    private async Task<ulong> GetBalanceAsync(string userAddress)
+    {
+        return await _blockchainService.GetBalanceAsync(userAddress) ?? 0 - _blockchainOptions.TransactionFee;
+    }
+
+    public async Task<decimal> GetAvailableBalanceAsync(string userAddress)
+    {
+        return await GetBalanceAsync(userAddress) * _blockchainOptions.BalanceConversionRate;
+    }
+
     public async Task<bool> IsDepositAvailableAsync(string userAddress)
     {
-        ulong balance = await _blockchainService.GetBalanceAsync(userAddress);
-        return balance > _blockchainOptions.TransactionFee * 2;
+        return await GetBalanceAsync(userAddress) > 0;
     }
 
     public async Task<(decimal amount, decimal fee, string txHash)> ExecuteDepositAsync(string userAddress, string userAddressPrivateKey, bool simulate = false)
     {
-        ulong balance = await _blockchainService.GetBalanceAsync(userAddress) - 2 * _blockchainOptions.TransactionFee;
+        ulong balance = await GetBalanceAsync(userAddress);
         ulong amount = Convert.ToUInt64(balance * (1 - _blockchainOptions.DepositFee));
         ulong fee = balance - amount;
         string txHash = string.Empty;
 
-        if (!simulate)
+        if (!simulate && balance > 0)
         {
             (txHash, bool success) = await _blockchainService.TransferBalanceAndConfirmAsync(
-                userAddress, 
-                userAddressPrivateKey, 
+                userAddress,
+                userAddressPrivateKey,
                 [
                     (_blockchainOptions.FeeCollectorAddress, fee),
-                    (_blockchainOptions.HotWalletAddress, amount - 50_000)
+                    (_blockchainOptions.HotWalletAddress, amount)
                 ]);
             if (!success)
             {
-                throw new Exception("Failed to complete deposit.");
+                throw new Exception("Failed to complete withdrawal.");
             }
         }
 
@@ -57,8 +66,7 @@ internal class WalletService : IWalletService
 
     public async Task<bool> IsWithdrawalAvailableAsync(decimal amount)
     {
-        ulong balance = await _blockchainService.GetBalanceAsync(_blockchainOptions.HotWalletAddress);
-        return balance > amount / _blockchainOptions.BalanceConversionRate + _blockchainOptions.TransactionFee * 2;
+        return await GetBalanceAsync(_blockchainOptions.HotWalletAddress) > amount / _blockchainOptions.BalanceConversionRate;
     }
 
     public async Task<(decimal amount, decimal fee, string txHash)> ExecuteWithdrawalAsync(string toAddress, decimal amount, bool simulate = false)

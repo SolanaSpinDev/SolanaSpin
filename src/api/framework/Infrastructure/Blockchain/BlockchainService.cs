@@ -24,7 +24,7 @@ internal class BlockchainService : IBlockchainService
         _logger = logger;
     }
 
-    public async Task<string> GetLatestBlockHashAsync()
+    private async Task<string> GetLatestBlockHashAsync()
     {
         var latestBlockHashResult = await _rpcClient.GetLatestBlockHashAsync();
         return !latestBlockHashResult.WasSuccessful
@@ -32,7 +32,7 @@ internal class BlockchainService : IBlockchainService
             : latestBlockHashResult.Result.Value.Blockhash;
     }
 
-    public async Task<TokenMintInfoDetails> GetTokenInfoAsync(string address)
+    private async Task<TokenMintInfoDetails> GetTokenInfoAsync(string address)
     {
         var tokenMintInfoResult = await _rpcClient.GetTokenMintInfoAsync(address);
         return !tokenMintInfoResult.WasSuccessful
@@ -40,7 +40,7 @@ internal class BlockchainService : IBlockchainService
             : tokenMintInfoResult.Result.Value.Data.Parsed.Info;
     }
 
-    public async Task<ulong> GetBalanceAsync(string address)
+    private async Task<ulong> GetRawBalanceAsync(string address)
     {
         var balanceResult = await _rpcClient.GetBalanceAsync(address);
         return !balanceResult.WasSuccessful
@@ -48,7 +48,7 @@ internal class BlockchainService : IBlockchainService
             : balanceResult.Result.Value;
     }
 
-    public async Task<TokenBalance> GetTokenBalanceAsync(string tokenAddress, string address)
+    private async Task<TokenBalance> GetTokenBalanceAsync(string tokenAddress, string address)
     {
         var tokenAccountsResult = await _rpcClient.GetTokenAccountsByOwnerAsync(address, tokenAddress);
         var tokenAccount = !tokenAccountsResult.WasSuccessful
@@ -62,7 +62,7 @@ internal class BlockchainService : IBlockchainService
             : tokenBalanceResult.Result.Value;
     }
 
-    public async Task<string> TransferBalanceAsync(string fromAddress, string fromAddressPrivateKey, string toAddress, ulong transferAmount)
+    private async Task<string> TransferBalanceAsync(string fromAddress, string fromAddressPrivateKey, string toAddress, ulong transferAmount)
     {
         var latestBlockHash = await GetLatestBlockHashAsync();
         var account = new Account(fromAddressPrivateKey, fromAddress);
@@ -85,7 +85,7 @@ internal class BlockchainService : IBlockchainService
         return sendTransactionResult.Result;
     }
 
-    public async Task<string> TransferBalanceAsync(string fromAddress, string fromAddressPrivateKey, IEnumerable<(string toAddress, ulong transferAmount)> destinations)
+    private async Task<string> TransferBalanceAsync(string fromAddress, string fromAddressPrivateKey, IEnumerable<(string toAddress, ulong transferAmount)> destinations)
     {
         var latestBlockHash = await GetLatestBlockHashAsync();
         var account = new Account(fromAddressPrivateKey, fromAddress);
@@ -111,7 +111,7 @@ internal class BlockchainService : IBlockchainService
         return sendTransactionResult.Result;
     }
 
-    public async Task<string> TransferTokenBalanceAsync(string tokenAddress, string fromAddress, string fromAddressPrivateKey, string toAddress, ulong transferAmount)
+    private async Task<string> TransferTokenBalanceAsync(string tokenAddress, string fromAddress, string fromAddressPrivateKey, string toAddress, ulong transferAmount)
     {
         var latestBlockHash = await GetLatestBlockHashAsync();
         var account = new Account(fromAddressPrivateKey, fromAddress);
@@ -147,7 +147,7 @@ internal class BlockchainService : IBlockchainService
         return sendTransactionResult.Result;
     }
 
-    public async Task<string> TransferTokenBalanceAsync(string tokenAddress, string fromAddress, string fromAddressPrivateKey, IEnumerable<(string toAddress, ulong transferAmount)> destinations)
+    private async Task<string> TransferTokenBalanceAsync(string tokenAddress, string fromAddress, string fromAddressPrivateKey, IEnumerable<(string toAddress, ulong transferAmount)> destinations)
     {
         var latestBlockHash = await GetLatestBlockHashAsync();
         var account = new Account(fromAddressPrivateKey, fromAddress);
@@ -187,7 +187,7 @@ internal class BlockchainService : IBlockchainService
         return sendTransactionResult.Result;
     }
 
-    public async Task ConfirmTransactionSignatureAsync(string signature)
+    private async Task ConfirmTransactionSignatureAsync(string signature)
     {
         bool success = false;
         int retries = 0;
@@ -203,6 +203,30 @@ internal class BlockchainService : IBlockchainService
                     throw new Exception("Confirmation failed: " + getStatusResult.Reason);
                 }
             }
+        }
+    }
+
+    public async Task<ulong?> GetBalanceAsync(string address)
+    {
+        try
+        {
+            return await GetRawBalanceAsync(address);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public async Task<decimal?> GetSolBalanceAsync(string address)
+    {
+        try
+        {
+            return await GetRawBalanceAsync(address) * _blockchainOptions.BalanceConversionRate;
+        }
+        catch
+        {
+            return null;
         }
     }
 
@@ -222,7 +246,7 @@ internal class BlockchainService : IBlockchainService
             catch (Exception ex)
             {
                 await Task.Delay(1000);
-                if (retries++ > 60)
+                if (++retries >= 0)
                 {
                     _logger.LogError(ex, "Failed to transfer balance and confirm transaction. Canceled.");
                     break;
@@ -249,7 +273,7 @@ internal class BlockchainService : IBlockchainService
             catch (Exception ex)
             {
                 await Task.Delay(1000);
-                if (retries++ > 60)
+                if (++retries > 0)
                 {
                     _logger.LogError(ex, "Failed to transfer balance and confirm transaction. Canceled.");
                     break;
@@ -276,7 +300,7 @@ internal class BlockchainService : IBlockchainService
             catch (Exception ex)
             {
                 await Task.Delay(1000);
-                if (retries++ > 60)
+                if (++retries > 0)
                 {
                     _logger.LogError(ex, "Failed to transfer balance and confirm transaction. Canceled.");
                     break;
@@ -303,7 +327,7 @@ internal class BlockchainService : IBlockchainService
             catch (Exception ex)
             {
                 await Task.Delay(1000);
-                if (retries++ > 60)
+                if (++retries > 0)
                 {
                     _logger.LogError(ex, "Failed to transfer balance and confirm transaction. Canceled.");
                     break;

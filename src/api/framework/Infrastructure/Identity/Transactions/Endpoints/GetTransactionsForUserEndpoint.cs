@@ -38,7 +38,8 @@ public static class GetTransactionsForUserEndpoint
                     Value = JsonDocument.Parse($"\"{currentUser.GetUserId()}\"").RootElement
                 },
             });
-            return await repository.ListAsync(spec, cancellationToken);
+            var transactions = await repository.ListAsync(spec, cancellationToken);
+            return transactions.OrderByDescending(x => x.LastModified);
         })
         .WithName(nameof(GetTransactionsForUserEndpoint))
         .WithSummary("Gets a list of transactions for specific user")

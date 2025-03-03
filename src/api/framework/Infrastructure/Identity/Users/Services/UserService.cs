@@ -98,7 +98,12 @@ internal sealed partial class UserService(
 
         _ = user ?? throw new NotFoundException("user not found");
 
-        return user.Adapt<UserDto>();
+        var userDto = user.Adapt<UserDto>();
+        if (!string.IsNullOrEmpty(userDto.DepositAddress))
+        {
+            userDto.PendingBalance = await walletService.GetAvailableBalanceAsync(userDto.DepositAddress);
+        }
+        return userDto;
     }
 
     public Task<int> GetCountAsync(CancellationToken cancellationToken)
@@ -132,7 +137,7 @@ internal sealed partial class UserService(
             IsActive = true,
             EmailConfirmed = false,
             DepositAddress = depositAddressWithPrivateKey.Item1,
-            DepositAddressPrivateKey = depositAddressWithPrivateKey.Item2
+            DepositAddressPrivateKey = depositAddressWithPrivateKey.Item2,
         };
 
         // register user
