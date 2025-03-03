@@ -98,12 +98,13 @@ internal sealed partial class UserService(
 
         _ = user ?? throw new NotFoundException("user not found");
 
-        var userDto = user.Adapt<UserDto>();
-        if (!string.IsNullOrEmpty(userDto.DepositAddress))
-        {
-            userDto.PendingBalance = await walletService.GetAvailableBalanceAsync(userDto.DepositAddress);
-        }
-        return userDto;
+        return user.Adapt<UserDto>();
+        //var userDto = user.Adapt<UserDto>();
+        //if (!string.IsNullOrEmpty(userDto.DepositAddress))
+        //{
+        //    userDto.PendingBalance = await walletService.GetAvailableBalanceAsync(userDto.DepositAddress);
+        //}
+        //return userDto;
     }
 
     public Task<int> GetCountAsync(CancellationToken cancellationToken)
