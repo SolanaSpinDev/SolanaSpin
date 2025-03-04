@@ -42,12 +42,16 @@ export const computePrize = (videoId: number, wheelPositions: number, activeBet:
             return {prize: 0, outcome: ''};
     }
 }
-export const formatCurrency = (number: number) => {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0, // Ensures two decimal places
-    }).format(number);
+export const formatCurrency = (number: number, currency = 'usd') => {
+    if (currency === 'usd') {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+        }).format(number);
+    } else {
+        return `${Number(number).toFixed(2)} SOL`;
+    }
 };
 
 export const jackpotLimit = 500;
