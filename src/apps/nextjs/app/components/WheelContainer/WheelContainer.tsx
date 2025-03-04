@@ -92,6 +92,9 @@ const WheelContainer = () => {
     }
 
     const handleSelectGameMode = (gameMode: string) => {
+        if (isPlaying) {
+            return;
+        }
         if (gameMode !== activeGameMode) {
             router.push(`/game/${gameMode}`);
             const initialWheelPosition = wheelsConfig[gameMode].faces[0].videoNamingConvention;

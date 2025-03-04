@@ -18,7 +18,8 @@ const config: Config = {
                 foreground: "var(--foreground)",
                 primary: {
                     DEFAULT: '#1c283e',
-                }
+                },
+                secondary: "var(--secondary)",
             },
             screens: {
                 'low-md': '600px',

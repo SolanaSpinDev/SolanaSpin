@@ -61,14 +61,14 @@ export const Profile = () => {
                             <div className="relative flex flex-col items-center">
                                 <div className="bg-transparent h-[15px] lg:h-[40px]"></div>
                                 <div className="bg-transparent w-full flex items-center justify-center lg:h-[20px]">
-                                    <IoTriangle className="text-tiny lg:text-xl text-sky-950"/></div>
-                                <ul className="bg-sky-950 border border-sky-900 shadow-lg rounded font-bold">
-                                    <li className="flex items-center gap-2 p-3 lg:p-4 hover:bg-sky-900"
-                                        onClick={handleEditProfile}>
-                                        <FiEdit/>
-                                        <div> Edit Profile</div>
-                                    </li>
-                                    <li className="flex items-center gap-2 p-3 lg:p-4 hover:bg-sky-900"
+                                    <IoTriangle className="text-tiny lg:text-xl text-secondary"/></div>
+                                <ul className="bg-secondary border border-gray-300 shadow-lg rounded font-bold">
+                                    {/*<li className="flex items-center gap-2 p-3 lg:p-4 hover:bg-secondary"*/}
+                                    {/*    onClick={handleEditProfile}>*/}
+                                    {/*    <FiEdit/>*/}
+                                    {/*    <div> Edit Profile</div>*/}
+                                    {/*</li>*/}
+                                    <li className="flex items-center gap-2 p-3 lg:p-4 hover:bg-neutral-700"
                                         onClick={handleReferral}>
                                         <SiGitconnected/>
                                         <div>Referral</div>
@@ -82,7 +82,7 @@ export const Profile = () => {
                                             <span>Soon!</span>
                                         </span>
                                     </li>
-                                    <li className="flex items-center gap-2 p-3 lg:p-4 hover:bg-sky-900"
+                                    <li className="flex items-center gap-2 p-3 lg:p-4 hover:bg-neutral-700"
                                         onClick={() => signOut()}>
                                         <PiSignOutBold/>
                                         <div>Sign-out</div>
