@@ -74,7 +74,7 @@ internal class WalletService : IWalletService
 
     public async Task<(decimal amount, decimal fee, string txHash)> ExecuteWithdrawalAsync(string toAddress, decimal amount, bool simulate = false)
     {
-        ulong convertedAmount = Convert.ToUInt64(amount / _blockchainOptions.BalanceConversionRate);
+        ulong convertedAmount = Convert.ToUInt64(amount / _blockchainOptions.BalanceConversionRate) - _blockchainOptions.TransactionFee;
         ulong amountAfterTax = Convert.ToUInt64(convertedAmount * (1 - _blockchainOptions.WithdrawalFee));
         ulong fee = convertedAmount - amountAfterTax;
         string txHash = string.Empty;
@@ -83,14 +83,14 @@ internal class WalletService : IWalletService
         {
             (txHash, bool success) = await _blockchainService.TransferBalanceAndConfirmAsync(
                 _blockchainOptions.HotWalletAddress,
-                _blockchainOptions.HotWalletAddressAddressPrivateKey,
+                _blockchainOptions.HotWalletAddressPrivateKey,
                 [
                     (_blockchainOptions.FeeCollectorAddress, fee),
                     (toAddress, amountAfterTax)
                 ]);
             if (!success)
             {
-                throw new Exception("Failed to complete deposit.");
+                throw new Exception("Failed to complete withdrawal.");
             }
         }
 

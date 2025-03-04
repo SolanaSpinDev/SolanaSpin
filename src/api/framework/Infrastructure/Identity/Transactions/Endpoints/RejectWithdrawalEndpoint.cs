@@ -8,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using SolanaSpin.Framework.Core.Exceptions;
 using SolanaSpin.Framework.Core.Identity.Transactions.Dtos;
 using SolanaSpin.Framework.Core.Identity.Transactions.Features.RejectWithdrawal;
+using SolanaSpin.Framework.Core.Identity.Users.Abstractions;
 using SolanaSpin.Framework.Core.Persistence;
 using SolanaSpin.Framework.Infrastructure.Auth.Policy;
+using SolanaSpin.Framework.Infrastructure.Identity.Users.Services;
 
 namespace SolanaSpin.Framework.Infrastructure.Identity.Transactions.Endpoints;
 
@@ -21,6 +23,8 @@ public static class RejectWithdrawalEndpoint
             [FromBody] RejectWithdrawalCommand request,
             [FromServices] IValidator<RejectWithdrawalCommand> validator,
             [FromKeyedServices("identity:transactions")] IRepository<AppTransaction> repository,
+            [FromServices] ICurrentUser currentUser,
+            [FromServices] IUserService userService,
             CancellationToken cancellationToken) =>
         {
             await validator.ValidateAndThrowAsync(request, cancellationToken);
@@ -41,6 +45,11 @@ public static class RejectWithdrawalEndpoint
             transaction.Status = TransactionStatus.Failed;
             transaction.Reason = request.Reason;
             await repository.UpdateAsync(transaction);
+
+            var user = await userService.GetAsync(currentUser.GetUserId().ToString(), cancellationToken);
+            _ = user ?? throw new NotFoundException("user not found");
+            _ = await userService.UpdateBalanceAsync(transaction.UserId, transaction.Amount, cancellationToken);
+
         })
             .WithName(nameof(RejectWithdrawalEndpoint))
             .WithSummary("Reject a withdrawal")

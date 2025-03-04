@@ -4,7 +4,7 @@ public class BlockchainOptions
 {
     public int Cluster { get; set; }
     public string HotWalletAddress { get; set; } = string.Empty;
-    public string HotWalletAddressAddressPrivateKey { get; set; } = string.Empty;
+    public string HotWalletAddressPrivateKey { get; set; } = string.Empty;
     public decimal DepositFee { get; set; }
     public decimal WithdrawalFee { get; set; }
     public string FeeCollectorAddress { get; set; } = string.Empty;
