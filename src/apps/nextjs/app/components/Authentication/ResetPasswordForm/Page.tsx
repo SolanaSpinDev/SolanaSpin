@@ -27,7 +27,7 @@ export function ResetPasswordForm({
 
     return (
         <form action={action} className="space-y-3">
-            <div className="flex-1 rounded-lg bg-sky-950 px-6 pb-4 pt-8 opacity-95">
+            <div className="flex-1 rounded-lg bg-secondary px-6 pb-4 pt-8 opacity-95">
                 <h1 className="mb-3 text-2xl">
                    Create new password
                 </h1>

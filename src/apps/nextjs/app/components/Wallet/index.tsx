@@ -114,18 +114,18 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
             <ModalContent>
                 {(onClose) => (
                     <>
-                        <ModalHeader className="flex flex-col  text-xl bg-sky-950">
+                        <ModalHeader className="flex flex-col  text-xl bg-secondary">
                             <div className="flex items-center gap-1">
-                                <FaWallet className="text-sky-500 mr-2"/>
+                                <FaWallet className="text-neutral-300 mr-2"/>
                                 <span className="text-base">{breadcrumb}</span>
                             </div>
                             <div>
                                 <span>{formatCurrency(balance)} USD</span>
                             </div>
                         </ModalHeader>
-                        <ModalBody className={`bg-sky-950 ${isWithdrawActive || isDepositActive ? "p-2" : "p-0"}`}>
+                        <ModalBody className={`bg-secondary ${isWithdrawActive || isDepositActive ? "p-2" : "p-0"}`}>
                             <div
-                                className={`bg-sky-950 ${isWithdrawActive || isDepositActive ? "p-2" : "p-0"} rounded`}>
+                                className={`bg-secondary ${isWithdrawActive || isDepositActive ? "p-2" : "p-0"} rounded`}>
                                 {isDepositActive && <>
                                     <p className="mb-10">
                                         Use this address to deposit your funds. After deposit your funds will be visible
@@ -143,7 +143,7 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
                                 {isWithdrawActive && <Withdraw/>}
                             </div>
                         </ModalBody>
-                        <ModalFooter className="bg-sky-950">
+                        <ModalFooter className="bg-secondary">
                             {session?.tokens?.token && !isDepositActive &&
                                 <Button onClick={handleDeposit}>
                                     <span className="text-white">Deposit</span>
