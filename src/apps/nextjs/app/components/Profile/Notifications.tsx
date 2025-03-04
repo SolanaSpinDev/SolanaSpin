@@ -63,7 +63,7 @@ export const Notifications = ({onClose}: NotificationsProps) => {
     if (error) {
         return <p className="p-4 text-red-500">{error}</p>;
     }
-    return (<div className="bg-sky-950 p-4 rounded">
+    return (<div className="bg-secondary p-4 rounded">
         <div>
             <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center ">
