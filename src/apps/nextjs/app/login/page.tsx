@@ -18,6 +18,7 @@ import {Input} from "@heroui/input";
 import {IoEyeOffOutline, IoEyeOutline} from "react-icons/io5";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
+import {Button} from "@/app/components/Button/Page";
 
 export default function Page() {
     const router = useRouter();
@@ -157,18 +158,18 @@ export default function Page() {
                                 </div>
                             </div>
                         </div>
-                        <button
+                        <Button
                             type="submit"
                             disabled={isLoading}
-                            className={`flex h-10 items-center justify-center rounded-lg bg-[#0f1640] px-4 text-sm font-medium text-white transition-colors hover:bg-[#0f1440] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 mt-4 w-full ${
+                            className={`aria-disabled:cursor-not-allowed aria-disabled:opacity-50 mt-4 w-full ${
                                 isLoading
                                     ? 'bg-gray-400 cursor-not-allowed'
-                                    : 'bg-indigo-600 hover:bg-indigo-700'
+                                    : 'bg-slate-50 hover:bg-gray-300'
                             }`}
                         >
                             {isLoading ? <div
                                 className="animate-spin h-6 w-6 border-4 border-t-transparent border-gray-400 rounded-full"></div> : 'Login'}
-                        </button>
+                        </Button>
                         <p className="text-center text-sm text-gray-400 mt-4 dark:text-zinc-400">
                             {'Don\'t have an account ? '}
                             <Link

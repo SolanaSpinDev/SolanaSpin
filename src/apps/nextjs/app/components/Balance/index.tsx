@@ -50,7 +50,7 @@ export const Balance = () => {
                 />
             </span>
 
-        <span className="text-white bg-blue-800 p-1 lg:p-3 rounded-tr-[5px] rounded-br-[5px]  cursor-pointer"
+        <span className="text-black bg-slate-50 p-1 lg:p-3 rounded-tr-[5px] rounded-br-[5px]  cursor-pointer"
               onClick={handleWallet}>
             <Wallet isOpen={isOpen}
                     onOpenChange={onOpenChange}/>

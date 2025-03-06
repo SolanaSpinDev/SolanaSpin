@@ -146,12 +146,12 @@ export const Wallet = ({isOpen, onOpenChange}: WalletModalProps) => {
                         <ModalFooter className="bg-secondary">
                             {session?.tokens?.token && !isDepositActive &&
                                 <Button onClick={handleDeposit}>
-                                    <span className="text-white">Deposit</span>
+                                    <span>Deposit</span>
                                 </Button>
                             }
                             {session?.tokens?.token && !isWithdrawActive &&
                                 <Button onClick={handleWithdraw}>
-                                    <span className="text-white">Withdraw</span>
+                                    <span>Withdraw</span>
                                 </Button>
                             }
                         </ModalFooter>
