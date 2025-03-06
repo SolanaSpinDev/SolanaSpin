@@ -108,13 +108,13 @@ export const Profile = () => {
             }
             <li>
                 <Button onClick={() => session ? signOut() : handleLogin()}>
-                    <span className="text-white">{session ? 'Sign Out' : 'Login'}</span>
+                    <span>{session ? 'Sign Out' : 'Login'}</span>
                 </Button>
             </li>
             {!session?.tokens?.token &&
                 <li>
                     <Button onClick={handleRegister}>
-                        <span className="text-white">Register</span>
+                        <span>Register</span>
                     </Button>
                 </li>
             }
